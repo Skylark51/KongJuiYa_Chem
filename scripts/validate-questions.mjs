@@ -69,7 +69,7 @@ for(const item of QUESTION_BANKS.valence_electron||[])if(['He','Ne','Ar'].some(s
 for(const item of QUESTION_BANKS.period_group||[]){const symbol=item.tags.find(tag=>allowedElements.has(tag));const group=item.tags.includes('족');const expected=group?GROUPS[symbol]:PERIODS[symbol];if(!symbol||Number(item.answers[0])!==expected||((item.prompt.includes('주기')&&item.prompt.includes('족'))))fail('period_group_rule',item)}
 for(const item of QUESTION_BANKS.electronegativity||[]){if(item.id.startsWith('electronegativity_value_')){const symbol=item.tags.find(tag=>allowedElements.has(tag));if(!symbol||ELECTRONEGATIVITY[symbol]===undefined||Number(item.answers[0])!==ELECTRONEGATIVITY[symbol]||typeof item.tolerance!=='number')fail('electronegativity_fixed_value',item);if(['He','Ne','Ar'].includes(symbol))fail('noble_gas_electronegativity',item)}}
 for(const item of QUESTION_BANKS.gas_molar_volume||[])if(/이상\s*기체|PV\s*=|이상 기체 방정식/.test(item.prompt+' '+item.explanation))fail('gas_banned_term',item);
-if(QUESTION_BANKS.redox?.length!==30)errors.push('redox_count');
+if(QUESTION_BANKS.redox?.length!==52)errors.push('redox_count');
 for(const item of QUESTION_BANKS.redox||[]){
   const labels=(item.choices||[]).map(choice=>choice.label);
   if(item.type!=='multiple_choice'||item.choices.length!==3||!item.autoSubmit||item.inputMode!=='choice'||JSON.stringify(item.keyboardShortcuts)!==JSON.stringify(['1','2','3'])||JSON.stringify(labels)!==JSON.stringify(['산화','환원','둘 다 아님'])||!item.promptHtml?.includes('<u>'))fail('redox_not_three_choice',item);
