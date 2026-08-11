@@ -44,6 +44,7 @@ test("game entry keeps one cache boundary and canonical redox module identities"
 test("redox mobile layout keeps every reaction equation on one line above three buttons", () => {
   const css = read("assets/css/redox-quiz.css");
   const fitter = read("assets/js/redox-single-line.js");
+  const gamePage = read("assets/js/game-page.js");
   const cosmeticsEntry = read("assets/js/game-cosmetics-entry.js");
 
   assert.match(css, /data-training-id="redox"/);
@@ -61,6 +62,7 @@ test("redox mobile layout keeps every reaction equation on one line above three 
   assert.match(fitter, /ResizeObserver/);
   assert.match(fitter, /MutationObserver/);
   assert.match(fitter, /for \(let index = 0; index < 14;/);
-  assert.match(cosmeticsEntry, /redox-single-line\.js/);
-  assert.doesNotMatch(cosmeticsEntry, /redox-single-line\.js\?v=/);
+  assert.match(gamePage, /import "\.\/redox-single-line\.js";/);
+  assert.doesNotMatch(gamePage, /redox-single-line\.js\?v=/);
+  assert.doesNotMatch(cosmeticsEntry, /redox-single-line\.js/);
 });

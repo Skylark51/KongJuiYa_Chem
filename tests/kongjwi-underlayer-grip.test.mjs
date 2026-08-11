@@ -32,6 +32,7 @@ assert.ok(
 assert.equal(manifest.runtimePolicy.toolMotionPolicy, "source-master-grip-pivot-co-registered");
 assert.equal(manifest.runtimePolicy.uniformScalePolicy, "shared-2048x1152-contain");
 assert.deepEqual(manifest.placements.tool, manifest.placements.kongjwi);
+assert.deepEqual(manifest.placements.tool, { x: 205, y: 260, width: 546, height: 820 });
 assert.equal(manifest.sprites.tool.cell.height, 768);
 
 assert.ok(renderer.includes("const versionedAssetUrl ="));
@@ -42,8 +43,8 @@ assert.ok(renderer.includes("resolveSceneCosmeticEffects"));
 assert.ok(!renderer.includes("integratedToolGrip"));
 assert.ok(!renderer.includes("integratedGrip"));
 
-assert.ok(css.includes("--scene-x: 10.009765625%"));
-assert.ok(css.includes("--scene-height: 71.18055556%"));
+assert.ok(!css.includes("--scene-x: 10.009765625%"), "tool placement must stay manifest-owned instead of being duplicated in CSS");
+assert.ok(!css.includes("--scene-height: 71.18055556%"), "tool placement must stay manifest-owned instead of being duplicated in CSS");
 assert.ok(!css.includes("--jar-source-aspect-x"));
 assert.ok(!css.includes("scaleX(var(--jar-source-aspect-x"));
 
