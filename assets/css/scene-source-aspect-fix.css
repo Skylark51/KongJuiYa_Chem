@@ -1,8 +1,8 @@
 /* Preserve authored PNG proportions in the layered quiz scene.
  *
- * Every actor is now placed inside one uniformly scaled 2048x1152 canvas.
- * No character, jar, toad, tool, or sprite is corrected with scaleX/scaleY.
- * Position and apparent size are controlled only by logical placement boxes.
+ * Every actor is placed inside one uniformly scaled 2048x1152 canvas.
+ * Base actor position and apparent size come from manifest.json; this file only
+ * protects authored pixel proportions and the calibrated water effect corridor.
  */
 
 .scene-kongjwi[data-sprite-mode="sheet"] > .scene-sprite {
@@ -10,13 +10,8 @@
   transform-origin: center bottom;
 }
 
-#ui-gameApp .scene-tool[data-sprite-mode="sheet"] {
-  --scene-x: 10.009765625% !important;
-  --scene-y: 22.56944444% !important;
-  --scene-width: 26.66015625% !important;
-  --scene-height: 71.18055556% !important;
-}
-
+/* The authored water sheet occupies a narrow corridor inside its source cells.
+ * Keep this shared effect calibration separate from per-skin actor geometry. */
 #ui-gameApp .scene-water-stream {
   --scene-x: 33.203125% !important;
   --scene-y: 37.76041667% !important;

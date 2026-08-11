@@ -4,8 +4,13 @@
 @import url("./jar-mouth-hole-polish.css?v=20260807-jar-mouth-hole1");
 @import url("./scene-source-aspect-fix.css?v=20260808-motion-polish1");
 @import url("./scene-motion-polish.css?v=20260808-motion-polish1");
+@import url("./court-servant-effect.css?v=20260811-architecture-clean1");
 
-/* Runtime isolation for the layered PNG quiz scene. */
+/*
+ * Runtime isolation for the layered PNG quiz scene.
+ * Base actor placement comes from assets/art/game-scene/manifest.json.
+ * This file owns the layout boundary and cascade guards only.
+ */
 .scene-stage-layout {
   position: absolute !important;
   inset: 0 !important;
@@ -58,6 +63,14 @@
 
 .scene-animation-zone > #layeredScene > .scene-layer[hidden] {
   display: none !important;
+}
+
+/* Keep the authored 4096x768 sheet mapped to one full 512x768 cell.
+ * This used to be injected by game-page.js after load; keeping it here makes
+ * the geometry deterministic and inspectable before JavaScript boots. */
+#ui-gameApp .scene-kongjwi[data-sprite-mode="sheet"] > .scene-sprite {
+  background-size: calc(var(--scene-frame-count) * 100%) 100% !important;
+  background-position-y: center !important;
 }
 
 /* Final mobile cascade guard: the source button still says "전체" for stable

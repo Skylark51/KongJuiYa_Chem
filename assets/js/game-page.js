@@ -1,25 +1,10 @@
+import "./redox-single-line.js";
 import { bootstrapGameRuntime } from "./main.js";
 import { initializeGamePage } from "./ui-effects.js";
 import { mountOpeningCountdown } from "./opening-countdown-flow.js";
 
-const KONGJWI_SPRITE_GUARD_ID = "kongjwi-sprite-sheet-geometry-guard";
-
-function installKongjwiSpriteGeometryGuard() {
-  if (document.getElementById(KONGJWI_SPRITE_GUARD_ID)) return;
-  const style = document.createElement("style");
-  style.id = KONGJWI_SPRITE_GUARD_ID;
-  style.textContent = `
-    #ui-gameApp .scene-kongjwi[data-sprite-mode="sheet"] > .scene-sprite {
-      background-size: calc(var(--scene-frame-count) * 100%) 100% !important;
-      background-position-y: center !important;
-    }
-  `;
-  document.head.append(style);
-}
-
 mountOpeningCountdown();
 const api = bootstrapGameRuntime();
-installKongjwiSpriteGeometryGuard();
 initializeGamePage(api).catch(error => {
   console.error(error);
   const feedback = document.getElementById("feedback");

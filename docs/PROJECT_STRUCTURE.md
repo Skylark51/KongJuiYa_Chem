@@ -1,64 +1,98 @@
 # 콩쥐야 줘때써 - 화학편 구조
 
-이 문서는 현재 배포에 실제로 사용되는 파일과 각 파일의 책임만 기록한다.
-과거 시도별 감사 문서와 임시 보정 파일은 유지하지 않는다.
+이 문서는 현재 `main`에서 실제 배포에 사용되는 구조와 책임 경계를 기록한다.
+과거 photoreal 단일 합성 장면이나 `scene-art-loader.js` 기반 시도는 현재 아키텍처가 아니다.
+세부 구현이 이 문서와 충돌하면 `docs/ARCHITECTURE.md`, `assets/art/game-scene/manifest.json`, 현재 런타임 코드를 우선한다.
 
 ## 화면 진입점
 
 - `index.html`: 홈, 장독대 선택, 기록 화면
 - `shop.html`: 콩 상점
 - `콩쥐야_줘때써.html`: 문제풀이 게임
+- `assets/js/game-page.js`: 게임 페이지의 최상위 bootstrap 및 페이지 전용 side effect
 
-## 활성 스타일
+## 게임 코어와 데이터
 
-- `assets/css/lobby-scene.css`: 메인·장독대·기록
-- `assets/css/shop.css`: 상점
-- `assets/css/game.css`: 게임 장면, 문제 UI, 반응형 배치, 모바일 키패드
-
-게임 CSS는 한 파일이 최종 소유권을 갖는다. 별도의 `mobile-fix`, `ui-v3`, `photoreal-scene`, `themes-keypad` 파일을 겹쳐 사용하지 않는다.
-
-## 핵심 JavaScript
-
-- `assets/js/lobby-actions.js`: 로비 데이터와 사용자 동작
-- `assets/js/lobby-navigation.js`: 로비 화면 전환과 브라우저 기록
-- `assets/js/shop.js`: 상점 목록, 구매, 장착, 미리보기
-- `assets/js/cosmetic-system.js`: 구매·장착 영속성
+- `data/training-modes.js`: 26개 훈련 모드, 카테고리, 모드별 규칙
+- `data/questions/**`: 모드별 문제 원본
+- `data/questions/index.js`: 문제 bank registry와 schema validation
+- `assets/js/question-engine.js`: 출제, 재출제, 정답 정규화·판정
+- `assets/js/game-core.js`: 물, 시간, 점수, 콤보, 피버, 종료 상태
+- `assets/js/storage.js`: schema v5 저장·migration·기록·경제·일일 미션
 - `assets/js/main.js`: 게임 엔진 조립과 실행 루프
-- `assets/js/ui-effects.js`: 게임 페이지 이벤트와 DOM 연결
-- `assets/js/scene-renderer.js`: 독립 장면 이미지 전환
-- `assets/js/scene-state-machine.js`: 장면 상태 전이 규칙
-- `assets/js/scene-art-loader.js`: 원본 시트를 메모리에서 네 독립 이미지로 분리
-- `assets/js/mobile-keypad.js`: 모바일 정답 입력
 
-## 장면 원화 계약
+문항 내용, 지정 화학 값, 점수·물·콤보 규칙은 장면/UI 리팩터링과 분리한다.
 
-`assets/art/photoreal/kongjwi-keyposes.png`는 2×2 배열의 핵심 포즈 4개를 포함한다.
+## 로비와 상점
 
-1. 대기
-2. 물 붓기
-3. 오답·시간 초과·게임 오버
-4. 클리어
+- `assets/js/lobby-actions.js`: 장독대 카드, 카테고리 유지, 미션, 강화
+- `assets/js/lobby-navigation.js`: 로비 view routing
+- `assets/js/shop.js`: 상점 목록, 구매, 장착, 미리보기
+- `assets/js/cosmetic-system.js`: 구매·장착 영속성과 visual key 변환
+- `data/shop-catalog.js`: 상점 품목과 가격의 원본
 
-이는 60장의 독립 프레임이 아니다. 브라우저는 원본 PNG를 한 번 읽은 뒤 각 셀을 메모리에서 독립 이미지로 분리한다. 게임 화면은 CSS 배경 좌표를 사용하지 않고 실제 `<img>` 요소를 교체한다.
+## 퀴즈 장면 아키텍처
 
-각 장면 이미지는 다음 규칙으로 표시한다.
+현재 production 장면은 **한 장의 합성 원화가 아니라 manifest 기반 독립 PNG 레이어**다.
 
-- `width: 100%`
-- `height: 100%`
-- `object-fit: contain`
-- `object-position: center`
+- `assets/art/game-scene/manifest.json`: 논리 해상도, layer 순서, asset 경로, 기본 placement, anchor, frame sequence의 기준
+- `assets/js/game-cosmetics-entry.js`: 저장된 코스메틱과 장면 렌더러 연결
+- `assets/js/scene-renderer.js`: manifest를 읽어 한 개의 `#layeredScene`을 구성하고 PNG/sprite layer를 배치
+- `assets/js/scene-state-machine.js`: 정답·오답·피버·경고·일시정지에 따른 장면 상태 전이
+- `assets/js/scene-cosmetic-effects.js`: 장착 코스메틱의 제한된 부가 효과
+- `assets/js/court-servant-effect.js`: 야화 궁중복의 특수 하인 동작 mount/trigger
 
-따라서 PC·모바일·가로 화면에서 원화 전체를 비율대로 축소하거나 확대하며, 장면을 채우기 위해 얼굴이나 장독대를 자르지 않는다. 남는 공간은 게임 장면 배경이 채운다.
+논리 캔버스는 `2048 x 1152`이며 PC와 모바일 모두 같은 좌표계를 `uniform-contain`으로 축소·확대한다.
+기본 actor 위치와 크기는 manifest가 소유한다. CSS는 원본 종횡비 보존, clipping, responsive layout delta, effect corridor 같은 표시 경계만 담당한다.
 
-기본 외형이 아닌 구매 스킨은 저장·장착 상태를 유지하되, 독립 장면 원화가 없는 경우 기본 장면과 “원화 준비 중” 안내를 표시한다. 색상 필터만 바꿔 완성된 스킨처럼 표시하지 않는다.
+## 장면 PNG 계약
+
+Production art는 원본 RGBA PNG를 사용하며 JPEG/WebP/Base64 변환으로 대체하지 않는다.
+
+- 콩쥐: `assets/art/game-scene/kongjwi/<skin>/pour-sheet.png`, `4096 x 768`, 8개의 `512 x 768` cell
+- 바가지: `assets/art/game-scene/tools/<skin>/pour-sheet.png`, `4096 x 768`, 콩쥐와 co-registered
+- 장독대: `assets/art/game-scene/jars/<skin>/layers.png`, `2048 x 1024`, back/front 2 cell
+- 물줄기·물보라·누수·수면: `assets/art/game-scene/effects/**`
+- 전경: `assets/art/game-scene/background/courtyard-night-fg.png`
+
+`manifest.json`의 `availability: true`는 production 필수 asset이고 `false`는 아직 authored asset이 준비되지 않아 fallback을 허용하는 상태다.
+Fallback은 임시 호환 경로이지 최종 미술 방향을 대체하지 않는다.
+
+## 스타일 책임
+
+- `assets/css/game.css`: 게임의 기본 UI와 레이아웃
+- `assets/css/game-asset-animation.css`: layer/sprite의 기본 렌더링과 상태 애니메이션
+- `assets/css/layered-scene-runtime.css`: layered scene의 최종 layout/cascade boundary
+- `assets/css/scene-source-aspect-fix.css`: 원본 PNG 비율 보호와 공통 water corridor calibration
+- `assets/css/scene-motion-polish.css`: 장착 도구·의상별 제한된 효과
+- `assets/css/court-servant-effect.css`: 야화 궁중복 하인 효과의 정적 스타일
+- 나머지 mode-specific CSS: 특정 문제 입력 형식 또는 좁은 responsive 보정만 담당
+
+JavaScript가 임시 `<style>` 요소를 주입하여 최종 geometry를 덮어쓰지 않는다. 재발 방지를 위해 architecture boundary regression test를 유지한다.
+
+## 특수 효과와 미완성 authored asset
+
+야화 궁중복의 하인 동작은 현재 별도 효과 모듈로 격리되어 있다. 현재 하인 캐릭터 이미지는 별도 돌쇠 원화가 준비될 때까지 기존 작업복 캐릭터를 임시 fallback으로 사용한다. 최종 방향은 **독립 고품질 돌쇠 PNG/프레임을 추가하고 orchestration 코드는 그대로 유지한 채 source만 교체하는 것**이다.
+
+기본 두꺼비 표정 overlay와 신형 야간 배경처럼 manifest에서 아직 planned/fallback 상태인 asset 역시 fallback을 최종 결과로 간주하지 않는다.
+
+## 검증
+
+- `node scripts/validate-questions.mjs`
+- `node scripts/validate-layered-scene.mjs`
+- `node --test tests/*.mjs`
+- `node scripts/test-metal-reactivity-route.mjs`
+- Playwright lobby/quiz/layered-scene smoke
+
+CI가 green이라는 것은 현재 fallback을 포함한 production 경로가 깨지지 않았다는 뜻이며, 모든 planned 미술 asset이 완성됐다는 뜻은 아니다.
 
 ## 변경 금지 영역
 
-다음 영역은 UI 리팩터링과 분리한다.
+UI·장면 구조 정리만을 목적으로 다음 의미를 임의 변경하지 않는다.
 
-- `data/questions/**`와 정답
+- `data/questions/**`의 문제와 정답
 - 프로젝트 지정 화학 값
 - `QuestionEngine` 판정 규칙
 - 점수·물·콤보 핵심 규칙
-- 기존 저장 데이터 의미
-- 상점 가격과 구매 기록
+- 기존 저장 데이터의 의미와 migration 계약
+- 상점 가격과 기존 구매 기록
