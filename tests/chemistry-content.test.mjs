@@ -62,11 +62,48 @@ test('mole/mass and gas banks keep grading metadata', () => {
 
 test('redox and acid-base banks keep their choice contracts', () => {
   const redox = QUESTION_BANKS.redox;
-  assert.equal(redox.length, 30);
+  assert.equal(redox.length, 52);
   assert.ok(redox.every(question => question.choices.length === 3));
   assert.ok(redox.every(question => question.promptHtml?.includes('<u>')));
+  assert.ok(redox.every(question => !/[\r\n]/.test(question.prompt)), '산화-환원 반응식은 한 줄이어야 합니다.');
   assert.deepEqual(redox[0].choices.map(choice => choice.key), ['1', '2', '3']);
   assert.equal(QUESTION_BANKS.acid_base.length, 17);
+});
+
+test('worksheet-derived chemistry questions are merged without duplicate ids', () => {
+  const oxidation = QUESTION_BANKS.oxidation_number;
+  assert.equal(oxidation.length, 66);
+  for (const [id, prompt, answer] of [
+    ['oxidation_number_064', 'C', '0'],
+    ['oxidation_number_065', 'Na₂O', '1'],
+    ['oxidation_number_066', 'Al₂S₃', '-2']
+  ]) {
+    const question = oxidation.find(item => item.id === id);
+    assert.ok(question, `${id} 문항이 없습니다.`);
+    assert.equal(question.prompt, prompt);
+    assert.equal(question.answers[0], answer);
+    assert.ok(question.tags.includes('문제지 추출'));
+  }
+
+  const redox = QUESTION_BANKS.redox;
+  for (const equation of [
+    'C + O₂ → CO₂',
+    '2H₂ + O₂ → 2H₂O',
+    'ZnO + C → Zn + CO',
+    '4Fe + 3O₂ → 2Fe₂O₃',
+    'N₂ + O₂ → 2NO',
+    '2NO + O₂ → 2NO₂',
+    '4Na + O₂ → 2Na₂O',
+    '2Cu + O₂ → 2CuO',
+    '4Al + 3O₂ → 2Al₂O₃',
+    '2Ag⁺ + Fe → 2Ag + Fe²⁺',
+    '2Al + 3Ag₂S → Al₂S₃ + 6Ag'
+  ]) {
+    const variants = redox.filter(question => question.prompt === equation);
+    assert.equal(variants.length, 2, `${equation}: 산화/환원 문항이 각각 하나씩 필요합니다.`);
+    assert.deepEqual(new Set(variants.map(question => question.tags[1])), new Set(['oxidation', 'reduction']));
+    assert.ok(variants.every(question => question.tags.includes('문제지 추출')));
+  }
 });
 
 test('all questions are unique, valid, and mobile-ready', () => {
