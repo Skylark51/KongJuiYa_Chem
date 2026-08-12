@@ -5,12 +5,14 @@ import { resolve } from "node:path";
 const root = resolve(import.meta.dirname, "..");
 const read = path => readFile(resolve(root, path), "utf8");
 
-const [framing, desktop] = await Promise.all([
+const [framing, desktop, jarAuthored] = await Promise.all([
   read("assets/css/shop-tool-framing.css"),
-  read("assets/css/shop-desktop.css")
+  read("assets/css/shop-desktop.css"),
+  read("assets/css/shop-jar-authored-desktop.css")
 ]);
 
 assert.match(framing, /^@import url\("\.\/shop-desktop\.css\?v=20260812-desktop2"\);/);
+assert.match(framing, /@import url\("\.\/shop-jar-authored-desktop\.css\?v=20260812-jar-full1"\);/);
 assert.match(desktop, /@media \(min-width: 1061px\)/);
 assert.match(desktop, /html\[data-device-layout="desktop"\] \.shop-page \.shop-workspace \{[\s\S]*?min-height: 0;/);
 assert.match(desktop, /grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)/);
@@ -24,4 +26,9 @@ assert.match(desktop, /grid-template-rows: 184px auto 46px/);
 assert.match(desktop, /object-fit: contain !important/);
 assert.doesNotMatch(desktop, /data-device-layout="mobile"|data-mobile-ui="shadcn"/);
 
-console.log("shop-desktop-layout: desktop catalog footer is compact, separated, and action-aligned without altering mobile cards");
+assert.match(jarAuthored, /\.shop-item-visual\.shop-jar-visual::after \{[\s\S]*?content: none !important;[\s\S]*?display: none !important;[\s\S]*?background-image: none !important;/);
+assert.match(jarAuthored, /\.shop-asset-jar\.is-authored-jar \{[\s\S]*?position: relative;[\s\S]*?z-index: 2;[\s\S]*?overflow: visible !important;/);
+assert.match(jarAuthored, /\.shop-jar-image \{[\s\S]*?object-fit: contain !important;[\s\S]*?object-position: center center !important;/);
+assert.doesNotMatch(jarAuthored, /data-device-layout="mobile"|data-mobile-ui="shadcn"/);
+
+console.log("shop-desktop-layout: authored jar PNGs override the legacy atlas while desktop footer and mobile contracts stay intact");
