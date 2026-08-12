@@ -4,6 +4,7 @@ import {
   FOSSIL_ERA_CHOICES,
   FOSSIL_TYPE_CHOICES
 } from "../../data/questions/earth-science-fossil-type.js";
+import { mountGameScene } from "./game-cosmetics-entry.js";
 import { SubjectStorage } from "./subject-storage.js";
 import { siteUrl } from "./site-routing.js";
 
@@ -28,10 +29,18 @@ const quiz = QUIZZES[quizId];
 
 const storage = new SubjectStorage("earth-science");
 const byId = id => document.getElementById(id);
-const state = { index: 0, correct: 0, wrong: 0, combo: 0, bestCombo: 0, answered: false };
+const state = { index: 0, correct: 0, wrong: 0, combo: 0, bestCombo: 0, water: 55, answered: false };
+const scene = mountGameScene(byId("ui-gameApp"));
 
 function imageUrl(path) {
   return siteUrl(path);
+}
+
+function updateWater(next) {
+  state.water = Math.max(0, Math.min(100, Number(next) || 0));
+  byId("waterGauge").style.width = state.water + "%";
+  byId("waterText").textContent = Math.round(state.water) + "%";
+  scene.renderer.setWaterLevel(state.water);
 }
 
 function renderQuestion() {
@@ -48,14 +57,21 @@ function renderQuestion() {
   byId("feedback").hidden = true;
   byId("feedback").className = "feedback";
   byId("nextButton").hidden = true;
-  byId("answerChoices").replaceChildren(...quiz.choices.map(choice => {
+  byId("answerChoices").replaceChildren(...quiz.choices.map((choice, index) => {
     const button = document.createElement("button");
     button.type = "button";
-    button.textContent = choice;
+    button.dataset.shortcut = String(index + 1);
+    const key = document.createElement("kbd");
+    key.textContent = String(index + 1);
+    const label = document.createElement("span");
+    label.textContent = choice;
+    button.append(key, label);
     button.dataset.choice = choice;
+    button.setAttribute("aria-keyshortcuts", String(index + 1));
     button.addEventListener("click", () => answer(choice));
     return button;
   }));
+  dispatchEvent(new CustomEvent("question:changed", { detail: { water: state.water, questionId: question.id } }));
 }
 
 function answer(choice) {
@@ -67,9 +83,11 @@ function answer(choice) {
     state.correct += 1;
     state.combo += 1;
     state.bestCombo = Math.max(state.bestCombo, state.combo);
+    updateWater(state.water + 6);
   } else {
     state.wrong += 1;
     state.combo = 0;
+    updateWater(state.water - 5);
   }
 
   byId("answerChoices").querySelectorAll("button").forEach(button => {
@@ -86,6 +104,9 @@ function answer(choice) {
   next.hidden = false;
   next.textContent = state.index === quiz.questions.length - 1 ? "결과 보기" : "다음 문제";
   byId("progressBar").style.width = (state.index + 1) / quiz.questions.length * 100 + "%";
+  dispatchEvent(new CustomEvent(correct ? "answer:correct" : "answer:wrong", {
+    detail: { combo: state.combo, water: state.water, questionId: question.id }
+  }));
 }
 
 function finish() {
@@ -105,6 +126,7 @@ function finish() {
   byId("resultScore").textContent = state.correct + " / " + quiz.questions.length;
   const accuracy = Math.round(state.correct / quiz.questions.length * 100);
   byId("resultSummary").textContent = "정답률 " + accuracy + "% · 최고 연속 정답 " + state.bestCombo;
+  dispatchEvent(new CustomEvent("game:clear", { detail: { combo: state.bestCombo, water: state.water } }));
   byId("resultTitle").focus();
 }
 
@@ -120,13 +142,31 @@ function next() {
 }
 
 function restart() {
-  Object.assign(state, { index: 0, correct: 0, wrong: 0, combo: 0, bestCombo: 0, answered: false });
+  Object.assign(state, { index: 0, correct: 0, wrong: 0, combo: 0, bestCombo: 0, water: 55, answered: false });
   byId("resultPanel").hidden = true;
   byId("questionPanel").hidden = false;
+  updateWater(55);
+  dispatchEvent(new CustomEvent("game:start", { detail: { water: state.water } }));
   renderQuestion();
+}
+
+function handleKeyboard(event) {
+  if (event.defaultPrevented || event.repeat || event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement || event.target instanceof HTMLSelectElement) return;
+  if (state.answered || !/^[1-4]$/.test(event.key)) return;
+  const index = Number(event.key) - 1;
+  const choice = quiz.choices[index];
+  if (!choice) return;
+  event.preventDefault();
+  answer(choice);
 }
 
 byId("nextButton").addEventListener("click", next);
 byId("retryButton").addEventListener("click", restart);
+addEventListener("keydown", handleKeyboard);
 renderQuestion();
-document.documentElement.dataset.subjectQuizReady = "true";
+scene.ready.then(() => {
+  updateWater(state.water);
+  dispatchEvent(new CustomEvent("game:start", { detail: { water: state.water } }));
+  document.documentElement.dataset.subjectQuizReady = "true";
+});

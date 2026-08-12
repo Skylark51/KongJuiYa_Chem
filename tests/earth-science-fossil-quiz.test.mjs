@@ -49,6 +49,20 @@ test("first two earth science jars are live and share one quiz runner", async ()
   const html = await readFile(resolve(root, "subjects/earth-science/quiz.html"), "utf8");
   const runner = await readFile(resolve(root, "assets/js/earth-science-fossil-quiz.js"), "utf8");
   assert.match(html, /id="answerChoices"/);
+  assert.match(html, /id="visualStage" class="scene-animation-zone"/);
+  assert.match(html, /game-runtime-features\.css/);
+  assert.match(runner, /mountGameScene/);
+  assert.match(runner, /addEventListener\("keydown", handleKeyboard\)/);
+  assert.match(runner, /aria-keyshortcuts/);
+  assert.match(runner, /"answer:correct"/);
+  assert.match(runner, /"answer:wrong"/);
   assert.match(runner, /new SubjectStorage\("earth-science"\)/);
   assert.match(runner, /storage\.write\("records"/);
+});
+
+test("scene renderer resolves manifest and PNG assets from its module root", async () => {
+  const renderer = await readFile(resolve(root, "assets/js/scene-renderer.js"), "utf8");
+  assert.match(renderer, /new URL\("\.\.\/art\/game-scene\/manifest\.json/);
+  assert.match(renderer, /const SITE_ROOT_URL = new URL\("\.\.\/\.\.\/", import\.meta\.url\)/);
+  assert.match(renderer, /new URL\(url, SITE_ROOT_URL\)/);
 });

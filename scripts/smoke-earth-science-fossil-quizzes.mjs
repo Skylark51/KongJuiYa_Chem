@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 import { chromium } from "playwright";
+import { mkdir } from "node:fs/promises";
 
 const baseUrl = process.env.LOBBY_BASE_URL || "http://127.0.0.1:4173";
+const screenshotDir = process.env.EARTH_SCIENCE_SCREENSHOT_DIR || "";
 const cases = [
   ["mobile-375", { width: 375, height: 667 }],
   ["mobile-430", { width: 430, height: 932 }],
@@ -18,6 +20,7 @@ function assert(condition, message) {
 
 const browser = await chromium.launch({ headless: true });
 try {
+  if (screenshotDir) await mkdir(screenshotDir, { recursive: true });
   for (const [viewportName, viewport] of cases) {
     const context = await browser.newContext({ viewport });
     const page = await context.newPage();
@@ -34,12 +37,27 @@ try {
       const label = viewportName + " " + quizId;
       await page.goto(baseUrl + "/subjects/earth-science/quiz.html?quiz=" + quizId, { waitUntil: "networkidle" });
       await page.waitForFunction(() => document.documentElement.dataset.subjectQuizReady === "true");
-      assert(await page.locator("#answerChoices button").allTextContents().then(values => values.join("|")) === expectedChoices.join("|"), label + ": choices");
+      assert(await page.locator("#ui-gameApp").getAttribute("data-scene-renderer") === "layered-png", label + ": chemistry scene renderer");
+      assert(await page.locator("#layeredScene").count() === 1, label + ": layered scene");
+      assert(await page.locator("#answerChoices button span").allTextContents().then(values => values.join("|")) === expectedChoices.join("|"), label + ": choices");
+      assert(await page.locator("#answerChoices kbd").allTextContents().then(values => values.join("|")) === expectedChoices.map((_, index) => String(index + 1)).join("|"), label + ": keyboard labels");
       assert(await page.locator("#fossilImage").evaluate(image => image.complete && image.naturalWidth > 0), label + ": image");
       assert(await page.locator("#progressText").textContent() === "1 / " + questionCount, label + ": initial progress");
+      if (screenshotDir && quizId === "earth-fossil-type" && ["mobile-375", "desktop-1366"].includes(viewportName)) {
+        await page.screenshot({ path: screenshotDir + "/" + viewportName + "-fossil-game.png", fullPage: true });
+      }
 
       for (let index = 0; index < questionCount; index += 1) {
-        await page.locator("#answerChoices button").first().click();
+        if (viewportName === "desktop-1366" && quizId === "earth-fossil-type" && index < 2) {
+          await page.keyboard.press(index === 0 ? "1" : "2");
+          await page.waitForFunction(expected => document.getElementById("ui-gameApp")?.dataset.sceneState === expected, index === 0 ? "correct" : "wrong");
+          if (index === 0) assert(Number((await page.locator("#waterText").textContent()).replace("%", "")) > 55, label + ": correct water");
+          if (screenshotDir) {
+            await page.screenshot({ path: screenshotDir + "/desktop-key-" + (index + 1) + "-" + (index === 0 ? "correct" : "wrong") + ".png", fullPage: true });
+          }
+        } else {
+          await page.locator("#answerChoices button").first().click();
+        }
         assert(await page.locator("#feedback").isVisible(), label + ": feedback " + index);
         assert(await page.locator("#nextButton").isVisible(), label + ": next " + index);
         await page.locator("#nextButton").click();

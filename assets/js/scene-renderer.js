@@ -1,9 +1,10 @@
 import { createSceneStateController } from "./scene-state-machine.js";
 import { resolveSceneCosmeticEffects } from "./scene-cosmetic-effects.js";
 
-const MANIFEST_URL = "assets/art/game-scene/manifest.json?v=20260808-motion-polish1";
+const MANIFEST_URL = new URL("../art/game-scene/manifest.json?v=20260808-motion-polish1", import.meta.url).href;
 const RUNTIME_STYLE_ID = "layered-scene-animation-runtime";
 const RUNTIME_STYLE_URL = new URL("../css/game-asset-animation.css?v=20260808-motion-polish1", import.meta.url).href;
+const SITE_ROOT_URL = new URL("../../", import.meta.url);
 const ORDER = [
   "scene-background", "scene-kongjwi", "scene-tool", "scene-water-stream",
   "scene-jar-back", "scene-water-fill", "scene-toad-skin", "scene-toad-expression",
@@ -19,8 +20,9 @@ const key = (value, aliases, fallback) => aliases?.[String(value || "").trim()] 
 const layer = (stack, name) => stack?.querySelector(`.${name}`) || null;
 const versionedAssetUrl = (url, version) => {
   if (!url) return "";
-  const separator = url.includes("?") ? "&" : "?";
-  return `${url}${separator}scene=${encodeURIComponent(version || "unversioned")}`;
+  const resolved = new URL(url, SITE_ROOT_URL);
+  resolved.searchParams.set("scene", version || "unversioned");
+  return resolved.href;
 };
 const target = (manifest, primary, fallback = null) => manifest.availability?.[primary] === true
   ? { url: versionedAssetUrl(primary, manifest.version), authored: true }
@@ -221,7 +223,10 @@ export function mountSceneRenderer(root, { cosmetics = {} } = {}) {
         frameOf(node, manifest.frames.toadExpression[expression]);
       } else if (expressionMode === "full-fallback") {
         const img = node?.querySelector("img");
-        if (img) img.src = manifest.assets.toadFallback[expression] || manifest.assets.toadFallback.default;
+        if (img) img.src = versionedAssetUrl(
+          manifest.assets.toadFallback[expression] || manifest.assets.toadFallback.default,
+          manifest.version
+        );
       }
       if (stack) stack.dataset.toadExpression = expression;
     },
@@ -286,7 +291,10 @@ export function mountSceneRenderer(root, { cosmetics = {} } = {}) {
     };
 
     const preloadUrls = Object.values(chosen).map(item => item.url);
-    if (!chosen.toad.authored) preloadUrls.push(a.toadFallback[expression] || a.toadFallback.default);
+    if (!chosen.toad.authored) preloadUrls.push(versionedAssetUrl(
+      a.toadFallback[expression] || a.toadFallback.default,
+      manifest.version
+    ));
     preload(preloadUrls);
     if (disposed || token !== revision) return;
 
@@ -318,7 +326,7 @@ export function mountSceneRenderer(root, { cosmetics = {} } = {}) {
     } else {
       clearLayer(layer(stack, "scene-toad-skin"));
       image(layer(stack, "scene-toad-expression"), {
-        url: a.toadFallback[expression] || a.toadFallback.default,
+        url: versionedAssetUrl(a.toadFallback[expression] || a.toadFallback.default, manifest.version),
         authored: false
       });
       expressionMode = "full-fallback";

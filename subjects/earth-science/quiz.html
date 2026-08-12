@@ -6,10 +6,12 @@
   <meta name="theme-color" content="#0d2830">
   <meta name="description" content="콩쥐야 줘때써 지구과학 화석 구분 장독대">
   <title>화석 구분 장독대 | 콩쥐야 줘때써 - 지구과학편</title>
-  <link rel="stylesheet" href="../../assets/css/subject-quiz.css?v=20260812-fossils1">
+  <link id="layered-scene-animation-runtime" rel="stylesheet" href="../../assets/css/game-asset-animation.css?v=20260808-motion-polish1">
+  <link rel="stylesheet" href="../../assets/css/game-runtime-features.css?v=20260812-runtime-modules1">
+  <link rel="stylesheet" href="../../assets/css/subject-quiz.css?v=20260812-fossils2">
 </head>
 <body>
-  <a class="skip-link" href="#quizMain">문제로 바로가기</a>
+  <a class="skip-link" href="#ui-gameApp">문제로 바로가기</a>
   <header class="quiz-topbar">
     <a class="quiz-brand" href="./?view=jars" aria-label="지구과학 장독대로 돌아가기">
       <span class="brand-seal" aria-hidden="true">地</span>
@@ -18,7 +20,7 @@
     <a class="exit-link" href="./?view=jars">장독대 선택</a>
   </header>
 
-  <main id="quizMain" class="quiz-shell">
+  <main id="ui-gameApp" class="quiz-shell" data-scene-state="loading">
     <section class="quiz-heading" aria-labelledby="quizTitle">
       <p class="eyebrow">FOSSIL TRAINING JAR</p>
       <h1 id="quizTitle">화석 구분 장독대</h1>
@@ -30,18 +32,29 @@
     </section>
 
     <section id="questionPanel" class="question-panel" aria-live="polite">
-      <figure class="fossil-frame">
-        <img id="fossilImage" src="" alt="">
-        <figcaption id="fossilName" tabindex="-1"></figcaption>
-      </figure>
-      <div class="answer-panel">
-        <p>이 화석을 구분해 보세요.</p>
-        <div id="answerChoices" class="answer-choices"></div>
-        <div id="feedback" class="feedback" role="status" hidden>
-          <strong id="feedbackTitle"></strong>
-          <p id="feedbackExplanation"></p>
+      <section class="game-stage-card" aria-label="콩쥐와 장독대 애니메이션">
+        <div id="visualStage" class="scene-animation-zone"></div>
+        <div class="scene-game-hud">
+          <span>장독대 물</span>
+          <div class="water-gauge"><i id="waterGauge"></i></div>
+          <strong id="waterText">55%</strong>
         </div>
-        <button id="nextButton" class="next-button" type="button" hidden>다음 문제</button>
+      </section>
+      <div class="quiz-task-column">
+        <figure class="fossil-frame">
+          <img id="fossilImage" src="" alt="">
+          <figcaption id="fossilName" tabindex="-1"></figcaption>
+        </figure>
+        <div class="answer-panel">
+          <p>이 화석을 구분해 보세요.</p>
+          <div id="answerChoices" class="answer-choices"></div>
+          <p id="keyboardHint" class="keyboard-hint">PC에서는 숫자키로 바로 선택할 수 있습니다.</p>
+          <div id="feedback" class="feedback" role="status" hidden>
+            <strong id="feedbackTitle"></strong>
+            <p id="feedbackExplanation"></p>
+          </div>
+          <button id="nextButton" class="next-button" type="button" hidden>다음 문제</button>
+        </div>
       </div>
     </section>
 
@@ -58,6 +71,6 @@
     </section>
   </main>
 
-  <script type="module" src="../../assets/js/earth-science-fossil-quiz.js?v=20260812-fossils1"></script>
+  <script type="module" src="../../assets/js/earth-science-fossil-quiz.js?v=20260812-fossils2"></script>
 </body>
 </html>
