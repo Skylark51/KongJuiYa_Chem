@@ -1,0 +1,61 @@
+{
+  "version": "20260812-asset-modules-v2",
+  "activeRuntime": false,
+  "migration": {
+    "runtimeManifest": "assets/art/game-scene/manifest.json",
+    "policy": "parallel-safe-migration",
+    "note": "V2 modules are staged in parallel. The production renderer remains on game-scene until each V2 module is validated."
+  },
+  "logicalSize": {"width": 2048, "height": 1152},
+  "contracts": {
+    "sourceRoot": "assets/art/source-locked",
+    "derivedRoot": "assets/art/game-scene-v2",
+    "sourceLocked": true,
+    "newKongjwiOriginalGenerationAllowed": false,
+    "kongjwiDerivativeRule": "derive-from-source-locked-current-production-art-only",
+    "format": "png",
+    "actionModes": ["self-pour", "servant-pour"]
+  },
+  "modules": {
+    "background": {
+      "sourceOriginal": "assets/art/source-locked/background/courtyard-night.png",
+      "derivedRoot": "assets/art/game-scene-v2/background"
+    },
+    "kongjwi": {
+      "underlayer": {"sourceOriginal":"assets/art/source-locked/kongjwi/underlayer/base-cutout.png","derivedRoot":"assets/art/game-scene-v2/kongjwi/underlayer","actionMode":"self-pour","identityPolicy":"source-locked-current-art"},
+      "classic-red": {"sourceOriginal":"assets/art/source-locked/kongjwi/classic-red/base-cutout.png","derivedRoot":"assets/art/game-scene-v2/kongjwi/classic-red","actionMode":"self-pour","identityPolicy":"source-locked-current-art"},
+      "blue-scholar": {"sourceOriginal":"assets/art/source-locked/kongjwi/blue-scholar/base-cutout.png","derivedRoot":"assets/art/game-scene-v2/kongjwi/blue-scholar","actionMode":"self-pour","identityPolicy":"source-locked-current-art"},
+      "field-work": {"sourceOriginal":"assets/art/source-locked/kongjwi/field-work/base-cutout.png","derivedRoot":"assets/art/game-scene-v2/kongjwi/field-work","actionMode":"self-pour","identityPolicy":"source-locked-current-art"},
+      "ragged": {"sourceOriginal":"assets/art/source-locked/kongjwi/ragged/base-cutout.png","derivedRoot":"assets/art/game-scene-v2/kongjwi/ragged","actionMode":"self-pour","identityPolicy":"source-locked-current-art"},
+      "night-court": {"sourceOriginal":"assets/art/source-locked/kongjwi/night-court/base-cutout.png","derivedRoot":"assets/art/game-scene-v2/kongjwi/night-court","actionMode":"servant-pour","identityPolicy":"source-locked-current-art"}
+    },
+    "tools": {
+      "wood": {"sourceOriginal":"assets/art/source-locked/tools/wood/base.png","derivedRoot":"assets/art/game-scene-v2/tools/wood"},
+      "brass": {"sourceOriginal":"assets/art/source-locked/tools/brass/base.png","derivedRoot":"assets/art/game-scene-v2/tools/brass"},
+      "celadon": {"sourceOriginal":"assets/art/source-locked/tools/celadon/base.png","derivedRoot":"assets/art/game-scene-v2/tools/celadon"},
+      "moon": {"sourceOriginal":"assets/art/source-locked/tools/moon/base.png","derivedRoot":"assets/art/game-scene-v2/tools/moon"}
+    },
+    "jars": {
+      "onggi": {"sourceOriginals":{"closed":"assets/art/source-locked/jars/onggi/closed.png","open":"assets/art/source-locked/jars/onggi/open.png"},"derivedRoot":"assets/art/game-scene-v2/jars/onggi"},
+      "celadon": {"sourceOriginals":{"closed":"assets/art/source-locked/jars/celadon/closed.png","open":"assets/art/source-locked/jars/celadon/open.png"},"derivedRoot":"assets/art/game-scene-v2/jars/celadon"},
+      "moon-white": {"sourceOriginals":{"closed":"assets/art/source-locked/jars/moon-white/closed.png","open":"assets/art/source-locked/jars/moon-white/open.png"},"derivedRoot":"assets/art/game-scene-v2/jars/moon-white"},
+      "night-lacquer": {"sourceOriginals":{"closed":"assets/art/source-locked/jars/night-lacquer/closed.png","open":"assets/art/source-locked/jars/night-lacquer/open.png"},"derivedRoot":"assets/art/game-scene-v2/jars/night-lacquer"}
+    },
+    "toad": {
+      "sourceOriginals": {
+        "field-brown":"assets/art/source-locked/toad/base/field-brown.png",
+        "gold-worker":"assets/art/source-locked/toad/skins/gold-worker.png",
+        "jade-guard":"assets/art/source-locked/toad/skins/jade-guard.png",
+        "star-night":"assets/art/source-locked/toad/skins/star-night.png"
+      },
+      "derivedRoot": "assets/art/game-scene-v2/toad"
+    },
+    "water": {"derivedRoot":"assets/art/game-scene-v2/water","sourceType":"effect-derived"},
+    "servants": {
+      "derivedRoot":"assets/art/game-scene-v2/servants",
+      "status":"contract-only",
+      "requiredBy":["night-court"],
+      "note":"No temporary Kongjwi-as-servant asset is accepted as an authored V2 servant."
+    }
+  }
+}
