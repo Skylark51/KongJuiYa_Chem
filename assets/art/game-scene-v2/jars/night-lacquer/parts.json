@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "frameLock": true,
+  "sourceOpen": "assets/art/jars/night-lacquer/lid-open.png",
+  "sourceClosed": "assets/art/jars/night-lacquer/thumbnail-no-toad.png",
+  "openNoToad": "open-no-toad.png",
+  "holeFront": "hole-front.png",
+  "runtimeSheet": "layers.png",
+  "runtimeFrames": {
+    "back": 0,
+    "front": 1
+  },
+  "registration": {
+    "scale": 1.903420153557915,
+    "translate": [
+      289.2244406891738,
+      24.97200690643251
+    ],
+    "openBodyBox": [
+      464,
+      300,
+      1089,
+      931
+    ],
+    "closedBodyBox": [
+      89,
+      150,
+      423,
+      476
+    ],
+    "openCanvas": [
+      1536,
+      1024
+    ],
+    "closedCanvas": [
+      512,
+      512
+    ]
+  },
+  "fit": {
+    "crop": [
+      446,
+      13,
+      1107,
+      949
+    ],
+    "scale": 1.0213675213675213,
+    "offset": [
+      174,
+      34
+    ],
+    "size": [
+      675,
+      956
+    ]
+  },
+  "cavitySpec": [
+    940.0,
+    690.0,
+    220.0,
+    190.0
+  ],
+  "frontRingSpec": [
+    940.0,
+    690.0,
+    190.0,
+    160.0,
+    145.0,
+    115.0
+  ],
+  "runtimePolicy": "source-locked open jar: outer frame/lid/pattern are kept from lid-open.png; only the toad cavity is replaced from the paired no-toad source; frame 1 is the no-toad broken-hole foreground rim"
+}

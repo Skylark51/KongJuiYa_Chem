@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "frameLock": true,
+  "sourceOpen": "assets/art/jars/moon-white/lid-open.png",
+  "sourceClosed": "assets/art/jars/moon-white/thumbnail-no-toad.png",
+  "openNoToad": "open-no-toad.png",
+  "holeFront": "hole-front.png",
+  "runtimeSheet": "layers.png",
+  "runtimeFrames": {
+    "back": 0,
+    "front": 1
+  },
+  "registration": {
+    "scale": 1.9487670249671036,
+    "translate": [
+      281.090025120905,
+      36.386896115658715
+    ],
+    "openBodyBox": [
+      445,
+      300,
+      1113,
+      964
+    ],
+    "closedBodyBox": [
+      76,
+      150,
+      435,
+      476
+    ],
+    "openCanvas": [
+      1536,
+      1024
+    ],
+    "closedCanvas": [
+      512,
+      512
+    ]
+  },
+  "fit": {
+    "crop": [
+      427,
+      28,
+      1131,
+      983
+    ],
+    "scale": 1.0010471204188482,
+    "offset": [
+      159,
+      34
+    ],
+    "size": [
+      705,
+      956
+    ]
+  },
+  "cavitySpec": [
+    945.0,
+    675.0,
+    230.0,
+    195.0
+  ],
+  "frontRingSpec": [
+    945.0,
+    675.0,
+    205.0,
+    165.0,
+    155.0,
+    120.0
+  ],
+  "runtimePolicy": "source-locked open jar: outer frame/lid/pattern are kept from lid-open.png; only the toad cavity is replaced from the paired no-toad source; frame 1 is the no-toad broken-hole foreground rim"
+}
