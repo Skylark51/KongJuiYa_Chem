@@ -11,3 +11,9 @@ export function chemistryLobbyUrl(view = "home", documentRef = document) {
   if (view) url.searchParams.set("view", view);
   return url.href;
 }
+
+export function subjectLobbyUrl(subjectId, view = "home", documentRef = document) {
+  const url = new URL("subjects/" + subjectId + "/", siteRoot(documentRef));
+  if (view && view !== "home") url.searchParams.set("view", view);
+  return url.href;
+}

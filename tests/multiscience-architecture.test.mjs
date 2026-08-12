@@ -3,10 +3,13 @@ import assert from "node:assert/strict";
 import { readFile, stat } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { SUBJECTS, subjectById } from "../data/subjects.js";
+import { SUBJECT_QUIZZES, categoriesForSubject, quizzesForSubject } from "../data/subject-quizzes.js";
 import {
   CHEMISTRY_STORAGE_POLICY,
+  GLOBAL_STORAGE_KEYS,
   SubjectStorage,
-  subjectStorageKey
+  subjectStorageKey,
+  summarizeSubjectRecords
 } from "../assets/js/subject-storage.js";
 
 const root = resolve(import.meta.dirname, "..");
@@ -58,6 +61,28 @@ test("chemistry remains on legacy storage while new subjects are namespaced", ()
   assert.deepEqual(physics.read("records"), [{ score: 10 }]);
   assert.deepEqual(biology.read("records"), [{ score: 20 }]);
   assert.equal(memory.has("kongjuiya-chem-save"), false);
+  assert.equal(subjectStorageKey("physics", "selected-category"), "kongjuiya:physics:selected-category");
+  assert.equal(subjectStorageKey("biology", "selected-category"), "kongjuiya:biology:selected-category");
+  assert.equal(GLOBAL_STORAGE_KEYS.cosmetics, "kongjuiya-cosmetics-v1");
+  assert.equal(GLOBAL_STORAGE_KEYS.audioSettings, "kongjuiya-audio-settings");
+});
+
+test("quiz registry adapts chemistry and keeps new subjects intentionally empty", () => {
+  assert.ok(quizzesForSubject("chemistry").length > 0);
+  for (const subjectId of ["physics", "biology", "earth-science"]) {
+    assert.equal(SUBJECT_QUIZZES[subjectId].length, 0);
+    assert.deepEqual(quizzesForSubject(subjectId), []);
+    assert.deepEqual(categoriesForSubject(subjectId), []);
+  }
+});
+
+test("new-subject empty records never produce NaN or synthetic plays", () => {
+  assert.deepEqual(summarizeSubjectRecords([]), {
+    plays: 0, correct: 0, wrong: 0, bestCombo: 0, answers: 0, accuracy: null
+  });
+  assert.deepEqual(summarizeSubjectRecords([{ correct: 3, wrong: 1, bestCombo: 2 }]), {
+    plays: 1, correct: 3, wrong: 1, bestCombo: 2, answers: 4, accuracy: 75
+  });
 });
 
 test("chemistry lobby keeps deep-path assets and direct root routes", async () => {
@@ -93,4 +118,21 @@ test("all authored local href and src targets exist", async () => {
       await assert.doesNotReject(stat(target), `${htmlFile} -> ${reference}`);
     }
   }
+});
+
+test("shared subject shell exposes product navigation, empty states, and global shop context", async () => {
+  const shell = await read("assets/js/subject-shell.js");
+  const styles = await read("assets/css/subject-shell.css");
+  const shop = await read("shop.html");
+  const shopContext = await read("assets/js/shop-context.js");
+  assert.match(shell, /data-view-target="home"/);
+  assert.match(shell, /data-view-target="jars"/);
+  assert.match(shell, /data-view-target="records"/);
+  assert.match(shell, /플레이 기록 없음/);
+  assert.match(shell, /아직 등록된 __SUBJECT__ 장독대가 없습니다/);
+  assert.match(shell, /shop\.html\?from=/);
+  assert.match(styles, /grid-template-columns:repeat\(6,minmax\(0,1fr\)\)/);
+  assert.match(styles, /prefers-reduced-motion/);
+  assert.match(shop, /assets\/js\/shop-context\.js/);
+  assert.match(shopContext, /subjectLobbyUrl/);
 });

@@ -11,7 +11,8 @@ export const GLOBAL_STORAGE_KEYS = Object.freeze({
   deviceMode: "kongjuiya-device-mode",
   audioSettings: "kongjuiya-audio-settings",
   vibration: "kongjuiya-vibration",
-  cosmetics: "kongjuiya-cosmetics-v1"
+  cosmetics: "kongjuiya-cosmetics-v1",
+  uiPreferences: "kongjuiya-ui-preferences"
 });
 
 export function subjectStorageKey(subjectId, segment) {
@@ -22,6 +23,21 @@ export function subjectStorageKey(subjectId, segment) {
     throw new Error("Chemistry uses its existing storage schema through the compatibility policy.");
   }
   return `${SUBJECT_STORAGE_PREFIX}:${subjectId}:${segment}`;
+}
+
+export function summarizeSubjectRecords(records) {
+  const safeRecords = Array.isArray(records) ? records : [];
+  const summary = safeRecords.reduce((result, record) => {
+    const correct = Math.max(0, Number(record?.correct) || 0);
+    const wrong = Math.max(0, Number(record?.wrong) || 0);
+    result.correct += correct;
+    result.wrong += wrong;
+    result.bestCombo = Math.max(result.bestCombo, Math.max(0, Number(record?.bestCombo) || 0));
+    return result;
+  }, { plays: safeRecords.length, correct: 0, wrong: 0, bestCombo: 0 });
+  summary.answers = summary.correct + summary.wrong;
+  summary.accuracy = summary.answers ? Math.round(summary.correct / summary.answers * 100) : null;
+  return summary;
 }
 
 export class SubjectStorage {
