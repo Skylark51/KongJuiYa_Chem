@@ -10,15 +10,18 @@ const [framing, desktop] = await Promise.all([
   read("assets/css/shop-desktop.css")
 ]);
 
-assert.match(framing, /^@import url\("\.\/shop-desktop\.css\?v=20260812-desktop1"\);/);
+assert.match(framing, /^@import url\("\.\/shop-desktop\.css\?v=20260812-desktop2"\);/);
 assert.match(desktop, /@media \(min-width: 1061px\)/);
 assert.match(desktop, /html\[data-device-layout="desktop"\] \.shop-page \.shop-workspace \{[\s\S]*?min-height: 0;/);
 assert.match(desktop, /grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)/);
-assert.match(desktop, /\.shop-item \{[\s\S]*?aspect-ratio: auto;[\s\S]*?grid-template-rows: 210px auto 42px;/);
+assert.match(desktop, /\.shop-item \{[\s\S]*?aspect-ratio: auto;[\s\S]*?grid-template-rows: 210px auto 48px;/);
 assert.match(desktop, /\.shop-item-visual \{[\s\S]*?height: 210px;[\s\S]*?aspect-ratio: auto;/);
+assert.match(desktop, /\.shop-item-copy \{[\s\S]*?display: grid;[\s\S]*?gap: 10px;[\s\S]*?min-height: 82px;/);
+assert.match(desktop, /\.shop-item-meta \{[\s\S]*?margin-top: 0;[\s\S]*?padding-top: 10px;[\s\S]*?border-top: 1px solid rgba\(226, 190, 126, \.12\);/);
+assert.match(desktop, /\.shop-item-action,[\s\S]*?\.shop-item-try-on \{[\s\S]*?min-height: 48px;[\s\S]*?border-radius: 14px;[\s\S]*?font-size: 12px;/);
 assert.match(desktop, /max-width: 1200px/);
-assert.match(desktop, /grid-template-rows: 184px auto 40px/);
+assert.match(desktop, /grid-template-rows: 184px auto 46px/);
 assert.match(desktop, /object-fit: contain !important/);
 assert.doesNotMatch(desktop, /data-device-layout="mobile"|data-mobile-ui="shadcn"/);
 
-console.log("shop-desktop-layout: desktop catalog stays compact without altering the mobile card contract");
+console.log("shop-desktop-layout: desktop catalog footer is compact, separated, and action-aligned without altering mobile cards");

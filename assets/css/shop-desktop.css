@@ -73,7 +73,7 @@
 
   html[data-device-layout="desktop"] .shop-page .shop-item {
     aspect-ratio: auto;
-    grid-template-rows: 210px auto 42px;
+    grid-template-rows: 210px auto 48px;
     min-height: 0;
     height: auto;
     padding: 12px;
@@ -90,42 +90,52 @@
     border-radius: 14px;
   }
 
+  /* Footer hierarchy: title -> product metadata -> one strong action row. */
   html[data-device-layout="desktop"] .shop-page .shop-item-copy {
-    min-height: 70px;
-    padding: 11px 4px 9px;
+    display: grid;
+    grid-template-rows: auto auto;
+    align-content: start;
+    gap: 10px;
+    min-height: 82px;
+    padding: 14px 4px 12px;
   }
 
   html[data-device-layout="desktop"] .shop-page .shop-item h3 {
     margin: 0;
     font-size: 17px;
-    line-height: 1.25;
+    line-height: 1.18;
   }
 
   html[data-device-layout="desktop"] .shop-page .shop-item-meta {
-    min-height: 24px;
-    margin-top: 8px;
+    min-height: 30px;
+    margin-top: 0;
+    padding-top: 10px;
+    border-top: 1px solid rgba(226, 190, 126, .12);
   }
 
   html[data-device-layout="desktop"] .shop-page .shop-rarity {
-    min-height: 23px;
-    padding: 4px 7px;
-    font-size: 8px;
+    min-height: 26px;
+    padding: 4px 9px;
+    font-size: 9px;
   }
 
   html[data-device-layout="desktop"] .shop-page .shop-price {
     color: #f6d990;
-    font-size: 11px;
+    font-size: 12px;
+    font-weight: 900;
   }
 
   html[data-device-layout="desktop"] .shop-page .shop-item-actions {
     align-self: end;
-    min-height: 42px;
+    min-height: 48px;
   }
 
   html[data-device-layout="desktop"] .shop-page .shop-item-action,
   html[data-device-layout="desktop"] .shop-page .shop-item-try-on {
-    min-height: 42px;
+    min-height: 48px;
     margin: 0;
+    border-radius: 14px;
+    font-size: 12px;
   }
 
   html[data-device-layout="desktop"] .shop-page .shop-item.is-equipped::after {
@@ -191,7 +201,7 @@
   }
 
   html[data-device-layout="desktop"] .shop-page .shop-item {
-    grid-template-rows: 184px auto 40px;
+    grid-template-rows: 184px auto 46px;
     padding: 10px;
   }
 
@@ -203,17 +213,39 @@
   }
 
   html[data-device-layout="desktop"] .shop-page .shop-item-copy {
-    min-height: 64px;
-    padding: 9px 3px 8px;
+    gap: 8px;
+    min-height: 74px;
+    padding: 11px 3px 10px;
   }
 
   html[data-device-layout="desktop"] .shop-page .shop-item h3 {
     font-size: 16px;
   }
 
+  html[data-device-layout="desktop"] .shop-page .shop-item-meta {
+    min-height: 27px;
+    padding-top: 8px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-rarity {
+    min-height: 24px;
+    padding-inline: 8px;
+    font-size: 8px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-price {
+    font-size: 11px;
+  }
+
   html[data-device-layout="desktop"] .shop-page .shop-item-action,
   html[data-device-layout="desktop"] .shop-page .shop-item-try-on,
   html[data-device-layout="desktop"] .shop-page .shop-item-actions {
-    min-height: 40px;
+    min-height: 46px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-item-action,
+  html[data-device-layout="desktop"] .shop-page .shop-item-try-on {
+    border-radius: 12px;
+    font-size: 11px;
   }
 }
