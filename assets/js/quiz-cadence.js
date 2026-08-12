@@ -1,5 +1,5 @@
 export const QUIZ_FEEDBACK_CADENCE = Object.freeze({
-  correct: 680,
+  correct: 300,
   wrong: 680,
   timeout: 820
 });

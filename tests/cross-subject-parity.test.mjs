@@ -49,7 +49,7 @@ test("one production GameCore owns quiz cadence while the shared scene owns visu
   assert.equal(main.split("new GameCore(").length - 1, 1);
   assert.equal(main.split("new QuizCadenceController(").length - 1, 1);
   assert.equal(scene.includes("feedbackCadenceMs"), false);
-  assert.equal(QUIZ_FEEDBACK_CADENCE.correct, 680);
+  assert.equal(QUIZ_FEEDBACK_CADENCE.correct, 300);
   assert.equal(SCENE_FEEDBACK_DURATION_MS.correct, 1400);
   assert.ok(QUIZ_FEEDBACK_CADENCE.correct < SCENE_FEEDBACK_DURATION_MS.correct);
   for (const subjectId of ["biology", "earth-science"]) {

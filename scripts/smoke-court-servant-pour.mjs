@@ -42,9 +42,9 @@ try {
     await page.waitForFunction(questionId => {
       const game = globalThis.KongJuiYaGame?.game;
       return game?.state?.feedbackPending === false && game?.question?.id !== questionId;
-    }, answeredQuestionId, { timeout: 1100 });
+    }, answeredQuestionId, { timeout: 700 });
     const advanceElapsedMs = Date.now() - submittedAt;
-    await page.waitForTimeout(80);
+    await page.waitForTimeout(300);
 
     const qa = await page.evaluate(() => {
       const stage = document.getElementById("visualStage").getBoundingClientRect();
@@ -79,7 +79,7 @@ try {
     assert(qa.dropletsOpacity > 0, `${width}x${height}: precision water invisible`);
     assert(qa.streamImage.includes("water-pour-sheet.png"), `${width}x${height}: continuous water stream missing`);
     assert(qa.streamOpacity > 0.9 && qa.waterFlow === "pour", `${width}x${height}: stream is not visibly pouring`);
-    assert(advanceElapsedMs < 1100, `${width}x${height}: next question cadence was too slow (${advanceElapsedMs}ms)`);
+    assert(advanceElapsedMs < 700, `${width}x${height}: next question cadence was too slow (${advanceElapsedMs}ms)`);
     assert(qa.currentQuestionId !== answeredQuestionId && qa.feedbackPending === false, `${width}x${height}: next question did not advance`);
     assert(qa.sceneState === "correct", `${width}x${height}: visual effect ended when the question advanced`);
     assert(qa.servantContained && qa.streamContained, `${width}x${height}: actor or stream escaped the stage`);
