@@ -15,13 +15,14 @@ const viewports = [
 const subjects = [
   ["physics", "물리학", [], [], 0],
   ["biology", "생명과학", [
+    "변이와 자연선택 과정 구분 장독대",
     "생물 다양성 종류 구분 장독대",
     "생물 다양성의 감소 원인 구분 장독대",
     "생물다양성을 보전하기 위한 노력 구분 장독대"
   ], [
     "통합과학2 - 변이와 자연선택에 의한 생물의 진화",
     "통합과학2 - 생물다양성"
-  ], 0],
+  ], 1],
   ["earth-science", "지구과학", [
     "시상 화석과 표준 화석 구분 장독대",
     "표준 화석의 시대 구분 장독대",
@@ -101,8 +102,8 @@ try {
         assert(await page.locator("#subjectCategoryFilter button").allTextContents().then(labels => labels.slice(1).join("|")) === categoryNames.join("|"), label + ": category names");
         if (subjectId === "biology") {
           await page.getByRole("button", { name: categoryNames[0], exact: true }).click();
-          assert(await page.locator("#subjectQuizEmpty").isVisible(), label + ": empty evolution category state");
-          assert(await page.locator("#subjectQuizEmpty h3").textContent() === "이 범주에는 아직 등록된 장독대가 없습니다.", label + ": empty category copy");
+          assert(await page.locator(".subject-quiz-card").count() === 1, label + ": evolution category jar count");
+          assert(await page.locator(".subject-quiz-card h3").textContent() === "변이와 자연선택 과정 구분 장독대", label + ": evolution jar title");
           await page.getByRole("button", { name: "전체", exact: true }).click();
         }
       }

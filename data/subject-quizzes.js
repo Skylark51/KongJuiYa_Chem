@@ -37,6 +37,14 @@ const earthScienceQuizzes = Object.freeze([
 
 const biologyQuizzes = Object.freeze([
   {
+    id: "biology-variation-natural-selection",
+    title: "변이와 자연선택 과정 구분 장독대",
+    category: "통합과학2 - 변이와 자연선택에 의한 생물의 진화",
+    description: "자료를 읽고 변이의 원인과 자연선택에 의한 진화 과정을 구분합니다.",
+    implementation: "subjects/biology/quiz.html?quiz=biology-variation-natural-selection",
+    status: "live"
+  },
+  {
     id: "biology-biodiversity-types",
     title: "생물 다양성 종류 구분 장독대",
     category: "통합과학2 - 생물다양성",

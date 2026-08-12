@@ -72,17 +72,20 @@ test("quiz registry adapts chemistry and exposes only requested new-subject jars
   assert.equal(SUBJECT_QUIZZES.physics.length, 0);
   assert.deepEqual(categoriesForSubject("physics"), []);
   const biology = quizzesForSubject("biology");
-  assert.equal(biology.length, 3);
+  assert.equal(biology.length, 4);
   assert.deepEqual(SUBJECT_CATEGORIES.biology, [
     "통합과학2 - 변이와 자연선택에 의한 생물의 진화",
     "통합과학2 - 생물다양성"
   ]);
   assert.deepEqual(biology.map(quiz => quiz.title), [
+    "변이와 자연선택 과정 구분 장독대",
     "생물 다양성 종류 구분 장독대",
     "생물 다양성의 감소 원인 구분 장독대",
     "생물다양성을 보전하기 위한 노력 구분 장독대"
   ]);
-  assert.ok(biology.every(quiz => quiz.status === "planned" && !quiz.implementation));
+  assert.equal(biology[0].status, "live");
+  assert.ok(biology[0].implementation.includes("subjects/biology/quiz.html"));
+  assert.ok(biology.slice(1).every(quiz => quiz.status === "planned" && !quiz.implementation));
   const earthScience = quizzesForSubject("earth-science");
   assert.equal(earthScience.length, 3);
   assert.deepEqual(categoriesForSubject("earth-science"), ["통합과학2 - 지질 시대의 환경과 생물"]);

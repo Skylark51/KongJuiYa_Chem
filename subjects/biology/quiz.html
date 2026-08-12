@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko" data-site-root="../../" data-subject="biology">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#12331f">
+  <meta name="description" content="콩쥐야 줘때써 생명과학 변이와 자연선택 장독대">
+  <title>변이와 자연선택 과정 구분 장독대 | 콩쥐야 줘때써 - 생명과학편</title>
+  <link rel="stylesheet" href="../../assets/css/biology-quiz.css?v=20260812-biology1">
+</head>
+<body>
+  <a class="skip-link" href="#quizMain">문제로 바로가기</a>
+  <header class="quiz-topbar">
+    <a class="quiz-brand" href="./?view=jars" aria-label="생명과학 장독대로 돌아가기">
+      <span class="brand-seal" aria-hidden="true">生</span>
+      <span><strong>콩쥐야 줘때써 - 생명과학편</strong><small>BIOLOGY TRAINING</small></span>
+    </a>
+    <a class="exit-link" href="./?view=jars">장독대 선택</a>
+  </header>
+
+  <main id="quizMain" class="quiz-shell" data-scene-state="loading">
+    <section class="quiz-heading" aria-labelledby="quizTitle">
+      <p class="eyebrow">EVOLUTION TRAINING JAR</p>
+      <h1 id="quizTitle">변이와 자연선택 과정 구분 장독대</h1>
+      <p>첨부 자료를 읽고 변이의 원인과 자연선택 과정을 구분하세요.</p>
+      <div class="quiz-progress" aria-label="문제 진행도">
+        <span id="progressText">1 / 10</span>
+        <div><i id="progressBar"></i></div>
+      </div>
+    </section>
+
+    <section id="questionPanel" class="question-panel" aria-live="polite">
+      <section class="game-stage-card" aria-label="콩쥐와 장독대 애니메이션">
+        <div id="visualStage" class="scene-animation-zone"></div>
+        <div class="scene-game-hud">
+          <span>장독대 물</span>
+          <div class="water-gauge"><i id="waterGauge"></i></div>
+          <strong id="waterText">55%</strong>
+        </div>
+      </section>
+      <div class="quiz-task-column">
+        <figure class="source-frame">
+          <img id="sourceImage" src="" alt="">
+          <figcaption id="sourceLabel"></figcaption>
+        </figure>
+        <div class="answer-panel">
+          <h2 id="questionPrompt" class="question-prompt" tabindex="-1"></h2>
+          <div id="answerChoices" class="answer-choices"></div>
+          <p class="keyboard-hint">PC에서는 숫자키로 바로 선택할 수 있습니다.</p>
+          <div id="feedback" class="feedback" role="status" hidden>
+            <strong id="feedbackTitle"></strong>
+            <p id="feedbackExplanation"></p>
+          </div>
+          <button id="nextButton" class="next-button" type="button" hidden>다음 문제</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultPanel" class="result-panel" hidden aria-labelledby="resultTitle">
+      <p class="eyebrow">TRAINING COMPLETE</p>
+      <h2 id="resultTitle" tabindex="-1">장독대 훈련 완료</h2>
+      <strong id="resultScore">0 / 0</strong>
+      <p id="resultSummary"></p>
+      <div class="result-actions">
+        <button id="retryButton" type="button">다시 풀기</button>
+        <a href="./?view=records">기록 보기</a>
+        <a href="./?view=jars">다른 장독대</a>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="../../assets/js/biology-evolution-quiz.js?v=20260812-biology1"></script>
+</body>
+</html>
