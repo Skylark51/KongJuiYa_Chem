@@ -1,8 +1,12 @@
 import { isCourtServantMode, playCourtServantPour, resetCourtServantPour } from "./court-servant-effect.js";
-import { feedbackCadenceMs } from "./quiz-cadence.js";
 
 const EVENT_TARGET = globalThis;
 const TRANSIENT_FEEDBACK_STATES = new Set(["correct", "wrong", "timeout"]);
+export const SCENE_FEEDBACK_DURATION_MS = Object.freeze({
+  correct: 1400,
+  wrong: 680,
+  timeout: 820
+});
 const POUR_CHARACTER_FRAMES = [2, 2, 3, 3, 4, 4, 5, 5, 5, 6, 6];
 const POUR_STREAM_FRAMES = [1, 2, 3, 4, 5, 6, 7];
 const POUR_SPLASH_FRAMES = [1, 2, 3, 4, 5];
@@ -195,7 +199,7 @@ export class LayeredSceneStateController {
         const combo = Number(detail.combo || detail.streak || 0);
         this.renderer.setExpression(combo >= 3 ? "combo" : "correct");
         this.playCorrectFeedback(detail);
-        this.schedule(() => this.apply("question"), feedbackCadenceMs("correct"));
+        this.schedule(() => this.apply("question"), SCENE_FEEDBACK_DURATION_MS.correct);
         break;
       }
 
@@ -208,7 +212,7 @@ export class LayeredSceneStateController {
         this.playSequence("kongjwi", sequences.answerWrong?.kongjwi || [7], 560, { hold: true });
         this.playSequence("tool", [7], 560, { hold: true });
         this.startLeakLoop({ energetic: true });
-        this.schedule(() => this.apply("question"), feedbackCadenceMs("wrong"));
+        this.schedule(() => this.apply("question"), SCENE_FEEDBACK_DURATION_MS.wrong);
         break;
 
       case "timeout":
@@ -218,7 +222,7 @@ export class LayeredSceneStateController {
         this.playSequence("kongjwi", [7], 700, { hold: true });
         this.playSequence("tool", [7], 700, { hold: true });
         this.startLeakLoop({ energetic: true });
-        this.schedule(() => this.apply("question"), feedbackCadenceMs("timeout"));
+        this.schedule(() => this.apply("question"), SCENE_FEEDBACK_DURATION_MS.timeout);
         break;
 
       case "warning":

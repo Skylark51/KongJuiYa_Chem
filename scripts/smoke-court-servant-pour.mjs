@@ -35,9 +35,16 @@ try {
 
     await page.goto(baseUrl + gamePath, { waitUntil: "domcontentloaded", timeout: 15000 });
     await page.waitForFunction(() => globalThis.KongJuiYaGame?.game?.state?.status === "running" && document.getElementById("layeredScene")?.dataset.kongjwiOutfit === "night-court", null, { timeout: 15000 });
+    const answeredQuestionId = await page.evaluate(() => globalThis.KongJuiYaGame.game.question.id);
+    const submittedAt = Date.now();
     await page.evaluate(() => globalThis.KongJuiYaGame.submit(globalThis.KongJuiYaGame.game.question.answers[0]));
     await page.waitForSelector(".scene-court-servants.is-active[data-asset-mode='authored-dolsoe']", { timeout: 10000 });
-    await page.waitForTimeout(590);
+    await page.waitForFunction(questionId => {
+      const game = globalThis.KongJuiYaGame?.game;
+      return game?.state?.feedbackPending === false && game?.question?.id !== questionId;
+    }, answeredQuestionId, { timeout: 1100 });
+    const advanceElapsedMs = Date.now() - submittedAt;
+    await page.waitForTimeout(80);
 
     const qa = await page.evaluate(() => {
       const stage = document.getElementById("visualStage").getBoundingClientRect();
@@ -57,6 +64,9 @@ try {
         streamImage: getComputedStyle(sprite).backgroundImage,
         streamOpacity: Number(getComputedStyle(stream).opacity),
         waterFlow: document.getElementById("layeredScene")?.dataset.waterFlow,
+        sceneState: document.getElementById("ui-gameApp")?.dataset.sceneState,
+        currentQuestionId: globalThis.KongJuiYaGame?.game?.question?.id,
+        feedbackPending: globalThis.KongJuiYaGame?.game?.state?.feedbackPending,
         servantContained: Boolean(servantBox && servantBox.left >= stage.left - 1 && servantBox.right <= stage.right + 1 && servantBox.top >= stage.top - 1 && servantBox.bottom <= stage.bottom + 1),
         streamContained: Boolean(streamBox && streamBox.left >= stage.left - 1 && streamBox.right <= stage.right + 1 && streamBox.top >= stage.top - 1 && streamBox.bottom <= stage.bottom + 1)
       };
@@ -69,6 +79,9 @@ try {
     assert(qa.dropletsOpacity > 0, `${width}x${height}: precision water invisible`);
     assert(qa.streamImage.includes("water-pour-sheet.png"), `${width}x${height}: continuous water stream missing`);
     assert(qa.streamOpacity > 0.9 && qa.waterFlow === "pour", `${width}x${height}: stream is not visibly pouring`);
+    assert(advanceElapsedMs < 1100, `${width}x${height}: next question cadence was too slow (${advanceElapsedMs}ms)`);
+    assert(qa.currentQuestionId !== answeredQuestionId && qa.feedbackPending === false, `${width}x${height}: next question did not advance`);
+    assert(qa.sceneState === "correct", `${width}x${height}: visual effect ended when the question advanced`);
     assert(qa.servantContained && qa.streamContained, `${width}x${height}: actor or stream escaped the stage`);
     assert(errors.length === 0, `${width}x${height}: console errors\n${errors.join("\n")}`);
     assert(failures.length === 0, `${width}x${height}: HTTP failures\n${failures.join("\n")}`);
@@ -79,7 +92,7 @@ try {
     }
     await context.close();
   }
-  console.log("court servant pour smoke: authored Dolsoe, continuous stream and precision droplets passed in 4 viewports");
+  console.log("court servant pour smoke: fast next-question cadence kept the full Dolsoe and water effect in 4 viewports");
 } finally {
   await browser.close();
 }

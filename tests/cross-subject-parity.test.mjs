@@ -7,6 +7,7 @@ import { SUBJECT_GAME_CONTENT, createSubjectGameContent } from "../data/subject-
 import { GameCore } from "../assets/js/game-core.js";
 import { QuestionEngine, getInputDescriptor } from "../assets/js/question-engine.js";
 import { QuizCadenceController, QUIZ_FEEDBACK_CADENCE } from "../assets/js/quiz-cadence.js";
+import { SCENE_FEEDBACK_DURATION_MS } from "../assets/js/scene-state-machine.js";
 
 const root = resolve(import.meta.dirname, "..");
 const read = path => readFile(resolve(root, path), "utf8");
@@ -42,23 +43,21 @@ test("subject theme CSS contains tokens and presentation specialization, not a s
   assert.equal(css.includes('[data-presentation="source-image"]'), true);
 });
 
-test("one production GameCore and one shared cadence own all live science quizzes", async () => {
+test("one production GameCore owns quiz cadence while the shared scene owns visual duration", async () => {
   const main = await read("assets/js/main.js");
   const scene = await read("assets/js/scene-state-machine.js");
   assert.equal(main.split("new GameCore(").length - 1, 1);
   assert.equal(main.split("new QuizCadenceController(").length - 1, 1);
-  for (const kind of ["correct", "wrong", "timeout"]) {
-    assert.equal(scene.includes('feedbackCadenceMs("' + kind + '")'), true);
-  }
-  for (const delay of ["1400", "680", "820"]) {
-    assert.equal(scene.includes('apply("question"), ' + delay), false);
-  }
+  assert.equal(scene.includes("feedbackCadenceMs"), false);
+  assert.equal(QUIZ_FEEDBACK_CADENCE.correct, 680);
+  assert.equal(SCENE_FEEDBACK_DURATION_MS.correct, 1400);
+  assert.ok(QUIZ_FEEDBACK_CADENCE.correct < SCENE_FEEDBACK_DURATION_MS.correct);
   for (const subjectId of ["biology", "earth-science"]) {
     assert.ok(SUBJECT_GAME_CONTENT[subjectId].trainingModes.length > 0);
   }
 });
 
-test("cadence keeps the answered question and input lock until chemistry animation completion", () => {
+test("cadence advances to the next question before the correct animation completes", () => {
   const content = SUBJECT_GAME_CONTENT.biology;
   let pending = null;
   const cadence = new QuizCadenceController({
@@ -83,6 +82,7 @@ test("cadence keeps the answered question and input lock until chemistry animati
   assert.equal(core.state.feedbackPending, true);
   assert.equal(core.submit(answer).accepted, false);
   assert.equal(pending.delay, QUIZ_FEEDBACK_CADENCE.correct);
+  assert.ok(pending.delay < SCENE_FEEDBACK_DURATION_MS.correct);
   pending.callback();
   assert.notEqual(core.question.id, answeredId);
   assert.equal(core.state.feedbackPending, false);

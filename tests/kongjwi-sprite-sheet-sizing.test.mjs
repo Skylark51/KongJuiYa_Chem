@@ -23,5 +23,5 @@ test("sprite repair keeps one outer cache boundary and canonical internal module
   assert.ok(!main.includes("metal-reactivity-choice-ui.js?v="));
   assert.ok(gamePage.includes('from "./main.js";'));
   assert.ok(!gamePage.includes("main.js?v="));
-  assert.ok(html.includes('assets/js/game-page.js?v=20260812-dolsoe-pour1'));
+  assert.ok(html.includes('assets/js/game-page.js?v=20260812-rhythm-cadence1'));
 });
