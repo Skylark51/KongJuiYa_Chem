@@ -1,0 +1,27 @@
+/* Desktop jar cards must render the authored PNG exactly once.
+   shop.css still contains a legacy jars.png ::after atlas fallback; keeping both
+   layers makes the old cropped atlas cover the current full-resolution artwork. */
+@media (min-width: 1061px) {
+  html[data-device-layout="desktop"] .shop-page .shop-grid[data-category="jar"] .shop-item-visual.shop-jar-visual::after {
+    content: none !important;
+    display: none !important;
+    background-image: none !important;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-grid[data-category="jar"] .shop-asset-jar.is-authored-jar {
+    position: relative;
+    z-index: 2;
+    overflow: visible !important;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-grid[data-category="jar"] .shop-jar-image {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
+  }
+}
