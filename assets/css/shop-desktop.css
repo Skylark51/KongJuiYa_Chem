@@ -1,0 +1,219 @@
+/* Desktop-only Bean Store composition.
+   Mobile sizing remains owned by shop-navigation.css and the category-specific mobile sheets. */
+@media (min-width: 1061px) {
+  html[data-device-layout="desktop"] .shop-page .shop-shell {
+    width: min(1320px, 100%);
+    padding-inline: clamp(20px, 2.4vw, 34px);
+    padding-bottom: 40px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .lobby-topbar {
+    margin-bottom: 18px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-workspace {
+    min-height: 0;
+    border-radius: 26px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-view {
+    min-height: 0;
+    padding: 26px clamp(24px, 2.5vw, 32px) 30px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-view-header {
+    width: min(1180px, 100%);
+    margin-inline: auto;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-view-header h1 {
+    font-size: clamp(34px, 3.2vw, 44px);
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-view-header h2 {
+    font-size: clamp(30px, 2.7vw, 38px);
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-view-header p:not(.eyebrow) {
+    max-width: 600px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-category-grid,
+  html[data-device-layout="desktop"] .shop-page .shop-grid {
+    width: min(1180px, 100%);
+    margin-inline: auto;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: start;
+    gap: 16px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-category-card {
+    grid-template-rows: auto 190px auto;
+    min-height: 0;
+    height: auto;
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-category-visual {
+    width: 100%;
+    height: 190px;
+    min-height: 190px;
+    margin: 10px 0;
+    border-radius: 14px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-category-card-label strong {
+    font-size: 17px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-item {
+    aspect-ratio: auto;
+    grid-template-rows: 210px auto 42px;
+    min-height: 0;
+    height: auto;
+    padding: 12px;
+    border-radius: 18px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-item-visual {
+    width: 100%;
+    height: 210px;
+    min-height: 210px;
+    max-height: 210px;
+    aspect-ratio: auto;
+    align-self: stretch;
+    border-radius: 14px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-item-copy {
+    min-height: 70px;
+    padding: 11px 4px 9px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-item h3 {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.25;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-item-meta {
+    min-height: 24px;
+    margin-top: 8px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-rarity {
+    min-height: 23px;
+    padding: 4px 7px;
+    font-size: 8px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-price {
+    color: #f6d990;
+    font-size: 11px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-item-actions {
+    align-self: end;
+    min-height: 42px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-item-action,
+  html[data-device-layout="desktop"] .shop-page .shop-item-try-on {
+    min-height: 42px;
+    margin: 0;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-item.is-equipped::after {
+    top: 14px !important;
+    right: 14px !important;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-grid[data-category="jar"] .shop-item-visual.shop-jar-visual {
+    width: 100% !important;
+    height: 210px !important;
+    min-height: 210px !important;
+    max-height: 210px !important;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-grid[data-category="jar"] .shop-jar-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-grid[data-category="tool"] .shop-item-visual,
+  html[data-device-layout="desktop"] .shop-page .shop-grid[data-category="toad"] .shop-item-visual {
+    background:
+      radial-gradient(circle at 50% 34%, rgba(255, 255, 255, .085), transparent 44%),
+      linear-gradient(155deg, #1c1712, #0f0d0a);
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-grid[data-category="toad"] .shop-asset-toad {
+    height: min(82%, 165px);
+  }
+}
+
+/* 125% Windows scaling commonly exposes roughly 1100-1200 CSS px on a 1440px monitor.
+   Keep the four-card row, but compress the art stage so it reads as a desktop catalog rather than four phone cards. */
+@media (min-width: 1061px) and (max-width: 1200px) {
+  html[data-device-layout="desktop"] .shop-page .shop-view {
+    padding: 22px 22px 26px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-view-header {
+    margin-bottom: 16px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-view-header h2 {
+    font-size: 34px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-category-grid,
+  html[data-device-layout="desktop"] .shop-page .shop-grid {
+    gap: 12px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-category-card {
+    grid-template-rows: auto 172px auto;
+    padding: 12px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-category-visual {
+    height: 172px;
+    min-height: 172px;
+    margin: 8px 0;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-item {
+    grid-template-rows: 184px auto 40px;
+    padding: 10px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-item-visual,
+  html[data-device-layout="desktop"] .shop-page .shop-grid[data-category="jar"] .shop-item-visual.shop-jar-visual {
+    height: 184px !important;
+    min-height: 184px !important;
+    max-height: 184px !important;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-item-copy {
+    min-height: 64px;
+    padding: 9px 3px 8px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-item h3 {
+    font-size: 16px;
+  }
+
+  html[data-device-layout="desktop"] .shop-page .shop-item-action,
+  html[data-device-layout="desktop"] .shop-page .shop-item-try-on,
+  html[data-device-layout="desktop"] .shop-page .shop-item-actions {
+    min-height: 40px;
+  }
+}
