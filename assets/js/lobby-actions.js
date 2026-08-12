@@ -5,6 +5,7 @@ import { applyDeviceMode, getDeviceMode, mountDeviceControls } from "./device-en
 import { GAME_TITLE, applyJarTheme, createJarPreview, displayJarName } from "./theme-system.js";
 import { renderDashboard, dashboardMetrics, formatPlayedAt } from "./dashboard-v4.js";
 import { DIFFICULTY_LABELS, hasPlayHistory, modeMetrics, playedModes, recommendQuickStart, storedDifficulty } from "./lobby-logic.js";
+import { siteUrl } from "./site-routing.js";
 
 const SELECTION_KEY = "kongjuiya-training-selection";
 const CATEGORY_SELECTION_KEY = "kongjuiya-training-category";
@@ -81,7 +82,7 @@ function launchTraining(mode, difficulty = storedDifficulty(storage.data, mode),
   } catch {
     // The training query string still selects the intended mode when session storage is unavailable.
   }
-  location.href = "콩쥐야_줘때써.html?training=" + encodeURIComponent(mode.id);
+  location.href = siteUrl("콩쥐야_줘때써.html?training=" + encodeURIComponent(mode.id));
 }
 
 function currentRunMode() {

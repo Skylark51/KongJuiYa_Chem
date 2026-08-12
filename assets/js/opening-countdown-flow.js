@@ -1,3 +1,5 @@
+import { chemistryLobbyUrl } from "./site-routing.js";
+
 const COUNTDOWN_TOTAL_MS = 3000;
 const COUNTDOWN_INTRO_MS = 600;
 const COUNTDOWN_STEP_MS = 700;
@@ -107,7 +109,7 @@ export function mountOpeningCountdown({ getApi = () => globalThis.KongJuiYaGame 
   function handleConfirmHome(event) {
     event.preventDefault();
     event.stopImmediatePropagation();
-    pendingExitRoute = "index.html?view=jars";
+    pendingExitRoute = chemistryLobbyUrl("jars");
     if (exitDialog?.open) exitDialog.close("home");
     if (adDialog && !adDialog.open) adDialog.showModal();
     else if (!adDialog) location.href = pendingExitRoute;

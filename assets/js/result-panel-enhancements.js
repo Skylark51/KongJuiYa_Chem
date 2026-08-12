@@ -1,3 +1,5 @@
+import { chemistryLobbyUrl } from "./site-routing.js";
+
 const RUN_RESPONSE_KEY = "kongjuiya-current-run-response";
 
 let trainingId = null;
@@ -98,7 +100,7 @@ function ensureResultButtons(panel) {
     jars.type = "button";
     jars.className = "result-home-button result-action-button";
     jars.addEventListener("click", () => {
-      location.href = "index.html?view=jars";
+      location.href = chemistryLobbyUrl("jars");
     });
   }
   jars.textContent = "다른 장독대 고르기";
@@ -109,7 +111,7 @@ function ensureResultButtons(panel) {
     records.type = "button";
     records.className = "result-records-button result-action-button";
     records.addEventListener("click", () => {
-      location.href = "index.html?view=records";
+      location.href = chemistryLobbyUrl("records");
     });
   }
   records.textContent = "기록으로 이동";

@@ -6,7 +6,7 @@ const root = resolve(import.meta.dirname, "..");
 const read = path => readFile(resolve(root, path), "utf8");
 
 const [indexHtml, navigation, lobbyActions] = await Promise.all([
-  read("index.html"),
+  read("subjects/chemistry/index.html"),
   read("assets/js/lobby-navigation.js"),
   read("assets/js/lobby-actions.js")
 ]);

@@ -23,8 +23,8 @@ test("result enhancement announces new records and exposes all requested routes"
   assert.match(js, /다시하기/);
   assert.match(js, /다른 장독대 고르기/);
   assert.match(js, /기록으로 이동/);
-  assert.match(js, /index\.html\?view=jars/);
-  assert.match(js, /index\.html\?view=records/);
+  assert.match(js, /chemistryLobbyUrl\("jars"\)/);
+  assert.match(js, /chemistryLobbyUrl\("records"\)/);
 });
 
 test("result actions are ordered records, retry, then jar selection", () => {

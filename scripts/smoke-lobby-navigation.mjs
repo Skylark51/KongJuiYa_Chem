@@ -37,7 +37,7 @@ async function exerciseLobby(browser, name, viewport, mobile) {
   });
 
   try {
-    await page.goto(`${baseUrl}/index.html?view=home`, { waitUntil: "networkidle" });
+    await page.goto(`${baseUrl}/subjects/chemistry/?view=home`, { waitUntil: "networkidle" });
     await page.waitForFunction(() => document.documentElement.dataset.lobbyRouterReady === "true");
     await page.waitForFunction(() => document.querySelectorAll("#trainingGrid .training-card").length > 0);
     await waitForView(page, "home");

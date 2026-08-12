@@ -6,7 +6,7 @@ import { GAME_TITLE, JAR_THEMES, displayJarName, themeFor } from '../assets/js/t
 const read = file => readFile(new URL('../' + file, import.meta.url), 'utf8');
 
 test('official title is present in lobby and game HTML', async () => {
-  for (const file of ['index.html', '콩쥐야_줘때써.html']) {
+  for (const file of ['subjects/chemistry/index.html', '콩쥐야_줘때써.html']) {
     const html = await read(file);
     assert.ok(html.includes('<title>' + GAME_TITLE + '</title>'));
     assert.ok(html.includes(GAME_TITLE));
@@ -47,7 +47,7 @@ test('single game entry owns lobby redirects and result navigation', async () =>
   const ui = await read('assets/js/ui-effects.js');
   assert.match(html, /game-page\.js\?v=/);
   assert.match(entry, /initializeGamePage/);
-  assert.match(ui, /index\.html\?view=jars/);
+  assert.match(ui, /chemistryLobbyUrl\("jars"\)/);
   assert.match(ui, /장독대 고르기로/);
 });
 

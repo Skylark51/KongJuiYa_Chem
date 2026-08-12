@@ -60,6 +60,8 @@ jobs:
           curl --fail --retry 10 --retry-connrefused --retry-delay 1 http://127.0.0.1:4173/index.html > /dev/null
       - name: Lobby and jar-selection smoke
         run: node scripts/smoke-lobby-navigation.mjs
+      - name: Master portal and subject routing smoke
+        run: node scripts/smoke-subject-portal.mjs
       - name: Quiz interface smoke
         run: node scripts/smoke-quiz-interface.mjs
       - name: Layered scene smoke

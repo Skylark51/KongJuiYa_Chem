@@ -2,6 +2,7 @@ import { TRAINING_MODES } from "../../data/training-modes.js";
 import { GameStorage } from "./storage.js";
 import { displayJarName } from "./theme-system.js";
 import { modeMetrics } from "./lobby-logic.js";
+import { siteUrl } from "./site-routing.js";
 
 const DEFAULT_QUESTION_COUNT = 10;
 const MIN_QUESTION_COUNT = 5;
@@ -22,10 +23,11 @@ const totalAnswers = () => Object.values(storage.data.statistics || {}).reduce((
 
 function ensureStylesheet() {
   const href = "assets/css/records-enhancements.css?v=20260807-records-analytics1";
-  if (document.querySelector('link[href^="assets/css/records-enhancements.css"]')) return;
+  if (document.querySelector('link[data-site-stylesheet="assets/css/records-enhancements.css"]')) return;
   const link = document.createElement("link");
   link.rel = "stylesheet";
-  link.href = href;
+  link.dataset.siteStylesheet = "assets/css/records-enhancements.css";
+  link.href = siteUrl(href);
   document.head.append(link);
 }
 
@@ -119,7 +121,7 @@ function enhanceRecordCard(card) {
   card.setAttribute("aria-label", `${title} 상세 기록 보기`);
 
   const open = () => {
-    location.href = `record-detail.html?training=${encodeURIComponent(mode.id)}`;
+    location.href = siteUrl(`record-detail.html?training=${encodeURIComponent(mode.id)}`);
   };
   card.addEventListener("click", open);
   card.addEventListener("keydown", event => {

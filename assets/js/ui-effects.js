@@ -3,6 +3,7 @@ import { GAME_TITLE, displayJarName } from "./theme-system.js";
 import { mountHistoricalBgm } from "./historical-bgm.js";
 import { mountMobileKeypad } from "./mobile-keypad.js";
 import { mountGameScene } from "./game-cosmetics-entry.js";
+import { chemistryLobbyUrl } from "./site-routing.js";
 
 const SELECTION_KEY = "kongjuiya-training-selection";
 const byId = id => document.getElementById(id);
@@ -48,7 +49,7 @@ export async function initializeGamePage(api = globalThis.KongJuiYaGame) {
   const requestedTrainingId = new URLSearchParams(location.search).get("training");
 
   if (!requestedTrainingId && !selection?.trainingId) {
-    location.replace("index.html?view=jars");
+    location.replace(chemistryLobbyUrl("jars"));
     return;
   }
 
@@ -174,7 +175,7 @@ export async function initializeGamePage(api = globalThis.KongJuiYaGame) {
       homeButton.className = "result-home-button";
       homeButton.textContent = "장독대 고르기로";
       homeButton.addEventListener("click", () => {
-        location.href = "index.html?view=jars";
+        location.href = chemistryLobbyUrl("jars");
       });
       panel.append(homeButton);
     }
@@ -210,7 +211,7 @@ export async function initializeGamePage(api = globalThis.KongJuiYaGame) {
     if (api.game.state.status === "paused") api.game.resume();
   });
   byId("confirmHomeButton").addEventListener("click", () => {
-    location.href = "index.html?view=jars";
+    location.href = chemistryLobbyUrl("jars");
   });
   byId("exitDialog").addEventListener("close", () => {
     if (byId("exitDialog").returnValue !== "home" && api.game.state.status === "paused") {

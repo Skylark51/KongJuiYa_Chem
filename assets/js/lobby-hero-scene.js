@@ -1,3 +1,5 @@
+import { siteUrl } from "./site-routing.js";
+
 const HERO_ART_PATH = "assets/images/background/courtyard-night.png";
 
 function simplifyHomeScreen() {
@@ -18,7 +20,7 @@ export function installLobbyHeroScene() {
   const hero = document.getElementById("lobbyTop");
   if (!hero) return;
 
-  const heroArtUrl = new URL(HERO_ART_PATH, document.baseURI).href;
+  const heroArtUrl = siteUrl(HERO_ART_PATH);
   hero.classList.remove("has-scene-art", "has-live-scene", "has-single-photo");
   hero.classList.add("has-stable-background");
   hero.style.setProperty("--hero-photo", `url("${heroArtUrl}")`);

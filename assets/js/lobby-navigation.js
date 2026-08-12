@@ -1,5 +1,6 @@
 import { GameStorage } from "./storage.js";
 import "./records-enhancements.js";
+import { siteUrl } from "./site-routing.js";
 
 const VALID_VIEWS = new Set(["home", "jars", "records"]);
 const viewNodes = [...document.querySelectorAll("[data-app-view]")];
@@ -21,10 +22,11 @@ const MOBILE_NAV_ICONS = [
 
 function appendStylesheet(href) {
   const path = href.split("?")[0];
-  if (document.querySelector(`link[href^="${path}"]`)) return;
+  if (document.querySelector(`link[data-site-stylesheet="${path}"]`)) return;
   const link = document.createElement("link");
   link.rel = "stylesheet";
-  link.href = href;
+  link.dataset.siteStylesheet = path;
+  link.href = siteUrl(href);
   document.head.append(link);
 }
 
@@ -142,7 +144,7 @@ function installMainCtaFallback() {
       } catch {
         // Query string remains a complete fallback when session storage is blocked.
       }
-      location.assign("콩쥐야_줘때써.html?training=atomic_number");
+      location.assign(siteUrl("콩쥐야_줘때써.html?training=atomic_number"));
     });
   });
 }

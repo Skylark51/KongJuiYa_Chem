@@ -1,0 +1,35 @@
+.science-portal-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 39px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--gold-2);
+  background: rgba(31, 23, 17, .72);
+  font-size: 10px;
+  font-weight: 900;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.mobile-portal-link { display: none !important; }
+
+html[data-device-layout="mobile"] .science-portal-link { display: none; }
+html[data-device-layout="mobile"] .shop-page .science-portal-link {
+  display: inline-flex;
+  min-height: 36px;
+  padding-inline: 10px;
+}
+html[data-device-layout="mobile"] .mobile-bottom-nav { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
+html[data-device-layout="mobile"] .mobile-portal-link { display: grid !important; }
+
+@media (max-width: 390px) {
+  html[data-device-layout="mobile"] .mobile-bottom-nav {
+    left: 4px;
+    right: 4px;
+    gap: 2px;
+    padding: 5px;
+  }
+}

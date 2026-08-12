@@ -1,3 +1,5 @@
+import { siteUrl } from "./site-routing.js";
+
 export const GAME_TITLE = "콩쥐야 줘때써 - 화학편";
 
 const JAR_THUMBNAIL_STYLE_ID = "jar-png-preview-style-v4";
@@ -151,7 +153,7 @@ function ensureJarPhotoStyle() {
 function setPreviewSkin(preview, jarSkin) {
   const skin = normalizeJarSkin(jarSkin);
   preview.dataset.jarSkin = skin;
-  preview.style.backgroundImage = `url("${JAR_PREVIEW_PNGS[skin]}")`;
+  preview.style.backgroundImage = `url("${siteUrl(JAR_PREVIEW_PNGS[skin])}")`;
   preview.style.filter = "none";
 }
 

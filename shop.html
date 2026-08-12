@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko" data-page="shop" data-ui-version="20260807-tool-card3">
+<html lang="ko" data-page="shop" data-site-root="./" data-ui-version="20260807-tool-card3">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -31,13 +31,14 @@
   <link rel="stylesheet" href="assets/css/shop-outfit-layout.css?v=20260805-jar-clean2">
   <link rel="stylesheet" href="assets/css/shop-jar-card-layout.css?v=20260805-jar-fit1">
   <link rel="stylesheet" href="assets/css/shop-tool-framing.css?v=20260807-tool-card3">
+  <link rel="stylesheet" href="assets/css/subject-navigation.css?v=20260812-multiscience1">
 </head>
 <body class="shop-page lobby-page">
   <a class="skip-link" href="#shopWorkspace">상점 메뉴로 바로가기</a>
 
   <main class="shop-shell lobby-app">
     <header class="lobby-topbar">
-      <a class="app-brand" href="index.html?view=home" aria-label="홈으로 이동">
+      <a class="app-brand" href="subjects/chemistry/?view=home" aria-label="홈으로 이동">
         <span class="brand-seal" aria-hidden="true">甕</span>
         <span>
           <strong>콩쥐야 줘때써 - 화학편</strong>
@@ -46,13 +47,14 @@
       </a>
 
       <nav class="desktop-tabs" aria-label="주요 화면">
-        <a href="index.html?view=home">홈</a>
-        <a href="index.html?view=jars">장독대</a>
-        <a href="index.html?view=records">기록</a>
+        <a href="subjects/chemistry/?view=home">홈</a>
+        <a href="subjects/chemistry/?view=jars">장독대</a>
+        <a href="subjects/chemistry/?view=records">기록</a>
         <a href="shop.html" aria-current="page">콩 상점</a>
       </nav>
 
       <div class="topbar-actions">
+        <a class="science-portal-link" href="./" aria-label="과학 통합관으로 이동">전체 과목</a>
         <div class="bean-wallet" aria-label="현재 보유 콩"><small>보유 콩</small><strong id="shopBeans">0</strong></div>
         <button id="settingsButton" class="topbar-icon" type="button" aria-label="설정 열기">⚙</button>
       </div>

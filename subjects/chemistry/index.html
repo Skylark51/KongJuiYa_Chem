@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ko" data-page="lobby" data-subject="chemistry" data-site-root="../../" data-ui-version="20260812-multiscience1">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#15110d">
+  <meta name="description" content="콩쥐야 줘때써 - 화학편: 장독대를 채우며 화학 문제를 풀어 보세요.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="콩쥐야 줘때써 - 화학편">
+  <meta property="og:description" content="장독대를 채우며 화학 문제를 풀어 보세요.">
+  <meta property="og:url" content="https://skylark51.github.io/KongJuiYa_Chem/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="콩쥐야 줘때써 - 화학편">
+  <title>콩쥐야 줘때써 - 화학편</title>
+  <script>
+    (() => {
+      try {
+        const stored = localStorage.getItem("kongjuiya-device-mode") || "auto";
+        const coarse = matchMedia("(pointer: coarse)").matches;
+        const detected = innerWidth <= 820 || (coarse && innerWidth < 1100) ? "mobile" : "desktop";
+        const resolved = stored === "mobile" || stored === "desktop" ? stored : detected;
+        document.documentElement.dataset.deviceMode = stored;
+        document.documentElement.dataset.deviceLayout = resolved;
+        if (innerWidth <= 760 || resolved === "mobile") document.documentElement.dataset.mobileUi = "shadcn";
+      } catch {
+        if (innerWidth <= 760) document.documentElement.dataset.mobileUi = "shadcn";
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../../assets/css/lobby-scene.css?v=20260803-cohesive1">
+  <link rel="stylesheet" href="../../assets/css/mobile-fixed-shell.css?v=20260805-fixed-shell5">
+  <link rel="stylesheet" href="../../assets/css/lobby-hero-scene.css?v=20260806-lobby-router1">
+  <link rel="stylesheet" href="../../assets/css/subject-navigation.css?v=20260812-multiscience1">
+  <style id="forcedMobileLayout">html[data-device-layout="mobile"] body{padding-bottom:82px}html[data-device-layout="mobile"] .lobby-app{padding:8px 9px 24px}html[data-device-layout="mobile"] .lobby-topbar{top:max(5px,env(safe-area-inset-top));grid-template-columns:minmax(0,1fr) auto;margin-bottom:9px;padding:7px;border-radius:15px}html[data-device-layout="mobile"] .desktop-tabs,html[data-device-layout="mobile"] .bean-wallet,html[data-device-layout="mobile"] .category-filter{display:none}html[data-device-layout="mobile"] .brand-seal{width:40px;height:40px;font-size:20px}html[data-device-layout="mobile"] .app-brand strong{font-size:14px}html[data-device-layout="mobile"] .app-brand small{font-size:6px}html[data-device-layout="mobile"] .topbar-icon{width:40px;height:40px}html[data-device-layout="mobile"] .home-grid,html[data-device-layout="mobile"] .training-grid,html[data-device-layout="mobile"] .record-grid,html[data-device-layout="mobile"] .learning-dashboard,html[data-device-layout="mobile"] .upgrade-grid{grid-template-columns:1fr}html[data-device-layout="mobile"] .mission-card,html[data-device-layout="mobile"] .view-panel,html[data-device-layout="mobile"] .dashboard-main,html[data-device-layout="mobile"] .dashboard-side,html[data-device-layout="mobile"] .records-section{padding:15px;border-radius:17px}html[data-device-layout="mobile"] .section-heading{align-items:flex-start;flex-direction:column}html[data-device-layout="mobile"] .section-heading>p{max-width:none;text-align:left}html[data-device-layout="mobile"] .mobile-category{display:block;margin-bottom:13px;color:var(--muted);font-size:9px}html[data-device-layout="mobile"] .mobile-category select{display:block;width:100%;height:44px;margin-top:5px;padding:0 10px;border:1px solid var(--line);border-radius:11px;background:#15110d;color:var(--ink)}html[data-device-layout="mobile"] .training-card{min-height:310px}html[data-device-layout="mobile"] .learning-dashboard{gap:9px}html[data-device-layout="mobile"] .dashboard-summary-grid{grid-template-columns:repeat(2,1fr)}html[data-device-layout="mobile"] .dashboard-chart-wrap,html[data-device-layout="mobile"] .dashboard-chart{min-height:170px;height:170px}html[data-device-layout="mobile"] .mobile-bottom-nav{position:fixed;z-index:90;left:7px;right:7px;bottom:max(7px,env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:6px;border:1px solid var(--line);border-radius:17px;background:rgba(17,13,10,.94);box-shadow:0 18px 55px rgba(0,0,0,.48);backdrop-filter:blur(18px)}html[data-device-layout="mobile"] .mobile-bottom-nav button,html[data-device-layout="mobile"] .mobile-bottom-nav a{display:grid;place-items:center;gap:2px;min-width:0;min-height:51px;padding:4px;border-radius:11px;background:transparent;color:#8f806b;font-size:8px;font-weight:900;text-decoration:none}html[data-device-layout="mobile"] .mobile-bottom-nav [aria-current="page"]{background:#2c2118;color:var(--gold-2)}html[data-device-layout="mobile"] .mobile-bottom-nav span{font-family:var(--font-serif);font-size:16px}</style>
+  <style id="homeCleanup">.home-grid{grid-template-columns:minmax(0,1fr)!important}.quick-start-card,.research-summary{display:none!important}</style>
+</head>
+<body class="lobby-page">
+  <a class="skip-link" href="#homeView">메인 화면으로 바로가기</a>
+
+  <main id="mainContent" class="lobby-app">
+    <header class="lobby-topbar">
+      <a class="app-brand" href="?view=home" data-view-target="home" aria-label="홈으로 이동">
+        <span class="brand-seal" aria-hidden="true">甕</span>
+        <span><strong data-game-title>콩쥐야 줘때써 - 화학편</strong><small>Group Resolution: 과학 훈련의 새로운 패러다임</small></span>
+      </a>
+
+      <nav class="desktop-tabs" aria-label="주요 화면">
+        <button type="button" data-view-target="home" aria-current="page">홈</button>
+        <button type="button" data-view-target="jars">장독대</button>
+        <button type="button" data-view-target="records">기록</button>
+        <a href="../../shop.html">콩 상점</a>
+      </nav>
+
+      <div class="topbar-actions">
+        <a class="science-portal-link" href="../../" aria-label="과학 통합관으로 이동">전체 과목</a>
+        <a class="bean-wallet" href="../../shop.html" aria-label="콩 상점으로 이동"><small>보유 콩</small><strong id="headerBeans">0</strong></a>
+        <button id="settingsButton" class="topbar-icon" type="button" aria-label="설정 열기">⚙</button>
+      </div>
+    </header>
+
+    <section id="homeView" class="app-view" data-app-view="home">
+      <section id="lobbyTop" class="lobby-hero" aria-labelledby="lobbyTitle">
+        <div class="hero-shade" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <p class="eyebrow">Group Resolution: 과학 훈련의 새로운 패러다임</p>
+          <h1 id="lobbyTitle"><span data-game-title>콩쥐야 줘때써 - 화학편</span></h1>
+          <p>콩쥐가 붓는 물을 지키고, 두꺼비와 함께 구멍 난 장독대를 채우세요.</p>
+          <p id="ctaHint" class="cta-hint" aria-live="polite">저장된 기본 난도로 시작합니다.</p>
+          <div class="hero-badges" aria-label="게임 핵심 요소">
+            <span><b>01</b> 문제를 맞혀 물을 계속 부어주세요</span>
+            <span><b>02</b> 두꺼비가 구멍 막고 있는 동안 계속해서 물을 부어주세요</span>
+            <span><b>03</b> 장독대를 끝까지 채우고 버티면 콩쥐가 행복합니다</span>
+          </div>
+          <div class="hero-actions">
+            <button id="mainCta" class="primary-button" type="button">장독대 바로 채우기</button>
+            <a id="alternativeCta" class="secondary-button" href="?view=jars" data-view-target="jars">장독대 선택</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="home-grid">
+        <article class="mission-card" aria-labelledby="missionTitle">
+          <div class="card-heading">
+            <div><p class="eyebrow">DAILY MISSION</p><h2 id="missionTitle">오늘의 미션</h2></div>
+            <span class="mission-reward" id="missionReward">보상 콩 0개</span>
+          </div>
+          <p id="missionDescription">오늘의 미션을 완료하고 콩을 획득하여 콩쥐가 줘때지 않게 지켜주세요.</p>
+          <div class="mission-progress-row">
+            <div class="mission-progress"><i id="missionProgressFill"></i></div>
+            <span id="missionProgressText">0 / 0</span>
+          </div>
+          <div id="missionProgress" class="sr-only" role="progressbar" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"></div>
+          <button id="missionClaimButton" class="secondary-button" type="button" disabled>미션 진행 중</button>
+          <p id="missionStatus" class="live-status" role="status" aria-live="polite"></p>
+        </article>
+      </section>
+    </section>
+
+    <section id="jarsView" class="app-view" data-app-view="jars" hidden>
+      <section id="trainingSection" class="view-panel" aria-labelledby="trainingTitle">
+        <div class="section-heading">
+          <div><p class="eyebrow">JAR SELECTION</p><h2 id="trainingTitle">채울 장독대를 고르세요</h2></div>
+          <p>장독대마다 최고 점수와 정답률을 확인하고 바로 시작할 수 있습니다.</p>
+        </div>
+        <div id="categoryFilter" class="category-filter" aria-label="장독대 카테고리"></div>
+        <label class="mobile-category" for="categorySelect">카테고리<select id="categorySelect"></select></label>
+        <div id="trainingGrid" class="training-grid" aria-live="polite"></div>
+      </section>
+    </section>
+
+    <section id="recordsView" class="app-view" data-app-view="records" hidden>
+      <section id="dashboardSection" class="learning-dashboard" aria-labelledby="dashboardTitle">
+        <article class="dashboard-main">
+          <div class="dashboard-heading">
+            <div><p class="eyebrow">PLAY RECORD</p><h2 id="dashboardTitle">장독대 기록</h2><p>실제 저장된 플레이만 표시합니다.</p></div>
+            <span class="dashboard-period">최근 8회</span>
+          </div>
+          <div class="dashboard-summary-grid">
+            <div class="dashboard-stat"><span>총 플레이</span><strong id="dashboardTotalPlays">0</strong><small>누적 도전</small></div>
+            <div class="dashboard-stat"><span>전체 정답률</span><strong id="dashboardAccuracy">—</strong><small>정답·오답 합산</small></div>
+            <div class="dashboard-stat"><span>최고 콤보</span><strong id="dashboardBestCombo">0</strong><small>연속 정답</small></div>
+            <div class="dashboard-stat"><span>총 풀이 문제</span><strong id="dashboardTotalAnswers">0</strong><small>누적 답안</small></div>
+          </div>
+          <div id="dashboardTrendRegion" class="dashboard-chart-wrap" aria-live="polite"></div>
+        </article>
+
+        <aside class="dashboard-side" aria-labelledby="dashboardDetailTitle">
+          <h3 id="dashboardDetailTitle">플레이 요약</h3>
+          <dl class="dashboard-extra-grid">
+            <div><dt>평균 반응 시간</dt><dd id="dashboardAverageResponse">—</dd></div>
+            <div><dt>가장 많이 틀린 장독대</dt><dd id="dashboardMostMissed">—</dd></div>
+            <div><dt>최근 플레이</dt><dd id="dashboardRecentPlayed">—</dd></div>
+          </dl>
+          <h3 class="mode-progress-title">플레이한 장독대</h3>
+          <div id="dashboardModeBars" class="dashboard-mode-list"></div>
+        </aside>
+      </section>
+
+      <section id="recordsSection" class="records-section" aria-labelledby="recordsTitle">
+        <div class="section-heading"><div><p class="eyebrow">DETAIL RECORDS</p><h2 id="recordsTitle">상세 기록</h2></div><p>플레이한 장독대의 세부 기록입니다.</p></div>
+        <div id="recordGrid" class="record-grid" aria-live="polite"></div>
+      </section>
+    </section>
+  </main>
+
+  <nav class="mobile-bottom-nav" aria-label="주요 메뉴">
+    <button type="button" data-view-target="home" aria-current="page"><span aria-hidden="true">⌂</span>홈</button>
+    <button type="button" data-view-target="jars"><span aria-hidden="true">甕</span>장독대</button>
+    <button type="button" data-view-target="records"><span aria-hidden="true">冊</span>기록</button>
+    <a href="../../shop.html"><span aria-hidden="true">豆</span>상점</a>
+    <button id="bottomSettingsButton" type="button" aria-label="설정 열기"><span aria-hidden="true">⚙</span>설정</button>
+    <a class="mobile-portal-link" href="../../" aria-label="과학 통합관으로 이동"><span aria-hidden="true">科</span>통합관</a>
+  </nav>
+
+  <dialog id="settingsDialog" class="modal-card" aria-labelledby="settingsTitle">
+    <form method="dialog">
+      <button class="modal-close" value="cancel" aria-label="설정 닫기">×</button>
+      <p class="eyebrow">SETTINGS</p>
+      <h2 id="settingsTitle"><span data-game-title>콩쥐야 줘때써 - 화학편</span> 설정</h2>
+      <label>음량 <input id="volumeSetting" type="range" min="0" max="1" step="0.1"></label>
+      <label>기본 난도<select id="difficultySetting"><option value="easy">쉬움</option><option value="normal">보통</option><option value="hard">어려움</option></select></label>
+      <label class="toggle-row"><input id="motionSetting" type="checkbox"> 애니메이션 사용</label>
+      <div class="dialog-actions"><button class="secondary-button" value="cancel">취소</button><button class="primary-button" value="save">저장</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="labDialog" class="modal-card lab-dialog" aria-labelledby="labTitle">
+    <form method="dialog">
+      <button class="modal-close" value="cancel" aria-label="두꺼비 연구소 닫기">×</button>
+      <p class="eyebrow">TOAD LAB</p>
+      <h2 id="labTitle">두꺼비 연구소</h2>
+      <p>게임에서 사용하는 강화 효과와 가격을 그대로 표시합니다.</p>
+      <div class="lab-bean-balance">보유 콩 <strong id="labBeans">0</strong></div>
+      <div id="upgradeGrid" class="upgrade-grid"></div>
+      <p id="upgradeStatus" class="live-status" role="status" aria-live="polite"></p>
+      <div class="dialog-actions"><button class="primary-button" value="cancel">닫기</button></div>
+    </form>
+  </dialog>
+
+  <script type="module" src="../../assets/js/lobby-actions.js?v=20260812-multiscience1"></script>
+  <script type="module" src="../../assets/js/lobby-navigation.js?v=20260812-multiscience1"></script>
+</body>
+</html>
