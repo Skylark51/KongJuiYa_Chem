@@ -84,7 +84,7 @@ export class UIAdapter {
 
   chooseShortcut(key) {
     const choice = this.currentInput.choices.find(item => item.key === String(key));
-    if (!choice || this.engine.state.status !== "running") return false;
+    if (!choice || this.engine.state.status !== "running" || this.engine.state.feedbackPending) return false;
     this.handlers.submit?.(choice.key);
     return true;
   }
@@ -110,9 +110,10 @@ export class UIAdapter {
     visual?.classList.toggle("warning", state.water <= 50);
     visual?.classList.toggle("critical", state.water <= 25);
     this.renderInput(question);
-    const disabled = state.status !== "running";
+    const disabled = state.status !== "running" || state.feedbackPending;
     if (this.$("answerInput")) this.$("answerInput").disabled = disabled;
     if (this.$("submitButton")) this.$("submitButton").disabled = disabled;
+    this.choiceBox?.querySelectorAll("button").forEach(button => { button.disabled = disabled; });
   }
 
   renderInput(question) {
@@ -128,6 +129,7 @@ export class UIAdapter {
     const choiceMode = CHOICE_INPUT_MODES.has(this.currentInput.inputMode);
     const input = this.$("answerInput");
     const submit = this.$("submitButton");
+    this.choiceBox.closest(".question-answer-card")?.classList.toggle("has-choice-options", choiceMode);
     this.choiceBox.hidden = !choiceMode;
     if (input) {
       input.hidden = choiceMode;
@@ -185,6 +187,7 @@ export class UIAdapter {
   question(id, question) {
     const element = this.$(id);
     if (!element) return;
+    element.dataset.presentation = question?.presentation?.kind || "text";
     if (this.questionPresentation?.render(element, question)) return;
     if (question?.promptHtml) {
       if (element.innerHTML !== question.promptHtml) element.innerHTML = question.promptHtml;

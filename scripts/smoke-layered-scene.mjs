@@ -90,18 +90,25 @@ async function exerciseGameplay(page, name) {
     score: globalThis.KongJuiYaGame.game.state.score,
     combo: globalThis.KongJuiYaGame.game.state.combo,
     questionId: globalThis.KongJuiYaGame.game.question?.id,
+    feedbackPending: globalThis.KongJuiYaGame.game.state.feedbackPending,
     correctCount: Number(document.getElementById("ui-correctCount")?.textContent || 0),
     feedback: document.getElementById("feedback")?.textContent?.trim()
   }));
   assert(afterCorrect.score > initial.score, `${name}: correct answer did not increase score`);
   assert(afterCorrect.combo >= 1, `${name}: correct answer did not increase combo`);
-  assert(afterCorrect.questionId && afterCorrect.questionId !== initial.questionId, `${name}: next question was not selected`);
+  assert(afterCorrect.questionId === initial.questionId, `${name}: answered question did not remain during feedback`);
+  assert(afterCorrect.feedbackPending === true, `${name}: shared feedback cadence was not active`);
   assert(afterCorrect.correctCount >= 1, `${name}: correct UI count did not update`);
   assert(/정답/.test(afterCorrect.feedback || ""), `${name}: correct feedback did not render`);
   const invariantCounts = await page.evaluate(() => globalThis.__runtimeInvariantCounts);
   assert(invariantCounts.correctEvents === 1, `${name}: answer:correct fired ${invariantCounts.correctEvents} times`);
   assert(invariantCounts.recordAnswer === 1, `${name}: recordAnswer ran ${invariantCounts.recordAnswer} times`);
   assert(invariantCounts.waterFeedback === 1, `${name}: water feedback ran ${invariantCounts.waterFeedback} times`);
+
+  await page.waitForFunction(questionId => {
+    const game = globalThis.KongJuiYaGame?.game;
+    return game?.state?.feedbackPending === false && game?.question?.id !== questionId;
+  }, initial.questionId);
 
   const wrongBefore = await page.evaluate(() => ({
     combo: globalThis.KongJuiYaGame.game.state.combo,
@@ -130,10 +137,24 @@ async function exerciseGameplay(page, name) {
   await page.waitForFunction(() => globalThis.KongJuiYaGame?.game?.state?.status === "running");
 
   if (name === "desktop-1366") {
-    await page.evaluate(() => {
-      const api = globalThis.KongJuiYaGame;
-      while (api.game.state.status === "running") api.submit(api.game.question.answers[0]);
-    });
+    while (await page.evaluate(() => globalThis.KongJuiYaGame.game.state.status === "running")) {
+      const answeredQuestionId = await page.evaluate(() => {
+        const api = globalThis.KongJuiYaGame;
+        const question = api.game.question;
+        const answer = ["binary_choice", "multiple_choice"].includes(question.type)
+          ? question.type === "binary_choice"
+            ? String(question.correctChoice)
+            : String(Number(question.correctChoice) + 1)
+          : String(question.answers?.[0] ?? "");
+        api.submit(answer);
+        return question.id;
+      });
+      await page.waitForFunction(questionId => {
+        const game = globalThis.KongJuiYaGame?.game;
+        return game?.state?.status !== "running"
+          || (game.state.feedbackPending === false && game.question?.id !== questionId);
+      }, answeredQuestionId);
+    }
     const completed = await page.evaluate(() => ({
       status: globalThis.KongJuiYaGame.game.state.status,
       finishRun: globalThis.__runtimeInvariantCounts.finishRun,

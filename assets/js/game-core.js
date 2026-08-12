@@ -33,7 +33,8 @@ export class GameCore {
     dialogueSelector = new ToadDialogueSelector(),
     upgradeSystem = null,
     actionSystem = null,
-    trainingProvider = getTrainingMode
+    trainingProvider = getTrainingMode,
+    cadenceController = null
   } = {}) {
     if (!questionEngine) {
       throw new Error("QuestionEngine가 필요합니다.");
@@ -47,6 +48,8 @@ export class GameCore {
     this.upgrades = upgradeSystem;
     this.actions = actionSystem;
     this.trainingProvider = trainingProvider;
+    this.cadence = cadenceController;
+    this.advanceAfterResume = false;
 
     if (this.actions) {
       this.actions.speak = (category) => this.speak(category);
@@ -87,7 +90,8 @@ export class GameCore {
       feverTier: 0,
       lastResponseMs: 0,
       stageIndex: 0,
-      beansEarned: 0
+      beansEarned: 0,
+      feedbackPending: false
     };
   }
 
@@ -229,6 +233,8 @@ export class GameCore {
     reviewMode = false,
     questionId = null
   } = {}) {
+    this.cadence?.cancel?.();
+    this.advanceAfterResume = false;
     const mode = this.trainingProvider(trainingId);
 
     if (!mode) {
@@ -314,6 +320,7 @@ export class GameCore {
   }
 
   nextQuestion(preferredId = null) {
+    this.state.feedbackPending = false;
     let question = preferredId
       ? this.questionEngine.getQuestion(
           preferredId
@@ -370,12 +377,14 @@ export class GameCore {
       this.maxWater()
     );
 
-    this.state.questionTimeRemaining =
-      Math.max(
-        0,
-        this.state.questionTimeRemaining -
-          delta
-      );
+    if (!this.state.feedbackPending) {
+      this.state.questionTimeRemaining =
+        Math.max(
+          0,
+          this.state.questionTimeRemaining -
+            delta
+        );
+    }
 
     if (this.state.feverActive) {
       this.state.feverRemaining =
@@ -399,6 +408,7 @@ export class GameCore {
     }
 
     if (
+      !this.state.feedbackPending &&
       this.state.questionTimeRemaining <=
       0
     ) {
@@ -595,6 +605,7 @@ export class GameCore {
   submit(input) {
     if (
       this.submissionLocked ||
+      this.state.feedbackPending ||
       this.state.status !== "running"
     ) {
       return {
@@ -789,6 +800,9 @@ export class GameCore {
     this.state.beansEarned +=
       action.beans || 0;
 
+    const clearsTraining = this.state.correctInStage >= this.config.correctAnswersToClear;
+    this.state.feedbackPending = !clearsTraining;
+
     this.emit("answer:correct", {
       question,
       waterGain,
@@ -819,12 +833,11 @@ export class GameCore {
     this.speak(category);
 
     if (
-      this.state.correctInStage >=
-      this.config.correctAnswersToClear
+      clearsTraining
     ) {
       this.clearTraining();
     } else {
-      this.nextQuestion();
+      this.deferNextQuestion("correct");
     }
   }
 
@@ -874,6 +887,8 @@ export class GameCore {
         this.state.trainingId
     });
 
+    this.state.feedbackPending = this.state.water > 0;
+
     this.emit("answer:wrong", {
       question,
       waterPenalty: penalty,
@@ -885,7 +900,7 @@ export class GameCore {
       this.over("water_empty");
     } else {
       this.speak("wrong");
-      this.nextQuestion();
+      this.deferNextQuestion("wrong");
     }
   }
 
@@ -927,6 +942,8 @@ export class GameCore {
         this.state.trainingId
     });
 
+    this.state.feedbackPending = this.state.water > 0;
+
     this.emit("answer:timeout", {
       question,
       waterPenalty: penalty,
@@ -938,11 +955,26 @@ export class GameCore {
       this.over("water_empty");
     } else {
       this.speak("timeout");
-      this.nextQuestion();
+      this.deferNextQuestion("timeout");
     }
   }
 
+  deferNextQuestion(kind) {
+    const advance = () => {
+      if (["over", "cleared"].includes(this.state.status)) return;
+      if (this.state.status === "paused") {
+        this.advanceAfterResume = true;
+        return;
+      }
+      if (this.state.status === "running" && this.state.feedbackPending) this.nextQuestion();
+    };
+    if (this.cadence?.schedule) this.cadence.schedule(kind, advance);
+    else advance();
+  }
+
   clearTraining() {
+    this.cadence?.cancel?.();
+    this.state.feedbackPending = false;
     this.state.status = "cleared";
 
     this.endFever("clear");
@@ -994,6 +1026,10 @@ export class GameCore {
 
     this.state.status = "running";
     this.emit("game:resume");
+    if (this.advanceAfterResume) {
+      this.advanceAfterResume = false;
+      this.nextQuestion();
+    }
 
     return true;
   }
@@ -1013,6 +1049,8 @@ export class GameCore {
       return this.snapshot();
     }
 
+    this.cadence?.cancel?.();
+    this.state.feedbackPending = false;
     this.state.status = "over";
 
     this.endFever("game_over");

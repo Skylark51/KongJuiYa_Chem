@@ -15,6 +15,22 @@ async function waitRunning(page) {
   await page.waitForFunction(() => globalThis.KongJuiYaGame?.game?.state?.status === "running", null, { timeout: 7000 });
 }
 
+async function waitFeedbackCadence(page) {
+  try {
+    await page.waitForFunction(() => {
+      const state = globalThis.KongJuiYaGame?.game?.state;
+      return state && (state.status !== "running" || !state.feedbackPending);
+    }, null, { timeout: 5000 });
+  } catch (error) {
+    const diagnostic = await page.evaluate(() => ({
+      state: globalThis.KongJuiYaGame?.game?.snapshot?.(),
+      cadenceTimer: Boolean(globalThis.KongJuiYaGame?.cadence?.timer),
+      sceneState: document.getElementById("ui-gameApp")?.dataset.sceneState
+    }));
+    throw new Error("feedback cadence timeout: " + JSON.stringify(diagnostic), { cause: error });
+  }
+}
+
 async function choose(page, correct) {
   await page.evaluate(wantCorrect => {
     const question = globalThis.KongJuiYaGame.game.question;
@@ -78,16 +94,22 @@ export async function runSharedQuizSmoke({
         }
 
         await choose(page, false);
+        await waitFeedbackCadence(page);
         await choose(page, false);
+        await waitFeedbackCadence(page);
         await choose(page, false);
+        await waitFeedbackCadence(page);
         await choose(page, true);
+        await waitFeedbackCadence(page);
         await choose(page, true);
+        await waitFeedbackCadence(page);
         await page.evaluate(() => {
           const question = globalThis.KongJuiYaGame.game.question;
           const key = String(question.correctChoice + 1);
           document.dispatchEvent(new KeyboardEvent("keydown", { key, bubbles: true }));
         });
         await page.waitForFunction(() => globalThis.__sharedQuizEvents.includes("fever:start"));
+        await waitFeedbackCadence(page);
 
         await page.locator("#ui-pauseButton").click();
         await page.waitForFunction(() => globalThis.KongJuiYaGame.game.state.status === "paused");
@@ -99,11 +121,13 @@ export async function runSharedQuizSmoke({
           globalThis.KongJuiYaGame.game.tick(0.01);
         });
         await page.waitForFunction(() => globalThis.__sharedQuizEvents.includes("answer:timeout"));
+        await waitFeedbackCadence(page);
 
         for (let guard = 0; guard < 20; guard += 1) {
           const status = await page.evaluate(() => globalThis.KongJuiYaGame.game.state.status);
           if (status !== "running") break;
           await choose(page, true);
+          await waitFeedbackCadence(page);
         }
         await page.waitForFunction(() => globalThis.KongJuiYaGame.game.state.status === "cleared");
         assert(await page.locator("#resultPanel").isVisible(), runLabel + ": result panel");

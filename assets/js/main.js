@@ -9,6 +9,7 @@ import { UpgradeSystem } from "./upgrade-system.js";
 import { ActionSystem } from "./action-system.js";
 import { UIAdapter } from "./ui-adapter.js";
 import { installMetalReactivityChoiceLabels } from "./metal-reactivity-choice-ui.js";
+import { QuizCadenceController } from "./quiz-cadence.js";
 
 export const DEFAULT_QUESTION_COUNT = 10;
 export const MIN_QUESTION_COUNT = 5;
@@ -49,12 +50,14 @@ const questionCount = clampQuestionCount(savedQuestionCount || storage.data.sett
 const upgrades = new UpgradeSystem(storage);
 const questionEngine = new QuestionEngine(QUESTIONS);
 const actions = new ActionSystem({ upgrades, storage });
+const cadence = new QuizCadenceController();
 const game = new GameCore({
   questionEngine,
   config: Object.freeze({ ...GAME_CONFIG, correctAnswersToClear: questionCount }),
   upgradeSystem: upgrades,
   actionSystem: actions,
-  trainingProvider: getTrainingMode
+  trainingProvider: getTrainingMode,
+  cadenceController: cadence
 });
 const ui = new UIAdapter();
 installMetalReactivityChoiceLabels();
@@ -238,6 +241,7 @@ window.addEventListener("beforeunload", () => {
   if (frameRequestId) cancelAnimationFrame(frameRequestId);
   frameRequestId = 0;
   saveCurrentRun();
+  cadence.destroy();
 });
 
 window.dispatchEvent(new CustomEvent("upgrades:loaded", {
@@ -252,6 +256,7 @@ const api = Object.freeze({
   globalStorage,
   upgrades,
   actions,
+  cadence,
   questionCount,
   TRAINING_MODES,
   start,
