@@ -29,15 +29,15 @@ const SWATCHES = Object.freeze({
   "night-lacquer": ["#0d0d13", "#4e315c"]
 });
 
-const ASSET_VERSION = "20260805-outfit7";
+const ASSET_VERSION = "20260812-kongjwi-source-locked1";
 const OUTFIT_ART = Object.freeze({
-  underlayer: `assets/art/kongjwi/kongjwi-underlayer-cutout.png?v=${ASSET_VERSION}`,
-  "classic-red": `assets/art/kongjwi/kongjwi-classic-red-cutout.png?v=${ASSET_VERSION}`,
-  "blue-scholar": `assets/art/kongjwi/kongjwi-blue-scholar-cutout.png?v=${ASSET_VERSION}`,
-  "field-green": `assets/art/kongjwi/kongjwi-field-work-cutout.png?v=${ASSET_VERSION}`,
-  "royal-night": `assets/art/kongjwi/kongjwi-night-court-cutout.png?v=${ASSET_VERSION}`
+  underlayer: `assets/art/source-locked/kongjwi/underlayer/base-cutout.png?v=${ASSET_VERSION}`,
+  "classic-red": `assets/art/source-locked/kongjwi/classic-red/base-cutout.png?v=${ASSET_VERSION}`,
+  "blue-scholar": `assets/art/source-locked/kongjwi/blue-scholar/base-cutout.png?v=${ASSET_VERSION}`,
+  "field-green": `assets/art/source-locked/kongjwi/field-work/base-cutout.png?v=${ASSET_VERSION}`,
+  "royal-night": `assets/art/source-locked/kongjwi/night-court/base-cutout.png?v=${ASSET_VERSION}`
 });
-const UNDERLAYER_ART = `assets/art/kongjwi/kongjwi-underlayer-cutout.png?v=${ASSET_VERSION}`;
+const UNDERLAYER_ART = `assets/art/source-locked/kongjwi/underlayer/base-cutout.png?v=${ASSET_VERSION}`;
 
 const JAR_ART = Object.freeze({
   onggi: "assets/art/jars/onggi/thumbnail-no-toad.png?v=20260805-jar-clean2",
