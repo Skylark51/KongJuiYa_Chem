@@ -14,15 +14,17 @@ const earthScienceQuizzes = Object.freeze([
     id: "earth-fossil-type",
     title: "시상 화석과 표준 화석 구분 장독대",
     category: "통합과학2 - 지질 시대의 환경과 생물",
-    description: "문제 등록 예정",
-    status: "planned"
+    description: "화석 사진을 보고 시상 화석과 표준 화석을 구분합니다.",
+    implementation: "subjects/earth-science/quiz.html?quiz=earth-fossil-type",
+    status: "live"
   },
   {
     id: "earth-index-fossil-era",
     title: "표준 화석의 시대 구분 장독대",
     category: "통합과학2 - 지질 시대의 환경과 생물",
-    description: "문제 등록 예정",
-    status: "planned"
+    description: "표준 화석 사진을 보고 해당 지질 시대를 구분합니다.",
+    implementation: "subjects/earth-science/quiz.html?quiz=earth-index-fossil-era",
+    status: "live"
   },
   {
     id: "earth-geologic-era-keywords",

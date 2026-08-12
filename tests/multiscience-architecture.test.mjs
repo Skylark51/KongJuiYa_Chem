@@ -91,7 +91,9 @@ test("quiz registry adapts chemistry and exposes only requested new-subject jars
     "표준 화석의 시대 구분 장독대",
     "지질 시대 키워드 구분 장독대"
   ]);
-  assert.ok(earthScience.every(quiz => quiz.status === "planned" && !quiz.implementation));
+  assert.deepEqual(earthScience.map(quiz => quiz.status), ["live", "live", "planned"]);
+  assert.ok(earthScience.slice(0, 2).every(quiz => quiz.implementation?.includes("subjects/earth-science/quiz.html?quiz=")));
+  assert.equal(earthScience[2].implementation, undefined);
 });
 
 test("new-subject empty records never produce NaN or synthetic plays", () => {

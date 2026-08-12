@@ -64,6 +64,8 @@ jobs:
         run: node scripts/smoke-subject-portal.mjs
       - name: Shared shop subject-theme smoke
         run: node scripts/smoke-shop-subject-themes.mjs
+      - name: Earth science fossil quizzes smoke
+        run: node scripts/smoke-earth-science-fossil-quizzes.mjs
       - name: Quiz interface smoke
         run: node scripts/smoke-quiz-interface.mjs
       - name: Layered scene smoke

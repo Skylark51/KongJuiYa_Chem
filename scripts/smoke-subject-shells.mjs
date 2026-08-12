@@ -13,7 +13,7 @@ const viewports = [
   ["desktop-1920", { width: 1920, height: 1080 }]
 ];
 const subjects = [
-  ["physics", "물리학", [], []],
+  ["physics", "물리학", [], [], 0],
   ["biology", "생명과학", [
     "생물 다양성 종류 구분 장독대",
     "생물 다양성의 감소 원인 구분 장독대",
@@ -21,12 +21,12 @@ const subjects = [
   ], [
     "통합과학2 - 변이와 자연선택에 의한 생물의 진화",
     "통합과학2 - 생물다양성"
-  ]],
+  ], 0],
   ["earth-science", "지구과학", [
     "시상 화석과 표준 화석 구분 장독대",
     "표준 화석의 시대 구분 장독대",
     "지질 시대 키워드 구분 장독대"
-  ], ["통합과학2 - 지질 시대의 환경과 생물"]]
+  ], ["통합과학2 - 지질 시대의 환경과 생물"], 2]
 ];
 
 function assert(condition, message) {
@@ -75,7 +75,7 @@ try {
       await page.goto(baseUrl + "/", { waitUntil: "networkidle" });
     }
 
-    for (const [subjectId, subjectName, jarTitles, categoryNames] of subjects) {
+    for (const [subjectId, subjectName, jarTitles, categoryNames, liveCount] of subjects) {
       const label = viewportName + " " + subjectId;
       await page.goto(baseUrl + "/subjects/" + subjectId + "/", { waitUntil: "networkidle" });
       await page.waitForFunction(() => document.documentElement.dataset.subjectShellReady === "true");
@@ -95,7 +95,8 @@ try {
         assert(await page.locator("#subjectCategoryFilter").isVisible(), label + ": category filter hidden");
         assert(await page.locator("#subjectCategoryFilter button").count() === categoryNames.length + 1, label + ": category filters");
         assert(await page.locator(".subject-quiz-card").count() === jarTitles.length, label + ": authored jar count");
-        assert(await page.locator(".subject-quiz-card.is-planned button:disabled").count() === jarTitles.length, label + ": planned jars must be disabled");
+        assert(await page.locator(".subject-quiz-card a").count() === liveCount, label + ": live jar count");
+        assert(await page.locator(".subject-quiz-card.is-planned button:disabled").count() === jarTitles.length - liveCount, label + ": planned jars must be disabled");
         assert(await page.locator(".subject-quiz-card h3").allTextContents().then(titles => titles.join("|")) === jarTitles.join("|"), label + ": jar titles");
         assert(await page.locator("#subjectCategoryFilter button").allTextContents().then(labels => labels.slice(1).join("|")) === categoryNames.join("|"), label + ": category names");
         if (subjectId === "biology") {
