@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { oxidationNumberQuestions } from "../data/questions/oxidation-number.js";
+import { assertGameStyleLoaded } from "./helpers/game-styles.mjs";
 
 const ALLOWED_TARGETS = new Set([
   "H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne",
@@ -103,7 +104,6 @@ test("every oxidation-number question exposes the same signed keypad", () => {
 
 test("oxidation-number signed keypad keeps the sign row separate from number keys", () => {
   const css = read("assets/css/oxidation-number-keypad.css");
-  const html = read("콩쥐야_줘때써.html");
 
   assert.match(css, /data-training-id="oxidation_number"/);
   assert.match(css, /data-input-mode="signed_numeric_keypad"/);
@@ -115,5 +115,5 @@ test("oxidation-number signed keypad keeps the sign row separate from number key
   assert.match(css, /\.keypad-modifier\s*\{[^}]*height:\s*100%\s*!important[^}]*min-height:\s*0\s*!important[^}]*max-height:\s*100%/s);
   assert.match(css, /grid-template-rows:\s*32px\s*minmax\(0,\s*1fr\)\s*!important/);
   assert.match(css, /grid-template-rows:\s*29px\s*minmax\(0,\s*1fr\)\s*!important/);
-  assert.match(html, /oxidation-number-keypad\.css\?v=20260807-oxidation-keypad2/);
+  assertGameStyleLoaded(assert, "oxidation-number-keypad.css", "20260807-oxidation-keypad2");
 });

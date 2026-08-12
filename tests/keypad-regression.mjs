@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { assertGameStyleLoaded, gameHtml } from "./helpers/game-styles.mjs";
 
 const read = path => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 
@@ -12,7 +13,7 @@ const loadedKeypadCss = [
   keypadSkin,
   read("assets/css/mobile-game-refinement.css")
 ].join("\n");
-const gameHtml = read("콩쥐야_줘때써.html");
+const gameHtmlSource = gameHtml;
 
 assert.equal(
   shellControls.includes("MutationObserver"),
@@ -55,18 +56,14 @@ assert.ok(
   digitsIndex < clearIndex && clearIndex < zeroIndex && zeroIndex < confirmIndex,
   "numeric keypad final row must remain 전체 / 0 / 확인"
 );
+assertGameStyleLoaded(assert, "mobile-keypad-original.css", "20260804-keypad-stable1");
 assert.match(
-  gameHtml,
-  /mobile-keypad-original\.css\?v=[A-Za-z0-9._-]+/,
-  "game page must load the cache-busted stable keypad stylesheet"
-);
-assert.match(
-  gameHtml,
+  gameHtmlSource,
   /quiz-shell-controls\.js\?v=[A-Za-z0-9._-]+/,
   "game page must load the cache-busted shell controls"
 );
 assert.equal(
-  /quiz-shell-controls\.js[^\n]*normalizeNumericKeypad/.test(gameHtml),
+  /quiz-shell-controls\.js[^\n]*normalizeNumericKeypad/.test(gameHtmlSource),
   false,
   "game page must not request the retired keypad repair layer"
 );

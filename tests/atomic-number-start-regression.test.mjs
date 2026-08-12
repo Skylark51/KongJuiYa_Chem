@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import { assertGameStyleLoaded, gameHtml } from "./helpers/game-styles.mjs";
 
 const read = pathname => fs.readFileSync(new URL(`../${pathname}`, import.meta.url), "utf8");
 const atomicSource = read("data/questions/atomic-number.js");
@@ -11,7 +12,7 @@ const uiSource = read("assets/js/ui-effects.js");
 const countdownSource = read("assets/js/opening-countdown-flow.js");
 const entrySource = read("assets/js/game-page.js");
 const css = read("assets/css/atomic-number-speed-start.css");
-const html = read("콩쥐야_줘때써.html");
+const html = gameHtml;
 
 test("atomic-number questions show only the element symbol", () => {
   assert.match(atomicSource, /,"atomic_number",1,symbol,\[String\(number\)\]/);
@@ -30,7 +31,7 @@ test("atomic-number flash prompt uses one cache-busted game entry and canonical 
   assert.match(css, /data-training-id="atomic_number"[\s\S]*scene-question-bubble h1/);
   assert.match(css, /#startOverlay\.game-start-countdown/);
   assert.match(css, /game-start-countdown-number/);
-  assert.match(html, /atomic-number-speed-start\.css\?v=[^"]+/);
+  assertGameStyleLoaded(assert, "atomic-number-speed-start.css", "20260807-atomic-countdown1");
   assert.match(html, /game-page\.js\?v=[^"]+/);
   assert.doesNotMatch(mainSource, /questions\.js\?v=/);
   assert.doesNotMatch(uiSource, /main\.js\?v=/);

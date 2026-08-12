@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import { assertGameStyleLoaded, gameHtml } from "./helpers/game-styles.mjs";
 
 const read = path => fs.readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 
@@ -33,10 +34,9 @@ test("answer feedback sound is short Web Audio and never leaks the timeout event
 });
 
 test("game shell loads jar tune, audio settings, bgm and answer SFX with cache-busted URLs", () => {
-  const html = read("콩쥐야_줘때써.html");
-  assert.match(html, /scene-jar-position-tune\.css\?v=20260807-composition3/);
-  assert.match(html, /atomic-number-question-tune\.css\?v=20260807-composition3/);
-  assert.match(html, /audio-settings\.css\?v=20260807-audio-bgm2/);
-  assert.match(html, /game-bgm\.js\?v=20260807-audio-bgm2/);
-  assert.match(html, /game-sfx\.js\?v=20260807-audio-bgm2/);
+  assertGameStyleLoaded(assert, "scene-jar-position-tune.css", "20260807-composition3");
+  assertGameStyleLoaded(assert, "atomic-number-question-tune.css", "20260807-composition3");
+  assertGameStyleLoaded(assert, "audio-settings.css", "20260807-audio-bgm2");
+  assert.match(gameHtml, /game-bgm\.js\?v=20260807-audio-bgm2/);
+  assert.match(gameHtml, /game-sfx\.js\?v=20260807-audio-bgm2/);
 });

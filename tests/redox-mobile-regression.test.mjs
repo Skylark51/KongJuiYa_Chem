@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { redoxQuestions } from "../data/questions/redox.js";
+import { assertGameStyleLoaded, gameHtml } from "./helpers/game-styles.mjs";
 
 const read = path => fs.readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 
@@ -28,17 +29,16 @@ test("redox pool contains only complete underlined reaction equations and three 
 });
 
 test("game entry keeps one cache boundary and canonical redox module identities", () => {
-  const html = read("콩쥐야_줘때써.html");
   const uiEffects = read("assets/js/ui-effects.js");
   const main = read("assets/js/main.js");
   const questions = read("data/questions.js");
   const questionIndex = read("data/questions/index.js");
-  assert.match(html, /game-page\.js\?v=/);
+  assert.match(gameHtml, /game-page\.js\?v=/);
   for (const source of [uiEffects, main]) assert.doesNotMatch(source, /\.js\?v=/);
   assert.match(questions, /questions\/index\.js/);
   assert.match(questionIndex, /\.\/redox\.js/);
   assert.doesNotMatch(questionIndex, /\.\/redox\.js\?v=/);
-  assert.match(html, /redox-quiz\.css\?v=20260807-redox-one-line1/);
+  assertGameStyleLoaded(assert, "redox-quiz.css", "20260807-redox-one-line1");
 });
 
 test("redox mobile layout keeps every reaction equation on one line above three buttons", () => {

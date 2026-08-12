@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import { assertGameStyleLoaded, gameHtml } from "./helpers/game-styles.mjs";
 
 const read = path => fs.readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 
@@ -41,8 +42,7 @@ test("result actions use the warm game palette instead of the legacy blue button
 });
 
 test("game shell loads result enhancements with cache-busted URLs", () => {
-  const html = read("콩쥐야_줘때써.html");
-  assert.match(html, /data-ui-version="[^"]+"/);
-  assert.match(html, /result-panel-enhancements\.css\?v=[^"]+/);
-  assert.match(html, /result-panel-enhancements\.js\?v=[^"]+/);
+  assert.match(gameHtml, /data-ui-version="[^"]+"/);
+  assertGameStyleLoaded(assert, "result-panel-enhancements.css", "20260807-result-actions2");
+  assert.match(gameHtml, /result-panel-enhancements\.js\?v=[^"]+/);
 });

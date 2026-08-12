@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import { assertGameStyleLoaded, gameHtml } from "./helpers/game-styles.mjs";
 
 const read = path => fs.readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 
@@ -50,15 +51,14 @@ test("mid-run exit shows ad before routing back to jar selection", () => {
 });
 
 test("countdown is owned by the single game entry", () => {
-  const html = read("콩쥐야_줘때써.html");
   const entry = read("assets/js/game-page.js");
   const ui = read("assets/js/ui-effects.js");
   assert.match(entry, /import \{ mountOpeningCountdown \} from "\.\/opening-countdown-flow\.js"/);
   assert.equal((entry.match(/mountOpeningCountdown\(\)/g) || []).length, 1);
-  assert.doesNotMatch(html, /<script[^>]+opening-countdown-flow\.js/);
+  assert.doesNotMatch(gameHtml, /<script[^>]+opening-countdown-flow\.js/);
   assert.doesNotMatch(ui, /runOpeningCountdown|OPENING_COUNTDOWN_TRAININGS/);
-  assert.match(html, /opening-countdown-flow\.css\?v=20260807-countdown-overlay3/);
-  assert.match(html, /result-panel-enhancements\.js\?v=20260807-result-actions2/);
-  assert.match(html, /game-bgm\.js\?v=20260807-audio-bgm2/);
-  assert.match(html, /data-ui-version="[^"]+"/);
+  assertGameStyleLoaded(assert, "opening-countdown-flow.css", "20260807-countdown-overlay3");
+  assert.match(gameHtml, /result-panel-enhancements\.js\?v=20260807-result-actions2/);
+  assert.match(gameHtml, /game-bgm\.js\?v=20260807-audio-bgm2/);
+  assert.match(gameHtml, /data-ui-version="[^"]+"/);
 });
