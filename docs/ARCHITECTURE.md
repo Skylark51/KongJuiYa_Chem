@@ -41,6 +41,8 @@ The core clamps frame delta, locks answer submission during evaluation, stops ti
 
 `scripts/validate-layered-scene.mjs` validates required dimensions, RGBA 8-bit-or-higher format, PNG chunk boundaries, and a complete terminal `IEND` chunk. Optional assets are only promoted into the required validation set when their manifest feature flag is enabled. This prevents an incomplete authored asset from silently becoming a runtime dependency.
 
+The water-pour and water-leak sheets are reproducibly authored by `scripts/rebuild-water-effects.py` at their final `4096 x 512` RGBA resolution. `.github/workflows/rebuild-water-effects.yml` regenerates both files, runs the layered-scene validator, and commits them only after the production asset contract passes. This path exists because the historical copies of those two PNGs were already chunk-corrupted and had no earlier valid repository revision to restore.
+
 The current shared toad expression overlay remains disabled until a complete RGBA PNG replaces the damaged source. Premium toad skins therefore continue to use the safe skin-motion path rather than loading that overlay.
 
 ## Events
