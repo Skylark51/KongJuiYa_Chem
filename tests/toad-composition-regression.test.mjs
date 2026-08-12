@@ -46,6 +46,15 @@ test("premium toads keep their uploaded PNG skin and have a validated overlay co
   assert.equal(Object.keys(manifest.frames.toadExpression).length, 10);
 });
 
+test("bean shop previews use the same production PNG toad skins as gameplay", () => {
+  const shop = read("assets/js/shop-navigation.js");
+  for (const key of ["field-brown", "gold-worker", "jade-guard", "star-night"]) {
+    assert.ok(shop.includes(`"${key}": `) && shop.includes(`${key}.png`), `missing shop PNG mapping: ${key}`);
+  }
+  assert.ok(shop.includes('if (item.category === "toad") return createToadAsset(item);'));
+  assert.ok(shop.includes('createImage(versionedSource, "shop-asset shop-asset-toad"'));
+});
+
 test("CSS physically seats existing toad PNGs for each jar and removes duplicate mobile water UI", () => {
   const sceneCss = read("assets/css/toad-composition-fix.css");
   const mobileCss = read("assets/css/mobile-quiz-balance.css");

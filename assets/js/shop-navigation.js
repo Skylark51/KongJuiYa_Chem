@@ -46,6 +46,14 @@ const JAR_ART = Object.freeze({
   "night-lacquer": "assets/art/jars/night-lacquer/thumbnail-no-toad.png?v=20260805-jar-clean2"
 });
 
+const TOAD_ASSET_VERSION = "20260812-toad-skins2";
+const TOAD_ART = Object.freeze({
+  "field-brown": `assets/art/source-locked/toad/base/field-brown.png?v=${TOAD_ASSET_VERSION}`,
+  "gold-worker": `assets/art/game-scene/toad/skins/gold-worker.png?v=${TOAD_ASSET_VERSION}`,
+  "jade-guard": `assets/art/game-scene/toad/skins/jade-guard.png?v=${TOAD_ASSET_VERSION}`,
+  "star-night": `assets/art/game-scene/toad/skins/star-night.png?v=${TOAD_ASSET_VERSION}`
+});
+
 const storage = new GameStorage();
 const cosmetics = new CosmeticSystem(storage);
 const bgm = mountHistoricalBgm({ initialVolume: storage.data.settings?.volume ?? 0.5 });
@@ -165,8 +173,22 @@ function createSpriteAsset(item, itemIndex) {
   return asset;
 }
 
+function createToadAsset(item) {
+  const versionedSource = TOAD_ART[item.visualKey];
+  if (!versionedSource) throw new Error(`Missing toad skin mapping: ${item.visualKey}`);
+  const image = createImage(versionedSource, "shop-asset shop-asset-toad", item.title, candidates => {
+    console.error(`[Bean shop] Failed to load toad skin: ${candidates.join(", ")}`);
+    image.remove();
+  });
+  image.dataset.visualKey = item.visualKey;
+  image.style.objectFit = "contain";
+  image.style.objectPosition = "center";
+  return image;
+}
+
 function createAsset(item) {
   if (item.category === "outfit") return createOutfitAsset(item);
+  if (item.category === "toad") return createToadAsset(item);
 
   const categoryItems = itemsFor(item.category);
   const itemIndex = Math.max(0, categoryItems.findIndex(entry => entry.id === item.id));
