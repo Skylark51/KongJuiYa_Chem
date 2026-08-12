@@ -18,10 +18,13 @@ function pngSize(file) {
 test("all-outfit motion manifest uses the anatomy-safe uniform scene policy", () => {
   const manifest = JSON.parse(fs.readFileSync(path.join(root, "assets/art/game-scene/manifest.json"), "utf8"));
   assert.ok(
-    ["20260808-anatomy-safe1", "20260808-head-safe1", "20260808-head-safe2", "20260808-layer-safe1"].includes(manifest.version),
+    ["20260808-anatomy-safe1", "20260808-head-safe1", "20260808-head-safe2", "20260808-layer-safe1", "20260812-night-court-summon1"].includes(manifest.version),
     `unexpected migration version ${manifest.version}`
   );
-  assert.equal(manifest.runtimePolicy.kongjwiMotionPolicy, "source-locked-intact-all-outfits");
+  assert.equal(
+    manifest.runtimePolicy.kongjwiMotionPolicy,
+    "source-locked-intact-standard-outfits-night-court-summon-derived"
+  );
   assert.equal(manifest.runtimePolicy.kongjwiFramePolicy, "source-character-pixels-whole-body-pose-only");
   assert.ok(
     ["never-segment-flattened-character-png", "complete-source-required-no-headless-cutouts"]
@@ -74,6 +77,7 @@ test("builder preserves complete flattened outfits and repairs a dropped night-c
   assert.ok(builder.includes("added_alpha = ImageChops.subtract(donor_head, current_alpha)"));
   assert.ok(builder.includes('manifest["layers"]["scene-tool"] = 11'));
   assert.ok(builder.includes("def build_intact_frames"));
+  assert.ok(builder.includes('current_rgba.tobytes() == sheet.tobytes()'));
   assert.ok(builder.includes("frames, hand_points = build_intact_frames(base)"));
   assert.ok(builder.includes("frames.append(pose_frame(base, body_angle, dx, dy))"));
   assert.ok(builder.includes("hand_points.append(pose_point(HAND, body_angle, dx, dy))"));
@@ -106,4 +110,31 @@ test("all Kongjwi sheets remain PNG and available", () => {
     assert.equal(manifest.availability[sheet], true);
     assert.deepEqual(pngSize(path.join(root, sheet)), [4096, 768]);
   }
+});
+
+test("night-court production motion is the authored summon sequence", () => {
+  const manifest = JSON.parse(fs.readFileSync(path.join(root, "assets/art/game-scene/manifest.json"), "utf8"));
+  const provenance = JSON.parse(fs.readFileSync(
+    path.join(root, "assets/art/game-scene/kongjwi/night-court/provenance.json"),
+    "utf8"
+  ));
+  const stateMachine = fs.readFileSync(path.join(root, "assets/js/scene-state-machine.js"), "utf8");
+  const servantCss = fs.readFileSync(path.join(root, "assets/css/court-servant-effect.css"), "utf8");
+
+  assert.equal(manifest.assets.kongjwi["night-court"].actionMode, "summon-servant-pour");
+  assert.equal(
+    manifest.runtimePolicy.nightCourtMotionSource,
+    "assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png"
+  );
+  assert.deepEqual(provenance.frameMap, [0, 1, 2, 3, 4, 5, 6, 7]);
+  assert.equal(provenance.designPolicy, "preserve-source-rgba-no-redraw");
+  for (const frame of provenance.alignments) {
+    assert.ok(Math.abs(frame.anchor.x - 256) <= 0.5, "frame " + frame.frame + " center anchor drifted");
+    assert.equal(frame.anchor.y, 756, "frame " + frame.frame + " bottom anchor drifted");
+  }
+  assert.ok(stateMachine.includes("plan.nightCourtKongjwiTimeline || plan.kongjwiTimeline"));
+  assert.match(
+    servantCss,
+    /\.scene-layer-stack\[data-kongjwi-outfit="night-court"\] > \.scene-tool\s*\{[\s\S]*?visibility:\s*hidden/
+  );
 });

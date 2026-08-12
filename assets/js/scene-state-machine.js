@@ -140,7 +140,12 @@ export class LayeredSceneStateController {
 
     if (courtMode) {
       playCourtServantPour();
-      this.renderer.setFrame("kongjwi", 0);
+      this.playSequence(
+        "kongjwi",
+        plan.nightCourtKongjwiTimeline || plan.kongjwiTimeline || POUR_CHARACTER_FRAMES,
+        1320,
+        { hold }
+      );
       this.renderer.setFrame("tool", 0);
       this.playSequence("waterStream", plan.waterStream || POUR_STREAM_FRAMES, 650, { delay: 410, hold });
       this.playSequence("waterSplash", plan.waterSplash || POUR_SPLASH_FRAMES, 520, { delay: 540, hold });

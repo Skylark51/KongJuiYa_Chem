@@ -1,6 +1,6 @@
 {
   "manifest": "assets/art/game-scene-precision-v1/animation-manifest.json",
-  "manifestSha256": "6673c0aff0e34aaffd9e1a90c7bad174bf2e328ae6681b42c19a8047819ac506",
+  "manifestSha256": "db5fd4ae3c5b85e18d324d3ece078159b67a5a76624779c93c7fc1f10004a799",
   "sequences": [
     {
       "actor": "kongjwi",
@@ -70,6 +70,10 @@
             0,
             255
           ],
+          "bboxBottomCenter": [
+            244.5,
+            725
+          ],
           "bboxCenter": [
             244.0,
             399.5
@@ -87,6 +91,10 @@
             768
           ],
           "index": 1,
+          "measuredAnchor": [
+            260.043,
+            725
+          ],
           "pixelSha256": "085d4bf5b0eefffb50b2ff1202bad4b9cf2dec0c8e1c120ca6e7dd231b92547a",
           "source": "assets/art/game-scene/kongjwi/underlayer/pour-sheet.png#frame-001",
           "touchesCanvasEdge": false
@@ -102,6 +110,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            244.5,
+            724
           ],
           "bboxCenter": [
             244.0,
@@ -120,6 +132,10 @@
             768
           ],
           "index": 2,
+          "measuredAnchor": [
+            260.043,
+            724
+          ],
           "pixelSha256": "79027831e2097ebe8074b3ce4fe3cb0fe85faec5f7ceb83d1b54da686bab7b25",
           "source": "assets/art/game-scene/kongjwi/underlayer/pour-sheet.png#frame-002",
           "touchesCanvasEdge": false
@@ -135,6 +151,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            246.0,
+            724
           ],
           "bboxCenter": [
             245.5,
@@ -153,6 +173,10 @@
             768
           ],
           "index": 3,
+          "measuredAnchor": [
+            260.05,
+            724
+          ],
           "pixelSha256": "570d2de9ec99b8043e13b2a17a37ecaebce9b997dd35c7122237f02e81b54ac9",
           "source": "assets/art/game-scene/kongjwi/underlayer/pour-sheet.png#frame-003",
           "touchesCanvasEdge": false
@@ -168,6 +192,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            248.0,
+            723
           ],
           "bboxCenter": [
             247.5,
@@ -186,6 +214,10 @@
             768
           ],
           "index": 4,
+          "measuredAnchor": [
+            261.061,
+            723
+          ],
           "pixelSha256": "3fd3a6a2ae3fddda85ca9c041695d9b84c192f5c638bd0bc4a1dcd5efa26f2d9",
           "source": "assets/art/game-scene/kongjwi/underlayer/pour-sheet.png#frame-004",
           "touchesCanvasEdge": false
@@ -201,6 +233,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            251.0,
+            722
           ],
           "bboxCenter": [
             250.5,
@@ -219,6 +255,10 @@
             768
           ],
           "index": 5,
+          "measuredAnchor": [
+            262.074,
+            722
+          ],
           "pixelSha256": "080fe0f4a8b770d8884465cc170cbae9556117d43303b0265843a0bddcfa1e24",
           "source": "assets/art/game-scene/kongjwi/underlayer/pour-sheet.png#frame-005",
           "touchesCanvasEdge": false
@@ -234,6 +274,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            253.5,
+            722
           ],
           "bboxCenter": [
             253.0,
@@ -252,6 +296,10 @@
             768
           ],
           "index": 6,
+          "measuredAnchor": [
+            263.074,
+            722
+          ],
           "pixelSha256": "81937858de52be8de253869ee6e05f479bdbce6dc448846b9a85aef4f9cd1c7d",
           "source": "assets/art/game-scene/kongjwi/underlayer/pour-sheet.png#frame-006",
           "touchesCanvasEdge": false
@@ -267,6 +315,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            248.0,
+            724
           ],
           "bboxCenter": [
             247.5,
@@ -285,6 +337,10 @@
             768
           ],
           "index": 7,
+          "measuredAnchor": [
+            261.059,
+            724
+          ],
           "pixelSha256": "029dda406a1eebc4c07c4dea9aca5b307f3e492db822164388d48de7c28aad79",
           "source": "assets/art/game-scene/kongjwi/underlayer/pour-sheet.png#frame-007",
           "touchesCanvasEdge": false
@@ -300,6 +356,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            238.0,
+            729
           ],
           "bboxCenter": [
             237.5,
@@ -318,6 +378,10 @@
             768
           ],
           "index": 8,
+          "measuredAnchor": [
+            258.029,
+            729
+          ],
           "pixelSha256": "d006c8d824755ab2615578dcc8fcedb1e7664f7b34182d849ba22bcbfa4f6cb5",
           "source": "assets/art/game-scene/kongjwi/underlayer/pour-sheet.png#frame-008",
           "touchesCanvasEdge": false
@@ -409,6 +473,10 @@
             0,
             255
           ],
+          "bboxBottomCenter": [
+            255.5,
+            756
+          ],
           "bboxCenter": [
             255.0,
             386.5
@@ -426,6 +494,10 @@
             768
           ],
           "index": 1,
+          "measuredAnchor": [
+            259.713,
+            756
+          ],
           "pixelSha256": "545fa3fce67995e2b4cd04cc89f24ce085e13ac6f92d27ec408c9847491d7476",
           "source": "assets/art/game-scene/kongjwi/classic-red/pour-sheet.png#frame-001",
           "touchesCanvasEdge": false
@@ -441,6 +513,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            255.5,
+            755
           ],
           "bboxCenter": [
             255.0,
@@ -459,6 +535,10 @@
             768
           ],
           "index": 2,
+          "measuredAnchor": [
+            259.713,
+            755
+          ],
           "pixelSha256": "f62fe578ff55d2fdc218bdaaf0a26b3d51a08dd87fd13a10ce489f895080a833",
           "source": "assets/art/game-scene/kongjwi/classic-red/pour-sheet.png#frame-002",
           "touchesCanvasEdge": false
@@ -474,6 +554,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            256.5,
+            755
           ],
           "bboxCenter": [
             256.0,
@@ -492,6 +576,10 @@
             768
           ],
           "index": 3,
+          "measuredAnchor": [
+            259.745,
+            755
+          ],
           "pixelSha256": "4a23b4546e9a93b80cfcc102140572829303932da390bd507b3b0c08a8f18fed",
           "source": "assets/art/game-scene/kongjwi/classic-red/pour-sheet.png#frame-003",
           "touchesCanvasEdge": false
@@ -507,6 +595,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            259.5,
+            754
           ],
           "bboxCenter": [
             259.0,
@@ -525,6 +617,10 @@
             768
           ],
           "index": 4,
+          "measuredAnchor": [
+            260.816,
+            754
+          ],
           "pixelSha256": "dd4d5a140398b318b17ffce945e3875249e2c2561aea1a681378e1bc47098ca7",
           "source": "assets/art/game-scene/kongjwi/classic-red/pour-sheet.png#frame-004",
           "touchesCanvasEdge": false
@@ -540,6 +636,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            262.5,
+            754
           ],
           "bboxCenter": [
             262.0,
@@ -558,6 +658,10 @@
             768
           ],
           "index": 5,
+          "measuredAnchor": [
+            262.153,
+            754
+          ],
           "pixelSha256": "8b32fc1d88b7098f2740b1eb4c38a8585192d95b9171937653909f6bfbc24bb6",
           "source": "assets/art/game-scene/kongjwi/classic-red/pour-sheet.png#frame-005",
           "touchesCanvasEdge": false
@@ -573,6 +677,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            264.5,
+            754
           ],
           "bboxCenter": [
             264.0,
@@ -591,6 +699,10 @@
             768
           ],
           "index": 6,
+          "measuredAnchor": [
+            263.208,
+            754
+          ],
           "pixelSha256": "3248b2e31502cdcfa9152cad989a09f8c9d580858b286775044fe8eb51b7cbce",
           "source": "assets/art/game-scene/kongjwi/classic-red/pour-sheet.png#frame-006",
           "touchesCanvasEdge": false
@@ -606,6 +718,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            259.0,
+            755
           ],
           "bboxCenter": [
             258.5,
@@ -624,6 +740,10 @@
             768
           ],
           "index": 7,
+          "measuredAnchor": [
+            260.796,
+            755
+          ],
           "pixelSha256": "cba10125a990f904d032fcb84614bc1c34151e71c6650479d2cf1c504d21ecec",
           "source": "assets/art/game-scene/kongjwi/classic-red/pour-sheet.png#frame-007",
           "touchesCanvasEdge": false
@@ -639,6 +759,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            248.5,
+            760
           ],
           "bboxCenter": [
             248.0,
@@ -657,6 +781,10 @@
             768
           ],
           "index": 8,
+          "measuredAnchor": [
+            257.489,
+            760
+          ],
           "pixelSha256": "4f552c4e5760593b42c1b877fe6107d5ec365f788db87c1b42608791d520ef25",
           "source": "assets/art/game-scene/kongjwi/classic-red/pour-sheet.png#frame-008",
           "touchesCanvasEdge": false
@@ -748,6 +876,10 @@
             0,
             255
           ],
+          "bboxBottomCenter": [
+            255.0,
+            756
+          ],
           "bboxCenter": [
             254.5,
             386.5
@@ -765,6 +897,10 @@
             768
           ],
           "index": 1,
+          "measuredAnchor": [
+            253.614,
+            756
+          ],
           "pixelSha256": "eb0dcad4a10e52610931a898743bf8a68a43c90abc7cf2666a7cc70caa957eab",
           "source": "assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png#frame-001",
           "touchesCanvasEdge": false
@@ -780,6 +916,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            255.0,
+            755
           ],
           "bboxCenter": [
             254.5,
@@ -798,6 +938,10 @@
             768
           ],
           "index": 2,
+          "measuredAnchor": [
+            253.614,
+            755
+          ],
           "pixelSha256": "1e22c97224cf34138fef8617df92c45d8b214a2aee84ed95deec33e0ef1bf348",
           "source": "assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png#frame-002",
           "touchesCanvasEdge": false
@@ -813,6 +957,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            255.5,
+            755
           ],
           "bboxCenter": [
             255.0,
@@ -831,6 +979,10 @@
             768
           ],
           "index": 3,
+          "measuredAnchor": [
+            253.538,
+            755
+          ],
           "pixelSha256": "6c4a112d0abf63624475b5ea18f07d8fbb66067580d50896c89cbb726eca78a1",
           "source": "assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png#frame-003",
           "touchesCanvasEdge": false
@@ -846,6 +998,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            258.0,
+            754
           ],
           "bboxCenter": [
             257.5,
@@ -864,6 +1020,10 @@
             768
           ],
           "index": 4,
+          "measuredAnchor": [
+            254.515,
+            754
+          ],
           "pixelSha256": "739e312a04a38518c4660ee7a76ca2646ae8860a003c45f9e54a966052e5eae2",
           "source": "assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png#frame-004",
           "touchesCanvasEdge": false
@@ -879,6 +1039,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            259.5,
+            753
           ],
           "bboxCenter": [
             259.0,
@@ -897,6 +1061,10 @@
             768
           ],
           "index": 5,
+          "measuredAnchor": [
+            255.522,
+            753
+          ],
           "pixelSha256": "2d27c566d846e3f212ae7202e5e7dfa45c5848fc48413ebbaece607b87dc9de5",
           "source": "assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png#frame-005",
           "touchesCanvasEdge": false
@@ -912,6 +1080,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            261.5,
+            753
           ],
           "bboxCenter": [
             261.0,
@@ -930,6 +1102,10 @@
             768
           ],
           "index": 6,
+          "measuredAnchor": [
+            256.481,
+            753
+          ],
           "pixelSha256": "e83183c5da27737ca79ecef5b20a6052629a0f1f54cadf0c4d8c2056800c7f37",
           "source": "assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png#frame-006",
           "touchesCanvasEdge": false
@@ -945,6 +1121,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            257.5,
+            755
           ],
           "bboxCenter": [
             257.0,
@@ -963,6 +1143,10 @@
             768
           ],
           "index": 7,
+          "measuredAnchor": [
+            254.52,
+            755
+          ],
           "pixelSha256": "72ddbdf08535479113386058758cccf2cbea15947d5194a3a84ffd69360394ea",
           "source": "assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png#frame-007",
           "touchesCanvasEdge": false
@@ -978,6 +1162,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            249.5,
+            760
           ],
           "bboxCenter": [
             249.0,
@@ -996,6 +1184,10 @@
             768
           ],
           "index": 8,
+          "measuredAnchor": [
+            251.741,
+            760
+          ],
           "pixelSha256": "cb750aff29ec1d68272fd0217510836644b2bc3c1163ff7300439f0eafeacfb0",
           "source": "assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png#frame-008",
           "touchesCanvasEdge": false
@@ -1087,6 +1279,10 @@
             0,
             255
           ],
+          "bboxBottomCenter": [
+            255.0,
+            756
+          ],
           "bboxCenter": [
             254.5,
             386.5
@@ -1104,6 +1300,10 @@
             768
           ],
           "index": 1,
+          "measuredAnchor": [
+            272.545,
+            756
+          ],
           "pixelSha256": "8467f2bd030d1a9b6fc2e1c7a43020001edfb8d60992eedfde1b1640f95e03d7",
           "source": "assets/art/game-scene/kongjwi/field-work/pour-sheet.png#frame-001",
           "touchesCanvasEdge": false
@@ -1119,6 +1319,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            255.0,
+            755
           ],
           "bboxCenter": [
             254.5,
@@ -1137,6 +1341,10 @@
             768
           ],
           "index": 2,
+          "measuredAnchor": [
+            272.545,
+            755
+          ],
           "pixelSha256": "b9ac15eb358310a28505926ff628b595b56646d9bcb5290aa44a35dce820dc94",
           "source": "assets/art/game-scene/kongjwi/field-work/pour-sheet.png#frame-002",
           "touchesCanvasEdge": false
@@ -1152,6 +1360,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            256.0,
+            755
           ],
           "bboxCenter": [
             255.5,
@@ -1170,6 +1382,10 @@
             768
           ],
           "index": 3,
+          "measuredAnchor": [
+            272.399,
+            755
+          ],
           "pixelSha256": "9030a94765242ae98ffed66a03240b6ea0f8d02829a4bc8d2519bdebaef876ce",
           "source": "assets/art/game-scene/kongjwi/field-work/pour-sheet.png#frame-003",
           "touchesCanvasEdge": false
@@ -1185,6 +1401,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            259.0,
+            755
           ],
           "bboxCenter": [
             258.5,
@@ -1203,6 +1423,10 @@
             768
           ],
           "index": 4,
+          "measuredAnchor": [
+            273.254,
+            755
+          ],
           "pixelSha256": "500d51d37ca56d96127a72baf7a56512eae0fe707432e86e499fff534f234731",
           "source": "assets/art/game-scene/kongjwi/field-work/pour-sheet.png#frame-004",
           "touchesCanvasEdge": false
@@ -1218,6 +1442,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            262.0,
+            754
           ],
           "bboxCenter": [
             261.5,
@@ -1236,6 +1464,10 @@
             768
           ],
           "index": 5,
+          "measuredAnchor": [
+            274.158,
+            754
+          ],
           "pixelSha256": "98a1843895969bede6fa4209502538bd4f8a7ed4add43bf75cf1f125571f19a8",
           "source": "assets/art/game-scene/kongjwi/field-work/pour-sheet.png#frame-005",
           "touchesCanvasEdge": false
@@ -1251,6 +1483,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            264.5,
+            754
           ],
           "bboxCenter": [
             264.0,
@@ -1269,6 +1505,10 @@
             768
           ],
           "index": 6,
+          "measuredAnchor": [
+            275.029,
+            754
+          ],
           "pixelSha256": "cbba13e59f21934f4b3c1670fd71cb3f364eca1d3c17a45a0919b3dcaa659f8e",
           "source": "assets/art/game-scene/kongjwi/field-work/pour-sheet.png#frame-006",
           "touchesCanvasEdge": false
@@ -1284,6 +1524,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            258.5,
+            756
           ],
           "bboxCenter": [
             258.0,
@@ -1302,6 +1546,10 @@
             768
           ],
           "index": 7,
+          "measuredAnchor": [
+            273.274,
+            756
+          ],
           "pixelSha256": "42a01d8224ee432568504db6595d1d73042df0911c9fb1b612ff9f6170b78bf7",
           "source": "assets/art/game-scene/kongjwi/field-work/pour-sheet.png#frame-007",
           "touchesCanvasEdge": false
@@ -1317,6 +1565,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            248.0,
+            760
           ],
           "bboxCenter": [
             247.5,
@@ -1335,6 +1587,10 @@
             768
           ],
           "index": 8,
+          "measuredAnchor": [
+            270.922,
+            760
+          ],
           "pixelSha256": "b04a45a281237dc41f7f3cf79deda8d79616105cb1a9b01b05c1691a739d4e8b",
           "source": "assets/art/game-scene/kongjwi/field-work/pour-sheet.png#frame-008",
           "touchesCanvasEdge": false
@@ -1426,6 +1682,10 @@
             0,
             255
           ],
+          "bboxBottomCenter": [
+            257.5,
+            750
+          ],
           "bboxCenter": [
             257.0,
             416.0
@@ -1443,6 +1703,10 @@
             768
           ],
           "index": 1,
+          "measuredAnchor": [
+            259.294,
+            750
+          ],
           "pixelSha256": "f81b734508736bcf60684b77d91a29a9835ea8ee43cf5ac92c0e764eee22c6ec",
           "source": "assets/art/game-scene/kongjwi/ragged/pour-sheet.png#frame-001",
           "touchesCanvasEdge": false
@@ -1458,6 +1722,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            257.5,
+            749
           ],
           "bboxCenter": [
             257.0,
@@ -1476,6 +1744,10 @@
             768
           ],
           "index": 2,
+          "measuredAnchor": [
+            259.294,
+            749
+          ],
           "pixelSha256": "19ce019d1045de65d25d448b6e3888b05d6fc0216a436dcb29231c1ec10bc6ff",
           "source": "assets/art/game-scene/kongjwi/ragged/pour-sheet.png#frame-002",
           "touchesCanvasEdge": false
@@ -1491,6 +1763,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            258.0,
+            749
           ],
           "bboxCenter": [
             257.5,
@@ -1509,6 +1785,10 @@
             768
           ],
           "index": 3,
+          "measuredAnchor": [
+            259.192,
+            749
+          ],
           "pixelSha256": "2a64fab36adff87535c6d755582113dcbeece2826ac80fd597814f92e54c7ac7",
           "source": "assets/art/game-scene/kongjwi/ragged/pour-sheet.png#frame-003",
           "touchesCanvasEdge": false
@@ -1524,6 +1804,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            259.5,
+            748
           ],
           "bboxCenter": [
             259.0,
@@ -1542,6 +1826,10 @@
             768
           ],
           "index": 4,
+          "measuredAnchor": [
+            260.094,
+            748
+          ],
           "pixelSha256": "95eccdc506f1458bb3e57bf6a2e2bb20a4072c01e0c2cf2b2d920dc86cb58887",
           "source": "assets/art/game-scene/kongjwi/ragged/pour-sheet.png#frame-004",
           "touchesCanvasEdge": false
@@ -1557,6 +1845,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            261.0,
+            747
           ],
           "bboxCenter": [
             260.5,
@@ -1575,6 +1867,10 @@
             768
           ],
           "index": 5,
+          "measuredAnchor": [
+            261.011,
+            747
+          ],
           "pixelSha256": "4709b0e54f24a4e7ddaf3942daa4ca5b1a727220a63b99f1be25c1db2e308a82",
           "source": "assets/art/game-scene/kongjwi/ragged/pour-sheet.png#frame-005",
           "touchesCanvasEdge": false
@@ -1590,6 +1886,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            262.5,
+            747
           ],
           "bboxCenter": [
             262.0,
@@ -1608,6 +1908,10 @@
             768
           ],
           "index": 6,
+          "measuredAnchor": [
+            261.932,
+            747
+          ],
           "pixelSha256": "da84ac4c7ee2a3b72cb77b2b2526b690fa37a7fc1312f9199a93b3b089d3de4c",
           "source": "assets/art/game-scene/kongjwi/ragged/pour-sheet.png#frame-006",
           "touchesCanvasEdge": false
@@ -1623,6 +1927,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            259.5,
+            749
           ],
           "bboxCenter": [
             259.0,
@@ -1641,6 +1949,10 @@
             768
           ],
           "index": 7,
+          "measuredAnchor": [
+            260.118,
+            749
+          ],
           "pixelSha256": "4f6c17bd85ac8e8a4f7d44f4a135d27a9669cb1a123a473e930c59bd00553075",
           "source": "assets/art/game-scene/kongjwi/ragged/pour-sheet.png#frame-007",
           "touchesCanvasEdge": false
@@ -1656,6 +1968,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            254.5,
+            754
           ],
           "bboxCenter": [
             254.0,
@@ -1674,6 +1990,10 @@
             768
           ],
           "index": 8,
+          "measuredAnchor": [
+            257.593,
+            754
+          ],
           "pixelSha256": "fb41cf3328913e6980fa976b5c9f86cfe63c164ce5005c99996b06f17a0f93af",
           "source": "assets/art/game-scene/kongjwi/ragged/pour-sheet.png#frame-008",
           "touchesCanvasEdge": false
@@ -1702,51 +2022,51 @@
       "clip": "pour",
       "deltas": [
         {
-          "alphaAreaChangeRatio": 0.0,
-          "anchorDeltaPx": 1.0,
-          "bboxCenterDeltaPx": 1.0,
+          "alphaAreaChangeRatio": 0.05221,
+          "anchorDeltaPx": 0.5,
+          "bboxCenterDeltaPx": 0.5,
           "from": 1,
           "to": 2
         },
         {
-          "alphaAreaChangeRatio": 8e-05,
-          "anchorDeltaPx": 3.509,
-          "bboxCenterDeltaPx": 0.707,
+          "alphaAreaChangeRatio": 0.28813,
+          "anchorDeltaPx": 1.0,
+          "bboxCenterDeltaPx": 1.0,
           "from": 2,
           "to": 3
         },
         {
-          "alphaAreaChangeRatio": 7e-05,
-          "anchorDeltaPx": 5.178,
-          "bboxCenterDeltaPx": 1.414,
+          "alphaAreaChangeRatio": 0.11132,
+          "anchorDeltaPx": 0.5,
+          "bboxCenterDeltaPx": 4.528,
           "from": 3,
           "to": 4
         },
         {
-          "alphaAreaChangeRatio": 1e-05,
-          "anchorDeltaPx": 6.783,
-          "bboxCenterDeltaPx": 2.062,
+          "alphaAreaChangeRatio": 0.2419,
+          "anchorDeltaPx": 0.0,
+          "bboxCenterDeltaPx": 8.0,
           "from": 4,
           "to": 5
         },
         {
-          "alphaAreaChangeRatio": 0.0001,
-          "anchorDeltaPx": 7.578,
-          "bboxCenterDeltaPx": 1.581,
+          "alphaAreaChangeRatio": 0.37426,
+          "anchorDeltaPx": 0.5,
+          "bboxCenterDeltaPx": 11.011,
           "from": 5,
           "to": 6
         },
         {
-          "alphaAreaChangeRatio": 0.00018,
-          "anchorDeltaPx": 15.236,
-          "bboxCenterDeltaPx": 3.64,
+          "alphaAreaChangeRatio": 0.07525,
+          "anchorDeltaPx": 1.0,
+          "bboxCenterDeltaPx": 6.083,
           "from": 6,
           "to": 7
         },
         {
-          "alphaAreaChangeRatio": 9e-05,
-          "anchorDeltaPx": 24.187,
-          "bboxCenterDeltaPx": 7.106,
+          "alphaAreaChangeRatio": 0.19736,
+          "anchorDeltaPx": 0.5,
+          "bboxCenterDeltaPx": 2.062,
           "from": 7,
           "to": 8
         }
@@ -1754,27 +2074,31 @@
       "errors": [],
       "frames": [
         {
-          "alphaArea": 194930,
+          "alphaArea": 125603,
           "alphaBBox": [
-            46,
-            18,
-            465,
+            83,
+            100,
+            429,
             756
           ],
           "alphaExtrema": [
             0,
             255
           ],
+          "bboxBottomCenter": [
+            256.0,
+            756
+          ],
           "bboxCenter": [
-            255.0,
-            386.5
+            255.5,
+            427.5
           ],
           "bboxSize": [
-            419,
-            738
+            346,
+            656
           ],
           "bottomBandAnchor": [
-            263.358,
+            193.96,
             756
           ],
           "canvas": [
@@ -1782,65 +2106,81 @@
             768
           ],
           "index": 1,
-          "pixelSha256": "8ef8b9b9bd45f7ba79f4fa46b3a97fbb3e88f26b4a9a2353d50f1bdf03d9d1d5",
+          "measuredAnchor": [
+            256.0,
+            756
+          ],
+          "pixelSha256": "eac8cc89ba8b96e249ef8deb5941079dc3c673986eb0010056fd1d4c560d84a6",
           "source": "assets/art/game-scene/kongjwi/night-court/pour-sheet.png#frame-001",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 194930,
+          "alphaArea": 132161,
           "alphaBBox": [
-            46,
-            17,
-            465,
-            755
-          ],
-          "alphaExtrema": [
-            0,
-            255
-          ],
-          "bboxCenter": [
-            255.0,
-            385.5
-          ],
-          "bboxSize": [
-            419,
-            738
-          ],
-          "bottomBandAnchor": [
-            263.358,
-            755
-          ],
-          "canvas": [
-            512,
-            768
-          ],
-          "index": 2,
-          "pixelSha256": "18bcdd4785881aab3db1700c0ff5d352dbc6ab8bc044b5209b6bb5ec8ddac43d",
-          "source": "assets/art/game-scene/kongjwi/night-court/pour-sheet.png#frame-002",
-          "touchesCanvasEdge": false
-        },
-        {
-          "alphaArea": 194945,
-          "alphaBBox": [
-            46,
-            17,
-            466,
+            97,
+            100,
+            414,
             756
           ],
           "alphaExtrema": [
             0,
             255
           ],
-          "bboxCenter": [
+          "bboxBottomCenter": [
             255.5,
-            386.0
+            756
+          ],
+          "bboxCenter": [
+            255.0,
+            427.5
           ],
           "bboxSize": [
-            420,
-            739
+            317,
+            656
           ],
           "bottomBandAnchor": [
-            266.721,
+            273.873,
+            756
+          ],
+          "canvas": [
+            512,
+            768
+          ],
+          "index": 2,
+          "measuredAnchor": [
+            255.5,
+            756
+          ],
+          "pixelSha256": "0b1860993302af206f64b54b6dd34ddd946718b6ec12959d97f7f2c6279a1b8c",
+          "source": "assets/art/game-scene/kongjwi/night-court/pour-sheet.png#frame-002",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 170240,
+          "alphaBBox": [
+            33,
+            100,
+            480,
+            756
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            256.5,
+            756
+          ],
+          "bboxCenter": [
+            256.0,
+            427.5
+          ],
+          "bboxSize": [
+            447,
+            656
+          ],
+          "bottomBandAnchor": [
+            253.543,
             756
           ],
           "canvas": [
@@ -1848,98 +2188,122 @@
             768
           ],
           "index": 3,
-          "pixelSha256": "9d247460acef0a02d50a2f733152f84085977c360880e7d61684987ddf146b3e",
+          "measuredAnchor": [
+            256.5,
+            756
+          ],
+          "pixelSha256": "cf74db56a742058c61aba64f3cd85481bc28e70e348180cb714ea025b55aab1f",
           "source": "assets/art/game-scene/kongjwi/night-court/pour-sheet.png#frame-003",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 194931,
+          "alphaArea": 189191,
           "alphaBBox": [
-            47,
-            16,
-            467,
-            755
-          ],
-          "alphaExtrema": [
-            0,
-            255
-          ],
-          "bboxCenter": [
-            256.5,
-            385.0
-          ],
-          "bboxSize": [
-            420,
-            739
-          ],
-          "bottomBandAnchor": [
-            271.802,
-            755
-          ],
-          "canvas": [
-            512,
-            768
-          ],
-          "index": 4,
-          "pixelSha256": "9977e5f0bda61bb5ec3a667c130c2a27ccf21af04cb66af912131f4d88b4e2df",
-          "source": "assets/art/game-scene/kongjwi/night-court/pour-sheet.png#frame-004",
-          "touchesCanvasEdge": false
-        },
-        {
-          "alphaArea": 194933,
-          "alphaBBox": [
-            49,
-            15,
-            469,
-            755
-          ],
-          "alphaExtrema": [
-            0,
-            255
-          ],
-          "bboxCenter": [
-            258.5,
-            384.5
-          ],
-          "bboxSize": [
-            420,
-            740
-          ],
-          "bottomBandAnchor": [
-            278.585,
-            755
-          ],
-          "canvas": [
-            512,
-            768
-          ],
-          "index": 5,
-          "pixelSha256": "e86ec5bf17d1747a8fdbf4495a29f72cb9a0697b604f9b4125dcfbed945132fe",
-          "source": "assets/art/game-scene/kongjwi/night-court/pour-sheet.png#frame-005",
-          "touchesCanvasEdge": false
-        },
-        {
-          "alphaArea": 194952,
-          "alphaBBox": [
-            50,
-            15,
-            471,
+            33,
+            109,
+            479,
             756
           ],
           "alphaExtrema": [
             0,
             255
           ],
+          "bboxBottomCenter": [
+            256.0,
+            756
+          ],
           "bboxCenter": [
-            260.0,
-            385.0
+            255.5,
+            432.0
           ],
           "bboxSize": [
-            421,
-            741
+            446,
+            647
           ],
           "bottomBandAnchor": [
-            286.097,
+            249.847,
+            756
+          ],
+          "canvas": [
+            512,
+            768
+          ],
+          "index": 4,
+          "measuredAnchor": [
+            256.0,
+            756
+          ],
+          "pixelSha256": "735dc54ef6aef3f5d0cb08c44b74c9f5963830f687d7ed4d2931cc689f6666d1",
+          "source": "assets/art/game-scene/kongjwi/night-court/pour-sheet.png#frame-004",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 234956,
+          "alphaBBox": [
+            11,
+            93,
+            501,
+            756
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            256.0,
+            756
+          ],
+          "bboxCenter": [
+            255.5,
+            424.0
+          ],
+          "bboxSize": [
+            490,
+            663
+          ],
+          "bottomBandAnchor": [
+            249.93,
+            756
+          ],
+          "canvas": [
+            512,
+            768
+          ],
+          "index": 5,
+          "measuredAnchor": [
+            256.0,
+            756
+          ],
+          "pixelSha256": "83bad89ebd9e445a55f355f2cb1a25c11358afb1bbfeed9173988407aa6aca3b",
+          "source": "assets/art/game-scene/kongjwi/night-court/pour-sheet.png#frame-005",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 147022,
+          "alphaBBox": [
+            38,
+            115,
+            473,
+            756
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            255.5,
+            756
+          ],
+          "bboxCenter": [
+            255.0,
+            435.0
+          ],
+          "bboxSize": [
+            435,
+            641
+          ],
+          "bottomBandAnchor": [
+            287.078,
             756
           ],
           "canvas": [
@@ -1947,32 +2311,40 @@
             768
           ],
           "index": 6,
-          "pixelSha256": "0e6eaea98f83391f3327a7a0d465fb701f806957621c9b3861021d8b03608c9b",
+          "measuredAnchor": [
+            255.5,
+            756
+          ],
+          "pixelSha256": "04b994a43f2498aac06d12b70deae294f9b23a73471af36c2bcaa91a36916e8a",
           "source": "assets/art/game-scene/kongjwi/night-court/pour-sheet.png#frame-006",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 194988,
+          "alphaArea": 158085,
           "alphaBBox": [
-            47,
-            17,
-            467,
+            68,
+            103,
+            445,
             756
           ],
           "alphaExtrema": [
             0,
             255
           ],
-          "bboxCenter": [
+          "bboxBottomCenter": [
             256.5,
-            386.0
+            756
+          ],
+          "bboxCenter": [
+            256.0,
+            429.0
           ],
           "bboxSize": [
-            420,
-            739
+            377,
+            653
           ],
           "bottomBandAnchor": [
-            270.861,
+            234.036,
             756
           ],
           "canvas": [
@@ -1980,40 +2352,52 @@
             768
           ],
           "index": 7,
-          "pixelSha256": "7ba078b0fa598a0adfa335d7b15ecb404465075fccb5840881bb709a66ed04c3",
+          "measuredAnchor": [
+            256.5,
+            756
+          ],
+          "pixelSha256": "8d63e819ba05500fcec20632da6511677db141cfa7e1ab60d37bf23ce61a295b",
           "source": "assets/art/game-scene/kongjwi/night-court/pour-sheet.png#frame-007",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 194971,
+          "alphaArea": 126885,
           "alphaBBox": [
-            43,
-            22,
-            462,
-            762
+            99,
+            107,
+            413,
+            756
           ],
           "alphaExtrema": [
             0,
             255
           ],
+          "bboxBottomCenter": [
+            256.0,
+            756
+          ],
           "bboxCenter": [
-            252.0,
-            391.5
+            255.5,
+            431.0
           ],
           "bboxSize": [
-            419,
-            740
+            314,
+            649
           ],
           "bottomBandAnchor": [
-            247.43,
-            762
+            232.001,
+            756
           ],
           "canvas": [
             512,
             768
           ],
           "index": 8,
-          "pixelSha256": "501bf4b8549f3f96adedeca2bb222e4249d6d6338489e9327c4daf342626f49f",
+          "measuredAnchor": [
+            256.0,
+            756
+          ],
+          "pixelSha256": "0cfe5d88966baba75d21fa216e87ea2c2677b9afbb0be93e0c3611c8c9b4b03b",
           "source": "assets/art/game-scene/kongjwi/night-court/pour-sheet.png#frame-008",
           "touchesCanvasEdge": false
         }
@@ -2021,20 +2405,18 @@
       "id": "production-kongjwi-night-court-pour",
       "observed": {
         "duplicateFrameGroups": [],
-        "maxAlphaAreaChangeRatio": 0.00018,
-        "maxAnchorDeltaPx": 24.18702,
-        "maxBboxCenterDeltaPx": 7.10634
+        "maxAlphaAreaChangeRatio": 0.37426,
+        "maxAnchorDeltaPx": 1.0,
+        "maxBboxCenterDeltaPx": 11.01136
       },
       "qualityGate": "report",
-      "status": "WARN",
+      "status": "PASS",
       "thresholds": {
         "maxAlphaAreaChangeRatio": null,
         "maxAnchorDeltaPx": 4,
         "maxBboxCenterDeltaPx": null
       },
-      "warnings": [
-        "anchor jitter 24.187 > 4.000"
-      ]
+      "warnings": []
     },
     {
       "actor": "bucket",
@@ -2104,6 +2486,10 @@
             0,
             255
           ],
+          "bboxBottomCenter": [
+            395.5,
+            440
+          ],
           "bboxCenter": [
             395.0,
             388.5
@@ -2121,6 +2507,10 @@
             768
           ],
           "index": 1,
+          "measuredAnchor": [
+            361.52,
+            440
+          ],
           "pixelSha256": "aad7be5653eb21524c1a0d16dc467d7a8312dea4fb930da5792d85ef85365c6d",
           "source": "assets/art/game-scene/tools/wood/pour-sheet.png#frame-001",
           "touchesCanvasEdge": false
@@ -2136,6 +2526,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            396.0,
+            441
           ],
           "bboxCenter": [
             395.5,
@@ -2154,6 +2548,10 @@
             768
           ],
           "index": 2,
+          "measuredAnchor": [
+            361.44,
+            441
+          ],
           "pixelSha256": "5ce159f42c62f0c88123ca0cd4015bcd703c199f38648a02e6015317aab7faf9",
           "source": "assets/art/game-scene/tools/wood/pour-sheet.png#frame-002",
           "touchesCanvasEdge": false
@@ -2169,6 +2567,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            395.0,
+            444
           ],
           "bboxCenter": [
             394.5,
@@ -2187,6 +2589,10 @@
             768
           ],
           "index": 3,
+          "measuredAnchor": [
+            359.984,
+            444
+          ],
           "pixelSha256": "ee4076a8e0e6e2abbc401a06e410912094f5130e7df136187941d11a5d284492",
           "source": "assets/art/game-scene/tools/wood/pour-sheet.png#frame-003",
           "touchesCanvasEdge": false
@@ -2202,6 +2608,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            394.0,
+            446
           ],
           "bboxCenter": [
             393.5,
@@ -2220,6 +2630,10 @@
             768
           ],
           "index": 4,
+          "measuredAnchor": [
+            357.463,
+            446
+          ],
           "pixelSha256": "53aa9314e60d7361d033b11f88c361bbcf0c3051ac536cf22dd6a0bb793b1fc5",
           "source": "assets/art/game-scene/tools/wood/pour-sheet.png#frame-004",
           "touchesCanvasEdge": false
@@ -2235,6 +2649,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            388.5,
+            454
           ],
           "bboxCenter": [
             388.0,
@@ -2253,6 +2671,10 @@
             768
           ],
           "index": 5,
+          "measuredAnchor": [
+            374.597,
+            454
+          ],
           "pixelSha256": "e06c694bc583f3c1255d91a3030946e348250fb2d2ab284cc571afbae781b5ce",
           "source": "assets/art/game-scene/tools/wood/pour-sheet.png#frame-005",
           "touchesCanvasEdge": false
@@ -2268,6 +2690,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            378.5,
+            481
           ],
           "bboxCenter": [
             378.0,
@@ -2286,6 +2712,10 @@
             768
           ],
           "index": 6,
+          "measuredAnchor": [
+            431.622,
+            481
+          ],
           "pixelSha256": "585bcfc60c2c96c31742881e7366686efd285d4de2fff4914f398a96506fb08d",
           "source": "assets/art/game-scene/tools/wood/pour-sheet.png#frame-006",
           "touchesCanvasEdge": false
@@ -2301,6 +2731,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            394.0,
+            448
           ],
           "bboxCenter": [
             393.5,
@@ -2319,6 +2753,10 @@
             768
           ],
           "index": 7,
+          "measuredAnchor": [
+            358.024,
+            448
+          ],
           "pixelSha256": "a39cfd096aa14dfbd9aac410f09209129cc52b35db7d8b5a3b1b654de0898e3a",
           "source": "assets/art/game-scene/tools/wood/pour-sheet.png#frame-007",
           "touchesCanvasEdge": false
@@ -2334,6 +2772,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            398.5,
+            444
           ],
           "bboxCenter": [
             398.0,
@@ -2352,6 +2794,10 @@
             768
           ],
           "index": 8,
+          "measuredAnchor": [
+            364.553,
+            444
+          ],
           "pixelSha256": "da6515bb759017a40ac9a50f28028a7480f6231b86b33711677d21592d00037e",
           "source": "assets/art/game-scene/tools/wood/pour-sheet.png#frame-008",
           "touchesCanvasEdge": false
@@ -2441,6 +2887,10 @@
             0,
             222
           ],
+          "bboxBottomCenter": [
+            257.5,
+            439
+          ],
           "bboxCenter": [
             257.0,
             268.0
@@ -2458,6 +2908,10 @@
             512
           ],
           "index": 1,
+          "measuredAnchor": [
+            257.0,
+            439
+          ],
           "pixelSha256": "33ab5dec36b0b52843b5e3196a0dffc0608762a6b9f4c9329362709903889c75",
           "source": "assets/art/game-scene/effects/water-leak-sheet.png#frame-001",
           "touchesCanvasEdge": false
@@ -2473,6 +2927,10 @@
           "alphaExtrema": [
             0,
             222
+          ],
+          "bboxBottomCenter": [
+            257.0,
+            439
           ],
           "bboxCenter": [
             256.5,
@@ -2491,6 +2949,10 @@
             512
           ],
           "index": 2,
+          "measuredAnchor": [
+            256.5,
+            439
+          ],
           "pixelSha256": "b434adfac04ce03101f7e0fa7d49ee12798ff96728948e29e7cd5b4a408eb8a9",
           "source": "assets/art/game-scene/effects/water-leak-sheet.png#frame-002",
           "touchesCanvasEdge": false
@@ -2506,6 +2968,10 @@
           "alphaExtrema": [
             0,
             222
+          ],
+          "bboxBottomCenter": [
+            257.0,
+            439
           ],
           "bboxCenter": [
             256.5,
@@ -2524,6 +2990,10 @@
             512
           ],
           "index": 3,
+          "measuredAnchor": [
+            256.5,
+            439
+          ],
           "pixelSha256": "422b979d17c1526fe8decb34aac9714a578d1fc286477c85b7a7fdbc516dbb25",
           "source": "assets/art/game-scene/effects/water-leak-sheet.png#frame-003",
           "touchesCanvasEdge": false
@@ -2539,6 +3009,10 @@
           "alphaExtrema": [
             0,
             222
+          ],
+          "bboxBottomCenter": [
+            257.0,
+            439
           ],
           "bboxCenter": [
             256.5,
@@ -2557,6 +3031,10 @@
             512
           ],
           "index": 4,
+          "measuredAnchor": [
+            256.5,
+            439
+          ],
           "pixelSha256": "749e494b69aa72b416687d051f8bffad4d94cf1dfea91e756787089ba0ccf24d",
           "source": "assets/art/game-scene/effects/water-leak-sheet.png#frame-004",
           "touchesCanvasEdge": false
@@ -2572,6 +3050,10 @@
           "alphaExtrema": [
             0,
             222
+          ],
+          "bboxBottomCenter": [
+            257.5,
+            439
           ],
           "bboxCenter": [
             257.0,
@@ -2590,6 +3072,10 @@
             512
           ],
           "index": 5,
+          "measuredAnchor": [
+            257.0,
+            439
+          ],
           "pixelSha256": "0fb00665f3be7fde3e09529e9fa5e7067d0f8a20e996a54ea18913c8b28cac0e",
           "source": "assets/art/game-scene/effects/water-leak-sheet.png#frame-005",
           "touchesCanvasEdge": false
@@ -2605,6 +3091,10 @@
           "alphaExtrema": [
             0,
             222
+          ],
+          "bboxBottomCenter": [
+            257.0,
+            439
           ],
           "bboxCenter": [
             256.5,
@@ -2623,6 +3113,10 @@
             512
           ],
           "index": 6,
+          "measuredAnchor": [
+            256.5,
+            439
+          ],
           "pixelSha256": "1214cb40ece3d9312521b463690319d1889ce07351d673e85049294d318d7061",
           "source": "assets/art/game-scene/effects/water-leak-sheet.png#frame-006",
           "touchesCanvasEdge": false
@@ -2638,6 +3132,10 @@
           "alphaExtrema": [
             0,
             222
+          ],
+          "bboxBottomCenter": [
+            257.0,
+            439
           ],
           "bboxCenter": [
             256.5,
@@ -2656,6 +3154,10 @@
             512
           ],
           "index": 7,
+          "measuredAnchor": [
+            256.5,
+            439
+          ],
           "pixelSha256": "0738376772e71c07d532bd4fb58aad313d6021b88a92b27cadcc8b2cb665716c",
           "source": "assets/art/game-scene/effects/water-leak-sheet.png#frame-007",
           "touchesCanvasEdge": false
@@ -2671,6 +3173,10 @@
           "alphaExtrema": [
             0,
             222
+          ],
+          "bboxBottomCenter": [
+            257.0,
+            439
           ],
           "bboxCenter": [
             256.5,
@@ -2689,6 +3195,10 @@
             512
           ],
           "index": 8,
+          "measuredAnchor": [
+            256.5,
+            439
+          ],
           "pixelSha256": "4b4fd37c434e10019da1e97bda95a5f652814b41664c3c5a3c292552e0888062",
           "source": "assets/art/game-scene/effects/water-leak-sheet.png#frame-008",
           "touchesCanvasEdge": false
@@ -2778,6 +3288,10 @@
             0,
             255
           ],
+          "bboxBottomCenter": [
+            256.0,
+            480
+          ],
           "bboxCenter": [
             255.5,
             443.5
@@ -2795,6 +3309,10 @@
             512
           ],
           "index": 1,
+          "measuredAnchor": [
+            255.79,
+            480
+          ],
           "pixelSha256": "8a580c9b1de2b2ea51028985392cbdc899afb64ce6dba407305dcecc05d1f2c0",
           "source": "assets/art/game-scene-precision-v1/sequences/effects/water-droplets/frames/water-droplets-f001.png",
           "touchesCanvasEdge": false
@@ -2810,6 +3328,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            251.5,
+            480
           ],
           "bboxCenter": [
             251.0,
@@ -2828,6 +3350,10 @@
             512
           ],
           "index": 2,
+          "measuredAnchor": [
+            256.485,
+            480
+          ],
           "pixelSha256": "f5a73fc53ae7e72d45de1687f261dd34ab5d2e4f5e1fe918b2cecf74da528dce",
           "source": "assets/art/game-scene-precision-v1/sequences/effects/water-droplets/frames/water-droplets-f002.png",
           "touchesCanvasEdge": false
@@ -2843,6 +3369,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            243.0,
+            480
           ],
           "bboxCenter": [
             242.5,
@@ -2861,6 +3391,10 @@
             512
           ],
           "index": 3,
+          "measuredAnchor": [
+            256.253,
+            480
+          ],
           "pixelSha256": "d7ab7e71ce5473f02a7175eef42d60fbc723dc8195a17c916de3e4cd48df7b19",
           "source": "assets/art/game-scene-precision-v1/sequences/effects/water-droplets/frames/water-droplets-f003.png",
           "touchesCanvasEdge": false
@@ -2876,6 +3410,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            265.0,
+            480
           ],
           "bboxCenter": [
             264.5,
@@ -2894,6 +3432,10 @@
             512
           ],
           "index": 4,
+          "measuredAnchor": [
+            255.725,
+            480
+          ],
           "pixelSha256": "63336c8a7b60a51cf4132ed3967a44cf78ab1f1e8f0c89454338ebf871209a50",
           "source": "assets/art/game-scene-precision-v1/sequences/effects/water-droplets/frames/water-droplets-f004.png",
           "touchesCanvasEdge": false
@@ -2909,6 +3451,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            255.5,
+            480
           ],
           "bboxCenter": [
             255.0,
@@ -2927,6 +3473,10 @@
             512
           ],
           "index": 5,
+          "measuredAnchor": [
+            256.433,
+            480
+          ],
           "pixelSha256": "e3aec1b25f70b7e0b60e3198f3414a731b243e3828fb02e52f01b8d23eb7d456",
           "source": "assets/art/game-scene-precision-v1/sequences/effects/water-droplets/frames/water-droplets-f005.png",
           "touchesCanvasEdge": false
@@ -2942,6 +3492,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            263.0,
+            480
           ],
           "bboxCenter": [
             262.5,
@@ -2960,6 +3514,10 @@
             512
           ],
           "index": 6,
+          "measuredAnchor": [
+            255.776,
+            480
+          ],
           "pixelSha256": "c04508c508db7b35543f1c22d10cd81ca64a36871e6d583c28eeea9dedc1fb9e",
           "source": "assets/art/game-scene-precision-v1/sequences/effects/water-droplets/frames/water-droplets-f006.png",
           "touchesCanvasEdge": false
@@ -2975,6 +3533,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            260.5,
+            480
           ],
           "bboxCenter": [
             260.0,
@@ -2993,6 +3555,10 @@
             512
           ],
           "index": 7,
+          "measuredAnchor": [
+            256.252,
+            480
+          ],
           "pixelSha256": "1e9fd49bb039399a3c5e623ce533f31c6eb4f420e3af702b2f87902e7c1781a0",
           "source": "assets/art/game-scene-precision-v1/sequences/effects/water-droplets/frames/water-droplets-f007.png",
           "touchesCanvasEdge": false
@@ -3008,6 +3574,10 @@
           "alphaExtrema": [
             0,
             255
+          ],
+          "bboxBottomCenter": [
+            256.0,
+            480
           ],
           "bboxCenter": [
             255.5,
@@ -3026,6 +3596,10 @@
             512
           ],
           "index": 8,
+          "measuredAnchor": [
+            256.313,
+            480
+          ],
           "pixelSha256": "aae792b3ed6e7fa7befd9f557a5603ab48fbad32ff47363f1cbd3aaf4541aa71",
           "source": "assets/art/game-scene-precision-v1/sequences/effects/water-droplets/frames/water-droplets-f008.png",
           "touchesCanvasEdge": false
@@ -3087,6 +3661,10 @@
             0,
             254
           ],
+          "bboxBottomCenter": [
+            267.5,
+            740
+          ],
           "bboxCenter": [
             267.0,
             488.5
@@ -3104,6 +3682,10 @@
             768
           ],
           "index": 1,
+          "measuredAnchor": [
+            256.113,
+            740
+          ],
           "pixelSha256": "26d592819f60ae6b1baa1d8dbab20f4a30dc644b38b816f4f7ded88e2bf6fc57",
           "source": "assets/art/game-scene-precision-v1/sequences/servants/dolsoe-a/frames/dolsoe-a-f001.png",
           "touchesCanvasEdge": false
@@ -3119,6 +3701,10 @@
           "alphaExtrema": [
             0,
             254
+          ],
+          "bboxBottomCenter": [
+            224.0,
+            740
           ],
           "bboxCenter": [
             223.5,
@@ -3137,6 +3723,10 @@
             768
           ],
           "index": 2,
+          "measuredAnchor": [
+            255.524,
+            740
+          ],
           "pixelSha256": "7c3561d5bb16685819c8c0fd10060e5409061dcc59657984a0dc1c4816ebbb3d",
           "source": "assets/art/game-scene-precision-v1/sequences/servants/dolsoe-a/frames/dolsoe-a-f002.png",
           "touchesCanvasEdge": false
@@ -3152,6 +3742,10 @@
           "alphaExtrema": [
             0,
             254
+          ],
+          "bboxBottomCenter": [
+            157.0,
+            740
           ],
           "bboxCenter": [
             156.5,
@@ -3170,6 +3764,10 @@
             768
           ],
           "index": 3,
+          "measuredAnchor": [
+            255.751,
+            740
+          ],
           "pixelSha256": "db7057e5837a2ddc19a419e13e869b66446799a8648d967fccd0245ddbc5bbc3",
           "source": "assets/art/game-scene-precision-v1/sequences/servants/dolsoe-a/frames/dolsoe-a-f003.png",
           "touchesCanvasEdge": false
@@ -3185,6 +3783,10 @@
           "alphaExtrema": [
             0,
             254
+          ],
+          "bboxBottomCenter": [
+            349.0,
+            740
           ],
           "bboxCenter": [
             348.5,
@@ -3203,6 +3805,10 @@
             768
           ],
           "index": 4,
+          "measuredAnchor": [
+            256.292,
+            740
+          ],
           "pixelSha256": "c83d3ebd8efb1ce693ca2db11e1ac1a8270ca3f45d4ec9796886546d7cd3ab3c",
           "source": "assets/art/game-scene-precision-v1/sequences/servants/dolsoe-a/frames/dolsoe-a-f004.png",
           "touchesCanvasEdge": false
@@ -3264,6 +3870,10 @@
             0,
             254
           ],
+          "bboxBottomCenter": [
+            270.0,
+            740
+          ],
           "bboxCenter": [
             269.5,
             483.5
@@ -3281,6 +3891,10 @@
             768
           ],
           "index": 1,
+          "measuredAnchor": [
+            255.875,
+            740
+          ],
           "pixelSha256": "bdbbf6efccdffcd4088b560e2b641c5336175ee5c4b18d643b82ead0efaa47dc",
           "source": "assets/art/game-scene-precision-v1/sequences/servants/dolsoe-b/frames/dolsoe-b-f001.png",
           "touchesCanvasEdge": false
@@ -3296,6 +3910,10 @@
           "alphaExtrema": [
             0,
             254
+          ],
+          "bboxBottomCenter": [
+            191.0,
+            740
           ],
           "bboxCenter": [
             190.5,
@@ -3314,6 +3932,10 @@
             768
           ],
           "index": 2,
+          "measuredAnchor": [
+            255.993,
+            740
+          ],
           "pixelSha256": "dad883ddf944b4939f978fe03bc2589e66a6f2333951e12bd0176ce25f133a2b",
           "source": "assets/art/game-scene-precision-v1/sequences/servants/dolsoe-b/frames/dolsoe-b-f002.png",
           "touchesCanvasEdge": false
@@ -3329,6 +3951,10 @@
           "alphaExtrema": [
             0,
             254
+          ],
+          "bboxBottomCenter": [
+            158.0,
+            740
           ],
           "bboxCenter": [
             157.5,
@@ -3347,6 +3973,10 @@
             768
           ],
           "index": 3,
+          "measuredAnchor": [
+            256.013,
+            740
+          ],
           "pixelSha256": "0ba9cec7daee548c6f4bd0fdaab72140d867d9824e59cc86194fd95df6b05575",
           "source": "assets/art/game-scene-precision-v1/sequences/servants/dolsoe-b/frames/dolsoe-b-f003.png",
           "touchesCanvasEdge": false
@@ -3362,6 +3992,10 @@
           "alphaExtrema": [
             0,
             254
+          ],
+          "bboxBottomCenter": [
+            213.5,
+            740
           ],
           "bboxCenter": [
             213.0,
@@ -3380,6 +4014,10 @@
             768
           ],
           "index": 4,
+          "measuredAnchor": [
+            256.435,
+            740
+          ],
           "pixelSha256": "84453e68c3d53a294f686bc318a53d6c23c131140408ca5011f7206c11356c19",
           "source": "assets/art/game-scene-precision-v1/sequences/servants/dolsoe-b/frames/dolsoe-b-f004.png",
           "touchesCanvasEdge": false
@@ -3441,6 +4079,10 @@
             0,
             254
           ],
+          "bboxBottomCenter": [
+            203.5,
+            740
+          ],
           "bboxCenter": [
             203.0,
             505.5
@@ -3458,6 +4100,10 @@
             768
           ],
           "index": 1,
+          "measuredAnchor": [
+            256.203,
+            740
+          ],
           "pixelSha256": "1faeabb6c316bcbd2ce27d5c4bdf3be36521006be230173763dfb1cfb028d5cf",
           "source": "assets/art/game-scene-precision-v1/sequences/servants/dolsoe-c/frames/dolsoe-c-f001.png",
           "touchesCanvasEdge": false
@@ -3473,6 +4119,10 @@
           "alphaExtrema": [
             0,
             254
+          ],
+          "bboxBottomCenter": [
+            243.5,
+            740
           ],
           "bboxCenter": [
             243.0,
@@ -3491,6 +4141,10 @@
             768
           ],
           "index": 2,
+          "measuredAnchor": [
+            256.359,
+            740
+          ],
           "pixelSha256": "cc4e9e5e92db832e4a91d59c2f231940114dc85c869969c199bd0afa59a4e915",
           "source": "assets/art/game-scene-precision-v1/sequences/servants/dolsoe-c/frames/dolsoe-c-f002.png",
           "touchesCanvasEdge": false
@@ -3506,6 +4160,10 @@
           "alphaExtrema": [
             0,
             254
+          ],
+          "bboxBottomCenter": [
+            157.5,
+            740
           ],
           "bboxCenter": [
             157.0,
@@ -3524,6 +4182,10 @@
             768
           ],
           "index": 3,
+          "measuredAnchor": [
+            255.768,
+            740
+          ],
           "pixelSha256": "9a7bc9ec5bda598ca172f245df307aee2cdd698ee0d33424ac0f863ac1b48886",
           "source": "assets/art/game-scene-precision-v1/sequences/servants/dolsoe-c/frames/dolsoe-c-f003.png",
           "touchesCanvasEdge": false
@@ -3539,6 +4201,10 @@
           "alphaExtrema": [
             0,
             254
+          ],
+          "bboxBottomCenter": [
+            338.5,
+            740
           ],
           "bboxCenter": [
             338.0,
@@ -3557,6 +4223,10 @@
             768
           ],
           "index": 4,
+          "measuredAnchor": [
+            256.072,
+            740
+          ],
           "pixelSha256": "39bdfd6b1929cb7cd46857017a5ddd784a7efa79ecf8889574edd18a2c41695d",
           "source": "assets/art/game-scene-precision-v1/sequences/servants/dolsoe-c/frames/dolsoe-c-f004.png",
           "touchesCanvasEdge": false
@@ -3585,6 +4255,6 @@
     "missingFrames": 0,
     "sequenceCount": 12,
     "strictFailures": 0,
-    "warnings": 6
+    "warnings": 5
   }
 }

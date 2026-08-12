@@ -91,6 +91,7 @@ def measure(frame):
             round((left + right - 1) / 2, 3),
             round((top + bottom - 1) / 2, 3),
         ],
+        "bboxBottomCenter": [round((left + right) / 2, 3), bottom],
         "bboxSize": [right - left, bottom - top],
         "alphaArea": area,
         "bottomBandAnchor": [round(anchor_x, 3), bottom],
@@ -108,6 +109,17 @@ def distance(a, b):
 def audit(sequence):
     gate = sequence.get("qualityGate", "strict")
     errors, warnings, metrics = [], [], []
+    anchor_metric = sequence.get("anchor", {}).get("metric", "bottomBandAnchor")
+    if anchor_metric not in {"bottomBandAnchor", "bboxBottomCenter"}:
+        return {
+            "id": sequence["id"],
+            "qualityGate": gate,
+            "status": "FAIL",
+            "errors": [f"unsupported anchor metric: {anchor_metric}"],
+            "warnings": [],
+            "frames": [],
+            "observed": {},
+        }, []
     try:
         frames = frames_for(sequence)
     except (FileNotFoundError, OSError, ValueError) as error:
@@ -126,6 +138,7 @@ def audit(sequence):
     for index, (source, frame) in enumerate(frames):
         try:
             metric = measure(frame)
+            metric["measuredAnchor"] = metric[anchor_metric]
             metric.update(index=index + 1, source=source)
             metrics.append(metric)
             hashes[metric["pixelSha256"]].append(index + 1)
@@ -155,7 +168,7 @@ def audit(sequence):
     }
     deltas = []
     for previous, current in zip(metrics, metrics[1:]):
-        anchor = distance(previous["bottomBandAnchor"], current["bottomBandAnchor"])
+        anchor = distance(previous["measuredAnchor"], current["measuredAnchor"])
         bbox = distance(previous["bboxCenter"], current["bboxCenter"])
         area = abs(current["alphaArea"] - previous["alphaArea"]) / max(
             previous["alphaArea"], 1
@@ -234,15 +247,15 @@ def contact_sheet(sequence, frames, result):
         metric = result["frames"][index]
         bbox = tuple(round(value * scale) for value in metric["alphaBBox"])
         draw.rectangle(bbox, outline=(255, 196, 45, 255), width=2)
-        ax = round(metric["bottomBandAnchor"][0] * scale)
-        ay = round(metric["bottomBandAnchor"][1] * scale)
+        ax = round(metric["measuredAnchor"][0] * scale)
+        ay = round(metric["measuredAnchor"][1] * scale)
         draw.line((ax - 7, ay, ax + 7, ay), fill=(255, 68, 68, 255), width=2)
         draw.line((ax, ay - 7, ax, ay + 7), fill=(255, 68, 68, 255), width=2)
         sheet.alpha_composite(panel, (x, y))
         ImageDraw.Draw(sheet).text(
             (x + 8, y + preview[1] + 8),
-            f"{index + 1:02d} A({metric['bottomBandAnchor'][0]:.1f},"
-            f"{metric['bottomBandAnchor'][1]:.1f})",
+            f"{index + 1:02d} A({metric['measuredAnchor'][0]:.1f},"
+            f"{metric['measuredAnchor'][1]:.1f})",
             font=font,
             fill=(244, 247, 252, 255),
         )

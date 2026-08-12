@@ -19,9 +19,9 @@ function pngSize(relative) {
   return [buffer.readUInt32BE(16), buffer.readUInt32BE(20)];
 }
 
-test("precision manifest remains inactive and preserves production coordinates", () => {
+test("precision manifest promotes only audited court-pour assets and preserves production coordinates", () => {
   const manifest = json(relativeManifest);
-  assert.equal(manifest.activeRuntime, false);
+  assert.equal(manifest.activeRuntime, true);
   assert.deepEqual(manifest.sceneLogicalSize, { width: 2048, height: 1152 });
   assert.equal(manifest.productionReference, "assets/art/game-scene/manifest.json");
   assert.equal(manifest.policy.format, "png");
@@ -122,8 +122,24 @@ test("committed precision audit and contact sheets are deterministic and current
   }
 });
 
-test("production renderer is not switched to an inactive precision manifest", () => {
+test("night-court summon audits its actual aligned RGBA envelope", () => {
+  const manifest = json(relativeManifest);
+  const nightCourt = manifest.sequences.find(
+    sequence => sequence.id === "production-kongjwi-night-court-pour"
+  );
+  assert.equal(nightCourt.anchor.type, "effect-envelope-bottom-center");
+  assert.equal(nightCourt.anchor.metric, "bboxBottomCenter");
+  const auditor = read("scripts/audit-animation-assets.py").toString("utf8");
+  assert.ok(auditor.includes('"bboxBottomCenter"'));
+  assert.ok(auditor.includes('metric["measuredAnchor"]'));
+});
+
+test("production renderer stays shared while court effect mounts promoted precision assets", () => {
   const renderer = read("assets/js/scene-renderer.js").toString("utf8");
+  const courtEffect = read("assets/js/court-servant-effect.js").toString("utf8");
   assert.ok(renderer.includes("../art/game-scene/manifest.json"));
   assert.ok(!renderer.includes("game-scene-precision-v1"));
+  assert.ok(courtEffect.includes("dolsoe-c-sheet.png"));
+  assert.ok(courtEffect.includes("water-droplets-sheet.png"));
+  assert.ok(!courtEffect.includes("kongjwi-field-work-cutout.png"));
 });

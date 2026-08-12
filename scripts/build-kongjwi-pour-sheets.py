@@ -14,6 +14,11 @@ invariant would faithfully preserve a headless character. Detect that defect in
 the face core, then repair the broader head alpha from an aligned authored
 silhouette while taking every restored RGB pixel from the royal-night source.
 
+The night-court action is the deliberate exception to the rigid-pose source
+rule. Its authored summon-sheet is already an eight-frame servant-summoning
+sequence, so those exact RGBA frames are uniformly fitted and integer-aligned
+to the production 512x768 cells. No pose, face, costume, or effect is redrawn.
+
 Bucket pixels are preserved in a canonical master.png the first time a valid
 source is available; if a legacy static bucket PNG is truncated, frame 0 of the
 already-valid 4096x768 motion sheet is cropped once and becomes that canonical
@@ -23,6 +28,7 @@ are never recursively scaled.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -32,6 +38,13 @@ from PIL import Image, ImageChops, ImageDraw, UnidentifiedImageError
 CELL = (512, 768)
 FRAMES = 8
 BODY_PIVOT = (CELL[0] // 2, CELL[1] - 58)
+NIGHT_SUMMON_SOURCE = Path("assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png")
+NIGHT_SUMMON_GRID = (4, 2)
+NIGHT_SUMMON_SOURCE_CELL = (384, 512)
+NIGHT_SUMMON_SCALE = 1.30
+NIGHT_SUMMON_ALPHA_THRESHOLD = 16
+NIGHT_SUMMON_ANCHOR = (CELL[0] // 2, CELL[1] - 12)
+NIGHT_SUMMON_PROVENANCE = Path("assets/art/game-scene/kongjwi/night-court/provenance.json")
 
 SOURCES = {
     "underlayer": "kongjwi-underlayer-cutout.png",
@@ -259,14 +272,120 @@ def write_sheet(frames, output: Path):
     sheet = Image.new("RGBA", (CELL[0] * FRAMES, CELL[1]), (0, 0, 0, 0))
     for index, frame in enumerate(frames):
         sheet.alpha_composite(frame, (index * CELL[0], 0))
+    if output.exists():
+        with Image.open(output) as current:
+            current_rgba = current.convert("RGBA")
+            if current_rgba.size == sheet.size and current_rgba.tobytes() == sheet.tobytes():
+                return False
     output.parent.mkdir(parents=True, exist_ok=True)
     sheet.save(output, format="PNG", optimize=True, compress_level=9)
+    return True
+
+
+def threshold_alpha_bbox(image: Image.Image, threshold: int = NIGHT_SUMMON_ALPHA_THRESHOLD):
+    alpha = image.getchannel("A")
+    return alpha.point(lambda value: 255 if value >= threshold else 0).getbbox()
+
+
+def build_night_court_summon_frames(root: Path):
+    source_path = root / NIGHT_SUMMON_SOURCE
+    source = load_rgba(source_path)
+    expected_size = (
+        NIGHT_SUMMON_SOURCE_CELL[0] * NIGHT_SUMMON_GRID[0],
+        NIGHT_SUMMON_SOURCE_CELL[1] * NIGHT_SUMMON_GRID[1],
+    )
+    if source.size != expected_size:
+        raise RuntimeError(f"Unexpected night-court summon sheet size: {source.size}; expected {expected_size}")
+
+    scaled_size = (
+        round(NIGHT_SUMMON_SOURCE_CELL[0] * NIGHT_SUMMON_SCALE),
+        round(NIGHT_SUMMON_SOURCE_CELL[1] * NIGHT_SUMMON_SCALE),
+    )
+    frames = []
+    alignments = []
+    for index in range(FRAMES):
+        column = index % NIGHT_SUMMON_GRID[0]
+        row = index // NIGHT_SUMMON_GRID[0]
+        frame = source.crop((
+            column * NIGHT_SUMMON_SOURCE_CELL[0],
+            row * NIGHT_SUMMON_SOURCE_CELL[1],
+            (column + 1) * NIGHT_SUMMON_SOURCE_CELL[0],
+            (row + 1) * NIGHT_SUMMON_SOURCE_CELL[1],
+        ))
+        scaled = frame.resize(scaled_size, Image.Resampling.LANCZOS)
+        bbox = threshold_alpha_bbox(scaled)
+        if not bbox:
+            raise RuntimeError(f"night-court summon frame {index} has no visible pixels")
+
+        offset_x = round(NIGHT_SUMMON_ANCHOR[0] - (bbox[0] + bbox[2]) / 2)
+        offset_y = NIGHT_SUMMON_ANCHOR[1] - bbox[3]
+        output = Image.new("RGBA", CELL, (0, 0, 0, 0))
+        output.alpha_composite(scaled, (offset_x, offset_y))
+        output_bbox = threshold_alpha_bbox(output)
+        if not output_bbox:
+            raise RuntimeError(f"night-court summon frame {index} became empty")
+        if output_bbox[0] == 0 or output_bbox[1] == 0 or output_bbox[2] == CELL[0] or output_bbox[3] == CELL[1]:
+            raise RuntimeError(f"night-court summon frame {index} clips the production cell: {output_bbox}")
+
+        center_x = (output_bbox[0] + output_bbox[2]) / 2
+        if abs(center_x - NIGHT_SUMMON_ANCHOR[0]) > 0.5 or output_bbox[3] != NIGHT_SUMMON_ANCHOR[1]:
+            raise RuntimeError(
+                f"night-court summon frame {index} anchor mismatch: "
+                f"center={center_x}, bottom={output_bbox[3]}"
+            )
+        frames.append(output)
+        alignments.append({
+            "frame": index,
+            "sourceGrid": {"column": column, "row": row},
+            "integerTranslation": {"x": offset_x, "y": offset_y},
+            "alphaBBox": list(output_bbox),
+            "anchor": {"x": center_x, "y": output_bbox[3]},
+        })
+    return frames, alignments
+
+
+def build_night_court_summon(root: Path, force: bool = False):
+    output = root / "assets/art/game-scene/kongjwi/night-court/pour-sheet.png"
+    frames, alignments = build_night_court_summon_frames(root)
+    if output.exists() and not force:
+        with Image.open(output) as current:
+            if current.size != (CELL[0] * FRAMES, CELL[1]):
+                raise RuntimeError(f"Unexpected night-court sheet size: {current.size}")
+    else:
+        write_sheet(frames, output)
+
+    source_path = root / NIGHT_SUMMON_SOURCE
+    provenance = {
+        "source": NIGHT_SUMMON_SOURCE.as_posix(),
+        "sourceSha256": hashlib.sha256(source_path.read_bytes()).hexdigest(),
+        "generated": output.relative_to(root).as_posix(),
+        "generatedSha256": hashlib.sha256(output.read_bytes()).hexdigest(),
+        "frameMap": list(range(FRAMES)),
+        "sourceGrid": {"columns": NIGHT_SUMMON_GRID[0], "rows": NIGHT_SUMMON_GRID[1]},
+        "sourceCell": {"width": NIGHT_SUMMON_SOURCE_CELL[0], "height": NIGHT_SUMMON_SOURCE_CELL[1]},
+        "outputCell": {"width": CELL[0], "height": CELL[1]},
+        "uniformScale": NIGHT_SUMMON_SCALE,
+        "resampling": "LANCZOS",
+        "anchorRule": "threshold-alpha-bbox-bottom-center",
+        "alphaThreshold": NIGHT_SUMMON_ALPHA_THRESHOLD,
+        "targetAnchor": {"x": NIGHT_SUMMON_ANCHOR[0], "y": NIGHT_SUMMON_ANCHOR[1]},
+        "designPolicy": "preserve-source-rgba-no-redraw",
+        "alignments": alignments,
+    }
+    provenance_path = root / NIGHT_SUMMON_PROVENANCE
+    provenance_path.parent.mkdir(parents=True, exist_ok=True)
+    provenance_path.write_text(
+        json.dumps(provenance, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
 
 
 def build_kongjwi(root: Path, force: bool = False):
     ensure_night_court_head(root)
     shared_hand_points = None
     for skin, filename in SOURCES.items():
+        if skin == "night-court":
+            continue
         source = load_rgba(root / "assets/art/kongjwi" / filename)
         base = fit_source(source)
         frames, hand_points = build_intact_frames(base)
@@ -281,6 +400,7 @@ def build_kongjwi(root: Path, force: bool = False):
             continue
         write_sheet(frames, output)
 
+    build_night_court_summon(root, force=force)
     return shared_hand_points
 
 
@@ -363,11 +483,14 @@ def build_tool_sheet(root: Path, tool_key: str, hand_points, force: bool = False
 def update_manifest(root: Path):
     path = root / "assets/art/game-scene/manifest.json"
     manifest = json.loads(path.read_text(encoding="utf-8"))
-    manifest["version"] = "20260808-layer-safe1"
+    manifest["version"] = "20260812-night-court-summon1"
 
     policy = manifest.setdefault("runtimePolicy", {})
-    policy["kongjwiMotionPolicy"] = "source-locked-intact-all-outfits"
+    policy["kongjwiMotionPolicy"] = "source-locked-intact-standard-outfits-night-court-summon-derived"
     policy["kongjwiFramePolicy"] = "source-character-pixels-whole-body-pose-only"
+    policy["nightCourtMotionSource"] = NIGHT_SUMMON_SOURCE.as_posix()
+    policy["nightCourtActionMode"] = "summon-servant-pour"
+    policy["nightCourtFramePolicy"] = "uniform-scale-integer-anchor-no-redraw"
     policy["anatomySafetyPolicy"] = "complete-source-required-no-headless-cutouts"
     policy["toolMotionPolicy"] = "source-master-grip-pivot-co-registered"
     policy["uniformScalePolicy"] = "shared-2048x1152-contain"
@@ -389,6 +512,7 @@ def update_manifest(root: Path):
     sequences = manifest.setdefault("frames", {}).setdefault("sequences", {})
     correct = sequences.setdefault("answerCorrect", {})
     correct["kongjwiTimeline"] = [2, 2, 3, 3, 4, 4, 5, 5, 5, 6, 6]
+    correct["nightCourtKongjwiTimeline"] = [2, 2, 3, 3, 4, 4, 5, 5, 5, 6, 6]
     correct["toolTimeline"] = [2, 2, 3, 3, 4, 4, 5, 5, 5, 6, 6]
     correct["waterStream"] = [1, 2, 3, 4, 5, 6, 7]
     correct["waterSplash"] = [1, 2, 3, 4, 5]
@@ -406,6 +530,11 @@ def update_manifest(root: Path):
     for tool in TOOL_SOURCES:
         availability[manifest["assets"]["tools"][tool]["sheet"]] = True
 
+    night_court = manifest["assets"]["kongjwi"]["night-court"]
+    night_court["actionMode"] = "summon-servant-pour"
+    night_court["source"] = NIGHT_SUMMON_SOURCE.as_posix()
+    night_court["provenance"] = NIGHT_SUMMON_PROVENANCE.as_posix()
+
     path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
@@ -421,7 +550,7 @@ def main():
         for tool in TOOL_SOURCES:
             build_tool_sheet(root, tool, hand_points, force=args.force)
     update_manifest(root)
-    print("Built head-safe intact Kongjwi poses + four canonical-master bucket sheets")
+    print("Built intact standard outfits + anchored night-court summon + four canonical-master bucket sheets")
 
 
 if __name__ == "__main__":

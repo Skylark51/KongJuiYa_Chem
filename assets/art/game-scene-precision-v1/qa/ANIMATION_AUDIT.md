@@ -1,10 +1,10 @@
 # Animation asset audit
 
 - Manifest: assets/art/game-scene-precision-v1/animation-manifest.json
-- Manifest SHA256: 6673c0aff0e34aaffd9e1a90c7bad174bf2e328ae6681b42c19a8047819ac506
+- Manifest SHA256: db5fd4ae3c5b85e18d324d3ece078159b67a5a76624779c93c7fc1f10004a799
 - Scene logical canvas: 2048x1152
 - Strict failures: 0
-- Warnings: 6
+- Warnings: 5
 
 | Sequence | Gate | Status | Frames | Anchor delta | Bbox delta |
 | --- | --- | --- | ---: | ---: | ---: |
@@ -28,10 +28,7 @@
 
 > WARN production-kongjwi-ragged-pour: anchor jitter 5.601 > 4.000
 
-| production-kongjwi-night-court-pour | report | WARN | 8 | 24.187px | 7.106px |
-
-> WARN production-kongjwi-night-court-pour: anchor jitter 24.187 > 4.000
-
+| production-kongjwi-night-court-pour | report | PASS | 8 | 1.000px | 11.011px |
 | production-tool-wood-pour | report | PASS | 8 | 80.658px | 22.638px |
 | production-water-leak | report | PASS | 8 | 0.500px | 0.500px |
 | precision-water-droplets | strict | PASS | 8 | 0.708px | 79.128px |

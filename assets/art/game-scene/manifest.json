@@ -1,5 +1,5 @@
 {
-  "version": "20260808-layer-safe1",
+  "version": "20260812-night-court-summon1",
   "logicalSize": {
     "width": 2048,
     "height": 1152
@@ -13,13 +13,16 @@
     "loadStrategy": "selected-cosmetics-first",
     "fallbackMode": "coherent-static-rig",
     "jarFramePolicy": "source-locked-paired-png",
-    "kongjwiMotionPolicy": "source-locked-intact-all-outfits",
+    "kongjwiMotionPolicy": "source-locked-intact-standard-outfits-night-court-summon-derived",
     "kongjwiFramePolicy": "source-character-pixels-whole-body-pose-only",
     "toolMotionPolicy": "source-master-grip-pivot-co-registered",
     "uniformScalePolicy": "shared-2048x1152-contain",
     "waterAnimationPolicy": "synchronized-pour-fill-leak",
     "cosmeticFxPolicy": "data-keyed-runtime-effects",
-    "anatomySafetyPolicy": "complete-source-required-no-headless-cutouts"
+    "anatomySafetyPolicy": "complete-source-required-no-headless-cutouts",
+    "nightCourtMotionSource": "assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png",
+    "nightCourtActionMode": "summon-servant-pour",
+    "nightCourtFramePolicy": "uniform-scale-integer-anchor-no-redraw"
   },
   "layers": {
     "scene-background": 0,
@@ -68,7 +71,10 @@
       },
       "night-court": {
         "sheet": "assets/art/game-scene/kongjwi/night-court/pour-sheet.png",
-        "fallback": "assets/art/kongjwi/kongjwi-night-court-cutout.png"
+        "fallback": "assets/art/kongjwi/kongjwi-night-court-cutout.png",
+        "actionMode": "summon-servant-pour",
+        "source": "assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png",
+        "provenance": "assets/art/game-scene/kongjwi/night-court/provenance.json"
       }
     },
     "tools": {
@@ -292,6 +298,19 @@
           6
         ],
         "toolTimeline": [
+          2,
+          2,
+          3,
+          3,
+          4,
+          4,
+          5,
+          5,
+          5,
+          6,
+          6
+        ],
+        "nightCourtKongjwiTimeline": [
           2,
           2,
           3,

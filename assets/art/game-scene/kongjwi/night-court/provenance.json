@@ -1,0 +1,207 @@
+{
+  "source": "assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png",
+  "sourceSha256": "2538b4244562dd44823554f5762be7fa277c9579671b317ef8e5cf22638a6d13",
+  "generated": "assets/art/game-scene/kongjwi/night-court/pour-sheet.png",
+  "generatedSha256": "63faf72ab332a9fa705de1ac4f03fbf74c59a72f477ecf214554b7aacc31af1c",
+  "frameMap": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "sourceGrid": {
+    "columns": 4,
+    "rows": 2
+  },
+  "sourceCell": {
+    "width": 384,
+    "height": 512
+  },
+  "outputCell": {
+    "width": 512,
+    "height": 768
+  },
+  "uniformScale": 1.3,
+  "resampling": "LANCZOS",
+  "anchorRule": "threshold-alpha-bbox-bottom-center",
+  "alphaThreshold": 16,
+  "targetAnchor": {
+    "x": 256,
+    "y": 756
+  },
+  "designPolicy": "preserve-source-rgba-no-redraw",
+  "alignments": [
+    {
+      "frame": 0,
+      "sourceGrid": {
+        "column": 0,
+        "row": 0
+      },
+      "integerTranslation": {
+        "x": 37,
+        "y": 90
+      },
+      "alphaBBox": [
+        83,
+        100,
+        429,
+        756
+      ],
+      "anchor": {
+        "x": 256.0,
+        "y": 756
+      }
+    },
+    {
+      "frame": 1,
+      "sourceGrid": {
+        "column": 1,
+        "row": 0
+      },
+      "integerTranslation": {
+        "x": 18,
+        "y": 90
+      },
+      "alphaBBox": [
+        97,
+        100,
+        414,
+        756
+      ],
+      "anchor": {
+        "x": 255.5,
+        "y": 756
+      }
+    },
+    {
+      "frame": 2,
+      "sourceGrid": {
+        "column": 2,
+        "row": 0
+      },
+      "integerTranslation": {
+        "x": 14,
+        "y": 90
+      },
+      "alphaBBox": [
+        33,
+        100,
+        480,
+        756
+      ],
+      "anchor": {
+        "x": 256.5,
+        "y": 756
+      }
+    },
+    {
+      "frame": 3,
+      "sourceGrid": {
+        "column": 3,
+        "row": 0
+      },
+      "integerTranslation": {
+        "x": 8,
+        "y": 109
+      },
+      "alphaBBox": [
+        33,
+        109,
+        479,
+        756
+      ],
+      "anchor": {
+        "x": 256.0,
+        "y": 756
+      }
+    },
+    {
+      "frame": 4,
+      "sourceGrid": {
+        "column": 0,
+        "row": 1
+      },
+      "integerTranslation": {
+        "x": 2,
+        "y": 93
+      },
+      "alphaBBox": [
+        11,
+        93,
+        501,
+        756
+      ],
+      "anchor": {
+        "x": 256.0,
+        "y": 756
+      }
+    },
+    {
+      "frame": 5,
+      "sourceGrid": {
+        "column": 1,
+        "row": 1
+      },
+      "integerTranslation": {
+        "x": 38,
+        "y": 115
+      },
+      "alphaBBox": [
+        38,
+        115,
+        473,
+        756
+      ],
+      "anchor": {
+        "x": 255.5,
+        "y": 756
+      }
+    },
+    {
+      "frame": 6,
+      "sourceGrid": {
+        "column": 2,
+        "row": 1
+      },
+      "integerTranslation": {
+        "x": 4,
+        "y": 103
+      },
+      "alphaBBox": [
+        68,
+        103,
+        445,
+        756
+      ],
+      "anchor": {
+        "x": 256.5,
+        "y": 756
+      }
+    },
+    {
+      "frame": 7,
+      "sourceGrid": {
+        "column": 3,
+        "row": 1
+      },
+      "integerTranslation": {
+        "x": 12,
+        "y": 104
+      },
+      "alphaBBox": [
+        99,
+        107,
+        413,
+        756
+      ],
+      "anchor": {
+        "x": 256.0,
+        "y": 756
+      }
+    }
+  ]
+}

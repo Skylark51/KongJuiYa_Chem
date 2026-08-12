@@ -7,6 +7,7 @@ on:
     paths:
       - "scripts/build-kongjwi-pour-sheets.py"
       - "assets/art/kongjwi/*-cutout.png"
+      - "assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png"
       - "assets/art/kongjwi-tools/*.png"
       - "assets/art/game-scene/tools/*/master.png"
       - "assets/art/game-scene/tools/*/pour-sheet.png"
@@ -56,6 +57,7 @@ jobs:
             if git diff --name-only "$BEFORE" "$GITHUB_SHA" -- \
               'scripts/build-kongjwi-pour-sheets.py' \
               'assets/art/kongjwi/*-cutout.png' \
+              'assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png' \
               'assets/art/kongjwi-tools/*.png' \
               'assets/art/game-scene/tools/*/master.png' \
               'tests/kongjwi-pour-motion.test.mjs' \
@@ -81,7 +83,7 @@ jobs:
           import numpy as np
           import json
 
-          skins = ("underlayer", "classic-red", "blue-scholar", "field-work", "ragged", "night-court")
+          skins = ("underlayer", "classic-red", "blue-scholar", "field-work", "ragged")
           tools = ("wood", "brass", "celadon", "moon")
 
           spec = importlib.util.spec_from_file_location("kongjwi_builder", Path("scripts/build-kongjwi-pour-sheets.py"))
@@ -96,7 +98,8 @@ jobs:
           )
 
           manifest = json.loads(Path("assets/art/game-scene/manifest.json").read_text(encoding="utf-8"))
-          assert manifest["version"] == "20260808-layer-safe1"
+          assert manifest["version"] == "20260812-night-court-summon1"
+          assert manifest["runtimePolicy"]["nightCourtActionMode"] == "summon-servant-pour"
           assert manifest["runtimePolicy"]["anatomySafetyPolicy"] == "complete-source-required-no-headless-cutouts"
           assert manifest["layers"]["scene-tool"] > manifest["layers"]["scene-kongjwi"], (
               "equipped bucket must render in front of the character grip region"
@@ -127,6 +130,17 @@ jobs:
               assert np.count_nonzero(np.any(np.abs(idle - pour) > 12, axis=2)) > 500, skin
               assert np.count_nonzero(np.any(np.abs(idle - wrong) > 12, axis=2)) > 300, skin
 
+          night_path = Path("assets/art/game-scene/kongjwi/night-court/pour-sheet.png")
+          night = Image.open(night_path).convert("RGBA")
+          assert night.size == (4096, 768), night.size
+          expected_frames, alignments = builder.build_night_court_summon_frames(Path("."))
+          for index, expected_frame in enumerate(expected_frames):
+              actual = np.asarray(night.crop((index * 512, 0, (index + 1) * 512, 768)), dtype=np.uint8)
+              expected = np.asarray(expected_frame, dtype=np.uint8)
+              assert np.array_equal(actual, expected), f"night-court frame {index}: summon design changed"
+              assert abs(alignments[index]["anchor"]["x"] - 256) <= 0.5
+              assert alignments[index]["anchor"]["y"] == 756
+
           for tool in tools:
               base = Path("assets/art/game-scene/tools") / tool
               master = Image.open(base / "master.png").convert("RGBA")
@@ -149,6 +163,7 @@ jobs:
             assets/art/kongjwi/kongjwi-night-court-cutout.png \
             assets/art/game-scene/manifest.json \
             assets/art/game-scene/kongjwi/*/pour-sheet.png \
+            assets/art/game-scene/kongjwi/night-court/provenance.json \
             assets/art/game-scene/tools/*/master.png \
             assets/art/game-scene/tools/*/pour-sheet.png
           if git diff --cached --quiet; then

@@ -1,6 +1,6 @@
 {
   "version": "20260812-precision-v1",
-  "activeRuntime": false,
+  "activeRuntime": true,
   "productionReference": "assets/art/game-scene/manifest.json",
   "sceneLogicalSize": {
     "width": 2048,
@@ -11,7 +11,7 @@
     "format": "png",
     "alpha": "required",
     "sourceOverwrite": false,
-    "runtimePromotion": "manual-after-strict-pass",
+      "runtimePromotion": "night-court-only-after-strict-pass",
     "correction": "integer-translation-and-transparent-padding-only",
     "resamplingForAlignment": false,
     "webp": false,
@@ -63,7 +63,9 @@
         "cell": [256, 512]
       },
       "derivation": "lossless crop, transparent padding, integer translation",
-      "runtimeActivation": false
+      "runtimeActivation": true,
+      "runtimeModule": "assets/js/court-servant-effect.js",
+      "promotedVariant": "dolsoe-c"
     }
   },
   "sequences": [
@@ -136,7 +138,11 @@
       "layout": {"columns": 8, "rows": 1, "frameCount": 8},
       "frameCount": 8,
       "canvas": {"width": 512, "height": 768},
-      "anchor": {"type": "feet-center"},
+      "anchor": {
+        "type": "effect-envelope-bottom-center",
+        "metric": "bboxBottomCenter",
+        "reason": "summon frames contain moving hem magic; production alignment fixes the full RGBA envelope"
+      },
       "motion": {"mode": "declared-action", "maxAnchorDeltaPx": 4}
     },
     {

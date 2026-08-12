@@ -1,12 +1,13 @@
-// Temporary visual fallback until an authored Dolsoe servant asset is available.
-// Keep the fallback isolated here so replacing the source art does not affect scene orchestration.
-const SERVANT_ASSET = "assets/art/kongjwi/kongjwi-field-work-cutout.png";
-const TOOL_ASSETS = Object.freeze({
-  wood: "assets/art/kongjwi-tools/wood.png",
-  brass: "assets/art/kongjwi-tools/brass.png",
-  celadon: "assets/art/kongjwi-tools/celadon.png",
-  moon: "assets/art/kongjwi-tools/moon.png"
-});
+// Audited precision-v1 assets promoted for the night-court servant pour only.
+const ASSET_VERSION = "20260812-court-pour1";
+const DOLSOE_SHEET = "assets/art/game-scene-precision-v1/sequences/servants/dolsoe-c/dolsoe-c-sheet.png";
+const WATER_DROPLETS_SHEET = "assets/art/game-scene-precision-v1/sequences/effects/water-droplets/water-droplets-sheet.png";
+
+function assetUrl(pathname) {
+  const url = new URL(pathname, document.baseURI);
+  url.searchParams.set("v", ASSET_VERSION);
+  return url.href;
+}
 
 function sceneRoot() {
   return document.querySelector('[data-kongjwi-outfit="night-court"]');
@@ -20,19 +21,14 @@ function ensureLayer(root) {
   layer = document.createElement("div");
   layer.className = "scene-court-servants";
   layer.setAttribute("aria-hidden", "true");
-  for (const side of ["left", "right"]) {
-    const servant = document.createElement("div");
-    servant.className = `court-servant court-servant-${side}`;
-    const character = document.createElement("img");
-    character.className = "court-servant-character";
-    character.alt = "";
-    character.src = SERVANT_ASSET;
-    const tool = document.createElement("img");
-    tool.className = "court-servant-tool";
-    tool.alt = "";
-    servant.append(character, tool);
-    layer.append(servant);
-  }
+  layer.dataset.assetMode = "authored-dolsoe";
+  const servant = document.createElement("div");
+  servant.className = "court-servant court-servant-authored";
+  servant.style.setProperty("--dolsoe-sheet", `url("${assetUrl(DOLSOE_SHEET)}")`);
+  const droplets = document.createElement("div");
+  droplets.className = "court-servant-water-droplets";
+  droplets.style.setProperty("--court-water-sheet", `url("${assetUrl(WATER_DROPLETS_SHEET)}")`);
+  layer.append(servant, droplets);
   stack.append(layer);
   return layer;
 }
@@ -46,9 +42,6 @@ export function playCourtServantPour() {
   if (!root) return false;
   const layer = ensureLayer(root);
   if (!layer) return false;
-  const toolKey = root.dataset.toolSkin || "wood";
-  const toolUrl = TOOL_ASSETS[toolKey] || TOOL_ASSETS.wood;
-  layer.querySelectorAll(".court-servant-tool").forEach(img => { img.src = toolUrl; });
   layer.classList.remove("is-active");
   void layer.offsetWidth;
   layer.classList.add("is-active");

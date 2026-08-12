@@ -5,13 +5,19 @@ uses assets/art/game-scene/manifest.json and a 2048 x 1152 logical canvas.
 The 1600 x 1000 size mentioned in an early brief is not used by the browser
 runtime or its regression tests, so this pipeline does not replace it.
 
-The precision-v1 package is deliberately inactive:
+The shared scene renderer still uses the production manifest. Two strict-pass
+precision-v1 sequences are promoted through the isolated night-court effect:
+
+- `precision-dolsoe-c` supplies the authored Dolsoe servant action;
+- `precision-water-droplets` supplements the continuous pour at the jar mouth.
+
+The remaining precision-v1 candidates stay inactive:
 
 - production originals remain untouched;
 - source-locked art remains untouched;
 - alignment uses transparent padding and integer translation only;
 - the builder never scales, rotates or resamples source pixels;
-- runtime promotion is a separate manual review after a strict audit pass.
+- runtime promotion requires strict audit and browser review per sequence.
 
 ## Directory contract
 
@@ -148,6 +154,6 @@ and bucket sheets are co-registered and must be migrated together.
 
 The production toad expression overlay remains corrupt and disabled. The
 production 2048 x 1152 background asset is still missing, so the renderer uses
-its existing fallback. The V2 Dolsoe art is now losslessly aligned and audited
-as an inactive candidate, but its four semantic phases still need art-direction
-approval before enter/carry/pour/exit labels or runtime activation.
+its existing fallback. The V2 Dolsoe art is losslessly aligned. Candidate C is
+promoted only for the night-court correct-answer sequence; candidates A and B
+remain QA-only.

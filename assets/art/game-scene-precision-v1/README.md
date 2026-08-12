@@ -1,10 +1,11 @@
 # game-scene-precision-v1
 
-Inactive, versioned animation candidates and deterministic QA artifacts.
+Versioned animation candidates and deterministic QA artifacts. The audited
+Dolsoe C sequence and water-droplets sequence are promoted only for the
+night-court correct-answer effect in assets/js/court-servant-effect.js.
 
-Production remains on ../game-scene/manifest.json. Do not point the renderer at
-animation-manifest.json until every promoted sequence passes strict audit and
-the browser regression matrix in docs/ANIMATION_ASSET_PIPELINE.md.
+The shared production renderer remains on ../game-scene/manifest.json; the
+precision package is not a replacement scene manifest.
 
 Build:
 
