@@ -1,0 +1,436 @@
+{
+  "version": "20260812-precision-v1",
+  "policy": {
+    "translation": "integer-only",
+    "resampling": false
+  },
+  "sourceSha256": {
+    "assets/art/game-scene-precision-v1/masters/water-droplets-rgba.png": "3de0cbecddb62d60b41691a24928c6483da394e46c312f97c99d251bbc1e8248",
+    "assets/art/game-scene-v2/servants/dolsoe-water-sheet.png": "f73fb9d99d664ef18b258b345ebcc5a77cd940516505ce0c7753d78a6bd5782d"
+  },
+  "sequences": [
+    {
+      "id": "water-droplets",
+      "frames": [
+        {
+          "integerCorrection": [
+            2,
+            34
+          ],
+          "anchorBefore": [
+            253.79,
+            446
+          ],
+          "anchorAfter": [
+            255.79,
+            480
+          ],
+          "targetAnchor": [
+            256,
+            480
+          ],
+          "resampled": false,
+          "frame": 1
+        },
+        {
+          "integerCorrection": [
+            3,
+            33
+          ],
+          "anchorBefore": [
+            253.485,
+            447
+          ],
+          "anchorAfter": [
+            256.485,
+            480
+          ],
+          "targetAnchor": [
+            256,
+            480
+          ],
+          "resampled": false,
+          "frame": 2
+        },
+        {
+          "integerCorrection": [
+            1,
+            32
+          ],
+          "anchorBefore": [
+            255.253,
+            448
+          ],
+          "anchorAfter": [
+            256.253,
+            480
+          ],
+          "targetAnchor": [
+            256,
+            480
+          ],
+          "resampled": false,
+          "frame": 3
+        },
+        {
+          "integerCorrection": [
+            2,
+            32
+          ],
+          "anchorBefore": [
+            253.725,
+            448
+          ],
+          "anchorAfter": [
+            255.725,
+            480
+          ],
+          "targetAnchor": [
+            256,
+            480
+          ],
+          "resampled": false,
+          "frame": 4
+        },
+        {
+          "integerCorrection": [
+            2,
+            61
+          ],
+          "anchorBefore": [
+            254.433,
+            419
+          ],
+          "anchorAfter": [
+            256.433,
+            480
+          ],
+          "targetAnchor": [
+            256,
+            480
+          ],
+          "resampled": false,
+          "frame": 5
+        },
+        {
+          "integerCorrection": [
+            1,
+            62
+          ],
+          "anchorBefore": [
+            254.776,
+            418
+          ],
+          "anchorAfter": [
+            255.776,
+            480
+          ],
+          "targetAnchor": [
+            256,
+            480
+          ],
+          "resampled": false,
+          "frame": 6
+        },
+        {
+          "integerCorrection": [
+            4,
+            61
+          ],
+          "anchorBefore": [
+            252.252,
+            419
+          ],
+          "anchorAfter": [
+            256.252,
+            480
+          ],
+          "targetAnchor": [
+            256,
+            480
+          ],
+          "resampled": false,
+          "frame": 7
+        },
+        {
+          "integerCorrection": [
+            3,
+            61
+          ],
+          "anchorBefore": [
+            253.313,
+            419
+          ],
+          "anchorAfter": [
+            256.313,
+            480
+          ],
+          "targetAnchor": [
+            256,
+            480
+          ],
+          "resampled": false,
+          "frame": 8
+        }
+      ]
+    },
+    {
+      "id": "dolsoe-a",
+      "sourceRow": 0,
+      "frames": [
+        {
+          "integerCorrection": [
+            -7,
+            0
+          ],
+          "anchorBefore": [
+            263.113,
+            740
+          ],
+          "anchorAfter": [
+            256.113,
+            740
+          ],
+          "targetAnchor": [
+            256,
+            740
+          ],
+          "resampled": false,
+          "frame": 1
+        },
+        {
+          "integerCorrection": [
+            -41,
+            0
+          ],
+          "anchorBefore": [
+            296.524,
+            740
+          ],
+          "anchorAfter": [
+            255.524,
+            740
+          ],
+          "targetAnchor": [
+            256,
+            740
+          ],
+          "resampled": false,
+          "frame": 2
+        },
+        {
+          "integerCorrection": [
+            -99,
+            12
+          ],
+          "anchorBefore": [
+            354.751,
+            728
+          ],
+          "anchorAfter": [
+            255.751,
+            740
+          ],
+          "targetAnchor": [
+            256,
+            740
+          ],
+          "resampled": false,
+          "frame": 3
+        },
+        {
+          "integerCorrection": [
+            115,
+            14
+          ],
+          "anchorBefore": [
+            141.292,
+            726
+          ],
+          "anchorAfter": [
+            256.292,
+            740
+          ],
+          "targetAnchor": [
+            256,
+            740
+          ],
+          "resampled": false,
+          "frame": 4
+        }
+      ]
+    },
+    {
+      "id": "dolsoe-b",
+      "sourceRow": 1,
+      "frames": [
+        {
+          "integerCorrection": [
+            -15,
+            0
+          ],
+          "anchorBefore": [
+            270.875,
+            740
+          ],
+          "anchorAfter": [
+            255.875,
+            740
+          ],
+          "targetAnchor": [
+            256,
+            740
+          ],
+          "resampled": false,
+          "frame": 1
+        },
+        {
+          "integerCorrection": [
+            -65,
+            0
+          ],
+          "anchorBefore": [
+            320.993,
+            740
+          ],
+          "anchorAfter": [
+            255.993,
+            740
+          ],
+          "targetAnchor": [
+            256,
+            740
+          ],
+          "resampled": false,
+          "frame": 2
+        },
+        {
+          "integerCorrection": [
+            -98,
+            38
+          ],
+          "anchorBefore": [
+            354.013,
+            702
+          ],
+          "anchorAfter": [
+            256.013,
+            740
+          ],
+          "targetAnchor": [
+            256,
+            740
+          ],
+          "resampled": false,
+          "frame": 3
+        },
+        {
+          "integerCorrection": [
+            -34,
+            21
+          ],
+          "anchorBefore": [
+            290.435,
+            719
+          ],
+          "anchorAfter": [
+            256.435,
+            740
+          ],
+          "targetAnchor": [
+            256,
+            740
+          ],
+          "resampled": false,
+          "frame": 4
+        }
+      ]
+    },
+    {
+      "id": "dolsoe-c",
+      "sourceRow": 2,
+      "frames": [
+        {
+          "integerCorrection": [
+            -66,
+            44
+          ],
+          "anchorBefore": [
+            322.203,
+            696
+          ],
+          "anchorAfter": [
+            256.203,
+            740
+          ],
+          "targetAnchor": [
+            256,
+            740
+          ],
+          "resampled": false,
+          "frame": 1
+        },
+        {
+          "integerCorrection": [
+            -18,
+            41
+          ],
+          "anchorBefore": [
+            274.359,
+            699
+          ],
+          "anchorAfter": [
+            256.359,
+            740
+          ],
+          "targetAnchor": [
+            256,
+            740
+          ],
+          "resampled": false,
+          "frame": 2
+        },
+        {
+          "integerCorrection": [
+            -116,
+            20
+          ],
+          "anchorBefore": [
+            371.768,
+            720
+          ],
+          "anchorAfter": [
+            255.768,
+            740
+          ],
+          "targetAnchor": [
+            256,
+            740
+          ],
+          "resampled": false,
+          "frame": 3
+        },
+        {
+          "integerCorrection": [
+            103,
+            19
+          ],
+          "anchorBefore": [
+            153.072,
+            721
+          ],
+          "anchorAfter": [
+            256.072,
+            740
+          ],
+          "targetAnchor": [
+            256,
+            740
+          ],
+          "resampled": false,
+          "frame": 4
+        }
+      ]
+    }
+  ]
+}
