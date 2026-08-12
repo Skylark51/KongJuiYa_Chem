@@ -1,0 +1,41 @@
+name: Rebuild water effect sprites
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/rebuild-water-effects.py"
+      - ".github/workflows/rebuild-water-effects.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install image dependency
+        run: python -m pip install --disable-pip-version-check Pillow
+      - name: Rebuild final-resolution RGBA PNG sheets
+        run: python scripts/rebuild-water-effects.py
+      - name: Validate layered scene assets
+        run: node scripts/validate-layered-scene.mjs
+      - name: Commit rebuilt sprite sheets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/art/game-scene/effects/water-pour-sheet.png assets/art/game-scene/effects/water-leak-sheet.png
+          if git diff --cached --quiet; then
+            echo "Water effect sheets are already current."
+            exit 0
+          fi
+          git commit -m "fix: rebuild corrupted water effect sheets"
+          git push origin HEAD:main
