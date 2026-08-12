@@ -13,6 +13,7 @@ const controls = read("assets/js/quiz-shell-controls.js");
 const cosmetics = read("assets/js/game-cosmetics-entry.js");
 const themeSystem = read("assets/js/theme-system.js");
 const sceneComposition = read("assets/css/quiz-scene-composition.css");
+const validator = read("scripts/validate-layered-scene.mjs");
 
 const layerNames = [
   "scene-background", "scene-kongjwi", "scene-tool", "scene-water-stream",
@@ -65,6 +66,18 @@ test("runtime art path is PNG-only", () => {
   assert.doesNotMatch(renderer, /hue-rotate|sepia\(|saturate\(/);
   assert.match(themeSystem, /const JAR_PREVIEW_PNGS/);
   assert.doesNotMatch(sceneComposition, /toad-expression-sprite\.webp/);
+});
+
+test("optional toad expression overlay cannot bypass PNG integrity validation", () => {
+  const overlay = manifest.assets.effects.toadExpression;
+  assert.ok(overlay?.path, "expression overlay path should remain declared");
+  if (overlay.enabled === true) {
+    assert.equal(manifest.availability[overlay.path], true, "enabled overlay must be production-required");
+  }
+  assert.match(validator, /expressionOverlay\?\.enabled === true/);
+  assert.match(validator, /truncated PNG chunk/);
+  assert.match(validator, /IEND chunk missing/);
+  assert.match(validator, /trailing data after IEND/);
 });
 
 test("one state controller owns all required quiz scene events", () => {

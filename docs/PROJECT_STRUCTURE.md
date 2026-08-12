@@ -58,15 +58,22 @@ Production art는 원본 RGBA PNG를 사용하며 JPEG/WebP/Base64 변환으로 
 `manifest.json`의 `availability: true`는 production 필수 asset이고 `false`는 아직 authored asset이 준비되지 않아 fallback을 허용하는 상태다.
 Fallback은 임시 호환 경로이지 최종 미술 방향을 대체하지 않는다.
 
+PNG 검증은 signature/IHDR만 확인하지 않는다. `scripts/validate-layered-scene.mjs`가 각 chunk의 선언 길이, terminal `IEND`, trailing data 유무까지 검사하며 production asset에는 RGBA 8-bit 이상을 요구한다.
+
 ## 스타일 책임
 
-- `assets/css/game.css`: 게임의 기본 UI와 레이아웃
-- `assets/css/game-asset-animation.css`: layer/sprite의 기본 렌더링과 상태 애니메이션
+게임 페이지는 개별 보정 CSS를 HTML에서 직접 나열하지 않고 세 개의 안정적인 stylesheet entrypoint만 노출한다.
+
+- `assets/css/game-runtime-base.css`: 기본 UI, 반응형 shell, keypad, mode-specific base 스타일을 기존 cascade 순서대로 묶는 진입점
+- `assets/css/game-asset-animation.css`: layer/sprite 기본 렌더링과 상태 애니메이션. `scene-renderer.js`의 readiness contract 때문에 직접 `<link>`로 유지
+- `assets/css/game-runtime-features.css`: 두꺼비·장면 composition, 오디오, 결과 패널, countdown 같은 feature 스타일 진입점
 - `assets/css/layered-scene-runtime.css`: layered scene의 최종 layout/cascade boundary
 - `assets/css/scene-source-aspect-fix.css`: 원본 PNG 비율 보호와 공통 water corridor calibration
 - `assets/css/scene-motion-polish.css`: 장착 도구·의상별 제한된 효과
 - `assets/css/court-servant-effect.css`: 야화 궁중복 하인 효과의 정적 스타일
 - 나머지 mode-specific CSS: 특정 문제 입력 형식 또는 좁은 responsive 보정만 담당
+
+`assets/css/kongjwi-parts.css`는 파츠 합성기와 대시보드 미리보기용이며 현재 게임 scene renderer의 런타임 stylesheet가 아니다.
 
 JavaScript가 임시 `<style>` 요소를 주입하여 최종 geometry를 덮어쓰지 않는다. 재발 방지를 위해 architecture boundary regression test를 유지한다.
 
@@ -74,7 +81,7 @@ JavaScript가 임시 `<style>` 요소를 주입하여 최종 geometry를 덮어�
 
 야화 궁중복의 하인 동작은 현재 별도 효과 모듈로 격리되어 있다. 현재 하인 캐릭터 이미지는 별도 돌쇠 원화가 준비될 때까지 기존 작업복 캐릭터를 임시 fallback으로 사용한다. 최종 방향은 **독립 고품질 돌쇠 PNG/프레임을 추가하고 orchestration 코드는 그대로 유지한 채 source만 교체하는 것**이다.
 
-기본 두꺼비 표정 overlay와 신형 야간 배경처럼 manifest에서 아직 planned/fallback 상태인 asset 역시 fallback을 최종 결과로 간주하지 않는다.
+공유 두꺼비 표정 overlay PNG는 현재 chunk가 손상된 authored source이므로 manifest에서 비활성 상태를 유지한다. 프리미엄 두꺼비는 안전한 `skin-motion` 경로를 계속 사용한다. 신형 야간 배경 역시 manifest에서 planned/fallback 상태이며 fallback을 최종 결과로 간주하지 않는다.
 
 ## 검증
 

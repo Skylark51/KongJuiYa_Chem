@@ -7,6 +7,7 @@ const strictAssets = process.argv.includes('--strict-assets');
 const manifest = JSON.parse(fs.readFileSync(path.join(root, 'assets/art/game-scene/manifest.json'), 'utf8'));
 const cleanPath = pathname => String(pathname).split(/[?#]/, 1)[0];
 const declared = pathname => manifest.availability[pathname] ?? manifest.availability[cleanPath(pathname)];
+const expressionOverlay = manifest.assets.effects.toadExpression;
 
 const expected = [
   ['background', manifest.assets.background.path, 2048, 1152],
@@ -17,6 +18,9 @@ const expected = [
   ...Object.entries(manifest.assets.toads)
     .filter(([, value]) => value.mode === 'skin-motion')
     .map(([name, value]) => ['toad-skin:' + name, value.skin, 1024, 768]),
+  ...(expressionOverlay?.enabled === true
+    ? [['toad-expression-overlay', expressionOverlay.path, 5120, 384]]
+    : []),
   ['water-stream', manifest.assets.effects.waterStream, 4096, 512],
   ['water-splash', manifest.assets.effects.waterSplash, 3072, 512],
   ['water-leak', manifest.assets.effects.waterLeak, 4096, 512],
@@ -30,15 +34,42 @@ const expressionEntries = [...new Map(
 
 function readPng(pathname) {
   const buffer = fs.readFileSync(pathname);
+  if (buffer.length < 33) throw new Error('PNG file is too short');
   if (buffer.subarray(0, 8).toString('hex') !== '89504e470d0a1a0a') throw new Error('PNG signature mismatch');
-  if (buffer.subarray(12, 16).toString('ascii') !== 'IHDR') throw new Error('IHDR chunk missing');
-  return {
-    width: buffer.readUInt32BE(16),
-    height: buffer.readUInt32BE(20),
-    bitDepth: buffer[24],
-    colorType: buffer[25],
-    size: buffer.length
-  };
+
+  let offset = 8;
+  let ihdr = null;
+  let sawIend = false;
+
+  while (offset < buffer.length) {
+    if (offset + 12 > buffer.length) throw new Error('truncated PNG chunk header');
+    const length = buffer.readUInt32BE(offset);
+    const type = buffer.subarray(offset + 4, offset + 8).toString('ascii');
+    const next = offset + 12 + length;
+    if (next > buffer.length) throw new Error('truncated PNG chunk: ' + type);
+
+    if (!ihdr) {
+      if (type !== 'IHDR' || length !== 13) throw new Error('IHDR chunk missing');
+      ihdr = {
+        width: buffer.readUInt32BE(offset + 8),
+        height: buffer.readUInt32BE(offset + 12),
+        bitDepth: buffer[offset + 16],
+        colorType: buffer[offset + 17]
+      };
+    }
+
+    if (type === 'IEND') {
+      if (length !== 0) throw new Error('invalid IEND chunk');
+      sawIend = true;
+      if (next !== buffer.length) throw new Error('trailing data after IEND');
+      break;
+    }
+
+    offset = next;
+  }
+
+  if (!sawIend) throw new Error('IEND chunk missing');
+  return { ...ihdr, size: buffer.length };
 }
 
 let failures = 0;
@@ -88,6 +119,13 @@ for (const [label, relative, width, height] of expected) {
   checkPng(label, relative, width, height);
 }
 
+if (expressionOverlay?.enabled !== true && expressionOverlay?.path) {
+  const diskPath = cleanPath(expressionOverlay.path);
+  if (fs.existsSync(path.join(root, diskPath))) {
+    console.warn('DISABLED ASSET toad-expression-overlay: ' + diskPath + ' (' + (expressionOverlay.validation || 'not validated') + ')');
+  }
+}
+
 let expressionCanvas = null;
 for (const [label, relative] of expressionEntries) {
   const diskPath = cleanPath(relative);
@@ -95,9 +133,14 @@ for (const [label, relative] of expressionEntries) {
     checkPng(label, relative, 0, 0);
     continue;
   }
-  const png = readPng(path.join(root, diskPath));
-  if (!expressionCanvas) expressionCanvas = { width: png.width, height: png.height };
-  checkPng(label, relative, expressionCanvas.width, expressionCanvas.height, expressionCanvas);
+  try {
+    const png = readPng(path.join(root, diskPath));
+    if (!expressionCanvas) expressionCanvas = { width: png.width, height: png.height };
+    checkPng(label, relative, expressionCanvas.width, expressionCanvas.height, expressionCanvas);
+  } catch (error) {
+    failures += 1;
+    console.error('INVALID ' + label + ': ' + diskPath + ': ' + error.message);
+  }
 }
 
 for (const jarKey of Object.keys(manifest.assets.jars)) {
@@ -114,7 +157,9 @@ const runtimeFiles = [
   'assets/js/scene-state-machine.js',
   'assets/js/game-cosmetics-entry.js',
   'assets/js/quiz-shell-controls.js',
+  'assets/css/game-runtime-base.css',
   'assets/css/game-asset-animation.css',
+  'assets/css/game-runtime-features.css',
   'assets/css/toad-composition-fix.css'
 ];
 const forbidden = [
@@ -127,7 +172,13 @@ const forbidden = [
 ];
 
 for (const relative of runtimeFiles) {
-  const text = fs.readFileSync(path.join(root, relative), 'utf8');
+  const absolute = path.join(root, relative);
+  if (!fs.existsSync(absolute)) {
+    failures += 1;
+    console.error('MISSING RUNTIME FILE ' + relative);
+    continue;
+  }
+  const text = fs.readFileSync(absolute, 'utf8');
   for (const [label, pattern] of forbidden) {
     if (pattern.test(text)) {
       failures += 1;

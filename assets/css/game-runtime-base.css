@@ -1,0 +1,18 @@
+/*
+ * Game-page base stylesheet bundle.
+ * Keep this import order aligned with the historical HTML cascade.
+ * Scene animation stays as a separate link because scene-renderer.js uses that
+ * link as its runtime readiness contract.
+ */
+@import url("./game.css?v=20260803-contain1");
+@import url("./game-mobile-integrated.css?v=20260804-viewport-unified2");
+@import url("./quiz-reference-mobile.css?v=20260804-quiz-reference1");
+@import url("./mobile-keypad-original.css?v=20260804-keypad-stable1");
+@import url("./mobile-game-refinement.css?v=20260804-mobile-refine1");
+@import url("./scene-question-merge.css?v=20260805-scene-question1");
+@import url("./quiz-scene-composition.css?v=20260805-hole-anchor1");
+@import url("./mobile-quiz-balance.css?v=20260806-existing-toad-composition1");
+@import url("./quiz-physical-seal.css?v=20260805-fitted-seal1");
+@import url("./redox-quiz.css?v=20260807-redox-one-line1");
+@import url("./atomic-number-speed-start.css?v=20260807-atomic-countdown1");
+@import url("./oxidation-number-keypad.css?v=20260807-oxidation-keypad2");

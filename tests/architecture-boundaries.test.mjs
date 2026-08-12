@@ -12,6 +12,25 @@ test("question-specific display code is owned by the game page, not cosmetics", 
   assert.doesNotMatch(cosmeticsEntry, /redox-single-line/);
 });
 
+test("game page exposes three stable stylesheet entrypoints", () => {
+  const html = read("콩쥐야_줘때써.html");
+  const base = read("assets/css/game-runtime-base.css");
+  const features = read("assets/css/game-runtime-features.css");
+  const links = html.match(/<link[^>]+rel="stylesheet"[^>]*>/g) || [];
+
+  assert.equal(links.length, 3, "game page should not expose the historical patch-stack as individual links");
+  assert.match(html, /game-runtime-base\.css/);
+  assert.match(html, /id="layered-scene-animation-runtime"[^>]+game-asset-animation\.css/);
+  assert.match(html, /game-runtime-features\.css/);
+  assert.doesNotMatch(html, /kongjwi-parts\.css/);
+
+  assert.match(base, /game\.css/);
+  assert.match(base, /oxidation-number-keypad\.css/);
+  assert.doesNotMatch(base, /kongjwi-parts\.css/);
+  assert.match(features, /layered-scene-runtime\.css/);
+  assert.match(features, /opening-countdown-flow\.css/);
+});
+
 test("feature modules do not inject runtime style tags", () => {
   for (const path of ["assets/js/game-page.js", "assets/js/court-servant-effect.js"]) {
     const source = read(path);

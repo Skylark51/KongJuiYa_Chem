@@ -6,6 +6,14 @@
 
 Selecting a mode opens `콩쥐야_줘때써.html?training=<id>`. The game page loads `assets/js/game-page.js`, which initializes the UI around the API assembled by `assets/js/main.js`. The layered PNG scene is mounted through `game-cosmetics-entry.js` and `scene-renderer.js`.
 
+The game page exposes three stylesheet entrypoints instead of loading the historical patch stack directly:
+
+- `assets/css/game-runtime-base.css`: base layout, responsive quiz shell, keypad, and training-specific base styles.
+- `assets/css/game-asset-animation.css`: the direct scene animation stylesheet. It remains a separate `<link>` because `scene-renderer.js` uses its element id as the runtime readiness contract.
+- `assets/css/game-runtime-features.css`: layered-scene composition, cosmetic composition, audio, result, and countdown feature styles.
+
+The bundle files preserve the previous cascade order while keeping dashboard-only composer styles such as `kongjwi-parts.css` out of the game runtime.
+
 ## Module ownership
 
 - `data/training-modes.js`: 26-mode public catalog and per-mode rules.
@@ -29,7 +37,11 @@ The core clamps frame delta, locks answer submission during evaluation, stops ti
 
 ## Scene assets
 
-`assets/art/game-scene/manifest.json` defines one 2048 x 1152 logical scene. An `availability` value of `true` marks a production-required PNG; `false` marks a planned asset that may use its declared fallback. `scripts/validate-layered-scene.mjs` fails when required assets are absent or authored PNG dimensions/formats are invalid.
+`assets/art/game-scene/manifest.json` defines one 2048 x 1152 logical scene. An `availability` value of `true` marks a production-required PNG; `false` marks a planned asset that may use its declared fallback.
+
+`scripts/validate-layered-scene.mjs` validates required dimensions, RGBA 8-bit-or-higher format, PNG chunk boundaries, and a complete terminal `IEND` chunk. Optional assets are only promoted into the required validation set when their manifest feature flag is enabled. This prevents an incomplete authored asset from silently becoming a runtime dependency.
+
+The current shared toad expression overlay remains disabled until a complete RGBA PNG replaces the damaged source. Premium toad skins therefore continue to use the safe skin-motion path rather than loading that overlay.
 
 ## Events
 
