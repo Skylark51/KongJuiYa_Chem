@@ -89,6 +89,15 @@ function renderQuizzes() {
   const empty = document.getElementById("subjectQuizEmpty");
   const visible = quizzes.filter(quiz => activeCategory === "전체" || quiz.category === activeCategory);
   empty.hidden = visible.length > 0;
+  const emptyTitle = empty.querySelector("h3");
+  const emptyCopy = empty.querySelector("p");
+  if (!visible.length && quizzes.length && activeCategory !== "전체") {
+    emptyTitle.textContent = "이 범주에는 아직 등록된 장독대가 없습니다.";
+    emptyCopy.textContent = activeCategory + " 장독대가 추가될 예정입니다.";
+  } else {
+    emptyTitle.textContent = "아직 등록된 " + subject.name + " 장독대가 없습니다.";
+    emptyCopy.textContent = "새로운 퀴즈가 추가될 예정입니다.";
+  }
   grid.replaceChildren(...visible.map(quiz => {
     const card = document.createElement("article");
     card.className = "subject-quiz-card";

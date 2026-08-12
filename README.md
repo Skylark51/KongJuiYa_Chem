@@ -44,7 +44,7 @@ python -m http.server 4173
 4. 해당 과목의 `?view=jars`를 열어 카드와 category filter 자동 노출을 확인합니다.
 5. 장독대 실행, 결과 저장, `?view=records` 표시와 다른 과목 기록 미노출을 확인합니다.
 
-과목 ID는 `chemistry`, `physics`, `biology`, `earth-science`입니다. 물리학은 `SUBJECT_QUIZZES.physics`, 생명과학은 `SUBJECT_QUIZZES.biology`, 지구과학은 `SUBJECT_QUIZZES["earth-science"]`에 등록합니다. 현재 세 배열은 의도적으로 비어 있으며 임시 문제를 포함하지 않습니다.
+과목 ID는 `chemistry`, `physics`, `biology`, `earth-science`입니다. 물리학은 `SUBJECT_QUIZZES.physics`, 생명과학은 `SUBJECT_QUIZZES.biology`, 지구과학은 `SUBJECT_QUIZZES["earth-science"]`에 등록합니다. 장독대가 아직 없는 범주도 먼저 표시해야 할 때는 `SUBJECT_CATEGORIES`에 등록합니다. `status: "planned"`이고 `implementation`이 없는 장독대는 문제를 창작하지 않고 “문제 준비 중” 카드로 표시됩니다.
 
 새 과목의 route와 표시 정보는 `data/subjects.js`에 한 번만 등록합니다. 공통 화면은 `subject-shell.js`를 재사용하고 accent는 theme CSS variable로 지정합니다. 신규 과목의 기록·진도·카테고리는 `kongjuiya:<subject>:<segment>` 형식으로 분리합니다.
 

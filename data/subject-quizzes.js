@@ -33,11 +33,45 @@ const earthScienceQuizzes = Object.freeze([
   }
 ].map(quiz => Object.freeze(quiz)));
 
+const biologyQuizzes = Object.freeze([
+  {
+    id: "biology-biodiversity-types",
+    title: "생물 다양성 종류 구분 장독대",
+    category: "통합과학2 - 생물다양성",
+    description: "문제 등록 예정",
+    status: "planned"
+  },
+  {
+    id: "biology-biodiversity-loss-causes",
+    title: "생물 다양성의 감소 원인 구분 장독대",
+    category: "통합과학2 - 생물다양성",
+    description: "문제 등록 예정",
+    status: "planned"
+  },
+  {
+    id: "biology-biodiversity-conservation",
+    title: "생물다양성을 보전하기 위한 노력 구분 장독대",
+    category: "통합과학2 - 생물다양성",
+    description: "문제 등록 예정",
+    status: "planned"
+  }
+].map(quiz => Object.freeze(quiz)));
+
 export const SUBJECT_QUIZZES = Object.freeze({
   chemistry: chemistryQuizzes,
   physics: Object.freeze([]),
-  biology: Object.freeze([]),
+  biology: biologyQuizzes,
   "earth-science": earthScienceQuizzes
+});
+
+export const SUBJECT_CATEGORIES = Object.freeze({
+  chemistry: Object.freeze([]),
+  physics: Object.freeze([]),
+  biology: Object.freeze([
+    "통합과학2 - 변이와 자연선택에 의한 생물의 진화",
+    "통합과학2 - 생물다양성"
+  ]),
+  "earth-science": Object.freeze([])
 });
 
 export function quizzesForSubject(subjectId) {
@@ -45,5 +79,7 @@ export function quizzesForSubject(subjectId) {
 }
 
 export function categoriesForSubject(subjectId) {
-  return Object.freeze([...new Set(quizzesForSubject(subjectId).map(quiz => quiz.category).filter(Boolean))]);
+  const declared = SUBJECT_CATEGORIES[subjectId] || [];
+  const fromQuizzes = quizzesForSubject(subjectId).map(quiz => quiz.category).filter(Boolean);
+  return Object.freeze([...new Set([...declared, ...fromQuizzes])]);
 }

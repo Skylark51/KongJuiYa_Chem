@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFile, stat } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { SUBJECTS, subjectById } from "../data/subjects.js";
-import { SUBJECT_QUIZZES, categoriesForSubject, quizzesForSubject } from "../data/subject-quizzes.js";
+import { SUBJECT_CATEGORIES, SUBJECT_QUIZZES, categoriesForSubject, quizzesForSubject } from "../data/subject-quizzes.js";
 import {
   CHEMISTRY_STORAGE_POLICY,
   GLOBAL_STORAGE_KEYS,
@@ -67,13 +67,22 @@ test("chemistry remains on legacy storage while new subjects are namespaced", ()
   assert.equal(GLOBAL_STORAGE_KEYS.audioSettings, "kongjuiya-audio-settings");
 });
 
-test("quiz registry adapts chemistry and exposes only authored new-subject jars", () => {
+test("quiz registry adapts chemistry and exposes only requested new-subject jars", () => {
   assert.ok(quizzesForSubject("chemistry").length > 0);
-  for (const subjectId of ["physics", "biology"]) {
-    assert.equal(SUBJECT_QUIZZES[subjectId].length, 0);
-    assert.deepEqual(quizzesForSubject(subjectId), []);
-    assert.deepEqual(categoriesForSubject(subjectId), []);
-  }
+  assert.equal(SUBJECT_QUIZZES.physics.length, 0);
+  assert.deepEqual(categoriesForSubject("physics"), []);
+  const biology = quizzesForSubject("biology");
+  assert.equal(biology.length, 3);
+  assert.deepEqual(SUBJECT_CATEGORIES.biology, [
+    "통합과학2 - 변이와 자연선택에 의한 생물의 진화",
+    "통합과학2 - 생물다양성"
+  ]);
+  assert.deepEqual(biology.map(quiz => quiz.title), [
+    "생물 다양성 종류 구분 장독대",
+    "생물 다양성의 감소 원인 구분 장독대",
+    "생물다양성을 보전하기 위한 노력 구분 장독대"
+  ]);
+  assert.ok(biology.every(quiz => quiz.status === "planned" && !quiz.implementation));
   const earthScience = quizzesForSubject("earth-science");
   assert.equal(earthScience.length, 3);
   assert.deepEqual(categoriesForSubject("earth-science"), ["통합과학2 - 지질 시대의 환경과 생물"]);
