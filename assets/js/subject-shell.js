@@ -98,11 +98,21 @@ function renderQuizzes() {
     title.textContent = quiz.title;
     const description = document.createElement("p");
     description.textContent = quiz.description;
-    const link = document.createElement("a");
-    link.className = "primary-action";
-    link.href = siteUrl(quiz.implementation);
-    link.textContent = "장독대 시작";
-    card.append(category, title, description, link);
+    const action = quiz.implementation
+      ? document.createElement("a")
+      : document.createElement("button");
+    action.className = "primary-action";
+    if (quiz.implementation) {
+      action.href = siteUrl(quiz.implementation);
+      action.textContent = "장독대 시작";
+    } else {
+      card.classList.add("is-planned");
+      action.type = "button";
+      action.disabled = true;
+      action.textContent = "문제 준비 중";
+      action.setAttribute("aria-label", quiz.title + " 문제 준비 중");
+    }
+    card.append(category, title, description, action);
     return card;
   }));
 }

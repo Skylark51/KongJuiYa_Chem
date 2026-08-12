@@ -13,9 +13,9 @@ const viewports = [
   ["desktop-1920", { width: 1920, height: 1080 }]
 ];
 const subjects = [
-  ["physics", "물리학"],
-  ["biology", "생명과학"],
-  ["earth-science", "지구과학"]
+  ["physics", "물리학", 0],
+  ["biology", "생명과학", 0],
+  ["earth-science", "지구과학", 3]
 ];
 
 function assert(condition, message) {
@@ -64,7 +64,7 @@ try {
       await page.goto(baseUrl + "/", { waitUntil: "networkidle" });
     }
 
-    for (const [subjectId, subjectName] of subjects) {
+    for (const [subjectId, subjectName, jarCount] of subjects) {
       const label = viewportName + " " + subjectId;
       await page.goto(baseUrl + "/subjects/" + subjectId + "/", { waitUntil: "networkidle" });
       await page.waitForFunction(() => document.documentElement.dataset.subjectShellReady === "true");
@@ -74,10 +74,23 @@ try {
       await assertNoOverflow(page, label + " home");
 
       await page.locator('[data-view-target="jars"]:visible').first().click();
-      assert(await page.locator("#subjectQuizEmpty").isVisible(), label + ": empty state hidden");
-      assert(await page.locator("#subjectQuizEmpty h3").textContent() === "아직 등록된 " + subjectName + " 장독대가 없습니다.", label + ": empty copy");
-      assert(await page.locator("#subjectCategoryFilter").isHidden(), label + ": empty category filter visible");
-      assert(await page.locator(".subject-quiz-card").count() === 0, label + ": invented quiz");
+      if (jarCount === 0) {
+        assert(await page.locator("#subjectQuizEmpty").isVisible(), label + ": empty state hidden");
+        assert(await page.locator("#subjectQuizEmpty h3").textContent() === "아직 등록된 " + subjectName + " 장독대가 없습니다.", label + ": empty copy");
+        assert(await page.locator("#subjectCategoryFilter").isHidden(), label + ": empty category filter visible");
+        assert(await page.locator(".subject-quiz-card").count() === 0, label + ": invented quiz");
+      } else {
+        assert(await page.locator("#subjectQuizEmpty").isHidden(), label + ": non-empty state visible");
+        assert(await page.locator("#subjectCategoryFilter").isVisible(), label + ": category filter hidden");
+        assert(await page.locator("#subjectCategoryFilter button").count() === 2, label + ": category filters");
+        assert(await page.locator(".subject-quiz-card").count() === jarCount, label + ": authored jar count");
+        assert(await page.locator(".subject-quiz-card.is-planned button:disabled").count() === jarCount, label + ": planned jars must be disabled");
+        assert(await page.locator(".subject-quiz-card h3").allTextContents().then(titles => titles.join("|")) === [
+          "시상 화석과 표준 화석 구분 장독대",
+          "표준 화석의 시대 구분 장독대",
+          "지질 시대 키워드 구분 장독대"
+        ].join("|"), label + ": earth-science jar titles");
+      }
       await assertNoOverflow(page, label + " jars");
       if (screenshotDir && viewportName === "mobile-390" && subjectId === "physics") {
         await page.screenshot({ path: screenshotDir + "/physics-empty-mobile.png", fullPage: true });

@@ -67,13 +67,22 @@ test("chemistry remains on legacy storage while new subjects are namespaced", ()
   assert.equal(GLOBAL_STORAGE_KEYS.audioSettings, "kongjuiya-audio-settings");
 });
 
-test("quiz registry adapts chemistry and keeps new subjects intentionally empty", () => {
+test("quiz registry adapts chemistry and exposes only authored new-subject jars", () => {
   assert.ok(quizzesForSubject("chemistry").length > 0);
-  for (const subjectId of ["physics", "biology", "earth-science"]) {
+  for (const subjectId of ["physics", "biology"]) {
     assert.equal(SUBJECT_QUIZZES[subjectId].length, 0);
     assert.deepEqual(quizzesForSubject(subjectId), []);
     assert.deepEqual(categoriesForSubject(subjectId), []);
   }
+  const earthScience = quizzesForSubject("earth-science");
+  assert.equal(earthScience.length, 3);
+  assert.deepEqual(categoriesForSubject("earth-science"), ["통합과학2 - 지질 시대의 환경과 생물"]);
+  assert.deepEqual(earthScience.map(quiz => quiz.title), [
+    "시상 화석과 표준 화석 구분 장독대",
+    "표준 화석의 시대 구분 장독대",
+    "지질 시대 키워드 구분 장독대"
+  ]);
+  assert.ok(earthScience.every(quiz => quiz.status === "planned" && !quiz.implementation));
 });
 
 test("new-subject empty records never produce NaN or synthetic plays", () => {
@@ -131,6 +140,7 @@ test("shared subject shell exposes product navigation, empty states, and global 
   assert.match(shell, /플레이 기록 없음/);
   assert.match(shell, /아직 등록된 __SUBJECT__ 장독대가 없습니다/);
   assert.match(shell, /shop\.html\?subject=/);
+  assert.match(shell, /action\.disabled = true/);
   assert.match(styles, /grid-template-columns:repeat\(6,minmax\(0,1fr\)\)/);
   assert.match(styles, /prefers-reduced-motion/);
   assert.match(shop, /assets\/js\/shop-context\.js/);
