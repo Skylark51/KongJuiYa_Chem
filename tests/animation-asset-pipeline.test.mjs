@@ -133,6 +133,7 @@ test("night-court summon audits its actual aligned RGBA envelope", () => {
   const auditor = read("scripts/audit-animation-assets.py").toString("utf8");
   assert.ok(auditor.includes('"bboxBottomCenter"'));
   assert.ok(auditor.includes('metric["measuredAnchor"]'));
+  assert.ok(auditor.includes("current_rgba.tobytes() == candidate_rgba.tobytes()"));
 });
 
 test("production renderer stays shared while court effect mounts promoted precision assets", () => {

@@ -299,7 +299,21 @@ def markdown(manifest, report):
 
 def write_or_check(path, data, check):
     if check:
-        return path.exists() and path.read_bytes() == data
+        if not path.exists():
+            return False
+        if path.suffix.lower() == ".png":
+            try:
+                with Image.open(path) as current:
+                    current_rgba = current.convert("RGBA")
+                with Image.open(io.BytesIO(data)) as candidate:
+                    candidate_rgba = candidate.convert("RGBA")
+                return (
+                    current_rgba.size == candidate_rgba.size
+                    and current_rgba.tobytes() == candidate_rgba.tobytes()
+                )
+            except OSError:
+                return False
+        return path.read_bytes() == data
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + ".tmp")
     temporary.write_bytes(data)
