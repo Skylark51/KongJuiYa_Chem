@@ -93,8 +93,9 @@ test("V2 Dolsoe source remains byte-identical to its registered source hash", ()
 });
 
 test("committed precision audit and contact sheets are deterministic and current", () => {
+  const python = process.platform === "win32" ? "py" : "python3";
   const result = spawnSync(
-    "py",
+    python,
     ["scripts/audit-animation-assets.py", "--check-artifacts"],
     { cwd: root, encoding: "utf8" }
   );
