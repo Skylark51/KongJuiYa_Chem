@@ -1,12 +1,14 @@
 import { getInputDescriptor } from "./question-engine.js";
+import { QuestionPresentation } from "./question-presentation.js";
 
 const CHOICE_INPUT_MODES = new Set(["choice", "binary_choice", "multiple_choice"]);
 
 export class UIAdapter {
-  constructor(documentRef = document) {
+  constructor(documentRef = document, { questionPresentation = new QuestionPresentation(documentRef) } = {}) {
     this.document = documentRef;
     this.$ = id => this.document.getElementById(id);
     this.handlers = {};
+    this.questionPresentation = questionPresentation;
     this.choiceBox = null;
     this.currentInput = { inputMode: "text", choices: [], autoSubmit: false, keyboardShortcuts: [] };
   }
@@ -183,6 +185,7 @@ export class UIAdapter {
   question(id, question) {
     const element = this.$(id);
     if (!element) return;
+    if (this.questionPresentation?.render(element, question)) return;
     if (question?.promptHtml) {
       if (element.innerHTML !== question.promptHtml) element.innerHTML = question.promptHtml;
       return;

@@ -47,7 +47,7 @@ test('single game entry owns lobby redirects and result navigation', async () =>
   const ui = await read('assets/js/ui-effects.js');
   assert.match(html, /game-page\.js\?v=/);
   assert.match(entry, /initializeGamePage/);
-  assert.match(ui, /chemistryLobbyUrl\("jars"\)/);
+  assert.match(ui, /activeSubjectLobbyUrl\("jars"\)/);
   assert.match(ui, /장독대 고르기로/);
 });
 

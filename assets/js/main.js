@@ -1,10 +1,10 @@
 import { GAME_CONFIG } from "../../data/game-config.js";
 import { BEAN_REWARDS } from "../../data/upgrades.js";
-import { TRAINING_MODES, getTrainingMode } from "../../data/training-modes.js";
-import { QUESTIONS, validateQuestions } from "../../data/questions.js";
+import { getSubjectGameContent, subjectIdFromLocation } from "../../data/subject-game-content.js";
 import { QuestionEngine } from "./question-engine.js";
 import { GameCore } from "./game-core.js";
 import { GameStorage } from "./storage.js";
+import { SubjectGameStorage } from "./subject-game-storage.js";
 import { UpgradeSystem } from "./upgrade-system.js";
 import { ActionSystem } from "./action-system.js";
 import { UIAdapter } from "./ui-adapter.js";
@@ -26,15 +26,21 @@ function readSelection() {
   catch { return null; }
 }
 
-export function bootstrapGameRuntime() {
+export function bootstrapGameRuntime({ subjectId = subjectIdFromLocation() } = {}) {
 if (globalThis.KongJuiYaGame) return globalThis.KongJuiYaGame;
 
-const validationErrors = validateQuestions();
+const content = getSubjectGameContent(subjectId);
+document.documentElement.dataset.subject = content.subjectId;
+const { trainingModes: TRAINING_MODES, questions: QUESTIONS, getTrainingMode } = content;
+const validationErrors = content.validateQuestions();
 if (validationErrors.length) {
   throw new Error(`문항 데이터 오류: ${validationErrors.join(", ")}`);
 }
 
-const storage = new GameStorage();
+const globalStorage = new GameStorage();
+const storage = content.subjectId === "chemistry"
+  ? globalStorage
+  : new SubjectGameStorage(content.subjectId, globalStorage, getTrainingMode);
 const selection = readSelection();
 const savedQuestionCount = selection?.resume
   ? Number(storage.data.currentRun?.correctAnswersPerStage || 0)
@@ -47,7 +53,8 @@ const game = new GameCore({
   questionEngine,
   config: Object.freeze({ ...GAME_CONFIG, correctAnswersToClear: questionCount }),
   upgradeSystem: upgrades,
-  actionSystem: actions
+  actionSystem: actions,
+  trainingProvider: getTrainingMode
 });
 const ui = new UIAdapter();
 installMetalReactivityChoiceLabels();
@@ -111,13 +118,6 @@ function start(options = {}) {
 function submit(value) {
   const result = game.submit(value ?? ui.answer());
   if (result.accepted) {
-    storage.recordAnswer(
-      result.question,
-      result.correct,
-      false,
-      result.responseMs,
-      game.state.difficulty
-    );
     questionStartedAt = performance.now();
     saveCurrentRun();
     ui.clearAnswer();
@@ -156,16 +156,35 @@ game.on("answer:timeout", detail => {
   saveCurrentRun();
 });
 game.on("answer:correct", detail => {
+  storage.recordAnswer(
+    detail.question,
+    true,
+    false,
+    detail.responseMs,
+    game.state.difficulty
+  );
   storage.recordWaterPour(detail.state.trainingId);
   saveCurrentRun();
 });
-game.on("answer:wrong", saveCurrentRun);
+game.on("answer:wrong", detail => {
+  storage.recordAnswer(
+    detail.question,
+    false,
+    false,
+    detail.responseMs,
+    game.state.difficulty
+  );
+  saveCurrentRun();
+});
 game.on("game:pause", () => {
   if (frameRequestId) cancelAnimationFrame(frameRequestId);
   frameRequestId = 0;
   saveCurrentRun();
 });
-game.on("game:resume", scheduleFrame);
+game.on("game:resume", () => {
+  ui.render();
+  scheduleFrame();
+});
 game.on("fever:start", detail => {
   storage.recordFeverTier(detail.feverTier, detail.state.trainingId);
 });
@@ -226,9 +245,11 @@ window.dispatchEvent(new CustomEvent("upgrades:loaded", {
 }));
 
 const api = Object.freeze({
+  subjectId: content.subjectId,
   game,
   questionEngine,
   storage,
+  globalStorage,
   upgrades,
   actions,
   questionCount,

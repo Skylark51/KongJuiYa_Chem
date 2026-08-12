@@ -44,25 +44,19 @@ test("fossil era jar includes only six standard fossils and four exact era choic
 test("first two earth science jars are live and share one quiz runner", async () => {
   const jars = quizzesForSubject("earth-science");
   assert.deepEqual(jars.map(jar => jar.status), ["live", "live", "planned"]);
-  assert.match(jars[0].implementation, /quiz=earth-fossil-type$/);
-  assert.match(jars[1].implementation, /quiz=earth-index-fossil-era$/);
+  assert.match(jars[0].implementation, /subject=earth-science&training=earth-fossil-type$/);
+  assert.match(jars[1].implementation, /subject=earth-science&training=earth-index-fossil-era$/);
   const html = await readFile(resolve(root, "subjects/earth-science/quiz.html"), "utf8");
   const runner = await readFile(resolve(root, "assets/js/earth-science-fossil-quiz.js"), "utf8");
-  assert.match(html, /id="answerChoices"/);
-  assert.match(html, /id="visualStage" class="scene-animation-zone"/);
-  assert.match(html, /id="toadBubble" class="toad-bubble"/);
-  assert.match(html, /game-runtime-features\.css/);
-  assert.match(runner, /mountGameScene/);
-  assert.match(runner, /new ToadDialogueSelector\(\)/);
-  assert.match(runner, /dispatchEvent\(new CustomEvent\("toad:speak"/);
-  assert.match(runner, /setTimeout\(next, CORRECT_AUTO_ADVANCE_MS\)/);
-  assert.match(runner, /nextButton\.hidden = correct/);
-  assert.match(runner, /addEventListener\("keydown", handleKeyboard\)/);
-  assert.match(runner, /aria-keyshortcuts/);
-  assert.match(runner, /"answer:correct"/);
-  assert.match(runner, /"answer:wrong"/);
-  assert.match(runner, /new SubjectStorage\("earth-science"\)/);
-  assert.match(runner, /storage\.write\("records"/);
+  const content = await readFile(resolve(root, "data/subject-game-content.js"), "utf8");
+  assert.match(html, /earth-science-fossil-quiz\.js/);
+  assert.match(html, /공용 장독대로 이동 중/);
+  assert.doesNotMatch(html, /answerChoices|visualStage|toadBubble|subject-quiz\.css/);
+  assert.match(runner, /mountSharedQuiz/);
+  assert.match(runner, /subjectId: "earth-science"/);
+  assert.doesNotMatch(runner, /mountGameScene|ToadDialogueSelector|setTimeout|answer:correct|answer:wrong|SubjectStorage/);
+  assert.match(content, /EARTH_SCIENCE_FOSSIL_TYPE_QUESTIONS/);
+  assert.match(content, /EARTH_SCIENCE_FOSSIL_ERA_QUESTIONS/);
 });
 
 test("scene renderer resolves manifest and PNG assets from its module root", async () => {

@@ -1,0 +1,29 @@
+:root[data-subject="physics"] { --subject-accent: #4a7fd1; }
+:root[data-subject="biology"] { --subject-accent: #3f8b62; }
+:root[data-subject="earth-science"] { --subject-accent: #a16638; }
+
+.subject-question-image {
+  display: block;
+  width: auto;
+  max-width: min(100%, 660px);
+  max-height: clamp(130px, 27vh, 280px);
+  margin: 0 auto 0.5rem;
+  object-fit: contain;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.subject-question-source,
+.subject-question-prompt {
+  display: block;
+}
+
+.subject-question-source {
+  margin-bottom: 0.25rem;
+  color: var(--subject-accent, currentColor);
+  font-size: 0.72em;
+}
+
+@media (max-width: 560px) {
+  .subject-question-image { max-height: 24vh; }
+}

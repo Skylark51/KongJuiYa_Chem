@@ -17,3 +17,9 @@ export function subjectLobbyUrl(subjectId, view = "home", documentRef = document
   if (view && view !== "home") url.searchParams.set("view", view);
   return url.href;
 }
+
+export function activeSubjectLobbyUrl(view = "home", documentRef = document, locationRef = globalThis.location) {
+  const requested = new URL(locationRef.href).searchParams.get("subject");
+  const subjectId = documentRef.documentElement.dataset.subject || requested || "chemistry";
+  return subjectLobbyUrl(subjectId, view, documentRef);
+}

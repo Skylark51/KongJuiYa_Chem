@@ -79,6 +79,18 @@ The four subjects share the single shop at shop.html?subject=<subject-id>. Beans
 
 The URL subject has priority. If it is absent, the shop uses kongjuiya:last-subject, then safely falls back to chemistry. Only CSS variables and return navigation vary by subject; catalog data, prices, purchase logic, and equipment state stay global.
 
+## 공용 GameCore에 새 퀴즈 추가
+
+네 과목의 실제 플레이 화면은 모두 `콩쥐야_줘때써.html`과 `assets/js/main.js`를 사용합니다. 과목별 `answer()`, 점수, 콤보, 수위, 타이머 또는 다음 문제 `setTimeout`을 만들지 않습니다.
+
+1. 문제 원본을 `data/questions/<subject-quiz>.js`에 추가합니다.
+2. `data/subject-game-content.js`에서 원본 schema를 공용 QuestionEngine schema로 변환하고 training mode를 등록합니다. 이미지형 문제는 `presentation` metadata만 지정합니다.
+3. `data/subject-quizzes.js`에 장독대 metadata와 `콩쥐야_줘때써.html?subject=<subject>&training=<training-id>` 경로를 등록합니다.
+4. `tests/shared-science-game-core.test.mjs`에 원본 보존, 공용 규칙, 렌더링 계약을 추가합니다.
+5. 과목 로비, 공용 게임 페이지, 결과 기록과 복귀 경로를 브라우저에서 확인합니다.
+
+`assets/js/question-presentation.js`는 문제 내용만 렌더링합니다. 게임 규칙은 `assets/js/game-core.js`, 기록 격리는 `assets/js/subject-game-storage.js`, 장면과 코스메틱은 기존 SceneRenderer/CosmeticSystem이 담당합니다. 물리학 production 문제는 현재 비어 있지만 test-only fixture로 같은 계약을 검증합니다.
+
 ## CI
 
 `.github/workflows/ci.yml`은 모든 pull request와 `main` push에서 syntax, question/chemistry, game/storage/shop/keypad/scene regression, required scene assets, Chromium smoke를 통합 검증합니다.

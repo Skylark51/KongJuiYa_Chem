@@ -3,21 +3,26 @@ import { GAME_TITLE, displayJarName } from "./theme-system.js";
 import { mountHistoricalBgm } from "./historical-bgm.js";
 import { mountMobileKeypad } from "./mobile-keypad.js";
 import { mountGameScene } from "./game-cosmetics-entry.js";
-import { chemistryLobbyUrl } from "./site-routing.js";
+import { activeSubjectLobbyUrl } from "./site-routing.js";
+import { subjectById } from "../../data/subjects.js";
 
 const SELECTION_KEY = "kongjuiya-training-selection";
 const byId = id => document.getElementById(id);
 const formatNumber = value => Math.round(Number(value) || 0).toLocaleString("ko-KR");
 const DIFFICULTY_NAMES = Object.freeze({ easy: "쉬움", normal: "보통", hard: "어려움" });
 
-function setOfficialTitle() {
-  document.title = GAME_TITLE;
+function setOfficialTitle(subjectId = "chemistry") {
+  const subject = subjectById(subjectId);
+  const familyTitle = GAME_TITLE.replace(/\s*-\s*.*$/, "");
+  const title = subjectId === "chemistry" || !subject ? GAME_TITLE : `${familyTitle} - ${subject.shortTitle}`;
+  document.title = title;
   document.querySelectorAll("[data-game-title]").forEach(node => {
-    node.textContent = GAME_TITLE;
+    node.textContent = title;
+    if (node.matches("a")) node.href = activeSubjectLobbyUrl("home");
   });
   for (const selector of ["meta[property='og:title']", "meta[name='twitter:title']"]) {
     const node = document.querySelector(selector);
-    if (node) node.content = GAME_TITLE;
+    if (node) node.content = title;
   }
 }
 
@@ -43,13 +48,14 @@ function listen(removers, type, handler, target = window) {
 
 export async function initializeGamePage(api = globalThis.KongJuiYaGame) {
   if (!api) throw new Error("게임 엔진이 준비되지 않았습니다.");
+  setOfficialTitle(api.subjectId);
   const storage = api.storage;
   mountHistoricalBgm({ initialVolume: storage.data.settings?.volume ?? 0.5 });
   const selection = readSelection();
   const requestedTrainingId = new URLSearchParams(location.search).get("training");
 
   if (!requestedTrainingId && !selection?.trainingId) {
-    location.replace(chemistryLobbyUrl("jars"));
+    location.replace(activeSubjectLobbyUrl("jars"));
     return;
   }
 
@@ -175,7 +181,7 @@ export async function initializeGamePage(api = globalThis.KongJuiYaGame) {
       homeButton.className = "result-home-button";
       homeButton.textContent = "장독대 고르기로";
       homeButton.addEventListener("click", () => {
-        location.href = chemistryLobbyUrl("jars");
+        location.href = activeSubjectLobbyUrl("jars");
       });
       panel.append(homeButton);
     }
@@ -211,7 +217,7 @@ export async function initializeGamePage(api = globalThis.KongJuiYaGame) {
     if (api.game.state.status === "paused") api.game.resume();
   });
   byId("confirmHomeButton").addEventListener("click", () => {
-    location.href = chemistryLobbyUrl("jars");
+    location.href = activeSubjectLobbyUrl("jars");
   });
   byId("exitDialog").addEventListener("close", () => {
     if (byId("exitDialog").returnValue !== "home" && api.game.state.status === "paused") {
@@ -299,5 +305,3 @@ export async function initializeGamePage(api = globalThis.KongJuiYaGame) {
     removers.splice(0).forEach(remove => remove());
   }, { once: true });
 }
-
-setOfficialTitle();

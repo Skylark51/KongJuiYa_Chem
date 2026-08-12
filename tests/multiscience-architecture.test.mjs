@@ -84,7 +84,7 @@ test("quiz registry adapts chemistry and exposes only requested new-subject jars
     "생물다양성을 보전하기 위한 노력 구분 장독대"
   ]);
   assert.equal(biology[0].status, "live");
-  assert.ok(biology[0].implementation.includes("subjects/biology/quiz.html"));
+  assert.equal(biology[0].implementation, "콩쥐야_줘때써.html?subject=biology&training=biology-variation-natural-selection");
   assert.ok(biology.slice(1).every(quiz => quiz.status === "planned" && !quiz.implementation));
   const earthScience = quizzesForSubject("earth-science");
   assert.equal(earthScience.length, 3);
@@ -95,7 +95,7 @@ test("quiz registry adapts chemistry and exposes only requested new-subject jars
     "지질 시대 키워드 구분 장독대"
   ]);
   assert.deepEqual(earthScience.map(quiz => quiz.status), ["live", "live", "planned"]);
-  assert.ok(earthScience.slice(0, 2).every(quiz => quiz.implementation?.includes("subjects/earth-science/quiz.html?quiz=")));
+  assert.ok(earthScience.slice(0, 2).every(quiz => quiz.implementation?.startsWith("콩쥐야_줘때써.html?subject=earth-science&training=")));
   assert.equal(earthScience[2].implementation, undefined);
 });
 

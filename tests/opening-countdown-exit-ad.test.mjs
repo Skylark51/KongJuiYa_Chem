@@ -47,7 +47,7 @@ test("mid-run exit shows ad before routing back to jar selection", () => {
   assert.match(js, /stopImmediatePropagation\(\)/);
   assert.match(js, /adDialog\.showModal\(\)/);
   assert.match(js, /adDialog\?\.addEventListener\("close"/);
-  assert.match(js, /pendingExitRoute = chemistryLobbyUrl\("jars"\)/);
+  assert.match(js, /pendingExitRoute = activeSubjectLobbyUrl\("jars"\)/);
 });
 
 test("countdown is owned by the single game entry", () => {

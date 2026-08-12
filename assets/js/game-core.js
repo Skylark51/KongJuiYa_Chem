@@ -32,7 +32,8 @@ export class GameCore {
     eventTarget = globalThis.window,
     dialogueSelector = new ToadDialogueSelector(),
     upgradeSystem = null,
-    actionSystem = null
+    actionSystem = null,
+    trainingProvider = getTrainingMode
   } = {}) {
     if (!questionEngine) {
       throw new Error("QuestionEngine가 필요합니다.");
@@ -45,6 +46,7 @@ export class GameCore {
     this.dialogueSelector = dialogueSelector;
     this.upgrades = upgradeSystem;
     this.actions = actionSystem;
+    this.trainingProvider = trainingProvider;
 
     if (this.actions) {
       this.actions.speak = (category) => this.speak(category);
@@ -121,7 +123,7 @@ export class GameCore {
   }
 
   get training() {
-    return getTrainingMode(this.state.trainingId);
+    return this.trainingProvider(this.state.trainingId);
   }
 
   get stage() {
@@ -227,7 +229,7 @@ export class GameCore {
     reviewMode = false,
     questionId = null
   } = {}) {
-    const mode = getTrainingMode(trainingId);
+    const mode = this.trainingProvider(trainingId);
 
     if (!mode) {
       throw new Error(

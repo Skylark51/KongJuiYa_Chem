@@ -15,7 +15,7 @@ const earthScienceQuizzes = Object.freeze([
     title: "시상 화석과 표준 화석 구분 장독대",
     category: "통합과학2 - 지질 시대의 환경과 생물",
     description: "화석 사진을 보고 시상 화석과 표준 화석을 구분합니다.",
-    implementation: "subjects/earth-science/quiz.html?quiz=earth-fossil-type",
+    implementation: "콩쥐야_줘때써.html?subject=earth-science&training=earth-fossil-type",
     status: "live"
   },
   {
@@ -23,7 +23,7 @@ const earthScienceQuizzes = Object.freeze([
     title: "표준 화석의 시대 구분 장독대",
     category: "통합과학2 - 지질 시대의 환경과 생물",
     description: "표준 화석 사진을 보고 해당 지질 시대를 구분합니다.",
-    implementation: "subjects/earth-science/quiz.html?quiz=earth-index-fossil-era",
+    implementation: "콩쥐야_줘때써.html?subject=earth-science&training=earth-index-fossil-era",
     status: "live"
   },
   {
@@ -41,7 +41,7 @@ const biologyQuizzes = Object.freeze([
     title: "변이와 자연선택 과정 구분 장독대",
     category: "통합과학2 - 변이와 자연선택에 의한 생물의 진화",
     description: "자료를 읽고 변이의 원인과 자연선택에 의한 진화 과정을 구분합니다.",
-    implementation: "subjects/biology/quiz.html?quiz=biology-variation-natural-selection",
+    implementation: "콩쥐야_줘때써.html?subject=biology&training=biology-variation-natural-selection",
     status: "live"
   },
   {
