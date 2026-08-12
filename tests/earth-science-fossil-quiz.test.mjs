@@ -50,8 +50,13 @@ test("first two earth science jars are live and share one quiz runner", async ()
   const runner = await readFile(resolve(root, "assets/js/earth-science-fossil-quiz.js"), "utf8");
   assert.match(html, /id="answerChoices"/);
   assert.match(html, /id="visualStage" class="scene-animation-zone"/);
+  assert.match(html, /id="toadBubble" class="toad-bubble"/);
   assert.match(html, /game-runtime-features\.css/);
   assert.match(runner, /mountGameScene/);
+  assert.match(runner, /new ToadDialogueSelector\(\)/);
+  assert.match(runner, /dispatchEvent\(new CustomEvent\("toad:speak"/);
+  assert.match(runner, /setTimeout\(next, CORRECT_AUTO_ADVANCE_MS\)/);
+  assert.match(runner, /nextButton\.hidden = correct/);
   assert.match(runner, /addEventListener\("keydown", handleKeyboard\)/);
   assert.match(runner, /aria-keyshortcuts/);
   assert.match(runner, /"answer:correct"/);

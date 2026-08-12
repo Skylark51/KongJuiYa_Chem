@@ -12,11 +12,14 @@
 .quiz-task-column .fossil-frame img{height:clamp(210px,25vw,300px)}
 .scene-game-hud{position:absolute;z-index:130;left:14px;right:14px;top:14px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:9px;padding:10px 12px;border:1px solid rgba(119,197,199,.3);border-radius:13px;background:rgba(5,16,21,.82);box-shadow:0 8px 26px rgba(0,0,0,.28);backdrop-filter:blur(8px);pointer-events:none}
 .scene-game-hud span,.scene-game-hud strong{color:var(--accent-light);font-size:10px;font-weight:900}.water-gauge{height:8px;overflow:hidden;border-radius:99px;background:#071419}.water-gauge i{display:block;width:55%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#327f99,#99e8f0);transition:width .3s ease}
+.game-stage-card .toad-bubble{position:absolute;z-index:140;right:7%;bottom:18%;max-width:min(45%,220px);padding:10px 13px;border:1px solid rgba(55,38,25,.24);border-radius:16px 16px 4px 16px;background:#fff8e8;color:#36281b;font-size:12px;font-weight:800;line-height:1.55;box-shadow:0 10px 28px rgba(0,0,0,.26);animation:toad-bubble-in .18s ease-out}
+.game-stage-card .toad-bubble[hidden]{display:none}.game-stage-card .toad-bubble[data-style="wrong"]{background:#fff0eb;color:#5a211d}.game-stage-card .toad-bubble[data-style="combo"]{border-color:rgba(166,112,25,.42);background:#fff5cf;color:#4c3211}
+@keyframes toad-bubble-in{from{opacity:0;transform:translateY(7px) scale(.96)}to{opacity:1;transform:none}}
 .answer-choices button{position:relative}.answer-choices kbd{display:grid;position:absolute;left:9px;top:50%;width:25px;height:25px;place-items:center;border:1px solid color-mix(in srgb,var(--accent-light),transparent 45%);border-radius:7px;background:rgba(3,13,17,.48);color:var(--accent-light);font:900 11px/1 "Noto Sans KR",sans-serif;transform:translateY(-50%);box-shadow:inset 0 -2px rgba(0,0,0,.2)}
 .keyboard-hint{margin:8px 0 0!important;color:var(--muted);font-size:10px!important;text-align:center}
 #ui-gameApp[data-scene-state="correct"] .game-stage-card{box-shadow:0 0 0 1px rgba(121,201,155,.38),0 0 38px rgba(80,177,177,.16)}
 #ui-gameApp[data-scene-state="wrong"] .game-stage-card{animation:fossil-stage-hit .46s ease}
 @keyframes fossil-stage-hit{25%{transform:translateX(-4px)}55%{transform:translateX(4px)}80%{transform:translateX(-2px)}}
 @media(max-width:900px){.question-panel{grid-template-columns:1fr}.game-stage-card{min-height:clamp(270px,63vw,430px)}.quiz-task-column .fossil-frame img{height:min(42vh,330px)}}
-@media(max-width:720px){.game-stage-card{order:2;min-height:255px}.quiz-task-column{order:1}.scene-game-hud{left:8px;right:8px;top:8px;padding:8px 10px}.keyboard-hint,.answer-choices kbd{display:none}}
+@media(max-width:720px){.game-stage-card{order:2;min-height:255px}.quiz-task-column{order:1}.scene-game-hud{left:8px;right:8px;top:8px;padding:8px 10px}.game-stage-card .toad-bubble{right:4%;bottom:13%;max-width:58%;padding:7px 9px;font-size:10px;line-height:1.4}.keyboard-hint,.answer-choices kbd{display:none}}
 @media(max-width:390px){.game-stage-card{min-height:220px}}

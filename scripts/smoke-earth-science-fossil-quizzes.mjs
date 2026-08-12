@@ -48,19 +48,32 @@ try {
       }
 
       for (let index = 0; index < questionCount; index += 1) {
+        const progressBeforeAnswer = await page.locator("#progressText").textContent();
         if (viewportName === "desktop-1366" && quizId === "earth-fossil-type" && index < 2) {
           await page.keyboard.press(index === 0 ? "1" : "2");
           await page.waitForFunction(expected => document.getElementById("ui-gameApp")?.dataset.sceneState === expected, index === 0 ? "correct" : "wrong");
           if (index === 0) assert(Number((await page.locator("#waterText").textContent()).replace("%", "")) > 55, label + ": correct water");
-          if (screenshotDir) {
-            await page.screenshot({ path: screenshotDir + "/desktop-key-" + (index + 1) + "-" + (index === 0 ? "correct" : "wrong") + ".png", fullPage: true });
-          }
         } else {
           await page.locator("#answerChoices button").first().click();
         }
         assert(await page.locator("#feedback").isVisible(), label + ": feedback " + index);
-        assert(await page.locator("#nextButton").isVisible(), label + ": next " + index);
-        await page.locator("#nextButton").click();
+        assert(await page.locator("#toadBubble").isVisible(), label + ": toad bubble " + index);
+        assert((await page.locator("#toadBubbleText").textContent()).trim().length > 10, label + ": toad dialogue " + index);
+        const wasCorrect = await page.locator("#feedback").evaluate(element => element.classList.contains("is-correct"));
+        if (screenshotDir && viewportName === "desktop-1366" && quizId === "earth-fossil-type" && index < 2) {
+          await page.screenshot({ path: screenshotDir + "/desktop-key-" + (index + 1) + "-" + (wasCorrect ? "correct" : "wrong") + ".png", fullPage: true });
+        }
+        if (wasCorrect) {
+          assert(!(await page.locator("#nextButton").isVisible()), label + ": correct answer hides next " + index);
+          if (index === questionCount - 1) {
+            await page.locator("#resultPanel").waitFor({ state: "visible" });
+          } else {
+            await page.waitForFunction(previous => document.getElementById("progressText")?.textContent !== previous, progressBeforeAnswer);
+          }
+        } else {
+          assert(await page.locator("#nextButton").isVisible(), label + ": wrong answer keeps next " + index);
+          await page.locator("#nextButton").click();
+        }
       }
       assert(await page.locator("#resultPanel").isVisible(), label + ": result");
       assert(await page.locator("#resultScore").textContent().then(value => value.endsWith(" / " + questionCount)), label + ": score");

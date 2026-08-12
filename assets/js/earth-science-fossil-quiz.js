@@ -7,6 +7,9 @@ import {
 import { mountGameScene } from "./game-cosmetics-entry.js";
 import { SubjectStorage } from "./subject-storage.js";
 import { siteUrl } from "./site-routing.js";
+import { ToadDialogueSelector } from "../../data/dialogues/toad-dialogues.js";
+
+const CORRECT_AUTO_ADVANCE_MS = 1200;
 
 const QUIZZES = Object.freeze({
   "earth-fossil-type": Object.freeze({
@@ -31,6 +34,9 @@ const storage = new SubjectStorage("earth-science");
 const byId = id => document.getElementById(id);
 const state = { index: 0, correct: 0, wrong: 0, combo: 0, bestCombo: 0, water: 55, answered: false };
 const scene = mountGameScene(byId("ui-gameApp"));
+const toadDialogues = new ToadDialogueSelector();
+let autoAdvanceTimer = 0;
+let toadBubbleTimer = 0;
 
 function imageUrl(path) {
   return siteUrl(path);
@@ -43,7 +49,29 @@ function updateWater(next) {
   scene.renderer.setWaterLevel(state.water);
 }
 
+function clearAutoAdvance() {
+  clearTimeout(autoAdvanceTimer);
+  autoAdvanceTimer = 0;
+}
+
+function speak(category) {
+  dispatchEvent(new CustomEvent("toad:speak", { detail: toadDialogues.pick(category) }));
+}
+
+function showToadBubble(detail = {}) {
+  if (!detail.text) return;
+  clearTimeout(toadBubbleTimer);
+  const bubble = byId("toadBubble");
+  bubble.hidden = false;
+  bubble.dataset.style = detail.category || "normalCorrect";
+  byId("toadBubbleText").textContent = detail.text;
+  toadBubbleTimer = setTimeout(() => {
+    bubble.hidden = true;
+  }, Math.max(1700, Math.min(2800, detail.duration || 2200)));
+}
+
 function renderQuestion() {
+  clearAutoAdvance();
   const question = quiz.questions[state.index];
   state.answered = false;
   byId("quizTitle").textContent = quiz.title;
@@ -100,16 +128,19 @@ function answer(choice) {
   feedback.classList.add(correct ? "is-correct" : "is-wrong");
   byId("feedbackTitle").textContent = correct ? "정답입니다!" : "정답은 " + question.answer + "입니다.";
   byId("feedbackExplanation").textContent = question.explanation;
-  const next = byId("nextButton");
-  next.hidden = false;
-  next.textContent = state.index === quiz.questions.length - 1 ? "결과 보기" : "다음 문제";
+  const nextButton = byId("nextButton");
+  nextButton.hidden = correct;
+  nextButton.textContent = state.index === quiz.questions.length - 1 ? "결과 보기" : "다음 문제";
   byId("progressBar").style.width = (state.index + 1) / quiz.questions.length * 100 + "%";
   dispatchEvent(new CustomEvent(correct ? "answer:correct" : "answer:wrong", {
     detail: { combo: state.combo, water: state.water, questionId: question.id }
   }));
+  speak(correct ? (state.combo >= 3 ? "combo" : "normalCorrect") : "wrong");
+  if (correct) autoAdvanceTimer = setTimeout(next, CORRECT_AUTO_ADVANCE_MS);
 }
 
 function finish() {
+  clearAutoAdvance();
   const records = storage.read("records", []);
   const record = Object.freeze({
     quizId,
@@ -127,6 +158,7 @@ function finish() {
   const accuracy = Math.round(state.correct / quiz.questions.length * 100);
   byId("resultSummary").textContent = "정답률 " + accuracy + "% · 최고 연속 정답 " + state.bestCombo;
   dispatchEvent(new CustomEvent("game:clear", { detail: { combo: state.bestCombo, water: state.water } }));
+  speak("gameClear");
   byId("resultTitle").focus();
 }
 
@@ -142,6 +174,9 @@ function next() {
 }
 
 function restart() {
+  clearAutoAdvance();
+  clearTimeout(toadBubbleTimer);
+  byId("toadBubble").hidden = true;
   Object.assign(state, { index: 0, correct: 0, wrong: 0, combo: 0, bestCombo: 0, water: 55, answered: false });
   byId("resultPanel").hidden = true;
   byId("questionPanel").hidden = false;
@@ -164,6 +199,7 @@ function handleKeyboard(event) {
 byId("nextButton").addEventListener("click", next);
 byId("retryButton").addEventListener("click", restart);
 addEventListener("keydown", handleKeyboard);
+addEventListener("toad:speak", event => showToadBubble(event.detail));
 renderQuestion();
 scene.ready.then(() => {
   updateWater(state.water);
