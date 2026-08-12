@@ -90,7 +90,7 @@ try {
       await assertNoOverflow(page, label + " records");
 
       const shopHref = await page.locator('.subject-desktop-nav a').getAttribute("href");
-      assert(new URL(shopHref).searchParams.get("from") === subjectId, label + ": shop context");
+      assert(new URL(shopHref).searchParams.get("subject") === subjectId, label + ": shop context");
     }
 
     assert(errors.length === 0, viewportName + ": " + errors.join(" | "));
@@ -119,7 +119,7 @@ try {
   assert(await page.locator("#subjectVolume").inputValue() === "0.35", "global audio did not carry");
   await page.locator('.dialog-close').click();
 
-  await page.goto(baseUrl + "/shop.html?from=biology", { waitUntil: "networkidle" });
+  await page.goto(baseUrl + "/shop.html?subject=biology", { waitUntil: "networkidle" });
   assert(new URL(await page.locator('.desktop-tabs a').first().getAttribute("href")).pathname.endsWith("/subjects/biology/"), "shop return subject lost");
   await page.locator(".science-portal-link").click();
   await page.waitForURL(baseUrl + "/");

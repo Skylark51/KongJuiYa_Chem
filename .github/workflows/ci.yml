@@ -62,6 +62,8 @@ jobs:
         run: node scripts/smoke-lobby-navigation.mjs
       - name: Master portal and subject routing smoke
         run: node scripts/smoke-subject-portal.mjs
+      - name: Shared shop subject-theme smoke
+        run: node scripts/smoke-shop-subject-themes.mjs
       - name: Quiz interface smoke
         run: node scripts/smoke-quiz-interface.mjs
       - name: Layered scene smoke

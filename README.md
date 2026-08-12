@@ -73,6 +73,12 @@ Browser smoke에는 Playwright Chromium이 필요합니다. `smoke-subject-shell
 
 Production art는 원본 고화질 PNG를 사용합니다. PNG를 임의 압축하거나 WebP 등으로 변환하지 않습니다. Layered scene manifest에서 `availability: true`인 asset은 CI 필수이고, `false`는 아직 제작되지 않은 planned asset입니다.
 
+## Global bean shop
+
+The four subjects share the single shop at shop.html?subject=<subject-id>. Beans remain in the existing kongjuiya-chem-save store, while purchased and equipped cosmetics remain in kongjuiya-cosmetics-v1; no subject-specific inventory is created.
+
+The URL subject has priority. If it is absent, the shop uses kongjuiya:last-subject, then safely falls back to chemistry. Only CSS variables and return navigation vary by subject; catalog data, prices, purchase logic, and equipment state stay global.
+
 ## CI
 
 `.github/workflows/ci.yml`은 모든 pull request와 `main` push에서 syntax, question/chemistry, game/storage/shop/keypad/scene regression, required scene assets, Chromium smoke를 통합 검증합니다.

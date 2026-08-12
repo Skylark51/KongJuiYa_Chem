@@ -6,6 +6,11 @@ const VALID_VIEWS = new Set(["home", "jars", "records"]);
 const viewNodes = [...document.querySelectorAll("[data-app-view]")];
 const controls = [...document.querySelectorAll("[data-view-target]")];
 const storage = new GameStorage();
+try {
+  localStorage.setItem("kongjuiya:last-subject", "chemistry");
+} catch {
+  // Chemistry shop links also carry an explicit subject query.
+}
 let bgm = { setVolume() {} };
 
 const MOBILE_UI_BREAKPOINT = 760;

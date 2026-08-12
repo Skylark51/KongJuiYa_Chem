@@ -12,7 +12,8 @@ export const GLOBAL_STORAGE_KEYS = Object.freeze({
   audioSettings: "kongjuiya-audio-settings",
   vibration: "kongjuiya-vibration",
   cosmetics: "kongjuiya-cosmetics-v1",
-  uiPreferences: "kongjuiya-ui-preferences"
+  uiPreferences: "kongjuiya-ui-preferences",
+  lastSubject: "kongjuiya:last-subject"
 });
 
 export function subjectStorageKey(subjectId, segment) {

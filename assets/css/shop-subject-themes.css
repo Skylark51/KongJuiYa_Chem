@@ -1,0 +1,223 @@
+/*
+ * One global bean shop, four visual contexts.
+ * Product layout, images, prices, inventory and equipment state remain shared.
+ */
+:root,
+html[data-shop-subject="chemistry"] {
+  --shop-theme-bg-start: #100d0a;
+  --shop-theme-bg-mid: #1d160f;
+  --shop-theme-bg-end: #0e0c09;
+  --shop-theme-glow-primary: rgba(101, 72, 40, .34);
+  --shop-theme-glow-secondary: rgba(31, 118, 128, .15);
+  --shop-theme-topbar: rgba(17, 13, 10, .9);
+  --shop-theme-workspace-start: rgba(37, 29, 21, .985);
+  --shop-theme-workspace-end: rgba(17, 14, 11, .99);
+  --shop-theme-card-start: rgba(43, 33, 24, .98);
+  --shop-theme-card-end: rgba(22, 17, 13, .99);
+  --shop-theme-item-start: rgba(40, 31, 23, .99);
+  --shop-theme-item-end: rgba(19, 15, 12, .99);
+  --shop-theme-control: #2a2119;
+  --shop-theme-control-deep: #17120e;
+  --shop-theme-accent: #d5a03e;
+  --shop-theme-accent-strong: #a86c1d;
+  --shop-theme-accent-light: #f3d38c;
+  --shop-theme-accent-soft: rgba(213, 160, 62, .14);
+  --shop-theme-accent-faint: rgba(213, 160, 62, .09);
+  --shop-theme-line: rgba(229, 192, 129, .24);
+  --shop-theme-line-strong: rgba(235, 199, 137, .46);
+  --shop-theme-seal-start: #6f432a;
+  --shop-theme-seal-end: #2f1e17;
+}
+
+html[data-shop-subject="physics"] {
+  --shop-theme-bg-start: #070c17;
+  --shop-theme-bg-mid: #111d34;
+  --shop-theme-bg-end: #060a12;
+  --shop-theme-glow-primary: rgba(48, 91, 176, .34);
+  --shop-theme-glow-secondary: rgba(73, 143, 211, .18);
+  --shop-theme-topbar: rgba(8, 15, 29, .92);
+  --shop-theme-workspace-start: rgba(18, 31, 56, .985);
+  --shop-theme-workspace-end: rgba(8, 14, 27, .99);
+  --shop-theme-card-start: rgba(24, 39, 66, .98);
+  --shop-theme-card-end: rgba(10, 18, 34, .99);
+  --shop-theme-item-start: rgba(21, 36, 62, .99);
+  --shop-theme-item-end: rgba(8, 15, 29, .99);
+  --shop-theme-control: #172641;
+  --shop-theme-control-deep: #0b1425;
+  --shop-theme-accent: #5b91e6;
+  --shop-theme-accent-strong: #3568b6;
+  --shop-theme-accent-light: #b5d0ff;
+  --shop-theme-accent-soft: rgba(91, 145, 230, .16);
+  --shop-theme-accent-faint: rgba(91, 145, 230, .09);
+  --shop-theme-line: rgba(131, 174, 235, .25);
+  --shop-theme-line-strong: rgba(132, 179, 244, .48);
+  --shop-theme-seal-start: #315b9c;
+  --shop-theme-seal-end: #162846;
+}
+
+html[data-shop-subject="biology"] {
+  --shop-theme-bg-start: #07110c;
+  --shop-theme-bg-mid: #12251a;
+  --shop-theme-bg-end: #070d09;
+  --shop-theme-glow-primary: rgba(45, 116, 72, .32);
+  --shop-theme-glow-secondary: rgba(100, 157, 94, .16);
+  --shop-theme-topbar: rgba(8, 21, 14, .92);
+  --shop-theme-workspace-start: rgba(19, 43, 29, .985);
+  --shop-theme-workspace-end: rgba(8, 19, 13, .99);
+  --shop-theme-card-start: rgba(24, 50, 34, .98);
+  --shop-theme-card-end: rgba(10, 24, 16, .99);
+  --shop-theme-item-start: rgba(21, 46, 31, .99);
+  --shop-theme-item-end: rgba(8, 21, 14, .99);
+  --shop-theme-control: #183324;
+  --shop-theme-control-deep: #0c1a12;
+  --shop-theme-accent: #69b982;
+  --shop-theme-accent-strong: #3f8055;
+  --shop-theme-accent-light: #bce9c8;
+  --shop-theme-accent-soft: rgba(105, 185, 130, .16);
+  --shop-theme-accent-faint: rgba(105, 185, 130, .09);
+  --shop-theme-line: rgba(136, 201, 151, .24);
+  --shop-theme-line-strong: rgba(136, 205, 154, .46);
+  --shop-theme-seal-start: #3b7550;
+  --shop-theme-seal-end: #193522;
+}
+
+html[data-shop-subject="earth-science"] {
+  --shop-theme-bg-start: #061015;
+  --shop-theme-bg-mid: #0d2830;
+  --shop-theme-bg-end: #050c11;
+  --shop-theme-glow-primary: rgba(34, 117, 126, .34);
+  --shop-theme-glow-secondary: rgba(51, 91, 137, .2);
+  --shop-theme-topbar: rgba(7, 20, 25, .92);
+  --shop-theme-workspace-start: rgba(15, 43, 49, .985);
+  --shop-theme-workspace-end: rgba(6, 19, 24, .99);
+  --shop-theme-card-start: rgba(19, 50, 57, .98);
+  --shop-theme-card-end: rgba(8, 25, 31, .99);
+  --shop-theme-item-start: rgba(17, 46, 53, .99);
+  --shop-theme-item-end: rgba(7, 22, 28, .99);
+  --shop-theme-control: #14343b;
+  --shop-theme-control-deep: #091c22;
+  --shop-theme-accent: #50b1b1;
+  --shop-theme-accent-strong: #2d7b82;
+  --shop-theme-accent-light: #afe6e1;
+  --shop-theme-accent-soft: rgba(80, 177, 177, .16);
+  --shop-theme-accent-faint: rgba(80, 177, 177, .09);
+  --shop-theme-line: rgba(119, 197, 199, .24);
+  --shop-theme-line-strong: rgba(119, 203, 205, .46);
+  --shop-theme-seal-start: #2e7478;
+  --shop-theme-seal-end: #15353d;
+}
+
+html[data-shop-subject] {
+  --shop-bg: var(--shop-theme-bg-start);
+  --shop-line: var(--shop-theme-line);
+  --shop-line-strong: var(--shop-theme-line-strong);
+  --shop-gold: var(--shop-theme-accent);
+  --shop-gold-light: var(--shop-theme-accent-light);
+  --gold: var(--shop-theme-accent);
+  --gold-2: var(--shop-theme-accent-light);
+  --line: var(--shop-theme-line);
+  --line-strong: var(--shop-theme-line-strong);
+}
+
+html[data-shop-subject] body.shop-page {
+  background:
+    radial-gradient(circle at 18% 0, var(--shop-theme-glow-primary), transparent 31%),
+    radial-gradient(circle at 96% 10%, var(--shop-theme-glow-secondary), transparent 25%),
+    linear-gradient(145deg, var(--shop-theme-bg-start), var(--shop-theme-bg-mid) 58%, var(--shop-theme-bg-end));
+}
+
+html[data-shop-subject] .shop-page .lobby-topbar {
+  border-color: var(--shop-theme-line);
+  background: var(--shop-theme-topbar);
+}
+
+html[data-shop-subject] .shop-page .brand-seal {
+  border-color: var(--shop-theme-line-strong);
+  background: linear-gradient(145deg, var(--shop-theme-seal-start), var(--shop-theme-seal-end));
+  color: var(--shop-theme-accent-light);
+}
+
+html[data-shop-subject] .shop-page .desktop-tabs,
+html[data-shop-subject] .shop-page .bean-wallet,
+html[data-shop-subject] .shop-page .topbar-icon,
+html[data-shop-subject] .shop-page .science-portal-link {
+  border-color: var(--shop-theme-line);
+  background: color-mix(in srgb, var(--shop-theme-control) 88%, transparent);
+}
+
+html[data-shop-subject] .shop-page .desktop-tabs [aria-current="page"] {
+  background: var(--shop-theme-accent-soft);
+  color: var(--shop-theme-accent-light);
+}
+
+html[data-shop-subject] .shop-page .bean-wallet::before {
+  background: linear-gradient(145deg, var(--shop-theme-accent-light), var(--shop-theme-accent));
+}
+
+html[data-shop-subject] .shop-workspace {
+  border-color: var(--shop-theme-line);
+  background:
+    radial-gradient(circle at 86% 6%, var(--shop-theme-accent-faint), transparent 27%),
+    linear-gradient(155deg, var(--shop-theme-workspace-start), var(--shop-theme-workspace-end));
+}
+
+html[data-shop-subject] .shop-category-card {
+  border-color: var(--shop-theme-line);
+  background: linear-gradient(155deg, var(--shop-theme-card-start), var(--shop-theme-card-end));
+}
+
+html[data-shop-subject] .shop-item {
+  border-color: var(--shop-theme-line);
+  background: linear-gradient(155deg, var(--shop-theme-item-start), var(--shop-theme-item-end));
+}
+
+html[data-shop-subject] .shop-category-card:hover,
+html[data-shop-subject] .shop-item:hover {
+  border-color: var(--shop-theme-line-strong);
+}
+
+html[data-shop-subject] .shop-category-symbol,
+html[data-shop-subject] .shop-category-count,
+html[data-shop-subject] .owned-count,
+html[data-shop-subject] .shop-rarity {
+  border-color: color-mix(in srgb, var(--shop-theme-accent) 34%, transparent);
+  background: var(--shop-theme-accent-faint);
+  color: var(--shop-theme-accent-light);
+}
+
+html[data-shop-subject] .shop-category-arrow {
+  background: var(--shop-theme-accent-soft);
+  color: var(--shop-theme-accent-light);
+}
+
+html[data-shop-subject] .shop-back-button {
+  border-color: var(--shop-theme-line);
+  background: linear-gradient(145deg, var(--shop-theme-control), var(--shop-theme-control-deep));
+}
+
+html[data-shop-subject] .shop-item-action:not(.is-owned):not(:disabled),
+html[data-shop-subject] .outfit-wardrobe-primary:not(:disabled) {
+  border-color: var(--shop-theme-accent-strong);
+  background: linear-gradient(145deg, var(--shop-theme-accent), var(--shop-theme-accent-strong));
+}
+
+html[data-shop-subject] .shop-item-action.is-owned,
+html[data-shop-subject] .outfit-wardrobe-secondary {
+  border-color: var(--shop-theme-line);
+  background: var(--shop-theme-control);
+}
+
+html[data-shop-subject] .outfit-wardrobe-option.is-selected {
+  border-color: var(--shop-theme-accent);
+  background: var(--shop-theme-accent-soft);
+}
+
+html[data-shop-subject] .mobile-bottom-nav {
+  border-color: var(--shop-theme-line);
+  background: color-mix(in srgb, var(--shop-theme-topbar) 96%, transparent);
+}
+
+html[data-shop-subject] .mobile-bottom-nav [aria-current="page"] {
+  background: var(--shop-theme-accent-soft);
+  color: var(--shop-theme-accent-light);
+}

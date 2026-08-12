@@ -15,10 +15,15 @@ const categories = categoriesForSubject(subject.id);
 let activeCategory = storage.read("selected-category", "전체");
 if (activeCategory !== "전체" && !categories.includes(activeCategory)) activeCategory = "전체";
 
-const shopHref = siteUrl("shop.html?from=" + encodeURIComponent(subject.id));
+const shopHref = siteUrl("shop.html?subject=" + encodeURIComponent(subject.id));
 const portalHref = siteUrl("");
 document.documentElement.dataset.theme = subject.theme;
 document.title = "콩쥐야 줘때써 - " + subject.name + "편";
+try {
+  localStorage.setItem(GLOBAL_STORAGE_KEYS.lastSubject, subject.id);
+} catch {
+  // URL links still carry the subject when storage is unavailable.
+}
 
 root.innerHTML = [
   '<a class="skip-link" href="#subjectMain">본문으로 바로가기</a>',

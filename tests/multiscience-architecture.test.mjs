@@ -130,9 +130,10 @@ test("shared subject shell exposes product navigation, empty states, and global 
   assert.match(shell, /data-view-target="records"/);
   assert.match(shell, /플레이 기록 없음/);
   assert.match(shell, /아직 등록된 __SUBJECT__ 장독대가 없습니다/);
-  assert.match(shell, /shop\.html\?from=/);
+  assert.match(shell, /shop\.html\?subject=/);
   assert.match(styles, /grid-template-columns:repeat\(6,minmax\(0,1fr\)\)/);
   assert.match(styles, /prefers-reduced-motion/);
   assert.match(shop, /assets\/js\/shop-context\.js/);
   assert.match(shopContext, /subjectLobbyUrl/);
+  assert.match(shopContext, /kongjuiya:last-subject/);
 });
