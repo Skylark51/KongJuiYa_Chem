@@ -1,0 +1,18 @@
+{
+  "package": "kongjwi-v2-first-stage-authored-assets",
+  "source": "ChatGPT image generation in current conversation",
+  "runtimeActivation": false,
+  "policy": {
+    "preserveFullResolutionPng": true,
+    "doNotDownscale": true,
+    "doNotConvertToWebp": true,
+    "kongjwiSourceRule": "current-project-art-reference-derived-candidate"
+  },
+  "assets": [
+    {"path":"assets/art/game-scene-v2/kongjwi/underlayer/master-motion-sheet.png","bytes":1924097,"sha256":"6c48aaab46dd18fa77a4a6be3233e4eaf7ae1e1126d10abbdcc2fd1a3b94b95e","grid":{"columns":4,"rows":4,"frameCount":16},"clips":{"idle":[0,1,2,3],"walk":[4,5,6,7],"self-pour":[8,9,10,11],"summon":[12,13],"react":[14,15]}},
+    {"path":"assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png","bytes":2703552,"sha256":"2538b4244562dd44823554f5762be7fa277c9579671b317ef8e5cf22638a6d13","grid":{"columns":4,"rows":2,"frameCount":8},"actionMode":"servant-pour"},
+    {"path":"assets/art/game-scene-v2/servants/dolsoe-water-sheet.png","bytes":2349236,"sha256":"f73fb9d99d664ef18b258b345ebcc5a77cd940516505ce0c7753d78a6bd5782d","grid":{"columns":4,"rows":3,"frameCount":12},"variants":{"dolsoe-a":[0,1,2,3],"dolsoe-b":[4,5,6,7],"dolsoe-c":[8,9,10,11]}},
+    {"path":"assets/art/game-scene-v2/jars/celadon/authored-open-body.png","bytes":2447590,"sha256":"17558babfa1e196f3abcf494e59730e8f23d17e57474b4b1b5e09c8c85158d87"},
+    {"path":"assets/art/game-scene-v2/jars/celadon/authored-open-lid.png","bytes":1904383,"sha256":"707f13caabba61c65cb450ab327d86f3ced26a8e26e74d33a0a5952d8e24038a"}
+  ]
+}
