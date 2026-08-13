@@ -17,7 +17,7 @@ for (const tool of ["wood", "brass", "celadon", "moon"]) {
   );
 }
 
-assert.match(html, /data-ui-version="20260807-tool-card3"/);
+assert.match(html, /<html[^>]*data-page="shop"/);
 assert.match(html, /shop-tool-framing\.css\?v=20260807-tool-card3/);
 assert.match(framingCss, /shop-grid\[data-category="tool"\] \.shop-item-visual::before[\s\S]*content: none !important/);
 assert.match(framingCss, /shop-grid\[data-category="tool"\] \.shop-asset-tool[\s\S]*aspect-ratio: 8 \/ 5 !important/);
