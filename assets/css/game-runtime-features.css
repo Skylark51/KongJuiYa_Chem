@@ -4,7 +4,7 @@
  * and narrow regression fixes retain their production precedence.
  */
 @import url("./toad-composition-fix.css?v=20260806-existing-toad-composition1");
-@import url("./layered-scene-runtime.css?v=20260808-motion-polish1");
+@import url("./layered-scene-runtime.css?v=20260813-desktop-scene1");
 @import url("./scene-jar-position-tune.css?v=20260807-composition3");
 @import url("./atomic-number-question-tune.css?v=20260807-composition3");
 @import url("./audio-settings.css?v=20260807-audio-bgm2");
