@@ -36,6 +36,17 @@ export function returnUrlForSubject(subjectId, view = "home", documentRef = docu
   return subjectLobbyUrl(id, view, documentRef);
 }
 
+function navigationTarget(link) {
+  const authoredHref = link.getAttribute("href") || "";
+  const label = (link.textContent || "").replace(/\s+/g, " ").trim();
+
+  if (authoredHref.includes("shop.html") || /(?:콩\s*)?상점$/.test(label)) return "shop";
+  if (authoredHref.includes("view=home") || /홈$/.test(label)) return "home";
+  if (authoredHref.includes("view=jars") || /장독대$/.test(label)) return "jars";
+  if (authoredHref.includes("view=records") || /기록$/.test(label)) return "records";
+  return null;
+}
+
 export function mountShopContext({
   documentRef = document,
   locationRef = location,
@@ -59,11 +70,11 @@ export function mountShopContext({
   }
 
   documentRef.querySelectorAll(".desktop-tabs a, .mobile-bottom-nav a").forEach(link => {
-    const text = link.textContent.trim();
-    if (text === "홈") link.href = route("home");
-    if (text === "장독대") link.href = route("jars");
-    if (text === "기록") link.href = route("records");
-    if (text === "콩 상점" || text === "상점") link.href = shopRoute;
+    const target = navigationTarget(link);
+    if (target === "shop") link.href = shopRoute;
+    if (target === "home") link.href = route("home");
+    if (target === "jars") link.href = route("jars");
+    if (target === "records") link.href = route("records");
   });
 
   const brand = documentRef.querySelector(".app-brand");
