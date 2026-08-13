@@ -1,0 +1,5 @@
+/* Bean-shop royal-night preview: expose exactly one standing frame from the 8-frame runtime sheet. */
+.shop-page .shop-kongjwi-image[data-sprite-preview="first-frame"],
+.shop-page #outfitWardrobeImage[data-sprite-preview="first-frame"] {
+  clip-path: inset(0 87.5% 0 0) !important;
+}
