@@ -1,0 +1,27 @@
+/* Chemistry toolbar geometry is the master shell. Subject identity is expressed by accent color only. */
+.subject-shell{width:min(1320px,100%);padding:14px clamp(12px,3vw,36px) 104px}
+.subject-topbar{position:sticky;z-index:60;top:max(8px,env(safe-area-inset-top));display:grid;grid-template-columns:minmax(260px,1fr) auto minmax(220px,1fr);align-items:center;gap:16px;margin-bottom:16px;padding:9px 11px;border:1px solid var(--line);border-radius:18px;background:rgba(17,13,10,.9);box-shadow:0 12px 36px rgba(0,0,0,.28);backdrop-filter:blur(18px)}
+.subject-brand{display:flex;align-items:center;gap:11px;min-width:0;text-decoration:none}
+.subject-brand>span:first-child{display:grid;place-items:center;width:46px;height:46px;flex:0 0 auto;border:1px solid color-mix(in srgb,var(--accent),transparent 36%);border-radius:14px;background:linear-gradient(145deg,color-mix(in srgb,var(--accent),#1d1813 55%),#211914);color:var(--accent-strong);font-family:"Noto Serif KR",serif;font-size:23px}
+.subject-brand strong,.subject-brand small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.subject-brand strong{font-family:"Noto Serif KR",serif;font-size:18px;letter-spacing:-.04em}.subject-brand small{margin-top:2px;color:#8f806c;font-size:8px;letter-spacing:.13em}
+.subject-desktop-nav{display:flex;align-items:center;gap:5px;padding:5px;border:1px solid var(--line);border-radius:14px;background:#100d0a;grid-column:auto;grid-row:auto;justify-self:auto}
+.subject-desktop-nav button,.subject-desktop-nav a{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 14px;border-radius:10px;background:transparent;color:var(--muted);font-size:11px;font-weight:900;text-decoration:none;cursor:pointer}.subject-desktop-nav [aria-current="page"]{background:var(--accent-soft);color:var(--accent-strong)}
+.subject-top-actions{display:flex;justify-content:flex-end;align-items:center;gap:8px}.subject-top-actions .science-portal-link{display:inline-flex;align-items:center;justify-content:center;min-height:39px;padding:0 13px;border:1px solid var(--line);border-radius:999px;color:var(--accent-strong);background:rgba(31,23,17,.72);font-size:10px;font-weight:900;text-decoration:none;white-space:nowrap}
+.subject-top-actions .bean-wallet{display:flex;align-items:center;gap:9px;min-height:44px;padding:7px 12px;border:1px solid color-mix(in srgb,var(--accent),transparent 68%);border-radius:999px;background:color-mix(in srgb,var(--accent-soft),#241b11 72%);text-decoration:none}.subject-top-actions .bean-wallet::before{content:"豆";display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:linear-gradient(145deg,var(--accent-strong),var(--accent));color:#172018;font-family:"Noto Serif KR",serif;font-weight:900}.subject-top-actions .bean-wallet small,.subject-top-actions .bean-wallet strong{display:block}.subject-top-actions .bean-wallet small{color:#9b8b74;font-size:8px}.subject-top-actions .bean-wallet strong{font-size:14px}
+.subject-top-actions .settings-button{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;min-height:44px;padding:0;border:1px solid var(--line);border-radius:13px;background:#211a14;color:var(--ink);font-size:17px;cursor:pointer}
+.subject-mobile-nav{display:none}
+
+html[data-device-layout="mobile"] body{padding-bottom:82px}
+html[data-device-layout="mobile"] .subject-shell{padding:8px 9px 24px}
+html[data-device-layout="mobile"] .subject-topbar{top:max(5px,env(safe-area-inset-top));grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-bottom:9px;padding:7px;border-radius:15px}
+html[data-device-layout="mobile"] .subject-desktop-nav,html[data-device-layout="mobile"] .subject-top-actions .bean-wallet,html[data-device-layout="mobile"] .subject-top-actions .science-portal-link{display:none}
+html[data-device-layout="mobile"] .subject-brand>span:first-child{width:40px;height:40px;font-size:20px}
+html[data-device-layout="mobile"] .subject-brand strong{font-size:14px}
+html[data-device-layout="mobile"] .subject-brand small{font-size:6px}
+html[data-device-layout="mobile"] .subject-top-actions .settings-button{display:inline-flex;width:40px;height:40px;min-height:40px}
+html[data-device-layout="mobile"] .subject-mobile-nav{position:fixed;z-index:90;left:7px;right:7px;bottom:max(7px,env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;padding:6px;border:1px solid var(--line);border-radius:17px;background:rgba(17,13,10,.94);box-shadow:0 18px 55px rgba(0,0,0,.48);backdrop-filter:blur(18px)}
+html[data-device-layout="mobile"] .subject-mobile-nav button,html[data-device-layout="mobile"] .subject-mobile-nav a{display:grid;place-items:center;gap:2px;min-width:0;min-height:51px;padding:4px;border-radius:11px;background:transparent;color:#8f806b;font-size:8px;font-weight:900;text-decoration:none;cursor:pointer}
+html[data-device-layout="mobile"] .subject-mobile-nav [aria-current="page"]{background:var(--accent-soft);color:var(--accent-strong)}
+html[data-device-layout="mobile"] .subject-mobile-nav span{font-family:"Noto Serif KR",serif;font-size:16px}
+
+@media(max-width:390px){html[data-device-layout="mobile"] .subject-mobile-nav{left:4px;right:4px;gap:2px;padding:5px}}
