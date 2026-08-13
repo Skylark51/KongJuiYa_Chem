@@ -73,6 +73,39 @@
   background-position-y: center !important;
 }
 
+/*
+ * Desktop composition guard.
+ * The scene renderer is authored on a 2048x1152 (16:9) canvas. Previously the
+ * desktop scene panel stretched vertically across both HUD/question grid rows,
+ * leaving the contained 16:9 animation anchored at the bottom of a much taller
+ * host. On large monitors that made the actors look undersized and detached.
+ * Keep the host itself 16:9 so desktop and mobile render the same composition.
+ */
+@media (min-width: 1100px) and (min-height: 700px) and (pointer: fine) {
+  .scene-panel {
+    align-self: center !important;
+    justify-self: center !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: 16 / 9;
+  }
+
+  .game-stage {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    aspect-ratio: 16 / 9;
+  }
+
+  /* Sprite frames already contain the character pose. Do not add a second
+   * transform/bob animation on top of those frames on a large desktop canvas. */
+  .scene-layer-stack[data-scene-state="correct"] .scene-kongjwi,
+  .scene-layer-stack[data-scene-state="correct"] .scene-tool {
+    animation: none !important;
+  }
+}
+
 /* Final mobile cascade guard: the source button still says "전체" for stable
  * behavior/accessibility, while the visible label is supplied by the polish layer. */
 @media (max-width: 900px), (pointer: coarse) {
