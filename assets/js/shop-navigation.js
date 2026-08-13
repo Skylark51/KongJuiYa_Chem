@@ -29,15 +29,21 @@ const SWATCHES = Object.freeze({
   "night-lacquer": ["#0d0d13", "#4e315c"]
 });
 
-const ASSET_VERSION = "20260812-kongjwi-source-locked1";
+const ASSET_VERSION = "20260813-night-court-shop1";
 const OUTFIT_ART = Object.freeze({
   underlayer: `assets/art/source-locked/kongjwi/underlayer/base-cutout.png?v=${ASSET_VERSION}`,
   "classic-red": `assets/art/source-locked/kongjwi/classic-red/base-cutout.png?v=${ASSET_VERSION}`,
   "blue-scholar": `assets/art/source-locked/kongjwi/blue-scholar/base-cutout.png?v=${ASSET_VERSION}`,
   "field-green": `assets/art/source-locked/kongjwi/field-work/base-cutout.png?v=${ASSET_VERSION}`,
-  "royal-night": `assets/art/source-locked/kongjwi/night-court/base-cutout.png?v=${ASSET_VERSION}`
+  "royal-night": `assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png?v=${ASSET_VERSION}`
 });
 const UNDERLAYER_ART = `assets/art/source-locked/kongjwi/underlayer/base-cutout.png?v=${ASSET_VERSION}`;
+const OUTFIT_SPRITE_KEYS = new Set(["royal-night"]);
+const OUTFIT_SPRITE_FRAME_COUNT = 8;
+const SPRITE_OVERRIDE_PROPERTIES = Object.freeze([
+  "position", "left", "bottom", "width", "height", "max-width", "max-height",
+  "padding", "object-fit", "object-position", "transform"
+]);
 
 const JAR_ART = Object.freeze({
   onggi: "assets/art/jars/onggi/thumbnail-no-toad.png?v=20260805-jar-clean2",
@@ -70,6 +76,7 @@ const itemsFor = categoryId => SHOP_ITEMS.filter(item => item.category === categ
 const categoryFor = categoryId => SHOP_CATEGORIES.find(category => category.id === categoryId);
 const ownedCount = categoryId => itemsFor(categoryId).filter(item => cosmetics.card(item.id).owned).length;
 const outfitItems = () => itemsFor("outfit");
+const isOutfitSprite = visualKey => OUTFIT_SPRITE_KEYS.has(visualKey);
 
 function applySwatch(node, item) {
   const [first, second] = SWATCHES[item.visualKey] || ["#60422d", "#b78258"];
@@ -104,6 +111,29 @@ function createImage(source, className, label, onFailure) {
   return image;
 }
 
+function clearSpriteFrameStyles(image) {
+  SPRITE_OVERRIDE_PROPERTIES.forEach(property => image.style.removeProperty(property));
+  image.removeAttribute("data-sprite-preview");
+}
+
+function applySpriteFrameStyles(image, container, { wardrobe = false } = {}) {
+  const halfFramePercent = 100 / (OUTFIT_SPRITE_FRAME_COUNT * 2);
+  container.style.position = "relative";
+  container.style.overflow = "hidden";
+  image.dataset.spritePreview = "first-frame";
+  image.style.setProperty("position", "absolute", "important");
+  image.style.setProperty("left", "50%", "important");
+  image.style.setProperty("bottom", wardrobe ? "12px" : "0", "important");
+  image.style.setProperty("width", "auto", "important");
+  image.style.setProperty("height", wardrobe ? "calc(100% - 24px)" : "100%", "important");
+  image.style.setProperty("max-width", "none", "important");
+  image.style.setProperty("max-height", "none", "important");
+  image.style.setProperty("padding", "0", "important");
+  image.style.setProperty("object-fit", "fill", "important");
+  image.style.setProperty("object-position", "left bottom", "important");
+  image.style.setProperty("transform", `translateX(-${halfFramePercent}%)`, "important");
+}
+
 function createOutfitAsset(item) {
   const versionedSource = OUTFIT_ART[item.visualKey];
   if (!versionedSource) throw new Error(`Missing Kongjwi outfit mapping: ${item.visualKey}`);
@@ -123,6 +153,7 @@ function createOutfitAsset(item) {
     error.textContent = `${item.title} 이미지 로드 실패`;
     asset.append(error);
   });
+  if (isOutfitSprite(item.visualKey)) applySpriteFrameStyles(image, asset);
   image.addEventListener("load", () => {
     asset.dataset.assetState = "ready";
   });
@@ -221,10 +252,13 @@ function currentWardrobeItem() {
   return SHOP_ITEM_MAP[previewOutfitId || "outfit_underlayer"] || null;
 }
 
-function setWardrobeImage(source, label) {
+function setWardrobeImage(source, label, visualKey = "underlayer") {
   const image = byId("outfitWardrobeImage");
+  const stage = image.parentElement;
   const candidates = sourceCandidates(source);
   let index = 0;
+  clearSpriteFrameStyles(image);
+  if (isOutfitSprite(visualKey) && stage) applySpriteFrameStyles(image, stage, { wardrobe: true });
   image.dataset.assetState = "loading";
   image.alt = label;
   image.onload = () => {
@@ -287,7 +321,7 @@ function renderWardrobe() {
     detail.textContent = "옷을 입히기 전의 콩쥐입니다. 아래에서 의상을 골라 입어볼 수 있습니다.";
     equipButton.textContent = "의상을 선택하세요";
     equipButton.disabled = true;
-    setWardrobeImage(UNDERLAYER_ART, "속옷 상태의 콩쥐 전신");
+    setWardrobeImage(UNDERLAYER_ART, "속옷 상태의 콩쥐 전신", "underlayer");
   } else {
     const card = cosmetics.card(selected.id);
     title.textContent = selected.title;
@@ -304,7 +338,7 @@ function renderWardrobe() {
       equipButton.textContent = "구매 후 장착 가능";
       equipButton.disabled = true;
     }
-    setWardrobeImage(OUTFIT_ART[selected.visualKey], `${selected.title}을 입은 콩쥐 전신`);
+    setWardrobeImage(OUTFIT_ART[selected.visualKey], `${selected.title}을 입은 콩쥐 전신`, selected.visualKey);
   }
 
   renderWardrobeOptions();
