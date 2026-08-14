@@ -30,8 +30,9 @@ const earthScienceQuizzes = Object.freeze([
     id: "earth-geologic-era-keywords",
     title: "지질 시대 키워드 구분 장독대",
     category: "통합과학2 - 지질 시대의 환경과 생물",
-    description: "문제 등록 예정",
-    status: "planned"
+    description: "문장을 읽고 옳으면 O, 틀리면 X를 선택하여 지질 시대 핵심 키워드를 구분합니다.",
+    implementation: "콩쥐야_줘때써.html?subject=earth-science&training=earth-geologic-era-keywords",
+    status: "live"
   }
 ].map(quiz => Object.freeze(quiz)));
 

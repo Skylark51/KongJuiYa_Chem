@@ -7,6 +7,10 @@ import {
   FOSSIL_ERA_CHOICES,
   FOSSIL_TYPE_CHOICES
 } from "./questions/earth-science-fossil-type.js";
+import {
+  EARTH_SCIENCE_GEOLOGIC_ERA_KEYWORD_QUESTIONS,
+  GEOLOGIC_ERA_OX_CHOICES
+} from "./questions/earth-science-geologic-era-keywords.js";
 
 const SUBJECT_IDS = new Set(["chemistry", "physics", "biology", "earth-science"]);
 const rules = (leak = 1.5) => Object.freeze({
@@ -46,6 +50,18 @@ function choiceQuestion(question, trainingId, choices, presentation) {
   });
 }
 
+function binaryQuestion(question, trainingId, choices) {
+  return Object.freeze({
+    ...question,
+    trainingId,
+    difficulty: 1,
+    type: "binary_choice",
+    inputMode: "binary_choice",
+    choices: Object.freeze([...choices]),
+    correctChoice: question.answer === choices[0] ? "1" : "2"
+  });
+}
+
 const biologyQuestions = Object.freeze(BIOLOGY_VARIATION_NATURAL_SELECTION_QUESTIONS.map(question => choiceQuestion(
   question,
   "biology-variation-natural-selection",
@@ -71,6 +87,14 @@ const earthEraQuestions = fossilQuestions(
   "earth-index-fossil-era",
   FOSSIL_ERA_CHOICES,
   "이 표준 화석이 대표하는 지질 시대를 고르세요."
+);
+
+const earthGeologicEraKeywordQuestions = Object.freeze(
+  EARTH_SCIENCE_GEOLOGIC_ERA_KEYWORD_QUESTIONS.map(question => binaryQuestion(
+    question,
+    "earth-geologic-era-keywords",
+    GEOLOGIC_ERA_OX_CHOICES
+  ))
 );
 
 const biologyModes = Object.freeze([
@@ -100,6 +124,14 @@ const earthModes = Object.freeze([
     "통합과학2 - 지질 시대의 환경과 생물",
     "earth-era",
     "earthScienceFossilEraQuestions"
+  ),
+  mode(
+    "earth-geologic-era-keywords",
+    "지질 시대 키워드 구분",
+    "문장을 읽고 옳으면 O, 틀리면 X를 선택하여 지질 시대의 핵심 개념을 구분합니다.",
+    "통합과학2 - 지질 시대의 환경과 생물",
+    "earth-era",
+    "earthScienceGeologicEraKeywordQuestions"
   )
 ]);
 
@@ -141,7 +173,7 @@ export const SUBJECT_GAME_CONTENT = Object.freeze({
   "earth-science": createSubjectGameContent({
     subjectId: "earth-science",
     trainingModes: earthModes,
-    questions: [...earthTypeQuestions, ...earthEraQuestions]
+    questions: [...earthTypeQuestions, ...earthEraQuestions, ...earthGeologicEraKeywordQuestions]
   })
 });
 
