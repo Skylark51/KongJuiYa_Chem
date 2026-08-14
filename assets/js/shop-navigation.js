@@ -29,16 +29,16 @@ const SWATCHES = Object.freeze({
   "night-lacquer": ["#0d0d13", "#4e315c"]
 });
 
-const ASSET_VERSION = "20260813-night-court-shop2";
+const ASSET_VERSION = "20260814-outfit-shop3";
 const OUTFIT_ART = Object.freeze({
   underlayer: `assets/art/source-locked/kongjwi/underlayer/base-cutout.png?v=${ASSET_VERSION}`,
-  "classic-red": `assets/art/source-locked/kongjwi/classic-red/base-cutout.png?v=${ASSET_VERSION}`,
-  "blue-scholar": `assets/art/source-locked/kongjwi/blue-scholar/base-cutout.png?v=${ASSET_VERSION}`,
-  "field-green": `assets/art/source-locked/kongjwi/field-work/base-cutout.png?v=${ASSET_VERSION}`,
+  "classic-red": `assets/art/game-scene/kongjwi/classic-red/pour-sheet.png?v=${ASSET_VERSION}`,
+  "blue-scholar": `assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png?v=${ASSET_VERSION}`,
+  "field-green": `assets/art/game-scene/kongjwi/field-work/pour-sheet.png?v=${ASSET_VERSION}`,
   "royal-night": `assets/art/game-scene/kongjwi/night-court/pour-sheet.png?v=${ASSET_VERSION}`
 });
 const UNDERLAYER_ART = `assets/art/source-locked/kongjwi/underlayer/base-cutout.png?v=${ASSET_VERSION}`;
-const OUTFIT_SPRITE_KEYS = new Set(["royal-night"]);
+const OUTFIT_SPRITE_KEYS = new Set(["classic-red", "blue-scholar", "field-green", "royal-night"]);
 const OUTFIT_SPRITE_FRAME_COUNT = 8;
 const SPRITE_OVERRIDE_PROPERTIES = Object.freeze([
   "position", "left", "bottom", "width", "height", "max-width", "max-height",
