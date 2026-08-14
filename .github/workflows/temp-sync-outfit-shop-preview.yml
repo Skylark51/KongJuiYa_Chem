@@ -1,0 +1,139 @@
+name: Temporary Sync Outfit Shop Preview
+
+on:
+  push:
+    paths:
+      - '.github/workflows/temp-sync-outfit-shop-preview.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: temp-sync-outfit-shop-preview
+  cancel-in-progress: false
+
+jobs:
+  sync-shop-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Rebase on latest main
+        run: git pull --rebase origin main
+
+      - name: Guard target files
+        shell: bash
+        run: |
+          set -euo pipefail
+          check_blob() {
+            local path="$1"
+            local expected="$2"
+            local actual
+            actual="$(git hash-object "$path")"
+            if [ "$actual" != "$expected" ]; then
+              echo "Concurrent change detected: $path"
+              echo "expected=$expected"
+              echo "actual=$actual"
+              exit 20
+            fi
+          }
+          check_blob 'assets/js/shop-navigation.js' '75abb6c82ec093c3e0a48a468dd7946224a26671'
+          check_blob 'shop.html' 'e60433b998c33584114ed39b9412991108294443'
+          check_blob 'assets/art/game-scene/kongjwi/classic-red/pour-sheet.png' 'f50514fc558b7f8d9b00120aa91c891f7df00e47'
+          check_blob 'assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png' '47620fb15691cd64035181c4a89c1df4b5891010'
+          check_blob 'assets/art/game-scene/kongjwi/field-work/pour-sheet.png' 'b3473fe9cf7316dd406809e88e93a564d5a9e6f9'
+
+      - name: Point shop previews at refreshed outfit sheets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          revision = '20260814-outfit-shop3'
+          path = Path('assets/js/shop-navigation.js')
+          text = path.read_text(encoding='utf-8')
+          replacements = {
+              'const ASSET_VERSION = "20260813-night-court-shop2";': f'const ASSET_VERSION = "{revision}";',
+              '"classic-red": `assets/art/source-locked/kongjwi/classic-red/base-cutout.png?v=${ASSET_VERSION}`': '"classic-red": `assets/art/game-scene/kongjwi/classic-red/pour-sheet.png?v=${ASSET_VERSION}`',
+              '"blue-scholar": `assets/art/source-locked/kongjwi/blue-scholar/base-cutout.png?v=${ASSET_VERSION}`': '"blue-scholar": `assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png?v=${ASSET_VERSION}`',
+              '"field-green": `assets/art/source-locked/kongjwi/field-work/base-cutout.png?v=${ASSET_VERSION}`': '"field-green": `assets/art/game-scene/kongjwi/field-work/pour-sheet.png?v=${ASSET_VERSION}`',
+              'const OUTFIT_SPRITE_KEYS = new Set(["royal-night"]);': 'const OUTFIT_SPRITE_KEYS = new Set(["classic-red", "blue-scholar", "field-green", "royal-night"]);',
+          }
+          for old, new in replacements.items():
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'shop-navigation marker count={count}: {old}')
+              text = text.replace(old, new)
+          path.write_text(text, encoding='utf-8')
+
+          html = Path('shop.html')
+          text = html.read_text(encoding='utf-8')
+          replacements = {
+              'data-ui-version="20260813-toolbar-nightcourt3"': f'data-ui-version="{revision}"',
+              'assets/js/shop-navigation.js?v=20260813-night-court-shop2': f'assets/js/shop-navigation.js?v={revision}',
+          }
+          for old, new in replacements.items():
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'shop html marker count={count}: {old}')
+              text = text.replace(old, new)
+          html.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Validate shop preview wiring
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import struct
+
+          revision = '20260814-outfit-shop3'
+          js = Path('assets/js/shop-navigation.js').read_text(encoding='utf-8')
+          expected = {
+              'classic-red': 'assets/art/game-scene/kongjwi/classic-red/pour-sheet.png',
+              'blue-scholar': 'assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png',
+              'field-green': 'assets/art/game-scene/kongjwi/field-work/pour-sheet.png',
+          }
+          if f'const ASSET_VERSION = "{revision}";' not in js:
+              raise SystemExit('shop asset revision missing')
+          sprite_marker = 'const OUTFIT_SPRITE_KEYS = new Set(["classic-red", "blue-scholar", "field-green", "royal-night"]);'
+          if sprite_marker not in js:
+              raise SystemExit('refreshed outfits are not configured as 8-frame sprite previews')
+          for key, asset in expected.items():
+              marker = f'"{key}": `'+asset+'?v=${ASSET_VERSION}`'
+              if marker not in js:
+                  raise SystemExit(f'missing shop preview mapping: {key} -> {asset}')
+              data = Path(asset).read_bytes()
+              if data[:8] != b'\x89PNG\r\n\x1a\n' or data[12:16] != b'IHDR':
+                  raise SystemExit(f'bad PNG: {asset}')
+              width, height, bit_depth, color_type = struct.unpack('>IIBB', data[16:26])
+              if (width, height, bit_depth, color_type) != (4096, 768, 8, 6):
+                  raise SystemExit(f'bad sprite contract: {asset} -> {width}x{height}, depth={bit_depth}, type={color_type}')
+              print(f'OK shop {key}: first frame of {asset}')
+
+          html = Path('shop.html').read_text(encoding='utf-8')
+          if f'data-ui-version="{revision}"' not in html:
+              raise SystemExit('shop ui version missing')
+          if f'assets/js/shop-navigation.js?v={revision}' not in html:
+              raise SystemExit('shop-navigation cache bust missing')
+          PY
+          node --check assets/js/shop-navigation.js
+          git diff --check
+
+      - name: Commit and push
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm '.github/workflows/temp-sync-outfit-shop-preview.yml'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 'assets/js/shop-navigation.js' 'shop.html'
+          git diff --cached --check
+          git diff --cached --stat
+          git commit -m 'fix: sync outfit shop previews with refreshed designs'
+          git push origin HEAD:main
