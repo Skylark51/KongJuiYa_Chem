@@ -3,8 +3,10 @@
 
 /*
  * Product-card framing for the four bucket tools.
- * Store thumbnails use the dedicated 320x200 PNG cutouts. The 4096x768
- * game-scene pour sheets are actor animation layers and are not card art.
+ * Store thumbnails normally use the dedicated 320x200 PNG cutouts. Celadon
+ * intentionally uses the recovered canonical master because its legacy static
+ * PNG is truncated. The 4096x768 game-scene pour sheets remain actor animation
+ * layers and are not card art.
  */
 .shop-page .shop-grid[data-category="tool"] .shop-item-visual::before,
 .shop-page .shop-category-card[data-category="tool"] .shop-category-visual::before {
@@ -38,7 +40,7 @@
 }
 
 .shop-page .shop-asset-tool[data-visual-key="celadon"] {
-  background-image: url("../art/kongjwi-tools/celadon.png?v=20260807-tool-card3") !important;
+  background-image: url("../art/game-scene/tools/celadon/master.png?v=20260814-celadon-master1") !important;
 }
 
 .shop-page .shop-asset-tool[data-visual-key="moon"] {
