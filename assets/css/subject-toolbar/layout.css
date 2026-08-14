@@ -1,0 +1,8 @@
+/* Geometry only: shared subject-shell toolbar hierarchy, based on Chemistry. */
+.subject-shell{width:min(1320px,100%);padding:14px clamp(12px,3vw,36px) 104px}
+.subject-topbar{position:sticky;z-index:60;top:max(8px,env(safe-area-inset-top));display:grid;grid-template-columns:minmax(260px,1fr) auto minmax(220px,1fr);align-items:center;gap:16px;margin-bottom:16px;padding:9px 11px;border:1px solid var(--line);border-radius:18px;background:rgba(17,13,10,.9);box-shadow:0 12px 36px rgba(0,0,0,.28);backdrop-filter:blur(18px)}
+.subject-topbar>*{min-width:0}
+.subject-brand{display:flex;align-items:center;gap:11px;min-width:0;text-decoration:none}
+.subject-desktop-nav{display:flex;align-items:center;gap:5px;min-width:max-content;padding:5px;border:1px solid var(--line);border-radius:14px;background:#100d0a;grid-column:auto;grid-row:auto;justify-self:auto;white-space:nowrap}
+.subject-top-actions{display:flex;min-width:0;justify-content:flex-end;align-items:center;gap:8px}
+.subject-mobile-nav{display:none}
