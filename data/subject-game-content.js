@@ -11,6 +11,10 @@ import {
   EARTH_SCIENCE_GEOLOGIC_ERA_KEYWORD_QUESTIONS,
   GEOLOGIC_ERA_OX_CHOICES
 } from "./questions/earth-science-geologic-era-keywords.js";
+import {
+  binaryRuntimeQuestion,
+  multipleChoiceRuntimeQuestion
+} from "./questions/_runtime-choice.js";
 
 const SUBJECT_IDS = new Set(["chemistry", "physics", "biology", "earth-science"]);
 const rules = (leak = 1.5) => Object.freeze({
@@ -37,39 +41,14 @@ const mode = (id, shortTitle, description, category, icon, questionSource, leak 
   rules: rules(leak)
 });
 
-function choiceQuestion(question, trainingId, choices, presentation) {
-  return Object.freeze({
-    ...question,
-    trainingId,
-    difficulty: 1,
-    type: "multiple_choice",
-    inputMode: "multiple_choice",
-    choices: Object.freeze([...choices]),
-    correctChoice: choices.indexOf(question.answer),
-    presentation: Object.freeze(presentation)
-  });
-}
-
-function binaryQuestion(question, trainingId, choices) {
-  return Object.freeze({
-    ...question,
-    trainingId,
-    difficulty: 1,
-    type: "binary_choice",
-    inputMode: "binary_choice",
-    choices: Object.freeze([...choices]),
-    correctChoice: question.answer === choices[0] ? "1" : "2"
-  });
-}
-
-const biologyQuestions = Object.freeze(BIOLOGY_VARIATION_NATURAL_SELECTION_QUESTIONS.map(question => choiceQuestion(
+const biologyQuestions = Object.freeze(BIOLOGY_VARIATION_NATURAL_SELECTION_QUESTIONS.map(question => multipleChoiceRuntimeQuestion(
   question,
   "biology-variation-natural-selection",
   question.choices,
   { kind: "source-image", image: question.image, imageAlt: question.imageAlt, sourceLabel: question.sourceLabel }
 )));
 
-const fossilQuestions = (questions, trainingId, choices, prompt) => Object.freeze(questions.map(question => choiceQuestion(
+const fossilQuestions = (questions, trainingId, choices, prompt) => Object.freeze(questions.map(question => multipleChoiceRuntimeQuestion(
   { ...question, prompt },
   trainingId,
   choices,
@@ -90,7 +69,7 @@ const earthEraQuestions = fossilQuestions(
 );
 
 const earthGeologicEraKeywordQuestions = Object.freeze(
-  EARTH_SCIENCE_GEOLOGIC_ERA_KEYWORD_QUESTIONS.map(question => binaryQuestion(
+  EARTH_SCIENCE_GEOLOGIC_ERA_KEYWORD_QUESTIONS.map(question => binaryRuntimeQuestion(
     question,
     "earth-geologic-era-keywords",
     GEOLOGIC_ERA_OX_CHOICES
@@ -135,13 +114,25 @@ const earthModes = Object.freeze([
   )
 ]);
 
+function hasValidCorrectChoice(question) {
+  const choices = Array.isArray(question.choices) ? question.choices : [];
+  if (choices.length < 2) return false;
+  if (question.type === "binary_choice") {
+    const choiceNumber = Number(question.correctChoice);
+    return Number.isInteger(choiceNumber) && choiceNumber >= 1 && choiceNumber <= choices.length;
+  }
+  return Number.isInteger(question.correctChoice)
+    && question.correctChoice >= 0
+    && question.correctChoice < choices.length;
+}
+
 function validateContent(content) {
   const modeIds = new Set(content.trainingModes.map(item => item.id));
   return content.questions.flatMap(question => {
     const errors = [];
     if (!question.id) errors.push("missing question id");
     if (!modeIds.has(question.trainingId)) errors.push(`${question.id}: unknown training`);
-    if (!Array.isArray(question.choices) || question.correctChoice < 0) errors.push(`${question.id}: invalid choices`);
+    if (!hasValidCorrectChoice(question)) errors.push(`${question.id}: invalid choices`);
     return errors;
   });
 }
