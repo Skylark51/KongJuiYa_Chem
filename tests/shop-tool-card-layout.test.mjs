@@ -12,19 +12,19 @@ const [html, framingCss] = await Promise.all([
 for (const tool of ["wood", "brass", "celadon", "moon"]) {
   assert.match(
     framingCss,
-    new RegExp(`kongjwi-tools/${tool}\\.png\\?v=20260807-tool-card3`),
+    new RegExp(`kongjwi-tools/${tool}\\.png\\?v=20260814-tool-card4`),
     `${tool} shop card must use the dedicated product PNG`
   );
 }
 
 assert.match(html, /<html[^>]*data-page="shop"/);
-assert.match(html, /shop-tool-framing\.css\?v=20260807-tool-card3/);
+assert.match(html, /shop-tool-framing\.css\?v=20260814-tool-card4/);
 assert.match(framingCss, /shop-grid\[data-category="tool"\] \.shop-item-visual::before[\s\S]*content: none !important/);
 assert.match(framingCss, /shop-grid\[data-category="tool"\] \.shop-asset-tool[\s\S]*aspect-ratio: 8 \/ 5 !important/);
 assert.match(framingCss, /shop-grid\[data-category="tool"\] \.shop-asset-tool[\s\S]*background-size: contain !important/);
 assert.match(framingCss, /shop-grid\[data-category="tool"\] \.shop-asset-tool[\s\S]*background-position: center center !important/);
-assert.doesNotMatch(framingCss, /game-scene\/tools\/(wood|brass|celadon|moon)\/pour-sheet\.png/);
+assert.doesNotMatch(framingCss, /game-scene\/tools\/(wood|brass|celadon|moon)\/(master|pour-sheet)\.png/);
 assert.doesNotMatch(framingCss, /background-size:\s*800%/);
 assert.doesNotMatch(framingCss, /translateY\(|scale\(/);
 
-console.log("shop-tool-card-layout: dedicated product PNGs are centered without animation-sheet cropping");
+console.log("shop-tool-card-layout: dedicated product PNGs are centered without generated animation assets");
