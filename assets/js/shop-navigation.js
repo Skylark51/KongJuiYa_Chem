@@ -29,20 +29,21 @@ const SWATCHES = Object.freeze({
   "night-lacquer": ["#0d0d13", "#4e315c"]
 });
 
-const ASSET_VERSION = "20260815-blue-scholar-shop-gridfix1";
+const ASSET_VERSION = "20260815-shop-static-cutout1";
+// The shop and wardrobe are static previews. Always use the canonical
+// source-locked full-body cutouts here; gameplay pour sheets belong only to
+// the quiz animation renderer and must never be enlarged inside shop cards.
 const OUTFIT_ART = Object.freeze({
   underlayer: `assets/art/source-locked/kongjwi/underlayer/base-cutout.png?v=${ASSET_VERSION}`,
-  "classic-red": `assets/art/game-scene/kongjwi/classic-red/pour-sheet.png?v=${ASSET_VERSION}`,
-  "blue-scholar": `assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png?v=${ASSET_VERSION}`,
-  "field-green": `assets/art/game-scene/kongjwi/field-work/pour-sheet.png?v=${ASSET_VERSION}`,
-  "royal-night": `assets/art/game-scene/kongjwi/night-court/pour-sheet.png?v=${ASSET_VERSION}`
+  "classic-red": `assets/art/source-locked/kongjwi/classic-red/base-cutout.png?v=${ASSET_VERSION}`,
+  "blue-scholar": `assets/art/source-locked/kongjwi/blue-scholar/base-cutout.png?v=${ASSET_VERSION}`,
+  "field-green": `assets/art/source-locked/kongjwi/field-work/base-cutout.png?v=${ASSET_VERSION}`,
+  "royal-night": `assets/art/source-locked/kongjwi/night-court/base-cutout.png?v=${ASSET_VERSION}`
 });
 const UNDERLAYER_ART = `assets/art/source-locked/kongjwi/underlayer/base-cutout.png?v=${ASSET_VERSION}`;
-const OUTFIT_SPRITE_KEYS = new Set(["classic-red", "blue-scholar", "field-green", "royal-night"]);
+const OUTFIT_SPRITE_KEYS = new Set();
 const OUTFIT_SPRITE_FRAME_COUNT = 8;
-const OUTFIT_GRID_SPECS = Object.freeze({
-  "blue-scholar": Object.freeze({ columns: 5, rows: 6 })
-});
+const OUTFIT_GRID_SPECS = Object.freeze({});
 const OUTFIT_GRID_PREVIEW_CACHE = new Map();
 const SPRITE_OVERRIDE_PROPERTIES = Object.freeze([
   "position", "left", "bottom", "width", "height", "max-width", "max-height",
