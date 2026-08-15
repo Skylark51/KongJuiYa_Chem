@@ -31,6 +31,7 @@ import argparse
 import hashlib
 import json
 import math
+import shutil
 from pathlib import Path
 
 from PIL import Image, ImageChops, ImageDraw, UnidentifiedImageError
@@ -54,6 +55,8 @@ SOURCES = {
     "ragged": "kongjwi-ragged-cutout.png",
     "night-court": "kongjwi-night-court-cutout.png",
 }
+AUTHORED_HQ_SKINS = {"classic-red", "blue-scholar", "field-work"}
+AUTHORED_HQ_ROOT = Path("assets/art/game-scene-v2/kongjwi")
 TOOL_SOURCES = {
     "wood": "wood.png",
     "brass": "brass.png",
@@ -386,13 +389,25 @@ def build_kongjwi(root: Path, force: bool = False):
     for skin, filename in SOURCES.items():
         if skin == "night-court":
             continue
+
+        output = root / "assets/art/game-scene/kongjwi" / skin / "pour-sheet.png"
+        if skin in AUTHORED_HQ_SKINS:
+            canonical = root / AUTHORED_HQ_ROOT / skin / "pour-sheet.png"
+            canonical_image = load_rgba(canonical)
+            if canonical_image.size != (CELL[0] * FRAMES, CELL[1]):
+                raise RuntimeError(f"Unexpected authored HQ {skin} sheet size: {canonical_image.size}")
+            output.parent.mkdir(parents=True, exist_ok=True)
+            if not output.exists() or output.read_bytes() != canonical.read_bytes():
+                shutil.copyfile(canonical, output)
+                print(f"{skin}: synchronized authored HQ canonical sheet")
+            continue
+
         source = load_rgba(root / "assets/art/kongjwi" / filename)
         base = fit_source(source)
         frames, hand_points = build_intact_frames(base)
         if shared_hand_points is None:
             shared_hand_points = hand_points
 
-        output = root / "assets/art/game-scene/kongjwi" / skin / "pour-sheet.png"
         if output.exists() and not force:
             with Image.open(output) as current:
                 if current.size != (CELL[0] * FRAMES, CELL[1]):
@@ -483,7 +498,7 @@ def build_tool_sheet(root: Path, tool_key: str, hand_points, force: bool = False
 def update_manifest(root: Path):
     path = root / "assets/art/game-scene/manifest.json"
     manifest = json.loads(path.read_text(encoding="utf-8"))
-    manifest["version"] = "20260812-night-court-summon1"
+    manifest["version"] = "20260815-blue-scholar-headsafe1"
 
     policy = manifest.setdefault("runtimePolicy", {})
     policy["kongjwiMotionPolicy"] = "source-locked-intact-standard-outfits-night-court-summon-derived"
@@ -550,7 +565,7 @@ def main():
         for tool in TOOL_SOURCES:
             build_tool_sheet(root, tool, hand_points, force=args.force)
     update_manifest(root)
-    print("Built intact standard outfits + anchored night-court summon + four canonical-master bucket sheets")
+    print("Built authored HQ + source-locked standard outfits + anchored night-court summon + four canonical-master bucket sheets")
 
 
 if __name__ == "__main__":

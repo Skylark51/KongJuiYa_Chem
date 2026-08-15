@@ -18,7 +18,7 @@ function pngSize(file) {
 test("all-outfit motion manifest uses the anatomy-safe uniform scene policy", () => {
   const manifest = JSON.parse(fs.readFileSync(path.join(root, "assets/art/game-scene/manifest.json"), "utf8"));
   assert.ok(
-    ["20260808-anatomy-safe1", "20260808-head-safe1", "20260808-head-safe2", "20260808-layer-safe1", "20260812-night-court-summon1"].includes(manifest.version),
+    ["20260808-anatomy-safe1", "20260808-head-safe1", "20260808-head-safe2", "20260808-layer-safe1", "20260812-night-court-summon1", "20260815-blue-scholar-headsafe1"].includes(manifest.version),
     `unexpected migration version ${manifest.version}`
   );
   assert.equal(
@@ -76,6 +76,8 @@ test("builder preserves complete flattened outfits and repairs a dropped night-c
   assert.ok(builder.includes("NIGHT_FACE_REQUIRED_RATIO"));
   assert.ok(builder.includes("added_alpha = ImageChops.subtract(donor_head, current_alpha)"));
   assert.ok(builder.includes('manifest["layers"]["scene-tool"] = 11'));
+  assert.ok(builder.includes("AUTHORED_HQ_SKINS"));
+  assert.ok(builder.includes("shutil.copyfile(canonical, output)"));
   assert.ok(builder.includes("def build_intact_frames"));
   assert.ok(builder.includes('current_rgba.tobytes() == sheet.tobytes()'));
   assert.ok(builder.includes("frames, hand_points = build_intact_frames(base)"));

@@ -1,9 +1,9 @@
 import { createSceneStateController } from "./scene-state-machine.js";
 import { resolveSceneCosmeticEffects } from "./scene-cosmetic-effects.js";
 
-const MANIFEST_URL = new URL("../art/game-scene/manifest.json?v=20260814-kongjwi-outfits1", import.meta.url).href;
+const MANIFEST_URL = new URL("../art/game-scene/manifest.json?v=20260815-blue-scholar-headsafe1", import.meta.url).href;
 const RUNTIME_STYLE_ID = "layered-scene-animation-runtime";
-const RUNTIME_STYLE_URL = new URL("../css/game-asset-animation.css?v=20260814-kongjwi-outfits1", import.meta.url).href;
+const RUNTIME_STYLE_URL = new URL("../css/game-asset-animation.css?v=20260815-blue-scholar-headsafe1", import.meta.url).href;
 const SITE_ROOT_URL = new URL("../../", import.meta.url);
 const ORDER = [
   "scene-background", "scene-kongjwi", "scene-tool", "scene-water-stream",
