@@ -1,0 +1,130 @@
+name: Fix shop outfit static previews
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-shop-outfit-static-previews.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fix-shop-outfit-static-previews
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Normalize shop outfit preview assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          js_path = Path('assets/js/shop-navigation.js')
+          text = js_path.read_text(encoding='utf-8')
+
+          old_version = 'const ASSET_VERSION = "20260815-blue-scholar-shop-gridfix1";'
+          new_version = 'const ASSET_VERSION = "20260815-shop-static-cutout1";'
+          if old_version not in text:
+              raise SystemExit('expected current shop asset version not found')
+          text = text.replace(old_version, new_version, 1)
+
+          old_mapping = '''const OUTFIT_ART = Object.freeze({
+            underlayer: `assets/art/source-locked/kongjwi/underlayer/base-cutout.png?v=${ASSET_VERSION}`,
+            "classic-red": `assets/art/game-scene/kongjwi/classic-red/pour-sheet.png?v=${ASSET_VERSION}`,
+            "blue-scholar": `assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png?v=${ASSET_VERSION}`,
+            "field-green": `assets/art/game-scene/kongjwi/field-work/pour-sheet.png?v=${ASSET_VERSION}`,
+            "royal-night": `assets/art/game-scene/kongjwi/night-court/pour-sheet.png?v=${ASSET_VERSION}`
+          });'''
+          new_mapping = '''// The shop and wardrobe are static previews. Always use the canonical
+          // source-locked full-body cutouts here; gameplay pour sheets belong only to
+          // the quiz animation renderer and must never be enlarged inside shop cards.
+          const OUTFIT_ART = Object.freeze({
+            underlayer: `assets/art/source-locked/kongjwi/underlayer/base-cutout.png?v=${ASSET_VERSION}`,
+            "classic-red": `assets/art/source-locked/kongjwi/classic-red/base-cutout.png?v=${ASSET_VERSION}`,
+            "blue-scholar": `assets/art/source-locked/kongjwi/blue-scholar/base-cutout.png?v=${ASSET_VERSION}`,
+            "field-green": `assets/art/source-locked/kongjwi/field-work/base-cutout.png?v=${ASSET_VERSION}`,
+            "royal-night": `assets/art/source-locked/kongjwi/night-court/base-cutout.png?v=${ASSET_VERSION}`
+          });'''
+          if old_mapping not in text:
+              raise SystemExit('current OUTFIT_ART mapping block not found')
+          text = text.replace(old_mapping, new_mapping, 1)
+
+          text = text.replace(
+              'const OUTFIT_SPRITE_KEYS = new Set(["classic-red", "blue-scholar", "field-green", "royal-night"]);',
+              'const OUTFIT_SPRITE_KEYS = new Set();',
+              1
+          )
+          old_grid = '''const OUTFIT_GRID_SPECS = Object.freeze({
+            "blue-scholar": Object.freeze({ columns: 5, rows: 6 })
+          });'''
+          if old_grid not in text:
+              raise SystemExit('blue scholar grid preview spec not found')
+          text = text.replace(old_grid, 'const OUTFIT_GRID_SPECS = Object.freeze({});', 1)
+
+          required_assets = [
+              'assets/art/source-locked/kongjwi/underlayer/base-cutout.png',
+              'assets/art/source-locked/kongjwi/classic-red/base-cutout.png',
+              'assets/art/source-locked/kongjwi/blue-scholar/base-cutout.png',
+              'assets/art/source-locked/kongjwi/field-work/base-cutout.png',
+              'assets/art/source-locked/kongjwi/night-court/base-cutout.png',
+          ]
+          for asset in required_assets:
+              if not Path(asset).is_file():
+                  raise SystemExit(f'missing canonical shop outfit asset: {asset}')
+          if 'assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png' in text:
+              raise SystemExit('blue scholar gameplay sheet still referenced by shop mapping')
+
+          js_path.write_text(text, encoding='utf-8')
+
+          html_path = Path('shop.html')
+          html = html_path.read_text(encoding='utf-8')
+          html = html.replace(
+              'data-ui-version="20260815-blue-scholar-shop-gridfix1"',
+              'data-ui-version="20260815-shop-static-cutout1"'
+          )
+          html = html.replace(
+              'assets/js/shop-navigation.js?v=20260815-blue-scholar-shop-gridfix1',
+              'assets/js/shop-navigation.js?v=20260815-shop-static-cutout1'
+          )
+          if 'shop-navigation.js?v=20260815-shop-static-cutout1' not in html:
+              raise SystemExit('shop cache-bust update missing')
+          html_path.write_text(html, encoding='utf-8')
+
+          test_path = Path('tests/shop-outfit-preview-assets.test.mjs')
+          test_path.write_text('''import assert from "node:assert/strict";\nimport fs from "node:fs";\nimport test from "node:test";\n\nconst source = fs.readFileSync(new URL("../assets/js/shop-navigation.js", import.meta.url), "utf8");\n\ntest("shop outfit previews use canonical source-locked full-body cutouts", () => {\n  const expected = [\n    "source-locked/kongjwi/underlayer/base-cutout.png",\n    "source-locked/kongjwi/classic-red/base-cutout.png",\n    "source-locked/kongjwi/blue-scholar/base-cutout.png",\n    "source-locked/kongjwi/field-work/base-cutout.png",\n    "source-locked/kongjwi/night-court/base-cutout.png"\n  ];\n  for (const path of expected) assert.match(source, new RegExp(path.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\$&")));\n  assert.doesNotMatch(source, /OUTFIT_ART[\\s\\S]*?game-scene\\/kongjwi\\/[^`\"]+\\/pour-sheet\\.png/);\n  assert.match(source, /const OUTFIT_SPRITE_KEYS = new Set\\(\\);/);\n  assert.match(source, /const OUTFIT_GRID_SPECS = Object\\.freeze\\(\\{\\}\\);/);\n});\n''', encoding='utf-8')
+          PY
+
+      - name: Validate shop outfit preview repair
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check assets/js/shop-navigation.js
+          node --test tests/shop-outfit-preview-assets.test.mjs
+          grep -q 'source-locked/kongjwi/blue-scholar/base-cutout.png' assets/js/shop-navigation.js
+          ! grep -Eq 'OUTFIT_ART[[:space:][:print:]]*game-scene/kongjwi/.+/pour-sheet\.png' assets/js/shop-navigation.js || exit 1
+          grep -q '20260815-shop-static-cutout1' shop.html
+          git diff --check
+
+      - name: Commit and push repair
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/fix-shop-outfit-static-previews.yml
+          git add assets/js/shop-navigation.js shop.html tests/shop-outfit-preview-assets.test.mjs
+          git diff --cached --check
+          git diff --cached --stat
+          git commit -m 'fix: use full-body cutouts for shop outfit previews'
+          git pull --rebase origin main
+          git push origin HEAD:main
