@@ -1,0 +1,93 @@
+name: Publish blue scholar head repair
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-blue-scholar-head-holes-v4.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image dependencies
+        run: python -m pip install --disable-pip-version-check Pillow==12.3.0 numpy==2.3.5 opencv-python-headless==4.13.0.92
+      - name: Apply validated repair
+        shell: bash
+        run: |
+          set -euo pipefail
+          git pull --rebase origin main
+          python scripts/tmp-fix-blue-scholar-head-holes.py
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('tests/kongjwi-underlayer-grip.test.mjs')
+          text = path.read_text(encoding='utf-8')
+          old = '["20260808-anatomy-safe1", "20260808-head-safe1", "20260808-head-safe2", "20260808-layer-safe1", "20260812-night-court-summon1"]'
+          new = '["20260808-anatomy-safe1", "20260808-head-safe1", "20260808-head-safe2", "20260808-layer-safe1", "20260812-night-court-summon1", "20260815-blue-scholar-headsafe1"]'
+          if old not in text and new not in text:
+              raise SystemExit('underlayer version whitelist marker changed')
+          path.write_text(text.replace(old, new), encoding='utf-8')
+          PY
+          # The GitHub Actions token cannot publish workflow-file edits. Keep the
+          # permanent workflow unchanged in this commit; it is updated separately
+          # through the GitHub connector after this validated asset commit lands.
+          git checkout -- .github/workflows/build-kongjwi-pour-motion.yml
+      - name: Validate repaired runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/build-kongjwi-pour-sheets.py
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import json
+          revision='20260815-blue-scholar-headsafe1'
+          active=Path('assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png')
+          canonical=Path('assets/art/game-scene-v2/kongjwi/blue-scholar/pour-sheet.png')
+          assert active.read_bytes()==canonical.read_bytes()
+          im=Image.open(active).convert('RGBA')
+          assert im.size==(4096,768)
+          for frame,(x,y) in {0:(259,101),1:(228,106),3:(281,102)}.items():
+              alpha=im.getpixel((frame*512+x,y))[3]
+              assert alpha>=220,(frame,alpha)
+              print(f'frame {frame}: repaired crown alpha={alpha}')
+          manifest=json.loads(Path('assets/art/game-scene/manifest.json').read_text(encoding='utf-8'))
+          assert manifest['version']==revision
+          assert f'manifest.json?v={revision}' in Path('assets/js/scene-renderer.js').read_text(encoding='utf-8')
+          assert revision in Path('콩쥐야_줘때써.html').read_text(encoding='utf-8')
+          PY
+          node --test tests/kongjwi-pour-motion.test.mjs tests/kongjwi-underlayer-grip.test.mjs
+          node --check assets/js/scene-renderer.js
+          node --check assets/js/game-page.js
+          git diff --check
+      - name: Commit asset and runtime fix
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm --ignore-unmatch 'scripts/tmp-fix-blue-scholar-head-holes.py'
+          git add \
+            'assets/art/game-scene-v2/kongjwi/blue-scholar/pour-sheet.png' \
+            'assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png' \
+            'assets/art/game-scene/manifest.json' \
+            'assets/js/scene-renderer.js' \
+            '콩쥐야_줘때써.html' \
+            'scripts/build-kongjwi-pour-sheets.py' \
+            'tests/kongjwi-pour-motion.test.mjs' \
+            'tests/kongjwi-underlayer-grip.test.mjs'
+          git diff --cached --check
+          git diff --cached --stat
+          git commit -m 'fix: repair blue scholar head-safe pour frames'
+          git pull --rebase origin main
+          git push origin HEAD:main
