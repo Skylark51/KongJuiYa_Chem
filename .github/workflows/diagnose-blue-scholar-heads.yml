@@ -1,0 +1,71 @@
+name: Diagnose blue scholar head integrity
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/diagnose-blue-scholar-heads.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --disable-pip-version-check Pillow==12.3.0
+      - name: Inspect sprite frames
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+
+          src = Path('assets/art/game-scene-v2/kongjwi/blue-scholar/pour-sheet.png')
+          im = Image.open(src).convert('RGBA')
+          assert im.size == (4096, 768), im.size
+          out = Path('diagnostic-blue-scholar')
+          out.mkdir(exist_ok=True)
+
+          frame_w, frame_h = 512, 768
+          head_box = (70, 0, 442, 320)
+          montage = Image.new('RGBA', (frame_w * 4, frame_h * 2), (235,235,235,255))
+          head_montage = Image.new('RGBA', ((head_box[2]-head_box[0]) * 4, (head_box[3]-head_box[1]) * 2), (235,235,235,255))
+
+          print('source=', src, 'size=', im.size)
+          for i in range(8):
+              frame = im.crop((i*frame_w, 0, (i+1)*frame_w, frame_h))
+              alpha = frame.getchannel('A')
+              bbox = alpha.point(lambda a: 255 if a > 16 else 0).getbbox()
+              upper = alpha.crop(head_box)
+              upper_cov = sum(upper.histogram()[17:])
+              bands=[]
+              for y0 in range(0, 320, 40):
+                  band = alpha.crop((70,y0,442,min(y0+40,320)))
+                  bands.append(sum(band.histogram()[17:]))
+              print(f'frame {i}: bbox={bbox} upper_alpha={upper_cov} bands={bands}')
+
+              marked = frame.copy()
+              d = ImageDraw.Draw(marked)
+              d.rectangle(head_box, outline=(255,0,0,255), width=3)
+              d.text((12,12), f'FRAME {i}', fill=(255,0,0,255), stroke_width=2, stroke_fill=(255,255,255,255))
+              montage.alpha_composite(marked, ((i%4)*frame_w, (i//4)*frame_h))
+
+              crop = frame.crop(head_box)
+              head_montage.alpha_composite(crop, ((i%4)*crop.width, (i//4)*crop.height))
+              ImageDraw.Draw(head_montage).text(((i%4)*crop.width+8,(i//4)*crop.height+8), f'F{i}', fill=(255,0,0,255), stroke_width=2, stroke_fill=(255,255,255,255))
+              frame.save(out / f'frame-{i}.png')
+              crop.save(out / f'head-{i}.png')
+
+          montage.save(out/'frames-montage.png')
+          head_montage.save(out/'heads-montage.png')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: blue-scholar-head-diagnostic
+          path: diagnostic-blue-scholar/
+          if-no-files-found: error
