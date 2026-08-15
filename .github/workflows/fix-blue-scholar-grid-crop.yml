@@ -33,96 +33,90 @@ jobs:
           renderer = renderer_path.read_text(encoding='utf-8')
           renderer = renderer.replace('20260815-blue-scholar-30f1', '20260815-blue-scholar-gridfix1')
 
-          old_sprite = '''  const span = document.createElement("span");
-          span.className = "scene-sprite";
-          span.style.backgroundImage = `url("${asset.url}")`;
-          const count = Math.max(1, Number(spec.frames || 1));
-          const columns = Math.max(1, Number(spec.columns || count));
-          const rows = Math.max(1, Number(spec.rows || 1));
-          span.style.setProperty("--scene-frame-count", String(count));
-          span.style.setProperty("--scene-frame-columns", String(columns));
-          span.style.setProperty("--scene-frame-rows", String(rows));
-          if (rows > 1) span.style.backgroundSize = `${columns * 100}% ${rows * 100}%`;
-          node.dataset.spriteColumns = String(columns);
-          node.dataset.spriteRows = String(rows);
-          node.dataset.spriteMode = "sheet";
-          node.hidden = false;
-          node.append(span);
-          frameOf(node, frame);'''
+          new_sprite_function = '''function sprite(node, asset, spec, frame = 0) {
+            if (!node) return;
+            node.replaceChildren();
+            node.dataset.authored = String(asset.authored);
+            if (!asset.url) {
+              node.hidden = true;
+              node.dataset.spriteMode = "none";
+              return;
+            }
+            if (!asset.authored) {
+              image(node, asset);
+              return;
+            }
 
-          new_sprite = '''  const span = document.createElement("span");
-          span.className = "scene-sprite";
-          const count = Math.max(1, Number(spec.frames || 1));
-          const columns = Math.max(1, Number(spec.columns || count));
-          const rows = Math.max(1, Number(spec.rows || 1));
-          span.style.setProperty("--scene-frame-count", String(count));
-          span.style.setProperty("--scene-frame-columns", String(columns));
-          span.style.setProperty("--scene-frame-rows", String(rows));
-          if (rows > 1) {
-            // Multi-row sheets are rendered as one oversized image inside a clipped
-            // one-frame viewport. This avoids iOS Safari background-position rounding
-            // that can expose thin horizontal slices instead of the complete frame.
-            span.classList.add("scene-sprite-grid");
-            const sheet = document.createElement("img");
-            sheet.className = "scene-sprite-sheet-image";
-            sheet.alt = "";
-            sheet.draggable = false;
-            sheet.decoding = "async";
-            sheet.src = asset.url;
-            sheet.style.width = `${columns * 100}%`;
-            sheet.style.height = `${rows * 100}%`;
-            span.append(sheet);
-          } else {
-            span.style.backgroundImage = `url("${asset.url}")`;
+            const span = document.createElement("span");
+            span.className = "scene-sprite";
+            const count = Math.max(1, Number(spec.frames || 1));
+            const columns = Math.max(1, Number(spec.columns || count));
+            const rows = Math.max(1, Number(spec.rows || 1));
+            span.style.setProperty("--scene-frame-count", String(count));
+            span.style.setProperty("--scene-frame-columns", String(columns));
+            span.style.setProperty("--scene-frame-rows", String(rows));
+
+            if (rows > 1) {
+              // A multi-row sheet is one oversized image clipped by one frame-sized
+              // viewport. Avoid background-position rounding on mobile Safari.
+              span.classList.add("scene-sprite-grid");
+              const sheet = document.createElement("img");
+              sheet.className = "scene-sprite-sheet-image";
+              sheet.alt = "";
+              sheet.draggable = false;
+              sheet.decoding = "async";
+              sheet.src = asset.url;
+              sheet.style.width = `${columns * 100}%`;
+              sheet.style.height = `${rows * 100}%`;
+              span.append(sheet);
+            } else {
+              span.style.backgroundImage = `url("${asset.url}")`;
+            }
+
+            node.dataset.spriteColumns = String(columns);
+            node.dataset.spriteRows = String(rows);
+            node.dataset.spriteMode = "sheet";
+            node.hidden = false;
+            node.append(span);
+            frameOf(node, frame);
           }
-          node.dataset.spriteColumns = String(columns);
-          node.dataset.spriteRows = String(rows);
-          node.dataset.spriteMode = "sheet";
-          node.hidden = false;
-          node.append(span);
-          frameOf(node, frame);'''
+          '''
+          sprite_start = renderer.index('function sprite(node, asset, spec, frame = 0) {')
+          sprite_end = renderer.index('\nfunction fallbackWaterArc(node)', sprite_start)
+          renderer = renderer[:sprite_start] + new_sprite_function.rstrip() + renderer[sprite_end:]
 
-          if old_sprite not in renderer:
-              raise SystemExit('scene-renderer sprite block did not match expected source')
-          renderer = renderer.replace(old_sprite, new_sprite, 1)
+          new_frame_function = '''function frameOf(node, frame) {
+            const spriteNode = node?.querySelector(".scene-sprite");
+            if (!spriteNode || node.dataset.spriteMode !== "sheet") return;
+            const count = Math.max(1, Number(spriteNode.style.getPropertyValue("--scene-frame-count")) || 1);
+            const columns = Math.max(1, Number(spriteNode.style.getPropertyValue("--scene-frame-columns")) || count);
+            const rows = Math.max(1, Number(spriteNode.style.getPropertyValue("--scene-frame-rows")) || 1);
+            const next = Math.max(0, Math.min(count - 1, Number(frame) || 0));
 
-          old_grid_frame = '''  if (rows > 1) {
-            const column = next % columns;
-            const row = Math.floor(next / columns);
-            const x = columns <= 1 ? 0 : column / (columns - 1) * 100;
-            const y = rows <= 1 ? 0 : row / (rows - 1) * 100;
-            spriteNode.style.backgroundPosition = `${x}% ${y}%`;
-          } else {
-            spriteNode.style.backgroundPosition = `${count <= 1 ? 0 : next / (count - 1) * 100}% center`;
-          }'''
-
-          new_grid_frame = '''  if (rows > 1) {
-            const column = next % columns;
-            const row = Math.floor(next / columns);
-            const sheet = spriteNode.querySelector(".scene-sprite-sheet-image");
-            if (!sheet) return;
-            // Percentages in transform are relative to the oversized sheet itself.
-            // -100/columns% therefore moves exactly one viewport-cell horizontally,
-            // and -100/rows% moves exactly one viewport-cell vertically.
-            const x = -(column / columns) * 100;
-            const y = -(row / rows) * 100;
-            sheet.style.transform = `translate3d(${x}%, ${y}%, 0)`;
-          } else {
-            spriteNode.style.backgroundPosition = `${count <= 1 ? 0 : next / (count - 1) * 100}% center`;
-          }'''
-
-          if old_grid_frame not in renderer:
-              raise SystemExit('scene-renderer grid frame block did not match expected source')
-          renderer = renderer.replace(old_grid_frame, new_grid_frame, 1)
+            if (rows > 1) {
+              const column = next % columns;
+              const row = Math.floor(next / columns);
+              const sheet = spriteNode.querySelector(".scene-sprite-sheet-image");
+              if (!sheet) return;
+              // transform percentages are relative to the oversized image. Moving by
+              // 100/columns% or 100/rows% therefore advances exactly one frame cell.
+              const x = -(column / columns) * 100;
+              const y = -(row / rows) * 100;
+              sheet.style.transform = `translate3d(${x}%, ${y}%, 0)`;
+            } else {
+              spriteNode.style.backgroundPosition = `${count <= 1 ? 0 : next / (count - 1) * 100}% center`;
+            }
+            node.dataset.frame = String(next);
+          }
+          '''
+          frame_start = renderer.index('function frameOf(node, frame) {')
+          frame_end = renderer.index('\nfunction preload(urls)', frame_start)
+          renderer = renderer[:frame_start] + new_frame_function.rstrip() + renderer[frame_end:]
           renderer_path.write_text(renderer, encoding='utf-8')
 
           css_path = Path('assets/css/game-asset-animation.css')
           css = css_path.read_text(encoding='utf-8')
-          marker = '''.scene-kongjwi,
-          .scene-tool,
-          .scene-water-stream,
-          .scene-water-splash,
-          .scene-water-leak {'''
+          marker = '.scene-kongjwi,\n.scene-tool,\n.scene-water-stream,\n.scene-water-splash,\n.scene-water-leak {'
           grid_css = '''.scene-sprite-grid {
             overflow: hidden;
             background: none !important;
@@ -155,8 +149,8 @@ jobs:
               css = css.replace(marker, grid_css + marker, 1)
           css_path.write_text(css, encoding='utf-8')
 
-          # Force GitHub Pages / mobile Safari to fetch the repaired renderer and CSS
-          # immediately instead of reusing the just-published 30f module graph.
+          # Cache-bust the exact module chain used by the game so the phone does not
+          # keep the broken grid renderer after this deployment.
           cosmetics_path = Path('assets/js/game-cosmetics-entry.js')
           cosmetics = cosmetics_path.read_text(encoding='utf-8')
           cosmetics = cosmetics.replace(
@@ -197,7 +191,7 @@ jobs:
           node --check assets/js/game-page.js
           grep -q 'scene-sprite-sheet-image' assets/js/scene-renderer.js
           grep -q 'translate3d' assets/js/scene-renderer.js
-          grep -q 'overflow: hidden' assets/css/game-asset-animation.css
+          grep -q 'scene-sprite-grid' assets/css/game-asset-animation.css
           node --test tests/kongjwi-pour-motion.test.mjs tests/kongjwi-underlayer-grip.test.mjs
           git diff --check
 
