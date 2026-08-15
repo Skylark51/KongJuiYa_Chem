@@ -1,0 +1,426 @@
+{
+  "summary": {
+    "pass": 19,
+    "fail": 11,
+    "error": 9
+  },
+  "out": [
+    {
+      "id": "NAV-mobile-chemistry",
+      "result": "pass",
+      "plan": "mobile",
+      "subject": "chemistry",
+      "nav": ".mobile-bottom-nav",
+      "errors": [],
+      "url": "http://127.0.0.1:4173/subjects/chemistry/?view=jars"
+    },
+    {
+      "id": "DIALOG-mobile-chemistry",
+      "result": "fail",
+      "plan": "mobile",
+      "subject": "chemistry",
+      "dialogState": {
+        "width": 360.510009765625,
+        "height": 462.888427734375,
+        "x": 14.7449951171875,
+        "y": 399.5870361328125,
+        "right": 375.2550048828125,
+        "bottom": 862.4754638671875,
+        "innerWidth": 390,
+        "innerHeight": 844
+      },
+      "errors": []
+    },
+    {
+      "id": "PORTAL-mobile-chemistry",
+      "result": "pass",
+      "plan": "mobile",
+      "subject": "chemistry",
+      "portal": ".mobile-bottom-nav a[href=\"../../\"]",
+      "portalCount": 1,
+      "errors": []
+    },
+    {
+      "id": "NAV-mobile-physics",
+      "result": "pass",
+      "plan": "mobile",
+      "subject": "physics",
+      "nav": ".subject-mobile-nav",
+      "errors": [],
+      "url": "http://127.0.0.1:4173/subjects/physics/?view=jars"
+    },
+    {
+      "id": "NAV-mobile-physics",
+      "result": "error",
+      "plan": "mobile",
+      "subject": "physics",
+      "error": "Error: locator.click: Error: strict mode violation: locator('[data-settings-open]') resolved to 2 elements:\n    1) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\" class=\"settings-button topbar-icon\">⚙</button> aka getByRole('banner').getByRole('button', { name: '설정 열기' })\n    2) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\">…</button> aka getByText('⚙설정')\n\nCall log:\n\u001b[2m  - waiting for locator('[data-settings-open]')\u001b[22m\n",
+      "errors": []
+    },
+    {
+      "id": "NAV-mobile-biology",
+      "result": "pass",
+      "plan": "mobile",
+      "subject": "biology",
+      "nav": ".subject-mobile-nav",
+      "errors": [],
+      "url": "http://127.0.0.1:4173/subjects/biology/?view=jars"
+    },
+    {
+      "id": "NAV-mobile-biology",
+      "result": "error",
+      "plan": "mobile",
+      "subject": "biology",
+      "error": "Error: locator.click: Error: strict mode violation: locator('[data-settings-open]') resolved to 2 elements:\n    1) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\" class=\"settings-button topbar-icon\">⚙</button> aka getByRole('banner').getByRole('button', { name: '설정 열기' })\n    2) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\">…</button> aka getByText('⚙설정')\n\nCall log:\n\u001b[2m  - waiting for locator('[data-settings-open]')\u001b[22m\n",
+      "errors": []
+    },
+    {
+      "id": "NAV-mobile-earth-science",
+      "result": "pass",
+      "plan": "mobile",
+      "subject": "earth-science",
+      "nav": ".subject-mobile-nav",
+      "errors": [],
+      "url": "http://127.0.0.1:4173/subjects/earth-science/?view=jars"
+    },
+    {
+      "id": "NAV-mobile-earth-science",
+      "result": "error",
+      "plan": "mobile",
+      "subject": "earth-science",
+      "error": "Error: locator.click: Error: strict mode violation: locator('[data-settings-open]') resolved to 2 elements:\n    1) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\" class=\"settings-button topbar-icon\">⚙</button> aka getByRole('banner').getByRole('button', { name: '설정 열기' })\n    2) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\">…</button> aka getByText('⚙설정')\n\nCall log:\n\u001b[2m  - waiting for locator('[data-settings-open]')\u001b[22m\n",
+      "errors": []
+    },
+    {
+      "id": "NAV-compact-desktop-chemistry",
+      "result": "fail",
+      "plan": "compact-desktop",
+      "subject": "chemistry",
+      "nav": ".desktop-tabs",
+      "reason": "primary-navigation-not-visible",
+      "errors": [],
+      "url": "http://127.0.0.1:4173/subjects/chemistry/?view=home"
+    },
+    {
+      "id": "DIALOG-compact-desktop-chemistry",
+      "result": "pass",
+      "plan": "compact-desktop",
+      "subject": "chemistry",
+      "dialogState": {
+        "width": 620,
+        "height": 673.59375,
+        "x": 160.5,
+        "y": 113.203125,
+        "right": 780.5,
+        "bottom": 786.796875,
+        "innerWidth": 941,
+        "innerHeight": 900
+      },
+      "errors": []
+    },
+    {
+      "id": "PORTAL-compact-desktop-chemistry",
+      "result": "pass",
+      "plan": "compact-desktop",
+      "subject": "chemistry",
+      "portal": ".science-portal-link",
+      "portalCount": 1,
+      "errors": []
+    },
+    {
+      "id": "NAV-compact-desktop-physics",
+      "result": "pass",
+      "plan": "compact-desktop",
+      "subject": "physics",
+      "nav": ".subject-desktop-nav",
+      "errors": [],
+      "url": "http://127.0.0.1:4173/subjects/physics/?view=jars"
+    },
+    {
+      "id": "NAV-compact-desktop-physics",
+      "result": "error",
+      "plan": "compact-desktop",
+      "subject": "physics",
+      "error": "Error: locator.click: Error: strict mode violation: locator('[data-settings-open]') resolved to 2 elements:\n    1) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\" class=\"settings-button topbar-icon\">⚙</button> aka getByRole('button', { name: '설정 열기' })\n    2) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\">…</button> aka getByText('⚙설정')\n\nCall log:\n\u001b[2m  - waiting for locator('[data-settings-open]')\u001b[22m\n",
+      "errors": []
+    },
+    {
+      "id": "NAV-compact-desktop-biology",
+      "result": "pass",
+      "plan": "compact-desktop",
+      "subject": "biology",
+      "nav": ".subject-desktop-nav",
+      "errors": [],
+      "url": "http://127.0.0.1:4173/subjects/biology/?view=jars"
+    },
+    {
+      "id": "NAV-compact-desktop-biology",
+      "result": "error",
+      "plan": "compact-desktop",
+      "subject": "biology",
+      "error": "Error: locator.click: Error: strict mode violation: locator('[data-settings-open]') resolved to 2 elements:\n    1) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\" class=\"settings-button topbar-icon\">⚙</button> aka getByRole('button', { name: '설정 열기' })\n    2) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\">…</button> aka getByText('⚙설정')\n\nCall log:\n\u001b[2m  - waiting for locator('[data-settings-open]')\u001b[22m\n",
+      "errors": []
+    },
+    {
+      "id": "NAV-compact-desktop-earth-science",
+      "result": "pass",
+      "plan": "compact-desktop",
+      "subject": "earth-science",
+      "nav": ".subject-desktop-nav",
+      "errors": [],
+      "url": "http://127.0.0.1:4173/subjects/earth-science/?view=jars"
+    },
+    {
+      "id": "NAV-compact-desktop-earth-science",
+      "result": "error",
+      "plan": "compact-desktop",
+      "subject": "earth-science",
+      "error": "Error: locator.click: Error: strict mode violation: locator('[data-settings-open]') resolved to 2 elements:\n    1) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\" class=\"settings-button topbar-icon\">⚙</button> aka getByRole('button', { name: '설정 열기' })\n    2) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\">…</button> aka getByText('⚙설정')\n\nCall log:\n\u001b[2m  - waiting for locator('[data-settings-open]')\u001b[22m\n",
+      "errors": []
+    },
+    {
+      "id": "NAV-wide-desktop-chemistry",
+      "result": "pass",
+      "plan": "wide-desktop",
+      "subject": "chemistry",
+      "nav": ".desktop-tabs",
+      "errors": [],
+      "url": "http://127.0.0.1:4173/subjects/chemistry/?view=jars"
+    },
+    {
+      "id": "DIALOG-wide-desktop-chemistry",
+      "result": "pass",
+      "plan": "wide-desktop",
+      "subject": "chemistry",
+      "dialogState": {
+        "width": 620,
+        "height": 673.59375,
+        "x": 410,
+        "y": 113.203125,
+        "right": 1030,
+        "bottom": 786.796875,
+        "innerWidth": 1440,
+        "innerHeight": 900
+      },
+      "errors": []
+    },
+    {
+      "id": "PORTAL-wide-desktop-chemistry",
+      "result": "pass",
+      "plan": "wide-desktop",
+      "subject": "chemistry",
+      "portal": ".science-portal-link",
+      "portalCount": 1,
+      "errors": []
+    },
+    {
+      "id": "NAV-wide-desktop-physics",
+      "result": "pass",
+      "plan": "wide-desktop",
+      "subject": "physics",
+      "nav": ".subject-desktop-nav",
+      "errors": [],
+      "url": "http://127.0.0.1:4173/subjects/physics/?view=jars"
+    },
+    {
+      "id": "NAV-wide-desktop-physics",
+      "result": "error",
+      "plan": "wide-desktop",
+      "subject": "physics",
+      "error": "Error: locator.click: Error: strict mode violation: locator('[data-settings-open]') resolved to 2 elements:\n    1) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\" class=\"settings-button topbar-icon\">⚙</button> aka getByRole('button', { name: '설정 열기' })\n    2) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\">…</button> aka getByText('⚙설정')\n\nCall log:\n\u001b[2m  - waiting for locator('[data-settings-open]')\u001b[22m\n",
+      "errors": []
+    },
+    {
+      "id": "NAV-wide-desktop-biology",
+      "result": "pass",
+      "plan": "wide-desktop",
+      "subject": "biology",
+      "nav": ".subject-desktop-nav",
+      "errors": [],
+      "url": "http://127.0.0.1:4173/subjects/biology/?view=jars"
+    },
+    {
+      "id": "NAV-wide-desktop-biology",
+      "result": "error",
+      "plan": "wide-desktop",
+      "subject": "biology",
+      "error": "Error: locator.click: Error: strict mode violation: locator('[data-settings-open]') resolved to 2 elements:\n    1) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\" class=\"settings-button topbar-icon\">⚙</button> aka getByRole('button', { name: '설정 열기' })\n    2) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\">…</button> aka getByText('⚙설정')\n\nCall log:\n\u001b[2m  - waiting for locator('[data-settings-open]')\u001b[22m\n",
+      "errors": []
+    },
+    {
+      "id": "NAV-wide-desktop-earth-science",
+      "result": "pass",
+      "plan": "wide-desktop",
+      "subject": "earth-science",
+      "nav": ".subject-desktop-nav",
+      "errors": [],
+      "url": "http://127.0.0.1:4173/subjects/earth-science/?view=jars"
+    },
+    {
+      "id": "NAV-wide-desktop-earth-science",
+      "result": "error",
+      "plan": "wide-desktop",
+      "subject": "earth-science",
+      "error": "Error: locator.click: Error: strict mode violation: locator('[data-settings-open]') resolved to 2 elements:\n    1) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\" class=\"settings-button topbar-icon\">⚙</button> aka getByRole('button', { name: '설정 열기' })\n    2) <button type=\"button\" aria-label=\"설정 열기\" data-settings-open=\"\">…</button> aka getByText('⚙설정')\n\nCall log:\n\u001b[2m  - waiting for locator('[data-settings-open]')\u001b[22m\n",
+      "errors": []
+    },
+    {
+      "id": "GAMEURL-valid-chemistry",
+      "result": "fail",
+      "name": "valid-chemistry",
+      "query": "?subject=chemistry&training=atomic-number",
+      "state": {
+        "runtime": "ready",
+        "subject": "chemistry",
+        "title": "콩쥐야 줘때써 - 화학편",
+        "appChildren": 5,
+        "gameStatus": "idle",
+        "visibleText": "문제로 바로가기\n×\n원자 번호 장독대 채우기\n원자 번호 장독대 채우기\n⛶\n⚙\nⅡ\n콩쥐야 줘때써 - 화학편\n점수\n0\n콤보\n0\n물\n70%\n남은 시간\n15초\n문제 1 / 10\n직접 입력\n문제를 준비하고 있습니다.\n물 +20\n잠시 멈춤\n계속하기를 누르면 다시 시작합니다.\nFEVER 준비\n×1\n정답 입력\n물 붓기\n게임을 시작하지 못했습니다. 페이지를 새로고침해 주세요."
+      },
+      "errors": [
+        "console:Error: 알 수 없는 장독대 ID: atomic-number\n    at initializeGamePage (http://127.0.0.1:4173/assets/js/ui-effects.js:65:11)\n    at http://127.0.0.1:4173/assets/js/game-page.js?v=20260814-kongjwi-outfits1:8:1",
+        "console:Failed to load resource: the server responded with a status of 403 ()"
+      ],
+      "url": "http://127.0.0.1:4173/%EC%BD%A9%EC%A5%90%EC%95%BC_%EC%A4%98%EB%95%8C%EC%8D%A8.html?subject=chemistry&training=atomic-number"
+    },
+    {
+      "id": "GAMEURL-invalid-training-chemistry",
+      "result": "fail",
+      "name": "invalid-training-chemistry",
+      "query": "?subject=chemistry&training=not-a-real-quiz",
+      "state": {
+        "runtime": "ready",
+        "subject": "chemistry",
+        "title": "콩쥐야 줘때써 - 화학편",
+        "appChildren": 5,
+        "gameStatus": "idle",
+        "visibleText": "문제로 바로가기\n×\n원자 번호 장독대 채우기\n원자 번호 장독대 채우기\n⛶\n⚙\nⅡ\n콩쥐야 줘때써 - 화학편\n점수\n0\n콤보\n0\n물\n70%\n남은 시간\n15초\n문제 1 / 10\n직접 입력\n문제를 준비하고 있습니다.\n물 +20\n잠시 멈춤\n계속하기를 누르면 다시 시작합니다.\nFEVER 준비\n×1\n정답 입력\n물 붓기\n게임을 시작하지 못했습니다. 페이지를 새로고침해 주세요."
+      },
+      "errors": [
+        "console:Error: 알 수 없는 장독대 ID: not-a-real-quiz\n    at initializeGamePage (http://127.0.0.1:4173/assets/js/ui-effects.js:65:11)\n    at http://127.0.0.1:4173/assets/js/game-page.js?v=20260814-kongjwi-outfits1:8:1",
+        "console:Failed to load resource: the server responded with a status of 403 ()"
+      ],
+      "url": "http://127.0.0.1:4173/%EC%BD%A9%EC%A5%90%EC%95%BC_%EC%A4%98%EB%95%8C%EC%8D%A8.html?subject=chemistry&training=not-a-real-quiz"
+    },
+    {
+      "id": "GAMEURL-invalid-training-biology",
+      "result": "fail",
+      "name": "invalid-training-biology",
+      "query": "?subject=biology&training=not-a-real-quiz",
+      "state": {
+        "runtime": "ready",
+        "subject": "biology",
+        "title": "콩쥐야 줘때써 - 생명과학편",
+        "appChildren": 5,
+        "gameStatus": "idle",
+        "visibleText": "문제로 바로가기\n×\n원자 번호 장독대 채우기\n원자 번호 장독대 채우기\n⛶\n⚙\nⅡ\n콩쥐야 줘때써 - 생명과학편\n점수\n0\n콤보\n0\n물\n70%\n남은 시간\n15초\n문제 1 / 10\n직접 입력\n문제를 준비하고 있습니다.\n물 +20\n잠시 멈춤\n계속하기를 누르면 다시 시작합니다.\nFEVER 준비\n×1\n정답 입력\n물 붓기\n게임을 시작하지 못했습니다. 페이지를 새로고침해 주세요."
+      },
+      "errors": [
+        "console:Error: 알 수 없는 장독대 ID: not-a-real-quiz\n    at initializeGamePage (http://127.0.0.1:4173/assets/js/ui-effects.js:65:11)\n    at http://127.0.0.1:4173/assets/js/game-page.js?v=20260814-kongjwi-outfits1:8:1",
+        "console:Failed to load resource: the server responded with a status of 403 ()"
+      ],
+      "url": "http://127.0.0.1:4173/%EC%BD%A9%EC%A5%90%EC%95%BC_%EC%A4%98%EB%95%8C%EC%8D%A8.html?subject=biology&training=not-a-real-quiz"
+    },
+    {
+      "id": "GAMEURL-invalid-training-earth",
+      "result": "fail",
+      "name": "invalid-training-earth",
+      "query": "?subject=earth-science&training=not-a-real-quiz",
+      "state": {
+        "runtime": "ready",
+        "subject": "earth-science",
+        "title": "콩쥐야 줘때써 - 지구과학편",
+        "appChildren": 5,
+        "gameStatus": "idle",
+        "visibleText": "문제로 바로가기\n×\n원자 번호 장독대 채우기\n원자 번호 장독대 채우기\n⛶\n⚙\nⅡ\n콩쥐야 줘때써 - 지구과학편\n점수\n0\n콤보\n0\n물\n70%\n남은 시간\n15초\n문제 1 / 10\n직접 입력\n문제를 준비하고 있습니다.\n물 +20\n잠시 멈춤\n계속하기를 누르면 다시 시작합니다.\nFEVER 준비\n×1\n정답 입력\n물 붓기\n게임을 시작하지 못했습니다. 페이지를 새로고침해 주세요."
+      },
+      "errors": [
+        "console:Error: 알 수 없는 장독대 ID: not-a-real-quiz\n    at initializeGamePage (http://127.0.0.1:4173/assets/js/ui-effects.js:65:11)\n    at http://127.0.0.1:4173/assets/js/game-page.js?v=20260814-kongjwi-outfits1:8:1",
+        "console:Failed to load resource: the server responded with a status of 403 ()"
+      ],
+      "url": "http://127.0.0.1:4173/%EC%BD%A9%EC%A5%90%EC%95%BC_%EC%A4%98%EB%95%8C%EC%8D%A8.html?subject=earth-science&training=not-a-real-quiz"
+    },
+    {
+      "id": "GAMEURL-invalid-subject",
+      "result": "fail",
+      "name": "invalid-subject",
+      "query": "?subject=not-a-real-subject&training=atomic-number",
+      "state": {
+        "runtime": "ready",
+        "subject": "chemistry",
+        "title": "콩쥐야 줘때써 - 화학편",
+        "appChildren": 5,
+        "gameStatus": "idle",
+        "visibleText": "문제로 바로가기\n×\n원자 번호 장독대 채우기\n원자 번호 장독대 채우기\n⛶\n⚙\nⅡ\n콩쥐야 줘때써 - 화학편\n점수\n0\n콤보\n0\n물\n70%\n남은 시간\n15초\n문제 1 / 10\n직접 입력\n문제를 준비하고 있습니다.\n물 +20\n잠시 멈춤\n계속하기를 누르면 다시 시작합니다.\nFEVER 준비\n×1\n정답 입력\n물 붓기\n게임을 시작하지 못했습니다. 페이지를 새로고침해 주세요."
+      },
+      "errors": [
+        "console:Error: 알 수 없는 장독대 ID: atomic-number\n    at initializeGamePage (http://127.0.0.1:4173/assets/js/ui-effects.js:65:11)\n    at http://127.0.0.1:4173/assets/js/game-page.js?v=20260814-kongjwi-outfits1:8:1",
+        "console:Failed to load resource: the server responded with a status of 403 ()"
+      ],
+      "url": "http://127.0.0.1:4173/%EC%BD%A9%EC%A5%90%EC%95%BC_%EC%A4%98%EB%95%8C%EC%8D%A8.html?subject=not-a-real-subject&training=atomic-number"
+    },
+    {
+      "id": "GAMEURL-missing-query",
+      "result": "pass",
+      "name": "missing-query",
+      "query": "",
+      "state": {
+        "runtime": null,
+        "subject": "chemistry",
+        "title": "콩쥐야 줘때써 - 화학편",
+        "appChildren": 0,
+        "gameStatus": null,
+        "visibleText": "메인 화면으로 바로가기\n甕\n콩쥐야 줘때써 - 화학편\n0\n⚙\n\nJAR SELECTION\n\n채울 장독대를 고르세요\n\n장독대마다 최고 점수와 정답률을 확인하고 바로 시작할 수 있습니다.\n\n카테고리\n전체\n원자 구조\n화학 결합\n화학량론\n화학 반응\n주기적 성질\n산화환원\n산염기\n원자 구조\n원자 번호 장독대 채우기\n\n원소 기호를 보고 원자 번호를 입력합니다.\n\n기본 난도 · 보통\n최고 점수\n—\n정답률\n—\n바로 시작\n원자 구조\n원자량 장독대 채우기\n\n원소 기호를 보고 고정 원자량을 입력합니다.\n\n기본 난도 · 보통\n최고 점수\n—\n정답률\n—\n바로 시"
+      },
+      "errors": [],
+      "url": "http://127.0.0.1:4173/subjects/chemistry/?view=jars"
+    },
+    {
+      "id": "MULTITAB-records",
+      "result": "fail",
+      "before": "0",
+      "afterStorageEvent": "0",
+      "afterReload": "1"
+    },
+    {
+      "id": "MULTITAB-device-mode",
+      "result": "fail",
+      "beforeMode": "desktop",
+      "afterMode": "desktop",
+      "reloadedMode": "mobile"
+    },
+    {
+      "id": "MULTITAB-wallet",
+      "result": "pass",
+      "walletBefore": "0",
+      "walletAfter": "321"
+    },
+    {
+      "id": "NOSTORE-portal",
+      "result": "pass",
+      "name": "portal",
+      "errors": [],
+      "appText": "豆\n콩쥐야 줘때써\nFOUR SCIENCES · ONE TRAINING HALL\n\n과학 통합관\n\n콩쥐야 줘때써\n\n과학 훈련의 새로운 패러다임\n\n훈련할 과목을 골라 장독대로 들어가세요.\n\nSCIENCE 01\n化\n화학\nChemistry · 화학편\n현재 운영 중\n→\nSCIENCE 02\n力\n물리학\nPhysics · 물리학편\n학습관 준비 완료\n→\nSCIENCE 03\n生\n생명과학\nBiology · 생명과학편\n학습관 준비 완료\n→\nSCIEN"
+    },
+    {
+      "id": "NOSTORE-shop",
+      "result": "fail",
+      "name": "shop",
+      "errors": [
+        "blocked",
+        "blocked",
+        "blocked"
+      ],
+      "appText": "상점 메뉴로 바로가기\n콩쥐야 줘때써 - 화학편\n전체 과목\n0\n⚙\n\nBEAN STORE\n\n콩 상점\n\n바꿀 외형의 종류를 선택하세요.\n\n보유 4 / 16\n⌂\n홈\n甕\n장독대\n冊\n기록\n豆\n상점\n⚙\n설정"
+    },
+    {
+      "id": "NOSTORE-game",
+      "result": "fail",
+      "name": "game",
+      "errors": [
+        "blocked"
+      ],
+      "appText": "문제로 바로가기\n×\n원자 번호 장독대 채우기\n원자 번호 장독대 채우기\n⛶\n⚙\nⅡ\n콩쥐야 줘때써 - 화학편\n점수\n0\n콤보\n0\n물\n70%\n남은 시간\n15초\n문제 1 / 10\n직접 입력\n문제를 준비하고 있습니다.\n물 +20\n잠시 멈춤\n계속하기를 누르면 다시 시작합니다.\nFEVER 준비\n×1\n정답 입력\n물 붓기\n정답을 맞히면 장독대에 물을 채웁니다."
+    }
+  ]
+}
