@@ -1,9 +1,9 @@
 import { createSceneStateController } from "./scene-state-machine.js";
 import { resolveSceneCosmeticEffects } from "./scene-cosmetic-effects.js";
 
-const MANIFEST_URL = new URL("../art/game-scene/manifest.json?v=20260815-blue-scholar-30f1", import.meta.url).href;
+const MANIFEST_URL = new URL("../art/game-scene/manifest.json?v=20260815-blue-scholar-gridfix1", import.meta.url).href;
 const RUNTIME_STYLE_ID = "layered-scene-animation-runtime";
-const RUNTIME_STYLE_URL = new URL("../css/game-asset-animation.css?v=20260815-blue-scholar-30f1", import.meta.url).href;
+const RUNTIME_STYLE_URL = new URL("../css/game-asset-animation.css?v=20260815-blue-scholar-gridfix1", import.meta.url).href;
 const SITE_ROOT_URL = new URL("../../", import.meta.url);
 const ORDER = [
   "scene-background", "scene-kongjwi", "scene-tool", "scene-water-stream",
@@ -137,14 +137,30 @@ function sprite(node, asset, spec, frame = 0) {
 
   const span = document.createElement("span");
   span.className = "scene-sprite";
-  span.style.backgroundImage = `url("${asset.url}")`;
   const count = Math.max(1, Number(spec.frames || 1));
   const columns = Math.max(1, Number(spec.columns || count));
   const rows = Math.max(1, Number(spec.rows || 1));
   span.style.setProperty("--scene-frame-count", String(count));
   span.style.setProperty("--scene-frame-columns", String(columns));
   span.style.setProperty("--scene-frame-rows", String(rows));
-  if (rows > 1) span.style.backgroundSize = `${columns * 100}% ${rows * 100}%`;
+
+  if (rows > 1) {
+    // A multi-row sheet is one oversized image clipped by one frame-sized
+    // viewport. Avoid background-position rounding on mobile Safari.
+    span.classList.add("scene-sprite-grid");
+    const sheet = document.createElement("img");
+    sheet.className = "scene-sprite-sheet-image";
+    sheet.alt = "";
+    sheet.draggable = false;
+    sheet.decoding = "async";
+    sheet.src = asset.url;
+    sheet.style.width = `${columns * 100}%`;
+    sheet.style.height = `${rows * 100}%`;
+    span.append(sheet);
+  } else {
+    span.style.backgroundImage = `url("${asset.url}")`;
+  }
+
   node.dataset.spriteColumns = String(columns);
   node.dataset.spriteRows = String(rows);
   node.dataset.spriteMode = "sheet";
@@ -152,7 +168,6 @@ function sprite(node, asset, spec, frame = 0) {
   node.append(span);
   frameOf(node, frame);
 }
-
 function fallbackWaterArc(node) {
   if (!node) return;
   node.replaceChildren();
@@ -172,18 +187,22 @@ function frameOf(node, frame) {
   const columns = Math.max(1, Number(spriteNode.style.getPropertyValue("--scene-frame-columns")) || count);
   const rows = Math.max(1, Number(spriteNode.style.getPropertyValue("--scene-frame-rows")) || 1);
   const next = Math.max(0, Math.min(count - 1, Number(frame) || 0));
+
   if (rows > 1) {
     const column = next % columns;
     const row = Math.floor(next / columns);
-    const x = columns <= 1 ? 0 : column / (columns - 1) * 100;
-    const y = rows <= 1 ? 0 : row / (rows - 1) * 100;
-    spriteNode.style.backgroundPosition = `${x}% ${y}%`;
+    const sheet = spriteNode.querySelector(".scene-sprite-sheet-image");
+    if (!sheet) return;
+    // transform percentages are relative to the oversized image. Moving by
+    // 100/columns% or 100/rows% therefore advances exactly one frame cell.
+    const x = -(column / columns) * 100;
+    const y = -(row / rows) * 100;
+    sheet.style.transform = `translate3d(${x}%, ${y}%, 0)`;
   } else {
     spriteNode.style.backgroundPosition = `${count <= 1 ? 0 : next / (count - 1) * 100}% center`;
   }
   node.dataset.frame = String(next);
 }
-
 function preload(urls) {
   for (const url of new Set(urls.filter(Boolean))) {
     const img = new Image();

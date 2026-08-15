@@ -77,6 +77,31 @@
   backface-visibility: hidden;
 }
 
+.scene-sprite-grid {
+  overflow: hidden;
+  background: none !important;
+  contain: paint;
+}
+
+.scene-sprite-sheet-image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: fill;
+  image-rendering: auto;
+  transform-origin: 0 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
 .scene-kongjwi,
 .scene-tool,
 .scene-water-stream,

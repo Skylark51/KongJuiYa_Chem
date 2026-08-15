@@ -1,6 +1,6 @@
 import { GameStorage } from "./storage.js";
 import { CosmeticSystem, COSMETIC_STORAGE_KEY } from "./cosmetic-system.js";
-import { mountSceneRenderer } from "./scene-renderer.js";
+import { mountSceneRenderer } from "./scene-renderer.js?v=20260815-blue-scholar-gridfix1";
 
 /**
  * Connect persisted cosmetics to the single layered PNG scene renderer.
