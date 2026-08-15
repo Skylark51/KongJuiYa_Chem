@@ -394,7 +394,7 @@ def build_kongjwi(root: Path, force: bool = False):
         if skin in AUTHORED_HQ_SKINS:
             canonical = root / AUTHORED_HQ_ROOT / skin / "pour-sheet.png"
             canonical_image = load_rgba(canonical)
-            expected_size = (1024, 1536) if skin == "blue-scholar" else (CELL[0] * FRAMES, CELL[1])
+            expected_size = (256 * 5, 384 * 6) if skin == "blue-scholar" else (CELL[0] * FRAMES, CELL[1])
             if canonical_image.size != expected_size:
                 raise RuntimeError(f"Unexpected authored HQ {skin} sheet size: {canonical_image.size}; expected {expected_size}")
             output.parent.mkdir(parents=True, exist_ok=True)
@@ -499,7 +499,7 @@ def build_tool_sheet(root: Path, tool_key: str, hand_points, force: bool = False
 def update_manifest(root: Path):
     path = root / "assets/art/game-scene/manifest.json"
     manifest = json.loads(path.read_text(encoding="utf-8"))
-    manifest["version"] = "20260815-blue-scholar-30f1"
+    manifest["version"] = "20260815-blue-scholar-motionfix2"
 
     policy = manifest.setdefault("runtimePolicy", {})
     policy["kongjwiMotionPolicy"] = "source-locked-intact-standard-outfits-night-court-summon-derived"
@@ -519,10 +519,12 @@ def update_manifest(root: Path):
         "frames": 30,
         "columns": 5,
         "rows": 6,
-        "sourceSize": {"width": 1024, "height": 1536},
+        "cell": {"width": 256, "height": 384},
+        "sourceSize": {"width": 1280, "height": 2304},
     }
-    blue["placement"] = {"x": 150, "y": 260, "width": 657, "height": 820}
+    blue["placement"] = dict(manifest["placements"]["kongjwi"])
     blue["animationProfile"] = "blue-scholar-30f"
+    blue["actionMode"] = "magic-pour"
 
     manifest["sprites"]["tool"]["cell"] = {"width": 512, "height": 768}
     manifest["placements"]["kongjwi"] = {"x": 205, "y": 260, "width": 546, "height": 820}

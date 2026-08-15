@@ -1,9 +1,9 @@
 import { createSceneStateController } from "./scene-state-machine.js";
 import { resolveSceneCosmeticEffects } from "./scene-cosmetic-effects.js";
 
-const MANIFEST_URL = new URL("../art/game-scene/manifest.json?v=20260815-blue-scholar-gridfix1", import.meta.url).href;
+const MANIFEST_URL = new URL("../art/game-scene/manifest.json?v=20260815-blue-scholar-motionfix2", import.meta.url).href;
 const RUNTIME_STYLE_ID = "layered-scene-animation-runtime";
-const RUNTIME_STYLE_URL = new URL("../css/game-asset-animation.css?v=20260815-blue-scholar-gridfix1", import.meta.url).href;
+const RUNTIME_STYLE_URL = new URL("../css/game-asset-animation.css?v=20260815-blue-scholar-motionfix2", import.meta.url).href;
 const SITE_ROOT_URL = new URL("../../", import.meta.url);
 const ORDER = [
   "scene-background", "scene-kongjwi", "scene-tool", "scene-water-stream",
@@ -346,8 +346,7 @@ export function mountSceneRenderer(root, { cosmetics = {} } = {}) {
     if (isBlueScholar30f) clearLayer(layer(stack, "scene-tool"));
     else sprite(layer(stack, "scene-tool"), chosen.tool, s.tool);
 
-    if (isBlueScholar30f) clearLayer(layer(stack, "scene-water-stream"));
-    else if (motionRig && chosen.stream.url) sprite(layer(stack, "scene-water-stream"), chosen.stream, s.waterStream);
+    if (motionRig && chosen.stream.url) sprite(layer(stack, "scene-water-stream"), chosen.stream, s.waterStream);
     else fallbackWaterArc(layer(stack, "scene-water-stream"));
 
     if (chosen.jar.authored) {
@@ -376,8 +375,7 @@ export function mountSceneRenderer(root, { cosmetics = {} } = {}) {
       expressionMode = "full-fallback";
     }
 
-    if (isBlueScholar30f) clearLayer(layer(stack, "scene-water-splash"));
-    else if (motionRig && chosen.splash.url) sprite(layer(stack, "scene-water-splash"), chosen.splash, s.waterSplash);
+    if (motionRig && chosen.splash.url) sprite(layer(stack, "scene-water-splash"), chosen.splash, s.waterSplash);
     else clearLayer(layer(stack, "scene-water-splash"));
     sprite(layer(stack, "scene-water-leak"), chosen.leak, s.waterLeak);
 

@@ -9,8 +9,8 @@ export const SCENE_FEEDBACK_DURATION_MS = Object.freeze({
 });
 const POUR_CHARACTER_FRAMES = [2, 2, 3, 3, 4, 4, 5, 5, 5, 6, 6];
 const BLUE_SCHOLAR_FRAMES = Array.from({ length: 30 }, (_, index) => index);
-const BLUE_SCHOLAR_IDLE_FRAMES = [0, 1, 2, 3, 2, 1, 0];
-const BLUE_SCHOLAR_WRONG_FRAMES = [25, 26, 27, 28, 29];
+const BLUE_SCHOLAR_IDLE_FRAMES = [0, 1, 0];
+const BLUE_SCHOLAR_WRONG_FRAMES = [0];
 const POUR_STREAM_FRAMES = [1, 2, 3, 4, 5, 6, 7];
 const POUR_SPLASH_FRAMES = [1, 2, 3, 4, 5];
 const LEAK_FRAMES = [0, 1, 2, 3, 4, 5, 6, 7];
@@ -144,9 +144,10 @@ export class LayeredSceneStateController {
     const plan = sequences.answerCorrect || {};
     const courtMode = isCourtServantMode();
 
+    const blueScholar = this.isBlueScholar30f();
     this.renderer.setFlowPhase("prepare");
-    this.schedule(() => this.renderer.setFlowPhase("pour"), 400);
-    this.schedule(() => this.renderer.setFlowPhase("settle"), 1040);
+    this.schedule(() => this.renderer.setFlowPhase("pour"), blueScholar ? 660 : 400);
+    this.schedule(() => this.renderer.setFlowPhase("settle"), blueScholar ? 1120 : 1040);
     if (!hold) this.schedule(() => this.renderer.setFlowPhase("idle"), 1320);
 
     if (courtMode) {
@@ -165,8 +166,11 @@ export class LayeredSceneStateController {
     }
 
     resetCourtServantPour();
-    if (this.isBlueScholar30f()) {
+    if (blueScholar) {
       this.playSequence("kongjwi", BLUE_SCHOLAR_FRAMES, 1320, { hold });
+      this.renderer.setFrame("tool", 0);
+      this.playSequence("waterStream", plan.waterStream || POUR_STREAM_FRAMES, 560, { delay: 660, hold });
+      this.playSequence("waterSplash", plan.waterSplash || POUR_SPLASH_FRAMES, 430, { delay: 760, hold });
       this.startLeakLoop({ energetic: true });
       return;
     }

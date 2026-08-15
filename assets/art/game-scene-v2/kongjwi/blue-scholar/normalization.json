@@ -1,0 +1,660 @@
+{
+  "sourceGitBlob": "1e7001361102fe5344f971f47774a6914e7239da",
+  "sourceSha256BeforeNormalization": "445bc5955220e757fb007ca21574f606bcfe8f697daa4807d0ba971e7a4efe4e",
+  "sourceSizeBeforeNormalization": {
+    "width": 1024,
+    "height": 1536
+  },
+  "outputSha256": "958f581241f987eece42f40e4de422b11b66c7a074bffd001d26e336abe23c36",
+  "outputSize": {
+    "width": 1280,
+    "height": 2304
+  },
+  "grid": {
+    "columns": 5,
+    "rows": 6
+  },
+  "cell": {
+    "width": 256,
+    "height": 384
+  },
+  "policy": "current-design-pixels-only-separate-register-uniform-whole-frame-scale-no-redraw",
+  "componentCoreAlphaThreshold": 96,
+  "targetBodyCoreHeight": 260,
+  "targetFootAnchor": [
+    128,
+    350
+  ],
+  "frames": [
+    {
+      "frame": 0,
+      "sourceBBox": [
+        31,
+        0,
+        208,
+        290
+      ],
+      "bodyCoreHeight": 274,
+      "uniformScale": 0.948905,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        48,
+        84,
+        216,
+        359
+      ]
+    },
+    {
+      "frame": 1,
+      "sourceBBox": [
+        236,
+        0,
+        425,
+        293
+      ],
+      "bodyCoreHeight": 275,
+      "uniformScale": 0.945455,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        45,
+        85,
+        224,
+        362
+      ]
+    },
+    {
+      "frame": 2,
+      "sourceBBox": [
+        425,
+        0,
+        622,
+        292
+      ],
+      "bodyCoreHeight": 274,
+      "uniformScale": 0.948905,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        38,
+        84,
+        225,
+        361
+      ]
+    },
+    {
+      "frame": 3,
+      "sourceBBox": [
+        620,
+        0,
+        836,
+        291
+      ],
+      "bodyCoreHeight": 274,
+      "uniformScale": 0.948905,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        29,
+        84,
+        234,
+        360
+      ]
+    },
+    {
+      "frame": 4,
+      "sourceBBox": [
+        814,
+        0,
+        1024,
+        286
+      ],
+      "bodyCoreHeight": 274,
+      "uniformScale": 0.948905,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        10,
+        84,
+        209,
+        355
+      ]
+    },
+    {
+      "frame": 5,
+      "sourceBBox": [
+        0,
+        275,
+        221,
+        548
+      ],
+      "bodyCoreHeight": 254,
+      "uniformScale": 1.023622,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        8,
+        77,
+        234,
+        356
+      ]
+    },
+    {
+      "frame": 6,
+      "sourceBBox": [
+        207,
+        282,
+        422,
+        550
+      ],
+      "bodyCoreHeight": 254,
+      "uniformScale": 1.023622,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        8,
+        84,
+        228,
+        358
+      ]
+    },
+    {
+      "frame": 7,
+      "sourceBBox": [
+        407,
+        277,
+        631,
+        548
+      ],
+      "bodyCoreHeight": 255,
+      "uniformScale": 1.019608,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        8,
+        80,
+        236,
+        356
+      ]
+    },
+    {
+      "frame": 8,
+      "sourceBBox": [
+        617,
+        281,
+        847,
+        547
+      ],
+      "bodyCoreHeight": 254,
+      "uniformScale": 1.023622,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        13,
+        83,
+        248,
+        355
+      ]
+    },
+    {
+      "frame": 9,
+      "sourceBBox": [
+        820,
+        269,
+        1024,
+        546
+      ],
+      "bodyCoreHeight": 255,
+      "uniformScale": 1.019608,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        21,
+        72,
+        229,
+        354
+      ]
+    },
+    {
+      "frame": 10,
+      "sourceBBox": [
+        0,
+        515,
+        214,
+        798
+      ],
+      "bodyCoreHeight": 245,
+      "uniformScale": 1.061224,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        14,
+        57,
+        241,
+        357
+      ]
+    },
+    {
+      "frame": 11,
+      "sourceBBox": [
+        209,
+        541,
+        424,
+        795
+      ],
+      "bodyCoreHeight": 246,
+      "uniformScale": 1.056911,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        12,
+        85,
+        239,
+        353
+      ]
+    },
+    {
+      "frame": 12,
+      "sourceBBox": [
+        403,
+        541,
+        631,
+        794
+      ],
+      "bodyCoreHeight": 244,
+      "uniformScale": 1.065574,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        7,
+        83,
+        250,
+        353
+      ]
+    },
+    {
+      "frame": 13,
+      "sourceBBox": [
+        639,
+        541,
+        830,
+        800
+      ],
+      "bodyCoreHeight": 246,
+      "uniformScale": 1.056911,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        32,
+        83,
+        234,
+        357
+      ]
+    },
+    {
+      "frame": 14,
+      "sourceBBox": [
+        841,
+        542,
+        1010,
+        799
+      ],
+      "bodyCoreHeight": 247,
+      "uniformScale": 1.052632,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        41,
+        84,
+        219,
+        355
+      ]
+    },
+    {
+      "frame": 15,
+      "sourceBBox": [
+        0,
+        789,
+        215,
+        1040
+      ],
+      "bodyCoreHeight": 239,
+      "uniformScale": 1.087866,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        8,
+        80,
+        242,
+        353
+      ]
+    },
+    {
+      "frame": 16,
+      "sourceBBox": [
+        204,
+        793,
+        414,
+        1040
+      ],
+      "bodyCoreHeight": 241,
+      "uniformScale": 1.078838,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        14,
+        86,
+        241,
+        352
+      ]
+    },
+    {
+      "frame": 17,
+      "sourceBBox": [
+        397,
+        774,
+        642,
+        1064
+      ],
+      "bodyCoreHeight": 247,
+      "uniformScale": 0.984127,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        11,
+        88,
+        252,
+        373
+      ]
+    },
+    {
+      "frame": 18,
+      "sourceBBox": [
+        628,
+        791,
+        845,
+        1041
+      ],
+      "bodyCoreHeight": 239,
+      "uniformScale": 1.087719,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        16,
+        81,
+        252,
+        353
+      ]
+    },
+    {
+      "frame": 19,
+      "sourceBBox": [
+        834,
+        793,
+        1011,
+        1040
+      ],
+      "bodyCoreHeight": 237,
+      "uniformScale": 1.097046,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        28,
+        82,
+        222,
+        353
+      ]
+    },
+    {
+      "frame": 20,
+      "sourceBBox": [
+        0,
+        1035,
+        216,
+        1273
+      ],
+      "bodyCoreHeight": 228,
+      "uniformScale": 1.137615,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        4,
+        83,
+        250,
+        354
+      ]
+    },
+    {
+      "frame": 21,
+      "sourceBBox": [
+        211,
+        1037,
+        404,
+        1275
+      ],
+      "bodyCoreHeight": 230,
+      "uniformScale": 1.130435,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        17,
+        84,
+        235,
+        353
+      ]
+    },
+    {
+      "frame": 22,
+      "sourceBBox": [
+        417,
+        1034,
+        618,
+        1276
+      ],
+      "bodyCoreHeight": 230,
+      "uniformScale": 1.130435,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        16,
+        81,
+        243,
+        355
+      ]
+    },
+    {
+      "frame": 23,
+      "sourceBBox": [
+        634,
+        1033,
+        816,
+        1275
+      ],
+      "bodyCoreHeight": 230,
+      "uniformScale": 1.130435,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        30,
+        80,
+        236,
+        354
+      ]
+    },
+    {
+      "frame": 24,
+      "sourceBBox": [
+        841,
+        1038,
+        1009,
+        1274
+      ],
+      "bodyCoreHeight": 230,
+      "uniformScale": 1.130435,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        37,
+        85,
+        227,
+        352
+      ]
+    },
+    {
+      "frame": 25,
+      "sourceBBox": [
+        0,
+        1269,
+        208,
+        1536
+      ],
+      "bodyCoreHeight": 260,
+      "uniformScale": 1.0,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        24,
+        84,
+        232,
+        351
+      ]
+    },
+    {
+      "frame": 26,
+      "sourceBBox": [
+        208,
+        1270,
+        406,
+        1536
+      ],
+      "bodyCoreHeight": 258,
+      "uniformScale": 1.007752,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        25,
+        84,
+        225,
+        352
+      ]
+    },
+    {
+      "frame": 27,
+      "sourceBBox": [
+        428,
+        1271,
+        620,
+        1536
+      ],
+      "bodyCoreHeight": 258,
+      "uniformScale": 1.007752,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        39,
+        85,
+        232,
+        352
+      ]
+    },
+    {
+      "frame": 28,
+      "sourceBBox": [
+        633,
+        1271,
+        814,
+        1536
+      ],
+      "bodyCoreHeight": 258,
+      "uniformScale": 1.007752,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        39,
+        85,
+        221,
+        352
+      ]
+    },
+    {
+      "frame": 29,
+      "sourceBBox": [
+        829,
+        1271,
+        1010,
+        1536
+      ],
+      "bodyCoreHeight": 259,
+      "uniformScale": 1.003861,
+      "targetFootAnchor": [
+        128,
+        350
+      ],
+      "outputBBox": [
+        37,
+        85,
+        219,
+        351
+      ]
+    }
+  ]
+}

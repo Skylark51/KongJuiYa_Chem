@@ -29,14 +29,14 @@ const SWATCHES = Object.freeze({
   "night-lacquer": ["#0d0d13", "#4e315c"]
 });
 
-const ASSET_VERSION = "20260815-shop-static-cutout1";
-// The shop and wardrobe are static previews. Always use the canonical
-// source-locked full-body cutouts here; gameplay pour sheets belong only to
-// the quiz animation renderer and must never be enlarged inside shop cards.
+const ASSET_VERSION = "20260815-blue-scholar-current-preview1";
+// The shop and wardrobe use static full-body previews. Blue scholar must
+// stay visually identical to the current 30-frame gameplay art, so its preview
+// is extracted from that canonical current-design sheet rather than the legacy cutout.
 const OUTFIT_ART = Object.freeze({
   underlayer: `assets/art/source-locked/kongjwi/underlayer/base-cutout.png?v=${ASSET_VERSION}`,
   "classic-red": `assets/art/source-locked/kongjwi/classic-red/base-cutout.png?v=${ASSET_VERSION}`,
-  "blue-scholar": `assets/art/source-locked/kongjwi/blue-scholar/base-cutout.png?v=${ASSET_VERSION}`,
+  "blue-scholar": `assets/art/game-scene-v2/kongjwi/blue-scholar/preview.png?v=${ASSET_VERSION}`,
   "field-green": `assets/art/source-locked/kongjwi/field-work/base-cutout.png?v=${ASSET_VERSION}`,
   "royal-night": `assets/art/source-locked/kongjwi/night-court/base-cutout.png?v=${ASSET_VERSION}`
 });

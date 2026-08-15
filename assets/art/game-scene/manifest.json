@@ -1,5 +1,5 @@
 {
-  "version": "20260815-blue-scholar-30f1",
+  "version": "20260815-blue-scholar-motionfix2",
   "logicalSize": {
     "width": 2048,
     "height": 1152
@@ -64,18 +64,23 @@
           "frames": 30,
           "columns": 5,
           "rows": 6,
+          "cell": {
+            "width": 256,
+            "height": 384
+          },
           "sourceSize": {
-            "width": 1024,
-            "height": 1536
+            "width": 1280,
+            "height": 2304
           }
         },
         "placement": {
-          "x": 150,
+          "x": 205,
           "y": 260,
-          "width": 657,
+          "width": 546,
           "height": 820
         },
-        "animationProfile": "blue-scholar-30f"
+        "animationProfile": "blue-scholar-30f",
+        "actionMode": "magic-pour"
       },
       "field-work": {
         "sheet": "assets/art/game-scene/kongjwi/field-work/pour-sheet.png",
