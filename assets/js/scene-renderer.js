@@ -1,9 +1,9 @@
 import { createSceneStateController } from "./scene-state-machine.js";
 import { resolveSceneCosmeticEffects } from "./scene-cosmetic-effects.js";
 
-const MANIFEST_URL = new URL("../art/game-scene/manifest.json?v=20260815-blue-scholar-headsafe1", import.meta.url).href;
+const MANIFEST_URL = new URL("../art/game-scene/manifest.json?v=20260815-blue-scholar-30f1", import.meta.url).href;
 const RUNTIME_STYLE_ID = "layered-scene-animation-runtime";
-const RUNTIME_STYLE_URL = new URL("../css/game-asset-animation.css?v=20260815-blue-scholar-headsafe1", import.meta.url).href;
+const RUNTIME_STYLE_URL = new URL("../css/game-asset-animation.css?v=20260815-blue-scholar-30f1", import.meta.url).href;
 const SITE_ROOT_URL = new URL("../../", import.meta.url);
 const ORDER = [
   "scene-background", "scene-kongjwi", "scene-tool", "scene-water-stream",
@@ -138,7 +138,15 @@ function sprite(node, asset, spec, frame = 0) {
   const span = document.createElement("span");
   span.className = "scene-sprite";
   span.style.backgroundImage = `url("${asset.url}")`;
-  span.style.setProperty("--scene-frame-count", String(spec.frames || 1));
+  const count = Math.max(1, Number(spec.frames || 1));
+  const columns = Math.max(1, Number(spec.columns || count));
+  const rows = Math.max(1, Number(spec.rows || 1));
+  span.style.setProperty("--scene-frame-count", String(count));
+  span.style.setProperty("--scene-frame-columns", String(columns));
+  span.style.setProperty("--scene-frame-rows", String(rows));
+  if (rows > 1) span.style.backgroundSize = `${columns * 100}% ${rows * 100}%`;
+  node.dataset.spriteColumns = String(columns);
+  node.dataset.spriteRows = String(rows);
   node.dataset.spriteMode = "sheet";
   node.hidden = false;
   node.append(span);
@@ -161,8 +169,18 @@ function frameOf(node, frame) {
   const spriteNode = node?.querySelector(".scene-sprite");
   if (!spriteNode || node.dataset.spriteMode !== "sheet") return;
   const count = Math.max(1, Number(spriteNode.style.getPropertyValue("--scene-frame-count")) || 1);
+  const columns = Math.max(1, Number(spriteNode.style.getPropertyValue("--scene-frame-columns")) || count);
+  const rows = Math.max(1, Number(spriteNode.style.getPropertyValue("--scene-frame-rows")) || 1);
   const next = Math.max(0, Math.min(count - 1, Number(frame) || 0));
-  spriteNode.style.backgroundPosition = `${count <= 1 ? 0 : next / (count - 1) * 100}% center`;
+  if (rows > 1) {
+    const column = next % columns;
+    const row = Math.floor(next / columns);
+    const x = columns <= 1 ? 0 : column / (columns - 1) * 100;
+    const y = rows <= 1 ? 0 : row / (rows - 1) * 100;
+    spriteNode.style.backgroundPosition = `${x}% ${y}%`;
+  } else {
+    spriteNode.style.backgroundPosition = `${count <= 1 ? 0 : next / (count - 1) * 100}% center`;
+  }
   node.dataset.frame = String(next);
 }
 
@@ -205,6 +223,9 @@ export function mountSceneRenderer(root, { cosmetics = {} } = {}) {
     setCosmetics(next = {}) {
       current = { ...current, ...next };
       if (manifest) load();
+    },
+    getKongjwiOutfit() {
+      return key(current.kongjwiOutfit || current.outfit || root.dataset.kongjwiOutfit, ALIAS.outfit, "underlayer");
     },
     setFrame(name, frame) {
       const map = {
@@ -300,10 +321,14 @@ export function mountSceneRenderer(root, { cosmetics = {} } = {}) {
 
     image(layer(stack, "scene-background"), chosen.background, true);
     image(layer(stack, "scene-foreground"), chosen.foreground, true);
-    sprite(layer(stack, "scene-kongjwi"), chosen.kongjwi, s.kongjwi);
-    sprite(layer(stack, "scene-tool"), chosen.tool, s.tool);
+    const kongjwiSpriteSpec = outfitAsset.sprite || s.kongjwi;
+    const isBlueScholar30f = outfit === "blue-scholar" && Number(kongjwiSpriteSpec.frames) === 30;
+    sprite(layer(stack, "scene-kongjwi"), chosen.kongjwi, kongjwiSpriteSpec);
+    if (isBlueScholar30f) clearLayer(layer(stack, "scene-tool"));
+    else sprite(layer(stack, "scene-tool"), chosen.tool, s.tool);
 
-    if (motionRig && chosen.stream.url) sprite(layer(stack, "scene-water-stream"), chosen.stream, s.waterStream);
+    if (isBlueScholar30f) clearLayer(layer(stack, "scene-water-stream"));
+    else if (motionRig && chosen.stream.url) sprite(layer(stack, "scene-water-stream"), chosen.stream, s.waterStream);
     else fallbackWaterArc(layer(stack, "scene-water-stream"));
 
     if (chosen.jar.authored) {
@@ -332,7 +357,8 @@ export function mountSceneRenderer(root, { cosmetics = {} } = {}) {
       expressionMode = "full-fallback";
     }
 
-    if (motionRig && chosen.splash.url) sprite(layer(stack, "scene-water-splash"), chosen.splash, s.waterSplash);
+    if (isBlueScholar30f) clearLayer(layer(stack, "scene-water-splash"));
+    else if (motionRig && chosen.splash.url) sprite(layer(stack, "scene-water-splash"), chosen.splash, s.waterSplash);
     else clearLayer(layer(stack, "scene-water-splash"));
     sprite(layer(stack, "scene-water-leak"), chosen.leak, s.waterLeak);
 
@@ -350,7 +376,8 @@ export function mountSceneRenderer(root, { cosmetics = {} } = {}) {
 
     const placements = manifest.placements;
     const fallback = manifest.fallbackPlacements || placements;
-    box(layer(stack, "scene-kongjwi"), motionRig ? placements.kongjwi : fallback.kongjwi, logical);
+    const kongjwiPlacement = outfitAsset.placement || (motionRig ? placements.kongjwi : fallback.kongjwi);
+    box(layer(stack, "scene-kongjwi"), kongjwiPlacement, logical);
     box(layer(stack, "scene-tool"), motionRig ? placements.tool : fallback.tool, logical);
     box(layer(stack, "scene-water-stream"), motionRig ? placements.waterStream : fallback.waterStream, logical);
     for (const name of ["scene-jar-back", "scene-jar-front"]) box(layer(stack, name), placements.jar, logical);

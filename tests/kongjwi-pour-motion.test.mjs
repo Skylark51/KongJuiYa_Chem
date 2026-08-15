@@ -18,7 +18,7 @@ function pngSize(file) {
 test("all-outfit motion manifest uses the anatomy-safe uniform scene policy", () => {
   const manifest = JSON.parse(fs.readFileSync(path.join(root, "assets/art/game-scene/manifest.json"), "utf8"));
   assert.ok(
-    ["20260808-anatomy-safe1", "20260808-head-safe1", "20260808-head-safe2", "20260808-layer-safe1", "20260812-night-court-summon1", "20260815-blue-scholar-headsafe1"].includes(manifest.version),
+    ["20260808-anatomy-safe1", "20260808-head-safe1", "20260808-head-safe2", "20260808-layer-safe1", "20260812-night-court-summon1", "20260815-blue-scholar-headsafe1", "20260815-blue-scholar-30f1"].includes(manifest.version),
     `unexpected migration version ${manifest.version}`
   );
   assert.equal(
@@ -110,8 +110,12 @@ test("all Kongjwi sheets remain PNG and available", () => {
   for (const skin of skins) {
     const sheet = manifest.assets.kongjwi[skin].sheet;
     assert.equal(manifest.availability[sheet], true);
-    assert.deepEqual(pngSize(path.join(root, sheet)), [4096, 768]);
+    const expected = skin === "blue-scholar" ? [1024, 1536] : [4096, 768];
+    assert.deepEqual(pngSize(path.join(root, sheet)), expected);
   }
+  assert.equal(manifest.assets.kongjwi["blue-scholar"].sprite.frames, 30);
+  assert.equal(manifest.assets.kongjwi["blue-scholar"].sprite.columns, 5);
+  assert.equal(manifest.assets.kongjwi["blue-scholar"].sprite.rows, 6);
 });
 
 test("night-court production motion is the authored summon sequence", () => {

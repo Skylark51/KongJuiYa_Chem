@@ -1,5 +1,5 @@
 {
-  "version": "20260815-blue-scholar-headsafe1",
+  "version": "20260815-blue-scholar-30f1",
   "logicalSize": {
     "width": 2048,
     "height": 1152
@@ -59,7 +59,23 @@
       },
       "blue-scholar": {
         "sheet": "assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png",
-        "fallback": "assets/art/kongjwi/kongjwi-blue-scholar-cutout.png"
+        "fallback": "assets/art/kongjwi/kongjwi-blue-scholar-cutout.png",
+        "sprite": {
+          "frames": 30,
+          "columns": 5,
+          "rows": 6,
+          "sourceSize": {
+            "width": 1024,
+            "height": 1536
+          }
+        },
+        "placement": {
+          "x": 150,
+          "y": 260,
+          "width": 657,
+          "height": 820
+        },
+        "animationProfile": "blue-scholar-30f"
       },
       "field-work": {
         "sheet": "assets/art/game-scene/kongjwi/field-work/pour-sheet.png",

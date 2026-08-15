@@ -394,8 +394,9 @@ def build_kongjwi(root: Path, force: bool = False):
         if skin in AUTHORED_HQ_SKINS:
             canonical = root / AUTHORED_HQ_ROOT / skin / "pour-sheet.png"
             canonical_image = load_rgba(canonical)
-            if canonical_image.size != (CELL[0] * FRAMES, CELL[1]):
-                raise RuntimeError(f"Unexpected authored HQ {skin} sheet size: {canonical_image.size}")
+            expected_size = (1024, 1536) if skin == "blue-scholar" else (CELL[0] * FRAMES, CELL[1])
+            if canonical_image.size != expected_size:
+                raise RuntimeError(f"Unexpected authored HQ {skin} sheet size: {canonical_image.size}; expected {expected_size}")
             output.parent.mkdir(parents=True, exist_ok=True)
             if not output.exists() or output.read_bytes() != canonical.read_bytes():
                 shutil.copyfile(canonical, output)
@@ -498,7 +499,7 @@ def build_tool_sheet(root: Path, tool_key: str, hand_points, force: bool = False
 def update_manifest(root: Path):
     path = root / "assets/art/game-scene/manifest.json"
     manifest = json.loads(path.read_text(encoding="utf-8"))
-    manifest["version"] = "20260815-blue-scholar-headsafe1"
+    manifest["version"] = "20260815-blue-scholar-30f1"
 
     policy = manifest.setdefault("runtimePolicy", {})
     policy["kongjwiMotionPolicy"] = "source-locked-intact-standard-outfits-night-court-summon-derived"
@@ -512,6 +513,16 @@ def update_manifest(root: Path):
     policy["waterAnimationPolicy"] = "synchronized-pour-fill-leak"
     policy["cosmeticFxPolicy"] = "data-keyed-runtime-effects"
     policy.pop("integratedGripPolicy", None)
+
+    blue = manifest["assets"]["kongjwi"]["blue-scholar"]
+    blue["sprite"] = {
+        "frames": 30,
+        "columns": 5,
+        "rows": 6,
+        "sourceSize": {"width": 1024, "height": 1536},
+    }
+    blue["placement"] = {"x": 150, "y": 260, "width": 657, "height": 820}
+    blue["animationProfile"] = "blue-scholar-30f"
 
     manifest["sprites"]["tool"]["cell"] = {"width": 512, "height": 768}
     manifest["placements"]["kongjwi"] = {"x": 205, "y": 260, "width": 546, "height": 820}

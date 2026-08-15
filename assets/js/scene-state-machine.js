@@ -8,6 +8,9 @@ export const SCENE_FEEDBACK_DURATION_MS = Object.freeze({
   timeout: 820
 });
 const POUR_CHARACTER_FRAMES = [2, 2, 3, 3, 4, 4, 5, 5, 5, 6, 6];
+const BLUE_SCHOLAR_FRAMES = Array.from({ length: 30 }, (_, index) => index);
+const BLUE_SCHOLAR_IDLE_FRAMES = [0, 1, 2, 3, 2, 1, 0];
+const BLUE_SCHOLAR_WRONG_FRAMES = [25, 26, 27, 28, 29];
 const POUR_STREAM_FRAMES = [1, 2, 3, 4, 5, 6, 7];
 const POUR_SPLASH_FRAMES = [1, 2, 3, 4, 5];
 const LEAK_FRAMES = [0, 1, 2, 3, 4, 5, 6, 7];
@@ -132,6 +135,10 @@ export class LayeredSceneStateController {
     this.playSequence("waterLeak", sequence, energetic ? 760 : 1120, { loop: true, hold: true });
   }
 
+  isBlueScholar30f() {
+    return this.renderer.getKongjwiOutfit?.() === "blue-scholar";
+  }
+
   playCorrectFeedback(detail = {}, { hold = false } = {}) {
     const sequences = this.manifest.frames?.sequences || {};
     const plan = sequences.answerCorrect || {};
@@ -158,6 +165,11 @@ export class LayeredSceneStateController {
     }
 
     resetCourtServantPour();
+    if (this.isBlueScholar30f()) {
+      this.playSequence("kongjwi", BLUE_SCHOLAR_FRAMES, 1320, { hold });
+      this.startLeakLoop({ energetic: true });
+      return;
+    }
     this.playSequence("kongjwi", plan.kongjwiTimeline || POUR_CHARACTER_FRAMES, 1320, { hold });
     this.playSequence("tool", plan.toolTimeline || POUR_CHARACTER_FRAMES, 1320, { hold });
     this.playSequence("waterStream", plan.waterStream || POUR_STREAM_FRAMES, 650, { delay: 410, hold });
@@ -180,7 +192,7 @@ export class LayeredSceneStateController {
         resetCourtServantPour();
         this.wrongStreak = 0;
         this.renderer.setExpression("default");
-        this.playSequence("kongjwi", sequences.idle?.kongjwi || [0, 1, 0], 1800, { loop: true });
+        this.playSequence("kongjwi", this.isBlueScholar30f() ? BLUE_SCHOLAR_IDLE_FRAMES : (sequences.idle?.kongjwi || [0, 1, 0]), 1800, { loop: true });
         this.playSequence("tool", [0, 1, 0], 1800, { loop: true });
         this.startLeakLoop();
         break;
@@ -188,7 +200,7 @@ export class LayeredSceneStateController {
       case "question":
         resetCourtServantPour();
         this.renderer.setExpression("idle-blink");
-        this.playSequence("kongjwi", [0, 1, 0], 620);
+        this.playSequence("kongjwi", this.isBlueScholar30f() ? BLUE_SCHOLAR_IDLE_FRAMES : [0, 1, 0], 620);
         this.playSequence("tool", [0, 1, 0], 620);
         this.startLeakLoop();
         this.schedule(() => this.renderer.setExpression("default"), 680);
@@ -209,7 +221,7 @@ export class LayeredSceneStateController {
         this.renderer.setExpression(
           this.wrongStreak >= 3 ? "rage" : this.wrongStreak === 2 ? "angry" : "wrong"
         );
-        this.playSequence("kongjwi", sequences.answerWrong?.kongjwi || [7], 560, { hold: true });
+        this.playSequence("kongjwi", this.isBlueScholar30f() ? BLUE_SCHOLAR_WRONG_FRAMES : (sequences.answerWrong?.kongjwi || [7]), 560, { hold: true });
         this.playSequence("tool", [7], 560, { hold: true });
         this.startLeakLoop({ energetic: true });
         this.schedule(() => this.apply("question"), SCENE_FEEDBACK_DURATION_MS.wrong);
@@ -219,7 +231,7 @@ export class LayeredSceneStateController {
         resetCourtServantPour();
         this.wrongStreak += 1;
         this.renderer.setExpression("timeout");
-        this.playSequence("kongjwi", [7], 700, { hold: true });
+        this.playSequence("kongjwi", this.isBlueScholar30f() ? BLUE_SCHOLAR_WRONG_FRAMES : [7], 700, { hold: true });
         this.playSequence("tool", [7], 700, { hold: true });
         this.startLeakLoop({ energetic: true });
         this.schedule(() => this.apply("question"), SCENE_FEEDBACK_DURATION_MS.timeout);
@@ -252,7 +264,7 @@ export class LayeredSceneStateController {
       case "over":
         resetCourtServantPour();
         this.renderer.setExpression(detail.reason === "timeout" ? "timeout" : "wrong");
-        this.playSequence("kongjwi", [7], 700, { hold: true });
+        this.playSequence("kongjwi", this.isBlueScholar30f() ? BLUE_SCHOLAR_WRONG_FRAMES : [7], 700, { hold: true });
         this.playSequence("tool", [7], 700, { hold: true });
         this.startLeakLoop({ energetic: true });
         break;
