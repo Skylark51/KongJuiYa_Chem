@@ -7,6 +7,7 @@ on:
     paths:
       - "scripts/build-kongjwi-pour-sheets.py"
       - "assets/art/kongjwi/*-cutout.png"
+      - "assets/art/game-scene-v2/kongjwi/*/pour-sheet.png"
       - "assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png"
       - "assets/art/kongjwi-tools/*.png"
       - "assets/art/game-scene/tools/*/master.png"
@@ -57,6 +58,7 @@ jobs:
             if git diff --name-only "$BEFORE" "$GITHUB_SHA" -- \
               'scripts/build-kongjwi-pour-sheets.py' \
               'assets/art/kongjwi/*-cutout.png' \
+              'assets/art/game-scene-v2/kongjwi/*/pour-sheet.png' \
               'assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png' \
               'assets/art/kongjwi-tools/*.png' \
               'assets/art/game-scene/tools/*/master.png' \
@@ -83,7 +85,8 @@ jobs:
           import numpy as np
           import json
 
-          skins = ("underlayer", "classic-red", "blue-scholar", "field-work", "ragged")
+          generated_skins = ("underlayer", "ragged")
+          hq_skins = ("classic-red", "blue-scholar", "field-work")
           tools = ("wood", "brass", "celadon", "moon")
 
           spec = importlib.util.spec_from_file_location("kongjwi_builder", Path("scripts/build-kongjwi-pour-sheets.py"))
@@ -98,7 +101,7 @@ jobs:
           )
 
           manifest = json.loads(Path("assets/art/game-scene/manifest.json").read_text(encoding="utf-8"))
-          assert manifest["version"] == "20260812-night-court-summon1"
+          assert manifest["version"] == "20260815-blue-scholar-headsafe1"
           assert manifest["runtimePolicy"]["nightCourtActionMode"] == "summon-servant-pour"
           assert manifest["runtimePolicy"]["anatomySafetyPolicy"] == "complete-source-required-no-headless-cutouts"
           assert manifest["layers"]["scene-tool"] > manifest["layers"]["scene-kongjwi"], (
@@ -108,13 +111,11 @@ jobs:
               "foreground must not occlude the character head or equipped tool"
           )
 
-          for skin in skins:
+          # Underlayer/ragged remain deterministic derivatives of complete source cutouts.
+          for skin in generated_skins:
               path = Path("assets/art/game-scene/kongjwi") / skin / "pour-sheet.png"
               image = Image.open(path).convert("RGBA")
               assert image.size == (4096, 768), (skin, image.size)
-
-              # Anatomy invariant: every generated cell must be exactly the
-              # rigid pose of the complete, validated source cutout.
               source = builder.load_rgba(Path("assets/art/kongjwi") / builder.SOURCES[skin])
               base = builder.fit_source(source)
               for index, pose in enumerate(builder.BODY_POSES):
@@ -129,6 +130,21 @@ jobs:
               assert np.count_nonzero(np.any(np.abs(idle - prepare) > 12, axis=2)) > 150, skin
               assert np.count_nonzero(np.any(np.abs(idle - pour) > 12, axis=2)) > 500, skin
               assert np.count_nonzero(np.any(np.abs(idle - wrong) > 12, axis=2)) > 300, skin
+
+          # Authored high-resolution outfits are canonical in game-scene-v2 and
+          # must be copied byte-for-byte into the active runtime, never rebuilt
+          # from the older low-resolution cutouts.
+          for skin in hq_skins:
+              active_path = Path("assets/art/game-scene/kongjwi") / skin / "pour-sheet.png"
+              canonical_path = Path("assets/art/game-scene-v2/kongjwi") / skin / "pour-sheet.png"
+              assert active_path.read_bytes() == canonical_path.read_bytes(), f"{skin}: runtime diverged from authored HQ canonical sheet"
+              image = Image.open(active_path).convert("RGBA")
+              assert image.size == (4096, 768), (skin, image.size)
+
+          blue = Image.open(Path("assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png")).convert("RGBA")
+          for frame, (x, y) in {0: (259, 101), 1: (228, 106), 3: (281, 102)}.items():
+              alpha = blue.getpixel((frame * 512 + x, y))[3]
+              assert alpha >= 220, f"blue-scholar frame {frame}: crown hole regressed (alpha={alpha})"
 
           night_path = Path("assets/art/game-scene/kongjwi/night-court/pour-sheet.png")
           night = Image.open(night_path).convert("RGBA")
