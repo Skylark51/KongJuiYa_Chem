@@ -29,7 +29,7 @@ const SWATCHES = Object.freeze({
   "night-lacquer": ["#0d0d13", "#4e315c"]
 });
 
-const ASSET_VERSION = "20260814-outfit-shop3";
+const ASSET_VERSION = "20260815-blue-scholar-shop-gridfix1";
 const OUTFIT_ART = Object.freeze({
   underlayer: `assets/art/source-locked/kongjwi/underlayer/base-cutout.png?v=${ASSET_VERSION}`,
   "classic-red": `assets/art/game-scene/kongjwi/classic-red/pour-sheet.png?v=${ASSET_VERSION}`,
@@ -40,6 +40,10 @@ const OUTFIT_ART = Object.freeze({
 const UNDERLAYER_ART = `assets/art/source-locked/kongjwi/underlayer/base-cutout.png?v=${ASSET_VERSION}`;
 const OUTFIT_SPRITE_KEYS = new Set(["classic-red", "blue-scholar", "field-green", "royal-night"]);
 const OUTFIT_SPRITE_FRAME_COUNT = 8;
+const OUTFIT_GRID_SPECS = Object.freeze({
+  "blue-scholar": Object.freeze({ columns: 5, rows: 6 })
+});
+const OUTFIT_GRID_PREVIEW_CACHE = new Map();
 const SPRITE_OVERRIDE_PROPERTIES = Object.freeze([
   "position", "left", "bottom", "width", "height", "max-width", "max-height",
   "padding", "object-fit", "object-position", "transform"
@@ -77,6 +81,8 @@ const categoryFor = categoryId => SHOP_CATEGORIES.find(category => category.id =
 const ownedCount = categoryId => itemsFor(categoryId).filter(item => cosmetics.card(item.id).owned).length;
 const outfitItems = () => itemsFor("outfit");
 const isOutfitSprite = visualKey => OUTFIT_SPRITE_KEYS.has(visualKey);
+const gridSpecFor = visualKey => OUTFIT_GRID_SPECS[visualKey] || null;
+const isGridOutfitSprite = visualKey => Boolean(gridSpecFor(visualKey));
 
 function applySwatch(node, item) {
   const [first, second] = SWATCHES[item.visualKey] || ["#60422d", "#b78258"];
@@ -114,6 +120,7 @@ function createImage(source, className, label, onFailure) {
 function clearSpriteFrameStyles(image) {
   SPRITE_OVERRIDE_PROPERTIES.forEach(property => image.style.removeProperty(property));
   image.removeAttribute("data-sprite-preview");
+  delete image.dataset.gridPreviewReady;
 }
 
 function applySpriteFrameStyles(image, container, { wardrobe = false } = {}) {
@@ -132,6 +139,55 @@ function applySpriteFrameStyles(image, container, { wardrobe = false } = {}) {
   image.style.setProperty("object-fit", "fill", "important");
   image.style.setProperty("object-position", "left bottom", "important");
   image.style.setProperty("transform", `translateX(-${halfFramePercent}%)`, "important");
+}
+
+function renderGridSpritePreview(image, visualKey, frame = 0) {
+  const spec = gridSpecFor(visualKey);
+  if (!spec || image.dataset.gridPreviewReady === "true") return false;
+  const width = image.naturalWidth;
+  const height = image.naturalHeight;
+  if (!width || !height) return false;
+
+  const columns = Math.max(1, Number(spec.columns) || 1);
+  const rows = Math.max(1, Number(spec.rows) || 1);
+  const frameCount = columns * rows;
+  const index = Math.max(0, Math.min(frameCount - 1, Number(frame) || 0));
+  const column = index % columns;
+  const row = Math.floor(index / columns);
+  const cacheKey = `${visualKey}:${ASSET_VERSION}:${index}:${width}x${height}`;
+
+  let previewSource = OUTFIT_GRID_PREVIEW_CACHE.get(cacheKey);
+  if (!previewSource) {
+    // Partition the source using integer pixel boundaries. 1024px is not
+    // divisible by five, so percentage/background slicing creates visible
+    // slivers. Rounded cumulative boundaries assign every source pixel to
+    // exactly one frame without gaps or overlap.
+    const x0 = Math.round(column * width / columns);
+    const x1 = Math.round((column + 1) * width / columns);
+    const y0 = Math.round(row * height / rows);
+    const y1 = Math.round((row + 1) * height / rows);
+    const frameWidth = Math.max(1, x1 - x0);
+    const frameHeight = Math.max(1, y1 - y0);
+    const canvas = document.createElement("canvas");
+    canvas.width = frameWidth;
+    canvas.height = frameHeight;
+    const context = canvas.getContext("2d", { alpha: true });
+    if (!context) return false;
+    context.clearRect(0, 0, frameWidth, frameHeight);
+    context.drawImage(
+      image,
+      x0, y0, frameWidth, frameHeight,
+      0, 0, frameWidth, frameHeight
+    );
+    previewSource = canvas.toDataURL("image/png");
+    OUTFIT_GRID_PREVIEW_CACHE.set(cacheKey, previewSource);
+  }
+
+  clearSpriteFrameStyles(image);
+  image.dataset.gridPreviewReady = "true";
+  image.dataset.spritePreview = "grid-first-frame";
+  image.src = previewSource;
+  return true;
 }
 
 function createOutfitAsset(item) {
@@ -153,8 +209,9 @@ function createOutfitAsset(item) {
     error.textContent = `${item.title} 이미지 로드 실패`;
     asset.append(error);
   });
-  if (isOutfitSprite(item.visualKey)) applySpriteFrameStyles(image, asset);
+  if (isOutfitSprite(item.visualKey) && !isGridOutfitSprite(item.visualKey)) applySpriteFrameStyles(image, asset);
   image.addEventListener("load", () => {
+    if (isGridOutfitSprite(item.visualKey) && renderGridSpritePreview(image, item.visualKey)) return;
     asset.dataset.assetState = "ready";
   });
   asset.append(image);
@@ -258,10 +315,11 @@ function setWardrobeImage(source, label, visualKey = "underlayer") {
   const candidates = sourceCandidates(source);
   let index = 0;
   clearSpriteFrameStyles(image);
-  if (isOutfitSprite(visualKey) && stage) applySpriteFrameStyles(image, stage, { wardrobe: true });
+  if (isOutfitSprite(visualKey) && !isGridOutfitSprite(visualKey) && stage) applySpriteFrameStyles(image, stage, { wardrobe: true });
   image.dataset.assetState = "loading";
   image.alt = label;
   image.onload = () => {
+    if (isGridOutfitSprite(visualKey) && renderGridSpritePreview(image, visualKey)) return;
     image.dataset.assetState = "ready";
   };
   image.onerror = () => {
