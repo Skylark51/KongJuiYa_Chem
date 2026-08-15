@@ -1,3 +1,5 @@
+import "./shared-settings-dialog.js?v=20260815-settings-parity1";
+
 export function siteRoot(documentRef = document) {
   return new URL(documentRef.documentElement.dataset.siteRoot || "./", documentRef.baseURI);
 }
