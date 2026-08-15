@@ -1,4 +1,7 @@
 import { mountHistoricalBgm } from "./historical-bgm.js";
+import { safeLocalStorage } from "./safe-storage.js";
+
+const localStorage = safeLocalStorage;
 
 const AUDIO_SETTINGS_KEY = "kongjuiya-audio-settings";
 const DEFAULT_SETTINGS = Object.freeze({

@@ -1,5 +1,6 @@
 import { subjectById } from "../../data/subjects.js";
 import { siteUrl, subjectLobbyUrl } from "./site-routing.js";
+import { safeLocalStorage } from "./safe-storage.js";
 
 export const LAST_SUBJECT_KEY = "kongjuiya:last-subject";
 export const DEFAULT_SHOP_SUBJECT = "chemistry";
@@ -8,7 +9,7 @@ function validSubject(id) {
   return subjectById(id)?.id || null;
 }
 
-export function resolveShopSubject(url, storage = globalThis.localStorage) {
+export function resolveShopSubject(url, storage = safeLocalStorage) {
   const params = new URL(url).searchParams;
 
   if (params.has("subject")) {
@@ -50,7 +51,7 @@ function navigationTarget(link) {
 export function mountShopContext({
   documentRef = document,
   locationRef = location,
-  storage = globalThis.localStorage
+  storage = safeLocalStorage
 } = {}) {
   const subjectId = resolveShopSubject(locationRef.href, storage);
   const subject = subjectById(subjectId);

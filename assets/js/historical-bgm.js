@@ -1,3 +1,6 @@
+import { safeSessionStorage } from "./safe-storage.js";
+
+const sessionStorage = safeSessionStorage;
 const BGM_POSITION_KEY = "kongjuiya-historical-bgm-position";
 const BPM = 62;
 const BEAT = 60 / BPM;

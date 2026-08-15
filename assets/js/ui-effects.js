@@ -34,6 +34,27 @@ function readSelection() {
   }
 }
 
+export function renderGameRecovery({ app = byId("ui-gameApp"), subjectId = document.documentElement.dataset.subject || "chemistry" } = {}) {
+  setOfficialTitle(subjectId);
+  if (!app) return false;
+  const recovery = document.createElement("section");
+  recovery.className = "game-recovery";
+  recovery.setAttribute("role", "status");
+  const title = document.createElement("h1");
+  title.textContent = "장독대를 열 수 없어요";
+  const copy = document.createElement("p");
+  copy.textContent = "주소가 오래되었거나 선택한 장독대를 찾을 수 없습니다.";
+  const link = document.createElement("a");
+  link.className = "primary-button";
+  link.href = activeSubjectLobbyUrl("jars");
+  link.textContent = "장독대 고르기로 돌아가기";
+  recovery.append(title, copy, link);
+  app.replaceChildren(recovery);
+  document.documentElement.dataset.gameRuntime = "recovery";
+  document.documentElement.dataset.gameRecovery = "true";
+  return true;
+}
+
 function applyMotionPreference(storage) {
   document.documentElement.classList.toggle(
     "reduce-motion",
@@ -50,20 +71,23 @@ export async function initializeGamePage(api = globalThis.KongJuiYaGame) {
   if (!api) throw new Error("게임 엔진이 준비되지 않았습니다.");
   setOfficialTitle(api.subjectId);
   const storage = api.storage;
-  mountHistoricalBgm({ initialVolume: storage.data.settings?.volume ?? 0.5 });
+  const app = byId("ui-gameApp");
+  if (!app) throw new Error("게임 화면 루트가 없습니다.");
   const selection = readSelection();
   const requestedTrainingId = new URLSearchParams(location.search).get("training");
 
   if (!requestedTrainingId && !selection?.trainingId) {
-    location.replace(activeSubjectLobbyUrl("jars"));
+    renderGameRecovery({ app, subjectId: api.subjectId });
     return;
   }
 
   const modeById = id => api.TRAINING_MODES.find(item => item.id === id) || null;
-  const mode = modeById(requestedTrainingId) || modeById(selection?.trainingId);
+  const mode = requestedTrainingId ? modeById(requestedTrainingId) : modeById(selection?.trainingId);
   if (!mode) {
-    throw new Error(`알 수 없는 장독대 ID: ${requestedTrainingId || selection?.trainingId || "(없음)"}`);
+    renderGameRecovery({ app, subjectId: api.subjectId });
+    return;
   }
+  mountHistoricalBgm({ initialVolume: storage.data.settings?.volume ?? 0.5 });
 
   const savedDifficulty = storage.data.settings?.difficulty;
   const difficulty = mode.difficultyLevels?.includes(selection?.difficulty)
@@ -76,8 +100,6 @@ export async function initializeGamePage(api = globalThis.KongJuiYaGame) {
     ? storage.data.currentRun
     : null;
 
-  const app = byId("ui-gameApp");
-  if (!app) throw new Error("게임 화면 루트가 없습니다.");
   app.dataset.trainingId = mode.id;
 
   applyMotionPreference(storage);

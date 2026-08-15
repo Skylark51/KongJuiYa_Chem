@@ -1,3 +1,5 @@
+import { safeLocalStorage } from "./safe-storage.js";
+
 const SUBJECT_STORAGE_PREFIX = "kongjuiya";
 const SEGMENT_PATTERN = /^[a-z][a-z0-9-]*$/;
 
@@ -42,7 +44,7 @@ export function summarizeSubjectRecords(records) {
 }
 
 export class SubjectStorage {
-  constructor(subjectId, storage = globalThis.localStorage) {
+  constructor(subjectId, storage = safeLocalStorage) {
     if (subjectId === "chemistry") {
       throw new Error("Use GameStorage for chemistry to preserve existing user data.");
     }

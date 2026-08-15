@@ -1,7 +1,8 @@
 import { SubjectStorage } from "./subject-storage.js";
+import { safeLocalStorage } from "./safe-storage.js";
 
 export class SubjectGameStorage {
-  constructor(subjectId, globalStorage, trainingProvider, storage = globalThis.localStorage) {
+  constructor(subjectId, globalStorage, trainingProvider, storage = safeLocalStorage) {
     this.subjectId = subjectId;
     this.globalStorage = globalStorage;
     this.trainingProvider = trainingProvider;

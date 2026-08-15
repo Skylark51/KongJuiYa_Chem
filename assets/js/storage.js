@@ -1,4 +1,5 @@
 import { defaultUpgradeLevels } from "../../data/upgrades.js";
+import { safeLocalStorage } from "./safe-storage.js";
 
 export const STORAGE_KEY = "kongjuiya-chem-save";
 export const STORAGE_VERSION = 5;
@@ -141,7 +142,7 @@ export function migrateSave(value) {
 }
 
 export class GameStorage {
-  constructor(storage = globalThis.localStorage, clock = () => new Date()) {
+  constructor(storage = safeLocalStorage, clock = () => new Date()) {
     this.storage = storage;
     this.clock = clock;
     this.lastPersistOk = true;

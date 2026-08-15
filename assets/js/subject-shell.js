@@ -1,7 +1,8 @@
 import { subjectById } from "../../data/subjects.js";
 import { categoriesForSubject, quizzesForSubject } from "../../data/subject-quizzes.js";
 import { siteUrl } from "./site-routing.js";
-import { GLOBAL_STORAGE_KEYS, SubjectStorage, summarizeSubjectRecords } from "./subject-storage.js";
+import { GLOBAL_STORAGE_KEYS, SubjectStorage, subjectStorageKey, summarizeSubjectRecords } from "./subject-storage.js";
+import { safeLocalStorage } from "./safe-storage.js";
 
 const subjectId = document.documentElement.dataset.subject;
 const subject = subjectById(subjectId);
@@ -20,7 +21,7 @@ const portalHref = siteUrl("");
 document.documentElement.dataset.theme = subject.theme;
 document.title = "콩쥐야 줘때써 - " + subject.name + "편";
 try {
-  localStorage.setItem(GLOBAL_STORAGE_KEYS.lastSubject, subject.id);
+  safeLocalStorage.setItem(GLOBAL_STORAGE_KEYS.lastSubject, subject.id);
 } catch {
   // URL links still carry the subject when storage is unavailable.
 }
@@ -48,7 +49,7 @@ root.innerHTML = [
 
 function readJson(key, fallback) {
   try {
-    const value = JSON.parse(localStorage.getItem(key) || "null");
+    const value = JSON.parse(safeLocalStorage.getItem(key) || "null");
     return value && typeof value === "object" ? value : fallback;
   } catch {
     return fallback;
@@ -178,7 +179,7 @@ function mountSettings() {
     const audio = readJson(GLOBAL_STORAGE_KEYS.audioSettings, { bgmVolume: 0.8, sfxVolume: 0.8 });
     const preferences = readJson(GLOBAL_STORAGE_KEYS.uiPreferences, { animations: true });
     volume.value = String(Math.max(0, Math.min(1, Number(audio.bgmVolume ?? audio.sfxVolume ?? 0.8))));
-    device.value = localStorage.getItem(GLOBAL_STORAGE_KEYS.deviceMode) || "auto";
+    device.value = safeLocalStorage.getItem(GLOBAL_STORAGE_KEYS.deviceMode) || "auto";
     motion.checked = preferences.animations !== false;
     if (!dialog.open) dialog.showModal();
   };
@@ -188,9 +189,9 @@ function mountSettings() {
     const level = Number(volume.value);
     const audio = readJson(GLOBAL_STORAGE_KEYS.audioSettings, {});
     const nextAudio = { ...audio, bgmVolume: level, sfxVolume: level };
-    localStorage.setItem(GLOBAL_STORAGE_KEYS.audioSettings, JSON.stringify(nextAudio));
-    localStorage.setItem(GLOBAL_STORAGE_KEYS.deviceMode, device.value);
-    localStorage.setItem(GLOBAL_STORAGE_KEYS.uiPreferences, JSON.stringify({ animations: motion.checked }));
+    safeLocalStorage.setItem(GLOBAL_STORAGE_KEYS.audioSettings, JSON.stringify(nextAudio));
+    safeLocalStorage.setItem(GLOBAL_STORAGE_KEYS.deviceMode, device.value);
+    safeLocalStorage.setItem(GLOBAL_STORAGE_KEYS.uiPreferences, JSON.stringify({ animations: motion.checked }));
     document.documentElement.classList.toggle("reduce-motion", !motion.checked);
     applyDeviceMode(device.value);
     dispatchEvent(new CustomEvent("kongjui:audio-settings", { detail: nextAudio }));
@@ -202,9 +203,26 @@ document.querySelectorAll("[data-view-target]").forEach(control => control.addEv
   setView(control.dataset.viewTarget, { focus: true });
 }));
 addEventListener("popstate", () => setView(new URL(location.href).searchParams.get("view"), { replace: true }));
+addEventListener("storage", event => {
+  const recordsKey = subjectStorageKey(subject.id, "records");
+  const categoryKey = subjectStorageKey(subject.id, "selected-category");
+  if (!event.key || event.key === recordsKey) renderRecords();
+  if (!event.key || event.key === categoryKey) {
+    const nextCategory = storage.read("selected-category", "전체");
+    activeCategory = categories.includes(nextCategory) ? nextCategory : "전체";
+    renderCategories();
+    renderQuizzes();
+  }
+  if (!event.key || event.key === GLOBAL_STORAGE_KEYS.deviceMode) {
+    applyDeviceMode(safeLocalStorage.getItem(GLOBAL_STORAGE_KEYS.deviceMode) || "auto");
+  }
+  if (!event.key || event.key === GLOBAL_STORAGE_KEYS.uiPreferences) {
+    document.documentElement.classList.toggle("reduce-motion", readJson(GLOBAL_STORAGE_KEYS.uiPreferences, { animations: true }).animations === false);
+  }
+});
 const globalPreferences = readJson(GLOBAL_STORAGE_KEYS.uiPreferences, { animations: true });
 document.documentElement.classList.toggle("reduce-motion", globalPreferences.animations === false);
-applyDeviceMode(localStorage.getItem(GLOBAL_STORAGE_KEYS.deviceMode) || "auto");
+applyDeviceMode(safeLocalStorage.getItem(GLOBAL_STORAGE_KEYS.deviceMode) || "auto");
 renderCategories();
 renderQuizzes();
 renderRecords();

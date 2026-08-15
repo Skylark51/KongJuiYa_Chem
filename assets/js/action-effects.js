@@ -1,3 +1,6 @@
+import { safeLocalStorage } from "./safe-storage.js";
+
+const localStorage = safeLocalStorage;
 const ACTIONS = ["spoon-hit","bucket-smash","lid-drop","water-cannon","combo-finisher","critical-hit"];
 const HIT_WORDS = ["깡!", "딱!", "퍽!", "쨍!"];
 const WRONG_ACTIONS = ["jar-crush", "eye-pop", "leak-burst", "bucket-drop", "slip", "lid-drop", "spoon-hit", "nope"];

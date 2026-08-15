@@ -5,6 +5,7 @@ import {
   DEFAULT_EQUIPPED_COSMETICS,
   categoryFor
 } from "../../data/shop-catalog.js";
+import { safeLocalStorage } from "./safe-storage.js";
 
 export const COSMETIC_STORAGE_KEY = "kongjuiya-cosmetics-v1";
 
@@ -35,7 +36,7 @@ function normalize(value) {
 }
 
 export class CosmeticSystem {
-  constructor(gameStorage, storage = globalThis.localStorage) {
+  constructor(gameStorage, storage = safeLocalStorage) {
     if (!gameStorage) throw new Error("CosmeticSystem requires GameStorage.");
     this.gameStorage = gameStorage;
     this.storage = storage;

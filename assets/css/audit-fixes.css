@@ -1,0 +1,30 @@
+/* Verified responsive and safe-viewport fixes from the 2026-08-14 audit. */
+html { min-width: 0 !important; }
+
+@media (min-width: 701px) and (max-width: 980px) {
+  .lobby-topbar { grid-template-columns: minmax(0, 1fr) auto; }
+  .lobby-topbar .desktop-tabs {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 100%;
+  }
+  .lobby-topbar .desktop-tabs > * { min-width: 0; padding-inline: 8px; }
+}
+
+@media (max-width: 700px) {
+  .mobile-bottom-nav { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
+  .mobile-bottom-nav .mobile-portal-link { display: grid !important; }
+}
+
+.modal-card[open] {
+  position: fixed !important;
+  box-sizing: border-box !important;
+  inset: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)) !important;
+  width: auto !important;
+  max-width: min(620px, calc(100% - 24px)) !important;
+  max-height: calc(100dvh - 24px) !important;
+  margin: auto !important;
+}
+
+.modal-card[open] form { max-block-size: calc(100dvh - 48px) !important; }

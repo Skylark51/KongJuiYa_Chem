@@ -5,6 +5,7 @@ import {
   normalizeSubjectToolbarCopy
 } from "./chemistry-contract.js";
 import { bindSharedBeanUpdates, renderSharedBeans } from "./beans.js";
+import { safeLocalStorage } from "../safe-storage.js";
 
 export function mountSubjectToolbarParity({ doc = document, target = window } = {}) {
   const html = doc.documentElement;
@@ -17,8 +18,8 @@ export function mountSubjectToolbarParity({ doc = document, target = window } = 
   applyChemistryToolbarClassContract(nodes);
   normalizeSubjectToolbarCopy(nodes);
   ensureSharedBeanWallet(nodes, doc);
-  renderSharedBeans(doc, target.localStorage);
-  bindSharedBeanUpdates(target, doc, target.localStorage);
+  renderSharedBeans(doc, safeLocalStorage);
+  bindSharedBeanUpdates(target, doc, safeLocalStorage);
 
   html.dataset.toolbarMaster = "chemistry";
   html.dataset.toolbarParityReady = "true";

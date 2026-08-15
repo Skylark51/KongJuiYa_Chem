@@ -1,4 +1,5 @@
 import { siteUrl } from "./site-routing.js";
+import { safeLocalStorage } from "./safe-storage.js";
 
 export const GAME_TITLE = "콩쥐야 줘때써 - 화학편";
 
@@ -99,7 +100,7 @@ function normalizeJarSkin(value) {
 
 function readEquippedJarSkin() {
   try {
-    const saved = JSON.parse(localStorage.getItem(COSMETIC_STORAGE_KEY) || "null");
+    const saved = JSON.parse(safeLocalStorage.getItem(COSMETIC_STORAGE_KEY) || "null");
     const equipped = saved?.equipped?.jar;
     return normalizeJarSkin(JAR_ITEM_TO_SKIN[equipped] || equipped);
   } catch {
