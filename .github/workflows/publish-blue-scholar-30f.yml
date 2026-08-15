@@ -1,0 +1,333 @@
+name: Publish blue scholar 30f sprite
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-blue-scholar-30f.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-blue-scholar-30f
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install validation dependency
+        run: python -m pip install --disable-pip-version-check Pillow==12.3.0
+      - name: Patch 30-frame blue scholar runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          git pull --rebase origin main
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import json
+
+          REV = '20260815-blue-scholar-30f1'
+          OLD = '20260815-blue-scholar-headsafe1'
+          root = Path('.')
+          active = root / 'assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png'
+          canonical = root / 'assets/art/game-scene-v2/kongjwi/blue-scholar/pour-sheet.png'
+
+          assert active.read_bytes() == canonical.read_bytes(), 'active/canonical blue-scholar bytes differ'
+          with Image.open(active) as image:
+              image.load()
+              assert image.size == (1024, 1536), image.size
+              assert image.mode == 'RGBA', image.mode
+              lo, hi = image.getchannel('A').getextrema()
+              assert lo == 0 and hi > 0, (lo, hi)
+          print('blue-scholar source: 1024x1536 RGBA, 5x6 = 30 frames')
+
+          manifest_path = root / 'assets/art/game-scene/manifest.json'
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+          manifest['version'] = REV
+          blue = manifest['assets']['kongjwi']['blue-scholar']
+          blue['sprite'] = {
+              'frames': 30,
+              'columns': 5,
+              'rows': 6,
+              'sourceSize': {'width': 1024, 'height': 1536}
+          }
+          # Keep the source cell aspect (1024/5 : 1536/6 = 0.8) instead of
+          # squeezing it into the standard 512:768 actor box.
+          blue['placement'] = {'x': 150, 'y': 260, 'width': 657, 'height': 820}
+          blue['animationProfile'] = 'blue-scholar-30f'
+          manifest.setdefault('availability', {})[blue['sheet']] = True
+          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          renderer_path = root / 'assets/js/scene-renderer.js'
+          renderer = renderer_path.read_text(encoding='utf-8').replace(OLD, REV)
+
+          old = '''  const span = document.createElement("span");
+          span.className = "scene-sprite";
+          span.style.backgroundImage = `url("${asset.url}")`;
+          span.style.setProperty("--scene-frame-count", String(spec.frames || 1));
+          node.dataset.spriteMode = "sheet";
+          node.hidden = false;
+          node.append(span);
+          frameOf(node, frame);'''
+          new = '''  const span = document.createElement("span");
+          span.className = "scene-sprite";
+          span.style.backgroundImage = `url("${asset.url}")`;
+          const count = Math.max(1, Number(spec.frames || 1));
+          const columns = Math.max(1, Number(spec.columns || count));
+          const rows = Math.max(1, Number(spec.rows || 1));
+          span.style.setProperty("--scene-frame-count", String(count));
+          span.style.setProperty("--scene-frame-columns", String(columns));
+          span.style.setProperty("--scene-frame-rows", String(rows));
+          if (rows > 1) span.style.backgroundSize = `${columns * 100}% ${rows * 100}%`;
+          node.dataset.spriteColumns = String(columns);
+          node.dataset.spriteRows = String(rows);
+          node.dataset.spriteMode = "sheet";
+          node.hidden = false;
+          node.append(span);
+          frameOf(node, frame);'''
+          assert old in renderer, 'sprite() marker changed'
+          renderer = renderer.replace(old, new)
+
+          old = '''  const count = Math.max(1, Number(spriteNode.style.getPropertyValue("--scene-frame-count")) || 1);
+          const next = Math.max(0, Math.min(count - 1, Number(frame) || 0));
+          spriteNode.style.backgroundPosition = `${count <= 1 ? 0 : next / (count - 1) * 100}% center`;
+          node.dataset.frame = String(next);'''
+          new = '''  const count = Math.max(1, Number(spriteNode.style.getPropertyValue("--scene-frame-count")) || 1);
+          const columns = Math.max(1, Number(spriteNode.style.getPropertyValue("--scene-frame-columns")) || count);
+          const rows = Math.max(1, Number(spriteNode.style.getPropertyValue("--scene-frame-rows")) || 1);
+          const next = Math.max(0, Math.min(count - 1, Number(frame) || 0));
+          if (rows > 1) {
+            const column = next % columns;
+            const row = Math.floor(next / columns);
+            const x = columns <= 1 ? 0 : column / (columns - 1) * 100;
+            const y = rows <= 1 ? 0 : row / (rows - 1) * 100;
+            spriteNode.style.backgroundPosition = `${x}% ${y}%`;
+          } else {
+            spriteNode.style.backgroundPosition = `${count <= 1 ? 0 : next / (count - 1) * 100}% center`;
+          }
+          node.dataset.frame = String(next);'''
+          assert old in renderer, 'frameOf() marker changed'
+          renderer = renderer.replace(old, new)
+
+          old = '''    setCosmetics(next = {}) {
+              current = { ...current, ...next };
+              if (manifest) load();
+            },'''
+          new = '''    setCosmetics(next = {}) {
+              current = { ...current, ...next };
+              if (manifest) load();
+            },
+            getKongjwiOutfit() {
+              return key(current.kongjwiOutfit || current.outfit || root.dataset.kongjwiOutfit, ALIAS.outfit, "underlayer");
+            },'''
+          assert old in renderer, 'renderer API marker changed'
+          renderer = renderer.replace(old, new)
+
+          old = '''    sprite(layer(stack, "scene-kongjwi"), chosen.kongjwi, s.kongjwi);
+              sprite(layer(stack, "scene-tool"), chosen.tool, s.tool);'''
+          new = '''    const kongjwiSpriteSpec = outfitAsset.sprite || s.kongjwi;
+              const isBlueScholar30f = outfit === "blue-scholar" && kongjwiSpriteSpec.frames === 30;
+              sprite(layer(stack, "scene-kongjwi"), chosen.kongjwi, kongjwiSpriteSpec);
+              if (isBlueScholar30f) clearLayer(layer(stack, "scene-tool"));
+              else sprite(layer(stack, "scene-tool"), chosen.tool, s.tool);'''
+          assert old in renderer, 'Kongjwi sprite mount marker changed'
+          renderer = renderer.replace(old, new)
+
+          old = '''    if (motionRig && chosen.stream.url) sprite(layer(stack, "scene-water-stream"), chosen.stream, s.waterStream);
+              else fallbackWaterArc(layer(stack, "scene-water-stream"));'''
+          new = '''    if (isBlueScholar30f) clearLayer(layer(stack, "scene-water-stream"));
+              else if (motionRig && chosen.stream.url) sprite(layer(stack, "scene-water-stream"), chosen.stream, s.waterStream);
+              else fallbackWaterArc(layer(stack, "scene-water-stream"));'''
+          assert old in renderer, 'water stream marker changed'
+          renderer = renderer.replace(old, new)
+
+          old = '''    if (motionRig && chosen.splash.url) sprite(layer(stack, "scene-water-splash"), chosen.splash, s.waterSplash);
+              else clearLayer(layer(stack, "scene-water-splash"));'''
+          new = '''    if (isBlueScholar30f) clearLayer(layer(stack, "scene-water-splash"));
+              else if (motionRig && chosen.splash.url) sprite(layer(stack, "scene-water-splash"), chosen.splash, s.waterSplash);
+              else clearLayer(layer(stack, "scene-water-splash"));'''
+          assert old in renderer, 'water splash marker changed'
+          renderer = renderer.replace(old, new)
+
+          old = '''    box(layer(stack, "scene-kongjwi"), motionRig ? placements.kongjwi : fallback.kongjwi, logical);
+              box(layer(stack, "scene-tool"), motionRig ? placements.tool : fallback.tool, logical);'''
+          new = '''    const kongjwiPlacement = outfitAsset.placement || (motionRig ? placements.kongjwi : fallback.kongjwi);
+              box(layer(stack, "scene-kongjwi"), kongjwiPlacement, logical);
+              box(layer(stack, "scene-tool"), motionRig ? placements.tool : fallback.tool, logical);'''
+          assert old in renderer, 'placement marker changed'
+          renderer = renderer.replace(old, new)
+          renderer_path.write_text(renderer, encoding='utf-8')
+
+          state_path = root / 'assets/js/scene-state-machine.js'
+          state = state_path.read_text(encoding='utf-8')
+          marker = 'const POUR_CHARACTER_FRAMES = [2, 2, 3, 3, 4, 4, 5, 5, 5, 6, 6];\n'
+          assert marker in state
+          state = state.replace(marker, marker + '''const BLUE_SCHOLAR_FRAMES = Array.from({ length: 30 }, (_, index) => index);\nconst BLUE_SCHOLAR_IDLE_FRAMES = [0, 1, 2, 3, 2, 1, 0];\nconst BLUE_SCHOLAR_WRONG_FRAMES = [25, 26, 27, 28, 29];\n''')
+          marker = '''  startLeakLoop({ energetic = false } = {}) {
+              const sequence = this.manifest.frames?.sequences?.leak || LEAK_FRAMES;
+              this.playSequence("waterLeak", sequence, energetic ? 760 : 1120, { loop: true, hold: true });
+            }
+          '''
+          replacement = marker + '''\n  isBlueScholar30f() {\n    return this.renderer.getKongjwiOutfit?.() === "blue-scholar";\n  }\n'''
+          assert marker in state, 'state helper insertion marker changed'
+          state = state.replace(marker, replacement)
+
+          old = '''    resetCourtServantPour();
+              this.playSequence("kongjwi", plan.kongjwiTimeline || POUR_CHARACTER_FRAMES, 1320, { hold });
+              this.playSequence("tool", plan.toolTimeline || POUR_CHARACTER_FRAMES, 1320, { hold });
+              this.playSequence("waterStream", plan.waterStream || POUR_STREAM_FRAMES, 650, { delay: 410, hold });
+              this.playSequence("waterSplash", plan.waterSplash || POUR_SPLASH_FRAMES, 520, { delay: 540, hold });
+              this.startLeakLoop({ energetic: true });'''
+          new = '''    resetCourtServantPour();
+              if (this.isBlueScholar30f()) {
+                this.playSequence("kongjwi", BLUE_SCHOLAR_FRAMES, 1320, { hold });
+                this.startLeakLoop({ energetic: true });
+                return;
+              }
+              this.playSequence("kongjwi", plan.kongjwiTimeline || POUR_CHARACTER_FRAMES, 1320, { hold });
+              this.playSequence("tool", plan.toolTimeline || POUR_CHARACTER_FRAMES, 1320, { hold });
+              this.playSequence("waterStream", plan.waterStream || POUR_STREAM_FRAMES, 650, { delay: 410, hold });
+              this.playSequence("waterSplash", plan.waterSplash || POUR_SPLASH_FRAMES, 520, { delay: 540, hold });
+              this.startLeakLoop({ energetic: true });'''
+          assert old in state, 'correct sequence marker changed'
+          state = state.replace(old, new)
+
+          old = '''        this.playSequence("kongjwi", sequences.idle?.kongjwi || [0, 1, 0], 1800, { loop: true });'''
+          new = '''        this.playSequence("kongjwi", this.isBlueScholar30f() ? BLUE_SCHOLAR_IDLE_FRAMES : (sequences.idle?.kongjwi || [0, 1, 0]), 1800, { loop: true });'''
+          assert old in state
+          state = state.replace(old, new)
+
+          old = '''        this.playSequence("kongjwi", [0, 1, 0], 620);'''
+          new = '''        this.playSequence("kongjwi", this.isBlueScholar30f() ? BLUE_SCHOLAR_IDLE_FRAMES : [0, 1, 0], 620);'''
+          assert old in state
+          state = state.replace(old, new)
+
+          old = '''        this.playSequence("kongjwi", sequences.answerWrong?.kongjwi || [7], 560, { hold: true });'''
+          new = '''        this.playSequence("kongjwi", this.isBlueScholar30f() ? BLUE_SCHOLAR_WRONG_FRAMES : (sequences.answerWrong?.kongjwi || [7]), 560, { hold: true });'''
+          assert old in state
+          state = state.replace(old, new)
+          state = state.replace('this.playSequence("kongjwi", [7], 700, { hold: true });', 'this.playSequence("kongjwi", this.isBlueScholar30f() ? BLUE_SCHOLAR_WRONG_FRAMES : [7], 700, { hold: true });')
+          state = state.replace('this.renderer.setFrame("kongjwi", 1);', 'this.renderer.setFrame("kongjwi", this.isBlueScholar30f() ? 1 : 1);')
+          state_path.write_text(state, encoding='utf-8')
+
+          builder_path = root / 'scripts/build-kongjwi-pour-sheets.py'
+          builder = builder_path.read_text(encoding='utf-8')
+          builder = builder.replace('manifest["version"] = "20260815-blue-scholar-headsafe1"', f'manifest["version"] = "{REV}"')
+          old = '''            canonical_image = load_rgba(canonical)
+                      if canonical_image.size != (CELL[0] * FRAMES, CELL[1]):
+                          raise RuntimeError(f"Unexpected authored HQ {skin} sheet size: {canonical_image.size}")'''
+          new = '''            canonical_image = load_rgba(canonical)
+                      expected_size = (1024, 1536) if skin == "blue-scholar" else (CELL[0] * FRAMES, CELL[1])
+                      if canonical_image.size != expected_size:
+                          raise RuntimeError(f"Unexpected authored HQ {skin} sheet size: {canonical_image.size}; expected {expected_size}")'''
+          assert old in builder, 'HQ size validation marker changed'
+          builder = builder.replace(old, new)
+          marker = '''    policy.pop("integratedGripPolicy", None)
+          '''
+          insert = marker + '''\n    blue = manifest["assets"]["kongjwi"]["blue-scholar"]\n    blue["sprite"] = {\n        "frames": 30,\n        "columns": 5,\n        "rows": 6,\n        "sourceSize": {"width": 1024, "height": 1536},\n    }\n    blue["placement"] = {"x": 150, "y": 260, "width": 657, "height": 820}\n    blue["animationProfile"] = "blue-scholar-30f"\n'''
+          assert marker in builder
+          builder = builder.replace(marker, insert)
+          builder_path.write_text(builder, encoding='utf-8')
+
+          test1_path = root / 'tests/kongjwi-pour-motion.test.mjs'
+          test1 = test1_path.read_text(encoding='utf-8').replace(
+              '"20260815-blue-scholar-headsafe1"',
+              '"20260815-blue-scholar-headsafe1", "20260815-blue-scholar-30f1"'
+          )
+          old = '''    assert.deepEqual(pngSize(path.join(root, sheet)), [4096, 768]);
+              }
+            });
+
+            test("night-court production motion is the authored summon sequence"'''
+          new = '''    const expected = skin === "blue-scholar" ? [1024, 1536] : [4096, 768];
+                assert.deepEqual(pngSize(path.join(root, sheet)), expected);
+              }
+              assert.equal(manifest.assets.kongjwi["blue-scholar"].sprite.frames, 30);
+              assert.equal(manifest.assets.kongjwi["blue-scholar"].sprite.columns, 5);
+              assert.equal(manifest.assets.kongjwi["blue-scholar"].sprite.rows, 6);
+            });
+
+            test("night-court production motion is the authored summon sequence"'''
+          assert old in test1, 'Kongjwi PNG test marker changed'
+          test1 = test1.replace(old, new)
+          test1_path.write_text(test1, encoding='utf-8')
+
+          test2_path = root / 'tests/kongjwi-underlayer-grip.test.mjs'
+          test2 = test2_path.read_text(encoding='utf-8').replace(
+              '"20260815-blue-scholar-headsafe1"',
+              '"20260815-blue-scholar-headsafe1", "20260815-blue-scholar-30f1"'
+          )
+          test2_path.write_text(test2, encoding='utf-8')
+
+          html_path = root / '콩쥐야_줘때써.html'
+          html = html_path.read_text(encoding='utf-8').replace(OLD, REV)
+          html_path.write_text(html, encoding='utf-8')
+          PY
+      - name: Validate asset and runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import json
+          revision = '20260815-blue-scholar-30f1'
+          active = Path('assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png')
+          canonical = Path('assets/art/game-scene-v2/kongjwi/blue-scholar/pour-sheet.png')
+          assert active.read_bytes() == canonical.read_bytes()
+          with Image.open(active) as im:
+              im.load()
+              assert im.size == (1024, 1536)
+              assert im.mode == 'RGBA'
+          manifest = json.loads(Path('assets/art/game-scene/manifest.json').read_text(encoding='utf-8'))
+          blue = manifest['assets']['kongjwi']['blue-scholar']
+          assert manifest['version'] == revision
+          assert blue['sprite'] == {'frames': 30, 'columns': 5, 'rows': 6, 'sourceSize': {'width': 1024, 'height': 1536}}
+          assert blue['placement'] == {'x': 150, 'y': 260, 'width': 657, 'height': 820}
+          renderer = Path('assets/js/scene-renderer.js').read_text(encoding='utf-8')
+          state = Path('assets/js/scene-state-machine.js').read_text(encoding='utf-8')
+          assert '--scene-frame-columns' in renderer and '--scene-frame-rows' in renderer
+          assert 'outfitAsset.sprite || s.kongjwi' in renderer
+          assert 'BLUE_SCHOLAR_FRAMES' in state and 'length: 30' in state
+          assert revision in Path('콩쥐야_줘때써.html').read_text(encoding='utf-8')
+          print('30f blue scholar validation passed')
+          PY
+          node --check assets/js/scene-renderer.js
+          node --check assets/js/scene-state-machine.js
+          node --test tests/kongjwi-pour-motion.test.mjs tests/kongjwi-underlayer-grip.test.mjs
+          python scripts/build-kongjwi-pour-sheets.py
+          node --test tests/kongjwi-pour-motion.test.mjs tests/kongjwi-underlayer-grip.test.mjs
+          git diff --check
+      - name: Commit and push runtime migration
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            'assets/art/game-scene/manifest.json' \
+            'assets/js/scene-renderer.js' \
+            'assets/js/scene-state-machine.js' \
+            'scripts/build-kongjwi-pour-sheets.py' \
+            'tests/kongjwi-pour-motion.test.mjs' \
+            'tests/kongjwi-underlayer-grip.test.mjs' \
+            '콩쥐야_줘때써.html'
+          if git diff --cached --quiet; then
+            echo 'No runtime changes to commit'
+            exit 0
+          fi
+          git diff --cached --check
+          git diff --cached --stat
+          git commit -m 'feat: run blue scholar as 30-frame animation'
+          git pull --rebase origin main
+          git push origin HEAD:main
