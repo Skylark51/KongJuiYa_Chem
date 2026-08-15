@@ -2,7 +2,8 @@ name: Retime blue scholar subtle motion
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
       - .github/workflows/retime-blue-scholar-subtle.yml
 
@@ -14,7 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -28,25 +30,30 @@ jobs:
           state_path = Path('assets/js/scene-state-machine.js')
           state = state_path.read_text(encoding='utf-8')
 
-          state = state.replace(
-              'const BLUE_SCHOLAR_FRAMES = Array.from({ length: 30 }, (_, index) => index);',
-              'const BLUE_SCHOLAR_CORRECT_FRAMES = Array.from({ length: 15 }, (_, index) => index);\nconst BLUE_SCHOLAR_FEVER_FRAMES = Array.from({ length: 10 }, (_, index) => index + 15);'
-          )
+          old = 'const BLUE_SCHOLAR_FRAMES = Array.from({ length: 30 }, (_, index) => index);'
+          new = 'const BLUE_SCHOLAR_CORRECT_FRAMES = Array.from({ length: 15 }, (_, index) => index);\nconst BLUE_SCHOLAR_FEVER_FRAMES = Array.from({ length: 10 }, (_, index) => index + 15);'
+          if old not in state:
+              raise SystemExit('30-frame full sweep constant not found')
+          state = state.replace(old, new, 1)
           state = state.replace(
               'this.playSequence("kongjwi", BLUE_SCHOLAR_FRAMES, 1320, { hold });',
-              'this.playSequence("kongjwi", BLUE_SCHOLAR_CORRECT_FRAMES, 1360, { hold });'
+              'this.playSequence("kongjwi", BLUE_SCHOLAR_CORRECT_FRAMES, 1360, { hold });',
+              1,
           )
           state = state.replace(
               'this.schedule(() => this.renderer.setFlowPhase("pour"), blueScholar ? 660 : 400);',
-              'this.schedule(() => this.renderer.setFlowPhase("pour"), blueScholar ? 610 : 400);'
+              'this.schedule(() => this.renderer.setFlowPhase("pour"), blueScholar ? 610 : 400);',
+              1,
           )
           state = state.replace(
               'this.playSequence("waterStream", plan.waterStream || POUR_STREAM_FRAMES, 560, { delay: 660, hold });',
-              'this.playSequence("waterStream", plan.waterStream || POUR_STREAM_FRAMES, 560, { delay: 610, hold });'
+              'this.playSequence("waterStream", plan.waterStream || POUR_STREAM_FRAMES, 560, { delay: 610, hold });',
+              1,
           )
           state = state.replace(
               'this.playSequence("waterSplash", plan.waterSplash || POUR_SPLASH_FRAMES, 430, { delay: 760, hold });',
-              'this.playSequence("waterSplash", plan.waterSplash || POUR_SPLASH_FRAMES, 430, { delay: 735, hold });'
+              'this.playSequence("waterSplash", plan.waterSplash || POUR_SPLASH_FRAMES, 430, { delay: 735, hold });',
+              1,
           )
 
           old_fever = '''      case "fever":
@@ -71,18 +78,20 @@ jobs:
 
           renderer_path = Path('assets/js/scene-renderer.js')
           renderer = renderer_path.read_text(encoding='utf-8')
-          renderer = renderer.replace(
-              'import { createSceneStateController } from "./scene-state-machine.js";',
-              'import { createSceneStateController } from "./scene-state-machine.js?v=20260815-blue-scholar-subtle1";'
-          )
+          old_import = 'import { createSceneStateController } from "./scene-state-machine.js";'
+          new_import = 'import { createSceneStateController } from "./scene-state-machine.js?v=20260815-blue-scholar-subtle1";'
+          if old_import in renderer:
+              renderer = renderer.replace(old_import, new_import, 1)
+          elif new_import not in renderer:
+              raise SystemExit('scene state import not found')
           renderer_path.write_text(renderer, encoding='utf-8')
 
           test_path = Path('tests/blue-scholar-30f-motion.test.mjs')
           test = test_path.read_text(encoding='utf-8')
-          test = test.replace(
-              '  assert.match(state, /BLUE_SCHOLAR_IDLE_FRAMES = \\[0, 1, 0\\]/);',
-              '  assert.match(state, /BLUE_SCHOLAR_IDLE_FRAMES = \\[0, 1, 0\\]/);\n  assert.match(state, /BLUE_SCHOLAR_CORRECT_FRAMES = Array\\.from\\(\\{ length: 15 \\}/);\n  assert.match(state, /BLUE_SCHOLAR_FEVER_FRAMES = Array\\.from\\(\\{ length: 10 \\}/);\n  assert.doesNotMatch(state, /BLUE_SCHOLAR_FRAMES = Array\\.from\\(\\{ length: 30 \\}/);'
-          )
+          marker = '  assert.match(state, /BLUE_SCHOLAR_IDLE_FRAMES = \\[0, 1, 0\\]/);'
+          addition = marker + '\n  assert.match(state, /BLUE_SCHOLAR_CORRECT_FRAMES = Array\\.from\\(\\{ length: 15 \\}/);\n  assert.match(state, /BLUE_SCHOLAR_FEVER_FRAMES = Array\\.from\\(\\{ length: 10 \\}/);\n  assert.doesNotMatch(state, /BLUE_SCHOLAR_FRAMES = Array\\.from\\(\\{ length: 30 \\}/);'
+          if marker in test and 'BLUE_SCHOLAR_CORRECT_FRAMES' not in test:
+              test = test.replace(marker, addition, 1)
           test = test.replace('delay: 660', 'delay: 610').replace('delay: 760', 'delay: 735')
           test_path.write_text(test, encoding='utf-8')
           PY
