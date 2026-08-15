@@ -9,10 +9,14 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: publish-blue-scholar-30f
+  cancel-in-progress: false
+
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v5
         with:
@@ -20,18 +24,74 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Download candidate sprite
+      - name: Install validation dependency
+        run: python -m pip install --disable-pip-version-check Pillow==12.3.0
+      - name: Download exact uploaded sprite
         shell: bash
         run: |
           set -euo pipefail
-          URL='https://drive.usercontent.google.com/download?id=1vD5KsDikyXt6pX1rORotDzfx3z6zrLzs&export=download&confirm=t'
-          curl -L --fail --retry 2 --connect-timeout 20 -o /tmp/blue-scholar-30f.png "$URL"
-          ls -lh /tmp/blue-scholar-30f.png
-          file /tmp/blue-scholar-30f.png
+          git pull --rebase origin main
+          URL='https://drive.usercontent.google.com/download?id=1d1t1f-eTcy4q2KugH8bcasiUvTSqZelq&export=download&confirm=t'
+          curl -L --fail --retry 3 --connect-timeout 20 -o /tmp/blue-scholar-30f.png "$URL"
+          printf '%s  %s\n' '445bc5955220e757fb007ca21574f606bcfe8f697daa4807d0ba971e7a4efe4e' '/tmp/blue-scholar-30f.png' | sha256sum -c -
           python - <<'PY'
-          from pathlib import Path
-          p=Path('/tmp/blue-scholar-30f.png')
-          b=p.read_bytes()
-          print('bytes',len(b),'sig',b[:8])
-          assert b[:8] == b'\x89PNG\r\n\x1a\n'
+          from PIL import Image
+          p='/tmp/blue-scholar-30f.png'
+          with Image.open(p) as im:
+              im.load()
+              assert im.size == (1024, 1536), im.size
+              assert im.mode == 'RGBA', im.mode
+              assert im.getchannel('A').getextrema()[0] == 0
+          print('staged sprite is valid 1024x1536 RGBA PNG')
           PY
+          cp /tmp/blue-scholar-30f.png assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png
+          cp /tmp/blue-scholar-30f.png assets/art/game-scene-v2/kongjwi/blue-scholar/pour-sheet.png
+      - name: Patch runtime for 5x6 30-frame grid
+        run: python scripts/tmp-publish-blue-scholar-30f.py
+      - name: Validate runtime and regression tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check assets/js/scene-renderer.js
+          node --check assets/js/scene-state-machine.js
+          node --test tests/kongjwi-pour-motion.test.mjs tests/kongjwi-underlayer-grip.test.mjs
+          python scripts/build-kongjwi-pour-sheets.py
+          node --test tests/kongjwi-pour-motion.test.mjs tests/kongjwi-underlayer-grip.test.mjs
+          python - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          import hashlib, json
+          expected='445bc5955220e757fb007ca21574f606bcfe8f697daa4807d0ba971e7a4efe4e'
+          for p in [Path('assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png'), Path('assets/art/game-scene-v2/kongjwi/blue-scholar/pour-sheet.png')]:
+              assert hashlib.sha256(p.read_bytes()).hexdigest() == expected
+              with Image.open(p) as im:
+                  im.load(); assert im.size==(1024,1536) and im.mode=='RGBA'
+          m=json.loads(Path('assets/art/game-scene/manifest.json').read_text(encoding='utf-8'))
+          b=m['assets']['kongjwi']['blue-scholar']
+          assert m['version']=='20260815-blue-scholar-30f1'
+          assert b['sprite']['frames']==30 and b['sprite']['columns']==5 and b['sprite']['rows']==6
+          print('exact uploaded sprite and 30-frame manifest survived builder/regression pass')
+          PY
+          git diff --check
+      - name: Commit and push
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm scripts/tmp-publish-blue-scholar-30f.py
+          git add \
+            assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png \
+            assets/art/game-scene-v2/kongjwi/blue-scholar/pour-sheet.png \
+            assets/art/game-scene/manifest.json \
+            assets/js/scene-renderer.js \
+            assets/js/scene-state-machine.js \
+            scripts/build-kongjwi-pour-sheets.py \
+            tests/kongjwi-pour-motion.test.mjs \
+            tests/kongjwi-underlayer-grip.test.mjs \
+            '콩쥐야_줘때써.html'
+          git diff --cached --check
+          git diff --cached --stat
+          git commit -m 'feat: run blue scholar with 30-frame sprite grid'
+          git pull --rebase origin main
+          git push origin HEAD:main
