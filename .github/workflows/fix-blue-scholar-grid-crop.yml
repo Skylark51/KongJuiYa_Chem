@@ -1,0 +1,222 @@
+name: Fix blue scholar 30f mobile crop
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-blue-scholar-grid-crop.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fix-blue-scholar-grid-crop
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Replace 2D background crop with clipped image-sheet renderer
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          renderer_path = Path('assets/js/scene-renderer.js')
+          renderer = renderer_path.read_text(encoding='utf-8')
+          renderer = renderer.replace('20260815-blue-scholar-30f1', '20260815-blue-scholar-gridfix1')
+
+          old_sprite = '''  const span = document.createElement("span");
+          span.className = "scene-sprite";
+          span.style.backgroundImage = `url("${asset.url}")`;
+          const count = Math.max(1, Number(spec.frames || 1));
+          const columns = Math.max(1, Number(spec.columns || count));
+          const rows = Math.max(1, Number(spec.rows || 1));
+          span.style.setProperty("--scene-frame-count", String(count));
+          span.style.setProperty("--scene-frame-columns", String(columns));
+          span.style.setProperty("--scene-frame-rows", String(rows));
+          if (rows > 1) span.style.backgroundSize = `${columns * 100}% ${rows * 100}%`;
+          node.dataset.spriteColumns = String(columns);
+          node.dataset.spriteRows = String(rows);
+          node.dataset.spriteMode = "sheet";
+          node.hidden = false;
+          node.append(span);
+          frameOf(node, frame);'''
+
+          new_sprite = '''  const span = document.createElement("span");
+          span.className = "scene-sprite";
+          const count = Math.max(1, Number(spec.frames || 1));
+          const columns = Math.max(1, Number(spec.columns || count));
+          const rows = Math.max(1, Number(spec.rows || 1));
+          span.style.setProperty("--scene-frame-count", String(count));
+          span.style.setProperty("--scene-frame-columns", String(columns));
+          span.style.setProperty("--scene-frame-rows", String(rows));
+          if (rows > 1) {
+            // Multi-row sheets are rendered as one oversized image inside a clipped
+            // one-frame viewport. This avoids iOS Safari background-position rounding
+            // that can expose thin horizontal slices instead of the complete frame.
+            span.classList.add("scene-sprite-grid");
+            const sheet = document.createElement("img");
+            sheet.className = "scene-sprite-sheet-image";
+            sheet.alt = "";
+            sheet.draggable = false;
+            sheet.decoding = "async";
+            sheet.src = asset.url;
+            sheet.style.width = `${columns * 100}%`;
+            sheet.style.height = `${rows * 100}%`;
+            span.append(sheet);
+          } else {
+            span.style.backgroundImage = `url("${asset.url}")`;
+          }
+          node.dataset.spriteColumns = String(columns);
+          node.dataset.spriteRows = String(rows);
+          node.dataset.spriteMode = "sheet";
+          node.hidden = false;
+          node.append(span);
+          frameOf(node, frame);'''
+
+          if old_sprite not in renderer:
+              raise SystemExit('scene-renderer sprite block did not match expected source')
+          renderer = renderer.replace(old_sprite, new_sprite, 1)
+
+          old_grid_frame = '''  if (rows > 1) {
+            const column = next % columns;
+            const row = Math.floor(next / columns);
+            const x = columns <= 1 ? 0 : column / (columns - 1) * 100;
+            const y = rows <= 1 ? 0 : row / (rows - 1) * 100;
+            spriteNode.style.backgroundPosition = `${x}% ${y}%`;
+          } else {
+            spriteNode.style.backgroundPosition = `${count <= 1 ? 0 : next / (count - 1) * 100}% center`;
+          }'''
+
+          new_grid_frame = '''  if (rows > 1) {
+            const column = next % columns;
+            const row = Math.floor(next / columns);
+            const sheet = spriteNode.querySelector(".scene-sprite-sheet-image");
+            if (!sheet) return;
+            // Percentages in transform are relative to the oversized sheet itself.
+            // -100/columns% therefore moves exactly one viewport-cell horizontally,
+            // and -100/rows% moves exactly one viewport-cell vertically.
+            const x = -(column / columns) * 100;
+            const y = -(row / rows) * 100;
+            sheet.style.transform = `translate3d(${x}%, ${y}%, 0)`;
+          } else {
+            spriteNode.style.backgroundPosition = `${count <= 1 ? 0 : next / (count - 1) * 100}% center`;
+          }'''
+
+          if old_grid_frame not in renderer:
+              raise SystemExit('scene-renderer grid frame block did not match expected source')
+          renderer = renderer.replace(old_grid_frame, new_grid_frame, 1)
+          renderer_path.write_text(renderer, encoding='utf-8')
+
+          css_path = Path('assets/css/game-asset-animation.css')
+          css = css_path.read_text(encoding='utf-8')
+          marker = '''.scene-kongjwi,
+          .scene-tool,
+          .scene-water-stream,
+          .scene-water-splash,
+          .scene-water-leak {'''
+          grid_css = '''.scene-sprite-grid {
+            overflow: hidden;
+            background: none !important;
+            contain: paint;
+          }
+
+          .scene-sprite-sheet-image {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: block;
+            max-width: none !important;
+            max-height: none !important;
+            object-fit: fill;
+            image-rendering: auto;
+            transform-origin: 0 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            will-change: transform;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-user-drag: none;
+          }
+
+          '''
+          if '.scene-sprite-sheet-image {' not in css:
+              if marker not in css:
+                  raise SystemExit('CSS insertion marker not found')
+              css = css.replace(marker, grid_css + marker, 1)
+          css_path.write_text(css, encoding='utf-8')
+
+          # Force GitHub Pages / mobile Safari to fetch the repaired renderer and CSS
+          # immediately instead of reusing the just-published 30f module graph.
+          cosmetics_path = Path('assets/js/game-cosmetics-entry.js')
+          cosmetics = cosmetics_path.read_text(encoding='utf-8')
+          cosmetics = cosmetics.replace(
+              'import { mountSceneRenderer } from "./scene-renderer.js";',
+              'import { mountSceneRenderer } from "./scene-renderer.js?v=20260815-blue-scholar-gridfix1";'
+          )
+          cosmetics_path.write_text(cosmetics, encoding='utf-8')
+
+          ui_path = Path('assets/js/ui-effects.js')
+          ui = ui_path.read_text(encoding='utf-8')
+          ui = ui.replace(
+              'import { mountGameScene } from "./game-cosmetics-entry.js";',
+              'import { mountGameScene } from "./game-cosmetics-entry.js?v=20260815-blue-scholar-gridfix1";'
+          )
+          ui_path.write_text(ui, encoding='utf-8')
+
+          page_path = Path('assets/js/game-page.js')
+          page = page_path.read_text(encoding='utf-8')
+          page = page.replace(
+              'import { initializeGamePage } from "./ui-effects.js";',
+              'import { initializeGamePage } from "./ui-effects.js?v=20260815-blue-scholar-gridfix1";'
+          )
+          page_path.write_text(page, encoding='utf-8')
+
+          html_path = Path('콩쥐야_줘때써.html')
+          html = html_path.read_text(encoding='utf-8')
+          html = html.replace('20260815-blue-scholar-30f1', '20260815-blue-scholar-gridfix1')
+          html_path.write_text(html, encoding='utf-8')
+          PY
+
+      - name: Validate repaired sprite renderer
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check assets/js/scene-renderer.js
+          node --check assets/js/game-cosmetics-entry.js
+          node --check assets/js/ui-effects.js
+          node --check assets/js/game-page.js
+          grep -q 'scene-sprite-sheet-image' assets/js/scene-renderer.js
+          grep -q 'translate3d' assets/js/scene-renderer.js
+          grep -q 'overflow: hidden' assets/css/game-asset-animation.css
+          node --test tests/kongjwi-pour-motion.test.mjs tests/kongjwi-underlayer-grip.test.mjs
+          git diff --check
+
+      - name: Commit and push repair
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/fix-blue-scholar-grid-crop.yml
+          git add \
+            assets/js/scene-renderer.js \
+            assets/css/game-asset-animation.css \
+            assets/js/game-cosmetics-entry.js \
+            assets/js/ui-effects.js \
+            assets/js/game-page.js \
+            '콩쥐야_줘때써.html'
+          git diff --cached --check
+          git diff --cached --stat
+          git commit -m 'fix: render blue scholar grid frames without mobile cropping'
+          git pull --rebase origin main
+          git push origin HEAD:main
