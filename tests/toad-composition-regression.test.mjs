@@ -18,6 +18,13 @@ const expressionPaths = Object.freeze({
   "idle-blink": "assets/images/toad-expressions/지루함.png"
 });
 
+const toadFileNames = Object.freeze({
+  "field-brown": "field-brown.png",
+  "gold-worker": String.fromCodePoint(0xD669, 0xAE08) + "-" + String.fromCodePoint(0xC77C, 0xAFBC) + ".png",
+  "jade-guard": String.fromCodePoint(0xBE44, 0xCDE8) + "-" + String.fromCodePoint(0xC218, 0xD638) + ".png",
+  "star-night": String.fromCodePoint(0xBCC4, 0xBC24) + ".png"
+});
+
 test("default toad uses existing complete expression PNGs instead of a missing field-brown skin", () => {
   const fieldBrown = manifest.assets.toads["field-brown"];
   assert.equal(fieldBrown.mode, "full-expression");
@@ -33,7 +40,7 @@ test("premium toads keep their uploaded PNG skin and have a validated overlay co
   for (const key of ["gold-worker", "jade-guard", "star-night"]) {
     const definition = manifest.assets.toads[key];
     assert.equal(definition.mode, "skin-motion");
-    assert.match(definition.skin, new RegExp(`/${key}\\.png$`));
+    assert.ok(definition.skin.endsWith("/" + toadFileNames[key]));
     assert.equal(manifest.availability[definition.skin], true);
   }
   assert.deepEqual(manifest.assets.effects.toadExpression, {
@@ -49,7 +56,7 @@ test("premium toads keep their uploaded PNG skin and have a validated overlay co
 test("bean shop previews use the same production PNG toad skins as gameplay", () => {
   const shop = read("assets/js/shop-navigation.js");
   for (const key of ["field-brown", "gold-worker", "jade-guard", "star-night"]) {
-    assert.ok(shop.includes(`"${key}": `) && shop.includes(`${key}.png`), `missing shop PNG mapping: ${key}`);
+    assert.ok(shop.includes("\"" + key + "\": ") && shop.includes(toadFileNames[key]), "missing shop PNG mapping: " + key);
   }
   assert.ok(shop.includes('if (item.category === "toad") return createToadAsset(item);'));
   assert.ok(shop.includes('createImage(versionedSource, "shop-asset shop-asset-toad"'));
