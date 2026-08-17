@@ -185,7 +185,7 @@ a { color: inherit; }
   position: absolute;
   z-index: 1;
   inset: 7%;
-  background-image: url("../art/sprites/jars.png");
+  background-image: url("../그림/공용/장독대/장독대-상품-스프라이트.png");
   background-repeat: no-repeat;
   background-size: 400% 100%;
   background-position: var(--jar-sprite-position, 0%) 50%;

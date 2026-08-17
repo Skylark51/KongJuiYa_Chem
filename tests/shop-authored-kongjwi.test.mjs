@@ -7,9 +7,9 @@ const nightPreview = await readFile(new URL("../assets/css/shop-night-court-prev
 const html = await readFile(new URL("../shop.html", import.meta.url), "utf8");
 
 for (const pathname of [
-  "assets/art/source-locked/kongjwi/classic-red/base-cutout.png",
-  "assets/art/source-locked/kongjwi/blue-scholar/base-cutout.png",
-  "assets/art/source-locked/kongjwi/field-work/base-cutout.png",
+  "assets/그림/공용/원본/콩쥐/고전-홍색-한복/기본-오려내기.png",
+  "assets/그림/공용/원본/콩쥐/청색-학자복/기본-오려내기.png",
+  "assets/그림/공용/원본/콩쥐/농사일-작업복/기본-오려내기.png",
   "assets/art/game-scene/kongjwi/night-court/pour-sheet.png"
 ]) {
   assert.ok(renderer.includes(pathname), `${pathname} must be mapped in the shop renderer`);
@@ -25,7 +25,7 @@ for (const filename of [
 }
 
 assert.ok(
-  renderer.includes('const UNDERLAYER_ART = `assets/art/source-locked/kongjwi/underlayer/base-cutout.png'),
+  renderer.includes('const UNDERLAYER_ART = `assets/그림/공용/원본/콩쥐/속옷/기본-오려내기.png'),
   "wardrobe must use the current source-locked underlayer base"
 );
 assert.ok(renderer.includes('const OUTFIT_SPRITE_KEYS = new Set(["royal-night"])'), "night-court shop preview must be the only sprite-backed outfit");

@@ -1,6 +1,6 @@
 import { siteUrl } from "./site-routing.js";
 
-const HERO_ART_PATH = "assets/images/background/courtyard-night.png";
+const HERO_ART_PATH = "assets/그림/메인/배경/밤-뜰.png";
 
 function simplifyHomeScreen() {
   const home = document.getElementById("homeView");

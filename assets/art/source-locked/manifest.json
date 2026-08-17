@@ -7,32 +7,32 @@
     "note": "Animation derivatives must preserve the identity and pixels/style of the currently used Kongjwi artwork. Do not replace source originals with newly generated characters."
   },
   "kongjwi": {
-    "underlayer": {"path":"assets/art/source-locked/kongjwi/underlayer/base-cutout.png","legacyPath":"assets/art/kongjwi/kongjwi-underlayer-cutout.png","gitBlob":"f4912729bcdcede2275d5c5a1ba158971e19649a"},
-    "classic-red": {"path":"assets/art/source-locked/kongjwi/classic-red/base-cutout.png","legacyPath":"assets/art/kongjwi/kongjwi-classic-red-cutout.png","gitBlob":"fd948adb9fd9b48c271c879a9d01933b7cfad777"},
-    "blue-scholar": {"path":"assets/art/source-locked/kongjwi/blue-scholar/base-cutout.png","legacyPath":"assets/art/kongjwi/kongjwi-blue-scholar-cutout.png","gitBlob":"208ea98b55c814717817269f184daf8ddb0f639e"},
-    "field-work": {"path":"assets/art/source-locked/kongjwi/field-work/base-cutout.png","legacyPath":"assets/art/kongjwi/kongjwi-field-work-cutout.png","gitBlob":"4ffa41d29d2afd728dca2425924aa47ef9b4ffbd"},
-    "ragged": {"path":"assets/art/source-locked/kongjwi/ragged/base-cutout.png","legacyPath":"assets/art/kongjwi/kongjwi-ragged-cutout.png","gitBlob":"3733cc74bd0346f5f8af13a1f7ba99e55d14cdd0"},
-    "night-court": {"path":"assets/art/source-locked/kongjwi/night-court/base-cutout.png","legacyPath":"assets/art/kongjwi/kongjwi-night-court-cutout.png","gitBlob":"692cee514f10ed6465f4528d5ab2abef5e2c0b9f"}
+    "underlayer": {"path":"assets/그림/공용/원본/콩쥐/속옷/기본-오려내기.png","legacyPath":"assets/그림/공용/콩쥐/정적/속옷.png","gitBlob":"f4912729bcdcede2275d5c5a1ba158971e19649a"},
+    "classic-red": {"path":"assets/그림/공용/원본/콩쥐/고전-홍색-한복/기본-오려내기.png","legacyPath":"assets/그림/공용/콩쥐/정적/고전-홍색-한복.png","gitBlob":"fd948adb9fd9b48c271c879a9d01933b7cfad777"},
+    "blue-scholar": {"path":"assets/그림/공용/원본/콩쥐/청색-학자복/기본-오려내기.png","legacyPath":"assets/그림/공용/콩쥐/정적/청색-학자복.png","gitBlob":"208ea98b55c814717817269f184daf8ddb0f639e"},
+    "field-work": {"path":"assets/그림/공용/원본/콩쥐/농사일-작업복/기본-오려내기.png","legacyPath":"assets/그림/공용/콩쥐/정적/농사일-작업복.png","gitBlob":"4ffa41d29d2afd728dca2425924aa47ef9b4ffbd"},
+    "ragged": {"path":"assets/그림/공용/원본/콩쥐/누더기옷/기본-오려내기.png","legacyPath":"assets/그림/공용/콩쥐/정적/누더기옷.png","gitBlob":"3733cc74bd0346f5f8af13a1f7ba99e55d14cdd0"},
+    "night-court": {"path":"assets/그림/공용/원본/콩쥐/야간-궁중복/기본-오려내기.png","legacyPath":"assets/그림/공용/콩쥐/정적/야간-궁중복.png","gitBlob":"692cee514f10ed6465f4528d5ab2abef5e2c0b9f"}
   },
   "tools": {
-    "wood": {"path":"assets/art/source-locked/tools/wood/base.png","legacyPath":"assets/art/kongjwi-tools/wood.png","gitBlob":"d6d6acc89c470d3f24b5f3fd45abcd1a03bdb384"},
-    "brass": {"path":"assets/art/source-locked/tools/brass/base.png","legacyPath":"assets/art/kongjwi-tools/brass.png","gitBlob":"3a70bcdb2ae4b1ef3016ff8350ab345900f41f2a"},
-    "celadon": {"path":"assets/art/source-locked/tools/celadon/base.png","legacyPath":"assets/art/kongjwi-tools/celadon.png","gitBlob":"263f52ed4895636bc0a127a105c00ac6a3bde1d9"},
-    "moon": {"path":"assets/art/source-locked/tools/moon/base.png","legacyPath":"assets/art/kongjwi-tools/moon.png","gitBlob":"cf585a0672653b6214d6e89948069a8a661ab4aa"}
+    "wood": {"path":"assets/그림/공용/원본/바가지/나무-바가지.png","legacyPath":"assets/art/kongjwi-tools/wood.png","gitBlob":"d6d6acc89c470d3f24b5f3fd45abcd1a03bdb384"},
+    "brass": {"path":"assets/그림/공용/원본/바가지/놋쇠-바가지.png","legacyPath":"assets/art/kongjwi-tools/brass.png","gitBlob":"3a70bcdb2ae4b1ef3016ff8350ab345900f41f2a"},
+    "celadon": {"path":"assets/그림/공용/원본/바가지/청자-바가지.png","legacyPath":"assets/art/kongjwi-tools/celadon.png","gitBlob":"263f52ed4895636bc0a127a105c00ac6a3bde1d9"},
+    "moon": {"path":"assets/그림/공용/원본/바가지/월광-바가지.png","legacyPath":"assets/art/kongjwi-tools/moon.png","gitBlob":"cf585a0672653b6214d6e89948069a8a661ab4aa"}
   },
   "jars": {
-    "onggi": {"closed":{"path":"assets/art/source-locked/jars/onggi/closed.png","legacyPath":"assets/art/jars/onggi/thumbnail-no-toad.png","gitBlob":"cbbefe36193dd5362b6c574d867249fe77a98010"},"open":{"path":"assets/art/source-locked/jars/onggi/open.png","legacyPath":"assets/art/jars/onggi/lid-open.png","gitBlob":"61ab9f221c037152176aa5c969e720dd842e3dd9"}},
-    "celadon": {"closed":{"path":"assets/art/source-locked/jars/celadon/closed.png","legacyPath":"assets/art/jars/celadon/thumbnail-no-toad.png","gitBlob":"412e51a1adc957f8add989290dbf4b95234cf3c6"},"open":{"path":"assets/art/source-locked/jars/celadon/open.png","legacyPath":"assets/art/jars/celadon/lid-open.png","gitBlob":"961d661ca322c377e73880e20e1ca68d926b4c24"}},
-    "moon-white": {"closed":{"path":"assets/art/source-locked/jars/moon-white/closed.png","legacyPath":"assets/art/jars/moon-white/thumbnail-no-toad.png","gitBlob":"2d30fb9e83d22bba50f484804835afb31c588806"},"open":{"path":"assets/art/source-locked/jars/moon-white/open.png","legacyPath":"assets/art/jars/moon-white/lid-open.png","gitBlob":"6883ee925f59c11d2e0963896b60471ed8369c52"}},
-    "night-lacquer": {"closed":{"path":"assets/art/source-locked/jars/night-lacquer/closed.png","legacyPath":"assets/art/jars/night-lacquer/thumbnail-no-toad.png","gitBlob":"f82d5ef03b40fa36966f8b14227e1fc7ec9650c6"},"open":{"path":"assets/art/source-locked/jars/night-lacquer/open.png","legacyPath":"assets/art/jars/night-lacquer/lid-open.png","gitBlob":"111cb0cd87a1d83436e1434f30b93a27799fe66c"}}
+    "onggi": {"closed":{"path":"assets/그림/공용/원본/장독대/옹기/닫힘.png","legacyPath":"assets/그림/콩상점/상품/장독대/옹기/미리보기-두꺼비-없음.png","gitBlob":"cbbefe36193dd5362b6c574d867249fe77a98010"},"open":{"path":"assets/그림/공용/원본/장독대/옹기/열림.png","legacyPath":"assets/그림/콩상점/상품/장독대/옹기/뚜껑-열림.png","gitBlob":"61ab9f221c037152176aa5c969e720dd842e3dd9"}},
+    "celadon": {"closed":{"path":"assets/그림/공용/원본/장독대/청자/닫힘.png","legacyPath":"assets/그림/콩상점/상품/장독대/청자/미리보기-두꺼비-없음.png","gitBlob":"412e51a1adc957f8add989290dbf4b95234cf3c6"},"open":{"path":"assets/그림/공용/원본/장독대/청자/열림.png","legacyPath":"assets/그림/콩상점/상품/장독대/청자/뚜껑-열림.png","gitBlob":"961d661ca322c377e73880e20e1ca68d926b4c24"}},
+    "moon-white": {"closed":{"path":"assets/그림/공용/원본/장독대/달빛-백색/닫힘.png","legacyPath":"assets/그림/콩상점/상품/장독대/달빛-백색/미리보기-두꺼비-없음.png","gitBlob":"2d30fb9e83d22bba50f484804835afb31c588806"},"open":{"path":"assets/그림/공용/원본/장독대/달빛-백색/열림.png","legacyPath":"assets/그림/콩상점/상품/장독대/달빛-백색/뚜껑-열림.png","gitBlob":"6883ee925f59c11d2e0963896b60471ed8369c52"}},
+    "night-lacquer": {"closed":{"path":"assets/그림/공용/원본/장독대/밤-칠기/닫힘.png","legacyPath":"assets/그림/콩상점/상품/장독대/밤-칠기/미리보기-두꺼비-없음.png","gitBlob":"f82d5ef03b40fa36966f8b14227e1fc7ec9650c6"},"open":{"path":"assets/그림/공용/원본/장독대/밤-칠기/열림.png","legacyPath":"assets/그림/콩상점/상품/장독대/밤-칠기/뚜껑-열림.png","gitBlob":"111cb0cd87a1d83436e1434f30b93a27799fe66c"}}
   },
   "toad": {
-    "field-brown": {"path":"assets/art/source-locked/toad/base/field-brown.png","legacyPath":"assets/images/toad-expressions/기본.png","gitBlob":"1941cefc56948e4b3f07c69e685511e1e0b0f990"},
-    "gold-worker": {"path":"assets/art/source-locked/toad/skins/gold-worker.png","legacyPath":"assets/art/game-scene/toad/skins/gold-worker.png","gitBlob":"d48480a7ab4c0a1b08007dbe93fb4fc011fdca1b"},
-    "jade-guard": {"path":"assets/art/source-locked/toad/skins/jade-guard.png","legacyPath":"assets/art/game-scene/toad/skins/jade-guard.png","gitBlob":"54d40357851b5ba506689ba802984116aae8448c"},
-    "star-night": {"path":"assets/art/source-locked/toad/skins/star-night.png","legacyPath":"assets/art/game-scene/toad/skins/star-night.png","gitBlob":"72295bff1e2780948412d9e018b5764fb256c2f5"}
+    "field-brown": {"path":"assets/그림/공용/원본/두꺼비/기본-갈색.png","legacyPath":"assets/그림/공용/두꺼비/표정/기본.png","gitBlob":"1941cefc56948e4b3f07c69e685511e1e0b0f990"},
+    "gold-worker": {"path":"assets/그림/공용/원본/두꺼비/금빛-일꾼.png","legacyPath":"assets/art/game-scene/toad/skins/gold-worker.png","gitBlob":"d48480a7ab4c0a1b08007dbe93fb4fc011fdca1b"},
+    "jade-guard": {"path":"assets/그림/공용/원본/두꺼비/옥빛-수호자.png","legacyPath":"assets/art/game-scene/toad/skins/jade-guard.png","gitBlob":"54d40357851b5ba506689ba802984116aae8448c"},
+    "star-night": {"path":"assets/그림/공용/원본/두꺼비/별밤.png","legacyPath":"assets/art/game-scene/toad/skins/star-night.png","gitBlob":"72295bff1e2780948412d9e018b5764fb256c2f5"}
   },
   "background": {
-    "courtyard-night": {"path":"assets/art/source-locked/background/courtyard-night.png","legacyPath":"assets/images/background/courtyard-night.png","gitBlob":"075dcb791ce72f16a39545c06d27e79c5e4268ec"}
+    "courtyard-night": {"path":"assets/그림/공용/원본/배경/밤-뜰.png","legacyPath":"assets/그림/메인/배경/밤-뜰.png","gitBlob":"075dcb791ce72f16a39545c06d27e79c5e4268ec"}
   }
 }

@@ -18,14 +18,14 @@ jobs:
         uses: actions/checkout@v4
       - name: Inspect reference
         run: |
-          file assets/art/jars/celadon/lid-open.png
-          sha256sum assets/art/jars/celadon/lid-open.png
-          stat -c 'size_bytes=%s' assets/art/jars/celadon/lid-open.png
+          file assets/그림/콩상점/상품/장독대/청자/뚜껑-열림.png
+          sha256sum assets/그림/콩상점/상품/장독대/청자/뚜껑-열림.png
+          stat -c 'size_bytes=%s' assets/그림/콩상점/상품/장독대/청자/뚜껑-열림.png
       - name: Upload reference
         uses: actions/upload-artifact@v4
         with:
           name: celadon-reference
-          path: assets/art/jars/celadon/lid-open.png
+          path: assets/그림/콩상점/상품/장독대/청자/뚜껑-열림.png
           if-no-files-found: error
           compression-level: 0
           retention-days: 1
