@@ -59,9 +59,10 @@ test("first two earth science jars are live and share one quiz runner", async ()
   assert.match(content, /EARTH_SCIENCE_FOSSIL_ERA_QUESTIONS/);
 });
 
-test("scene renderer resolves manifest and PNG assets from its module root", async () => {
+test("scene renderer resolves the Korean manifest and normalizes migrated scene assets", async () => {
   const renderer = await readFile(resolve(root, "assets/js/scene-renderer.js"), "utf8");
-  assert.match(renderer, /new URL\("\.\.\/art\/game-scene\/manifest\.json/);
+  assert.match(renderer, /new URL\("\.\.\/그림\/게임-장면\/manifest\.json/);
   assert.match(renderer, /const SITE_ROOT_URL = new URL\("\.\.\/\.\.\/", import\.meta\.url\)/);
-  assert.match(renderer, /new URL\(url, SITE_ROOT_URL\)/);
+  assert.match(renderer, /resolveSceneAssetPath/);
+  assert.match(renderer, /new URL\(resolveSceneAssetPath\(url\), SITE_ROOT_URL\)/);
 });
