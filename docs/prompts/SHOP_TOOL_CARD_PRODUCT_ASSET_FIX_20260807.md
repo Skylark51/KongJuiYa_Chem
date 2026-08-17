@@ -11,10 +11,10 @@
 ## 해결 지침
 
 1. 상점 카드와 카테고리 미리보기는 게임 애니메이션 시트가 아니라 기존 제품용 PNG를 직접 사용한다.
-   - `assets/그림/공용/바가지/나무-바가지.png`
-   - `assets/그림/공용/바가지/놋쇠-바가지.png`
-   - `assets/그림/공용/바가지/청자-바가지.png`
-   - `assets/그림/공용/바가지/월광-바가지.png`
+   - `assets/art/kongjwi-tools/wood.png`
+   - `assets/art/kongjwi-tools/brass.png`
+   - `assets/art/kongjwi-tools/celadon.png`
+   - `assets/art/kongjwi-tools/moon.png`
 2. 네 PNG의 공통 원본 비율인 320×200(8:5)을 유지한다.
 3. `background-size: contain`, 중앙 정렬을 사용하고 강제 확대/세로 이동/스케일 보정을 제거한다.
 4. 카드의 기존 2열 모바일 레이아웃, 구매/장착 로직, 게임 장면의 4096×768 동작 시트는 변경하지 않는다.
