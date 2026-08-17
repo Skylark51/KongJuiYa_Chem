@@ -17,7 +17,7 @@ const [catalog, manifestText, renderer, shop, css, uiEffects, builder, effects] 
 const manifest = JSON.parse(manifestText);
 
 assert.ok(catalog.includes("outfit_underlayer"));
-assert.ok(shop.includes("assets/art/source-locked/kongjwi/underlayer/base-cutout.png"));
+assert.ok(shop.includes("assets/그림/공용/원본/콩쥐/속옷/기본-오려내기.png"));
 assert.ok(
   ["20260808-anatomy-safe1", "20260808-head-safe1", "20260808-head-safe2", "20260808-layer-safe1", "20260812-night-court-summon1", "20260815-blue-scholar-headsafe1", "20260815-blue-scholar-30f1"].includes(manifest.version),
   `unexpected migration version ${manifest.version}`

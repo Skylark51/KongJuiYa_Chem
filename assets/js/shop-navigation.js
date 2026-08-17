@@ -34,13 +34,13 @@ const ASSET_VERSION = "20260815-blue-scholar-current-preview1";
 // stay visually identical to the current 30-frame gameplay art, so its preview
 // is extracted from that canonical current-design sheet rather than the legacy cutout.
 const OUTFIT_ART = Object.freeze({
-  underlayer: `assets/art/source-locked/kongjwi/underlayer/base-cutout.png?v=${ASSET_VERSION}`,
-  "classic-red": `assets/art/source-locked/kongjwi/classic-red/base-cutout.png?v=${ASSET_VERSION}`,
+  underlayer: `assets/그림/공용/원본/콩쥐/속옷/기본-오려내기.png?v=${ASSET_VERSION}`,
+  "classic-red": `assets/그림/공용/원본/콩쥐/고전-홍색-한복/기본-오려내기.png?v=${ASSET_VERSION}`,
   "blue-scholar": `assets/art/game-scene-v2/kongjwi/blue-scholar/preview.png?v=${ASSET_VERSION}`,
-  "field-green": `assets/art/source-locked/kongjwi/field-work/base-cutout.png?v=${ASSET_VERSION}`,
-  "royal-night": `assets/art/source-locked/kongjwi/night-court/base-cutout.png?v=${ASSET_VERSION}`
+  "field-green": `assets/그림/공용/원본/콩쥐/농사일-작업복/기본-오려내기.png?v=${ASSET_VERSION}`,
+  "royal-night": `assets/그림/공용/원본/콩쥐/야간-궁중복/기본-오려내기.png?v=${ASSET_VERSION}`
 });
-const UNDERLAYER_ART = `assets/art/source-locked/kongjwi/underlayer/base-cutout.png?v=${ASSET_VERSION}`;
+const UNDERLAYER_ART = `assets/그림/공용/원본/콩쥐/속옷/기본-오려내기.png?v=${ASSET_VERSION}`;
 const OUTFIT_SPRITE_KEYS = new Set();
 const OUTFIT_SPRITE_FRAME_COUNT = 8;
 const OUTFIT_GRID_SPECS = Object.freeze({});
@@ -51,15 +51,15 @@ const SPRITE_OVERRIDE_PROPERTIES = Object.freeze([
 ]);
 
 const JAR_ART = Object.freeze({
-  onggi: "assets/art/jars/onggi/thumbnail-no-toad.png?v=20260805-jar-clean2",
-  celadon: "assets/art/jars/celadon/thumbnail-no-toad.png?v=20260805-jar-clean2",
-  "moon-white": "assets/art/jars/moon-white/thumbnail-no-toad.png?v=20260805-jar-clean2",
-  "night-lacquer": "assets/art/jars/night-lacquer/thumbnail-no-toad.png?v=20260805-jar-clean2"
+  onggi: "assets/그림/콩상점/상품/장독대/옹기/미리보기-두꺼비-없음.png?v=20260805-jar-clean2",
+  celadon: "assets/그림/콩상점/상품/장독대/청자/미리보기-두꺼비-없음.png?v=20260805-jar-clean2",
+  "moon-white": "assets/그림/콩상점/상품/장독대/달빛-백색/미리보기-두꺼비-없음.png?v=20260805-jar-clean2",
+  "night-lacquer": "assets/그림/콩상점/상품/장독대/밤-칠기/미리보기-두꺼비-없음.png?v=20260805-jar-clean2"
 });
 
 const TOAD_ASSET_VERSION = "20260812-toad-skins2";
 const TOAD_ART = Object.freeze({
-  "field-brown": `assets/art/source-locked/toad/base/field-brown.png?v=${TOAD_ASSET_VERSION}`,
+  "field-brown": `assets/그림/공용/원본/두꺼비/기본-갈색.png?v=${TOAD_ASSET_VERSION}`,
   "gold-worker": `assets/그림/게임-장면/두꺼비/스킨/황금-일꾼.png?v=${TOAD_ASSET_VERSION}`,
   "jade-guard": `assets/그림/게임-장면/두꺼비/스킨/비취-수호.png?v=${TOAD_ASSET_VERSION}`,
   "star-night": `assets/그림/게임-장면/두꺼비/스킨/별밤.png?v=${TOAD_ASSET_VERSION}`

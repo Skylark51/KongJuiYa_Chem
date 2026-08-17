@@ -7,7 +7,7 @@
 ## 확인된 원인
 
 1. 기본 상품인 `field-brown`은 존재하지 않는 `assets/그림/게임-장면/두꺼비/스킨/field-brown.png`를 요청한다.
-2. 기본 두꺼비가 누락되면 렌더러가 `assets/images/toad-expressions/*.png`의 완성형 두꺼비 PNG를 작은 표정 오버레이처럼 취급한다.
+2. 기본 두꺼비가 누락되면 렌더러가 `assets/그림/공용/두꺼비/표정/*.png`의 완성형 두꺼비 PNG를 작은 표정 오버레이처럼 취급한다.
 3. 완성형 PNG 전체가 장독대 구멍용 작은 박스 안에 `contain`으로 들어가면서 얼굴·몸통 대신 이미지 일부만 노출된다.
 4. 황금·비취·별밤 스킨은 원본 PNG가 존재하지만 공통 표정 오버레이 시트가 없으므로, 없는 시트를 전제로 한 합성 구조를 사용하면 안 된다.
 5. 장독대 종류별 구멍 위치와 형태가 다른데도 공통 두꺼비 좌표와 크롭을 사용한다.
@@ -27,15 +27,15 @@
 
 `field-brown`을 `full-expression` 자산으로 표시하되, 기존 렌더러의 검증된 `full-fallback` 상태 교체 경로를 사용해 상태마다 기존 완성형 PNG를 직접 교체한다.
 
-- 기본: `assets/images/toad-expressions/기본.png`
-- 정답: `assets/images/toad-expressions/기쁨.png`
-- 콤보: `assets/images/toad-expressions/존나기쁨.png`
-- 오답: `assets/images/toad-expressions/슬픔.png`
-- 화남·격노: `assets/images/toad-expressions/화남.png`
-- 놀람: `assets/images/toad-expressions/놀람.png`
-- 고민: `assets/images/toad-expressions/심오함.png`
-- 시간 초과: `assets/images/toad-expressions/눈물.png`
-- 대기 눈깜빡임: `assets/images/toad-expressions/지루함.png`
+- 기본: `assets/그림/공용/두꺼비/표정/기본.png`
+- 정답: `assets/그림/공용/두꺼비/표정/기쁨.png`
+- 콤보: `assets/그림/공용/두꺼비/표정/존나기쁨.png`
+- 오답: `assets/그림/공용/두꺼비/표정/슬픔.png`
+- 화남·격노: `assets/그림/공용/두꺼비/표정/화남.png`
+- 놀람: `assets/그림/공용/두꺼비/표정/놀람.png`
+- 고민: `assets/그림/공용/두꺼비/표정/심오함.png`
+- 시간 초과: `assets/그림/공용/두꺼비/표정/눈물.png`
+- 대기 눈깜빡임: `assets/그림/공용/두꺼비/표정/지루함.png`
 
 완성형 PNG는 표정 오버레이가 아니다. 장독대 구멍용 ellipse viewport 안에서 확대·이동하여 얼굴과 상체가 식별되게 하고, 앞쪽 장독대 레이어 또는 구멍 테두리가 이미지 가장자리를 가리게 한다.
 
@@ -43,9 +43,9 @@
 
 다음 원본 PNG는 `skin-motion` 방식으로 사용한다.
 
-- `gold-worker.png`
-- `jade-guard.png`
-- `star-night.png`
+- `assets/그림/게임-장면/두꺼비/스킨/황금-일꾼.png`
+- `assets/그림/게임-장면/두꺼비/스킨/비취-수호.png`
+- `assets/그림/게임-장면/두꺼비/스킨/별밤.png`
 
 공통 표정 오버레이를 합성하지 않는다. 정답·오답·시간 초과·피버 상태는 PNG 교체가 아니라 transform 애니메이션으로 표현한다.
 
