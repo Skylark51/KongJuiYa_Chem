@@ -1,3 +1,31 @@
+:root {
+  --jar-preview-subject-bg: #1d160f;
+  --jar-preview-subject-light: rgba(243, 211, 140, .04);
+  --jar-preview-subject-shadow: rgba(14, 12, 9, .22);
+  --jar-preview-subject-line: rgba(229, 192, 129, .10);
+}
+
+html[data-theme="physics"] {
+  --jar-preview-subject-bg: #111d34;
+  --jar-preview-subject-light: rgba(181, 208, 255, .04);
+  --jar-preview-subject-shadow: rgba(6, 10, 18, .22);
+  --jar-preview-subject-line: rgba(131, 174, 235, .10);
+}
+
+html[data-theme="biology"] {
+  --jar-preview-subject-bg: #12251a;
+  --jar-preview-subject-light: rgba(188, 233, 200, .04);
+  --jar-preview-subject-shadow: rgba(7, 13, 9, .22);
+  --jar-preview-subject-line: rgba(136, 201, 151, .10);
+}
+
+html[data-theme="earth-science"] {
+  --jar-preview-subject-bg: #0d2830;
+  --jar-preview-subject-light: rgba(175, 230, 225, .04);
+  --jar-preview-subject-shadow: rgba(5, 12, 17, .22);
+  --jar-preview-subject-line: rgba(119, 197, 199, .10);
+}
+
 #trainingGrid .jar-preview.jar-preview-photo,
 #subjectQuizGrid .jar-preview.jar-preview-photo {
   position: relative;
@@ -9,7 +37,7 @@
   flex: 0 0 auto;
   overflow: hidden;
   isolation: isolate;
-  background-color: #21150f;
+  background-color: var(--jar-preview-subject-bg);
   background-position: center 51% !important;
   background-repeat: no-repeat !important;
   background-size: contain !important;
@@ -35,7 +63,7 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(255, 246, 218, .035), transparent 48%, rgba(18, 8, 3, .18));
+  background: linear-gradient(180deg, var(--jar-preview-subject-light), transparent 48%, var(--jar-preview-subject-shadow));
 }
 
 #subjectQuizGrid .jar-preview.jar-preview-photo::after {
@@ -44,6 +72,6 @@
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  border: 1px solid rgba(255, 232, 184, .09);
-  box-shadow: inset 0 -24px 30px rgba(12, 6, 3, .18);
+  border: 1px solid var(--jar-preview-subject-line);
+  box-shadow: inset 0 -24px 30px var(--jar-preview-subject-shadow);
 }
