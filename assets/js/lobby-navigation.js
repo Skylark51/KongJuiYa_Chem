@@ -1,5 +1,6 @@
 import { GameStorage } from "./storage.js";
 import "./records-enhancements.js";
+import "./jar-selection-preview-parity.js";
 import { siteUrl } from "./site-routing.js";
 
 const VALID_VIEWS = new Set(["home", "jars", "records"]);
