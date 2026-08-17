@@ -1,0 +1,132 @@
+/* Standard-fossil era quiz only: image-led prompt with no instruction sentence. */
+#ui-gameApp[data-training-id="earth-index-fossil-era"] .scene-question-bubble {
+  position: absolute;
+  z-index: 11;
+  top: 78px;
+  left: 50%;
+  width: min(78%, 760px);
+  min-height: 0 !important;
+  padding: 7px 18px 3px;
+  border: 1px solid rgba(244, 210, 138, 0.56);
+  border-radius: 20px 20px 20px 6px;
+  background: linear-gradient(145deg, rgba(31, 25, 18, 0.88), rgba(13, 16, 19, 0.78));
+  color: #fff7e8;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px) saturate(1.08);
+  -webkit-backdrop-filter: blur(15px) saturate(1.08);
+  transform: translateX(-50%);
+}
+
+#ui-gameApp[data-training-id="earth-index-fossil-era"] .scene-question-bubble::after {
+  content: "";
+  position: absolute;
+  left: 24px;
+  bottom: -11px;
+  width: 22px;
+  height: 22px;
+  border-right: 1px solid rgba(244, 210, 138, 0.5);
+  border-bottom: 1px solid rgba(244, 210, 138, 0.5);
+  background: rgba(17, 18, 18, 0.82);
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  transform: rotate(1deg);
+}
+
+#ui-gameApp[data-training-id="earth-index-fossil-era"] .scene-question-topline {
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+#ui-gameApp[data-training-id="earth-index-fossil-era"] .scene-question-bubble h1[data-presentation="source-image"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 0 !important;
+  max-height: none !important;
+  height: auto;
+  margin: 0 !important;
+  overflow: visible;
+  gap: 0;
+  text-align: center;
+}
+
+#ui-gameApp[data-training-id="earth-index-fossil-era"] .subject-question-source {
+  order: 0;
+  align-self: center;
+  margin: 0 0 7px;
+  text-align: center;
+}
+
+#ui-gameApp[data-training-id="earth-index-fossil-era"] .subject-question-image {
+  order: 1;
+  flex: 0 0 auto;
+  width: 260px;
+  height: 160px;
+  max-width: 260px;
+  max-height: 160px;
+  margin: 0;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+}
+
+#ui-gameApp[data-training-id="earth-index-fossil-era"] .subject-question-prompt {
+  display: none;
+}
+
+#ui-gameApp[data-training-id="earth-index-fossil-era"] .scene-question-bubble .timer-track {
+  height: 5px;
+  margin-top: 3px;
+}
+
+@media (min-width: 768px) {
+  #ui-gameApp[data-training-id="earth-index-fossil-era"] .question-meta {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  #ui-gameApp[data-training-id="earth-index-fossil-era"] .scene-question-bubble {
+    min-height: 0 !important;
+    top: 7px;
+    left: 6px;
+    width: calc(100% - 12px);
+    padding: 5px 10px 6px;
+    border-radius: 14px 14px 14px 5px;
+    backdrop-filter: blur(11px) saturate(1.04);
+    -webkit-backdrop-filter: blur(11px) saturate(1.04);
+    transform: none;
+  }
+
+  #ui-gameApp[data-training-id="earth-index-fossil-era"] .scene-question-bubble::after {
+    left: 17px;
+    bottom: -8px;
+    width: 16px;
+    height: 16px;
+  }
+
+  #ui-gameApp[data-training-id="earth-index-fossil-era"] .scene-question-topline {
+    gap: 3px;
+    margin-bottom: 3px;
+  }
+
+  #ui-gameApp[data-training-id="earth-index-fossil-era"] .subject-question-source {
+    margin-bottom: 6px;
+  }
+
+  #ui-gameApp[data-training-id="earth-index-fossil-era"] .subject-question-image {
+    width: min(52vw, 200px);
+    height: 125px;
+    max-width: 200px;
+    max-height: 125px;
+  }
+}
+
+@media (max-width: 390px) {
+  #ui-gameApp[data-training-id="earth-index-fossil-era"] .subject-question-image {
+    width: min(48vw, 180px);
+    height: 112px;
+    max-width: 180px;
+    max-height: 112px;
+  }
+}
