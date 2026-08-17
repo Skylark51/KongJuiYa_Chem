@@ -1,7 +1,7 @@
 import { createJarPreview } from "./theme-system.js";
 import { siteUrl } from "./site-routing.js";
 
-const STYLESHEET = "assets/css/jar-selection-preview-parity.css?v=20260817-jar-square1";
+const STYLESHEET = "assets/css/jar-selection-preview-parity.css?v=20260817-jar-subject-bg1";
 const STYLESHEET_MARKER = "jar-selection-preview-parity";
 const COSMETIC_STORAGE_KEY = "kongjuiya-cosmetics-v1";
 
