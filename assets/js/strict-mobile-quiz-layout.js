@@ -1,14 +1,16 @@
 const MOBILE_QUERY = '(max-width: 900px), (pointer: coarse)';
 const DIALOGUE_STYLE_ID = 'dialogue-above-kongjwi-style';
-const DIALOGUE_STYLE_URL = new URL('../css/dialogue-above-kongjwi.css?v=20260818-dialogue-position1', import.meta.url).href;
+const DIALOGUE_STYLE_URL = new URL('../css/dialogue-above-kongjwi.css?v=20260818-dialogue-position2', import.meta.url).href;
 
 function ensureDialoguePositionStylesheet() {
-  if (document.getElementById(DIALOGUE_STYLE_ID)) return;
-  const link = document.createElement('link');
-  link.id = DIALOGUE_STYLE_ID;
-  link.rel = 'stylesheet';
-  link.href = DIALOGUE_STYLE_URL;
-  document.head.append(link);
+  let link = document.getElementById(DIALOGUE_STYLE_ID);
+  if (!link) {
+    link = document.createElement('link');
+    link.id = DIALOGUE_STYLE_ID;
+    link.rel = 'stylesheet';
+    document.head.append(link);
+  }
+  if (link.href !== DIALOGUE_STYLE_URL) link.href = DIALOGUE_STYLE_URL;
 }
 
 export function mountStrictMobileQuizLayout() {
