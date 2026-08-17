@@ -1,4 +1,15 @@
 const MOBILE_QUERY = '(max-width: 900px), (pointer: coarse)';
+const DIALOGUE_STYLE_ID = 'dialogue-above-kongjwi-style';
+const DIALOGUE_STYLE_URL = new URL('../css/dialogue-above-kongjwi.css?v=20260818-dialogue-position1', import.meta.url).href;
+
+function ensureDialoguePositionStylesheet() {
+  if (document.getElementById(DIALOGUE_STYLE_ID)) return;
+  const link = document.createElement('link');
+  link.id = DIALOGUE_STYLE_ID;
+  link.rel = 'stylesheet';
+  link.href = DIALOGUE_STYLE_URL;
+  document.head.append(link);
+}
 
 export function mountStrictMobileQuizLayout() {
   const app = document.getElementById('ui-gameApp');
@@ -8,6 +19,8 @@ export function mountStrictMobileQuizLayout() {
   const questionZone = app?.querySelector('.scene-question-zone');
   const animationZone = app?.querySelector('.scene-animation-zone');
   if (!app || !layout || !scenePanel || !sceneLayout || !questionZone || !animationZone) return null;
+
+  ensureDialoguePositionStylesheet();
 
   let slot = layout.querySelector('.strict-mobile-question-slot');
   if (!slot) {
