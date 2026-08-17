@@ -28,9 +28,9 @@
   },
   "toad": {
     "field-brown": {"path":"assets/그림/공용/원본/두꺼비/기본-갈색.png","legacyPath":"assets/그림/공용/두꺼비/표정/기본.png","gitBlob":"1941cefc56948e4b3f07c69e685511e1e0b0f990"},
-    "gold-worker": {"path":"assets/그림/공용/원본/두꺼비/금빛-일꾼.png","legacyPath":"assets/art/game-scene/toad/skins/gold-worker.png","gitBlob":"d48480a7ab4c0a1b08007dbe93fb4fc011fdca1b"},
-    "jade-guard": {"path":"assets/그림/공용/원본/두꺼비/옥빛-수호자.png","legacyPath":"assets/art/game-scene/toad/skins/jade-guard.png","gitBlob":"54d40357851b5ba506689ba802984116aae8448c"},
-    "star-night": {"path":"assets/그림/공용/원본/두꺼비/별밤.png","legacyPath":"assets/art/game-scene/toad/skins/star-night.png","gitBlob":"72295bff1e2780948412d9e018b5764fb256c2f5"}
+    "gold-worker": {"path":"assets/그림/공용/원본/두꺼비/금빛-일꾼.png","legacyPath":"assets/그림/게임-장면/두꺼비/스킨/황금-일꾼.png","gitBlob":"d48480a7ab4c0a1b08007dbe93fb4fc011fdca1b"},
+    "jade-guard": {"path":"assets/그림/공용/원본/두꺼비/옥빛-수호자.png","legacyPath":"assets/그림/게임-장면/두꺼비/스킨/비취-수호.png","gitBlob":"54d40357851b5ba506689ba802984116aae8448c"},
+    "star-night": {"path":"assets/그림/공용/원본/두꺼비/별밤.png","legacyPath":"assets/그림/게임-장면/두꺼비/스킨/별밤.png","gitBlob":"72295bff1e2780948412d9e018b5764fb256c2f5"}
   },
   "background": {
     "courtyard-night": {"path":"assets/그림/공용/원본/배경/밤-뜰.png","legacyPath":"assets/그림/메인/배경/밤-뜰.png","gitBlob":"075dcb791ce72f16a39545c06d27e79c5e4268ec"}
