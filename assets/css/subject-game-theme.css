@@ -95,3 +95,74 @@
   .subject-question-image { max-height: 40px; }
   .subject-question-source { display: none; }
 }
+
+/* The fossil classification jar uses an image-first question and compact answers. */
+#ui-gameApp[data-training-id='earth-fossil-type'] #questionText[data-presentation='source-image'] {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  justify-items: center;
+  align-items: center;
+  min-height: clamp(72px, 15vh, 144px);
+  max-height: none !important;
+  overflow: visible;
+  text-align: center;
+}
+
+#ui-gameApp[data-training-id='earth-fossil-type'] #questionText .subject-question-image {
+  grid-column: 1;
+  grid-row: 1;
+  width: min(100%, 220px);
+  height: auto;
+  max-height: min(15vh, 132px);
+  margin-inline: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
+#ui-gameApp[data-training-id='earth-fossil-type'] #questionText .subject-question-source {
+  grid-column: 1;
+  grid-row: 2;
+  width: auto;
+  margin-inline: auto;
+  text-align: center;
+}
+
+#ui-gameApp[data-training-id='earth-fossil-type'] #ui-choiceOptions button {
+  min-height: 44px;
+  padding: 6px 8px;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  #ui-gameApp[data-training-id='earth-fossil-type'] .question-answer-card {
+    grid-template-rows: auto auto auto !important;
+    height: auto !important;
+    min-height: 0;
+    align-self: start;
+  }
+
+  #ui-gameApp[data-training-id='earth-fossil-type'] .mobile-input-dock:not([hidden]),
+  #ui-gameApp[data-training-id='earth-fossil-type'] .mobile-keypad {
+    height: auto !important;
+  }
+
+  #ui-gameApp[data-training-id='earth-fossil-type'] .mobile-keypad {
+    grid-template-rows: auto !important;
+    align-self: start;
+  }
+
+  #ui-gameApp[data-training-id='earth-fossil-type'] .keypad-keys.is-choice {
+    grid-auto-rows: auto;
+    align-content: start;
+  }
+
+  #ui-gameApp[data-training-id='earth-fossil-type'] .keypad-choice {
+    min-height: 44px !important;
+    height: 56px;
+    padding: 8px 10px !important;
+    font-size: clamp(15px, 4.5vw, 20px) !important;
+    line-height: 1.2;
+    text-align: center;
+  }
+}
