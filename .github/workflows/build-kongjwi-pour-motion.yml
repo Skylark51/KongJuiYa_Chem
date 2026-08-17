@@ -10,8 +10,8 @@ on:
       - "assets/art/game-scene-v2/kongjwi/*/pour-sheet.png"
       - "assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png"
       - "assets/art/kongjwi-tools/*.png"
-      - "assets/art/game-scene/tools/*/master.png"
-      - "assets/art/game-scene/tools/*/pour-sheet.png"
+      - "assets/그림/게임-장면/바가지/*/기준-원본.png"
+      - "assets/그림/게임-장면/바가지/*/물붓기-동작.png"
       - "tests/kongjwi-pour-motion.test.mjs"
       - "tests/kongjwi-underlayer-grip.test.mjs"
       - ".github/workflows/build-kongjwi-pour-motion.yml"
@@ -61,7 +61,7 @@ jobs:
               'assets/art/game-scene-v2/kongjwi/*/pour-sheet.png' \
               'assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png' \
               'assets/art/kongjwi-tools/*.png' \
-              'assets/art/game-scene/tools/*/master.png' \
+              'assets/그림/게임-장면/바가지/*/기준-원본.png' \
               'tests/kongjwi-pour-motion.test.mjs' \
               'tests/kongjwi-underlayer-grip.test.mjs' \
               '.github/workflows/build-kongjwi-pour-motion.yml' | grep -q .; then
@@ -100,7 +100,7 @@ jobs:
               f"night-court face/head alpha is incomplete: {current_face} < {minimum_face}"
           )
 
-          manifest = json.loads(Path("assets/art/game-scene/manifest.json").read_text(encoding="utf-8"))
+          manifest = json.loads(Path("assets/그림/게임-장면/manifest.json").read_text(encoding="utf-8"))
           assert manifest["version"] == "20260815-blue-scholar-headsafe1"
           assert manifest["runtimePolicy"]["nightCourtActionMode"] == "summon-servant-pour"
           assert manifest["runtimePolicy"]["anatomySafetyPolicy"] == "complete-source-required-no-headless-cutouts"
@@ -113,7 +113,7 @@ jobs:
 
           # Underlayer/ragged remain deterministic derivatives of complete source cutouts.
           for skin in generated_skins:
-              path = Path("assets/art/game-scene/kongjwi") / skin / "pour-sheet.png"
+              path = Path(builder.GAME_SCENE_ROOT) / builder.KONGJWI_DIRS[skin] / builder.KONGJWI_SHEET_NAME
               image = Image.open(path).convert("RGBA")
               assert image.size == (4096, 768), (skin, image.size)
               source = builder.load_rgba(Path("assets/art/kongjwi") / builder.SOURCES[skin])
@@ -135,18 +135,18 @@ jobs:
           # must be copied byte-for-byte into the active runtime, never rebuilt
           # from the older low-resolution cutouts.
           for skin in hq_skins:
-              active_path = Path("assets/art/game-scene/kongjwi") / skin / "pour-sheet.png"
+              active_path = Path(builder.GAME_SCENE_ROOT) / builder.KONGJWI_DIRS[skin] / builder.KONGJWI_SHEET_NAME
               canonical_path = Path("assets/art/game-scene-v2/kongjwi") / skin / "pour-sheet.png"
               assert active_path.read_bytes() == canonical_path.read_bytes(), f"{skin}: runtime diverged from authored HQ canonical sheet"
               image = Image.open(active_path).convert("RGBA")
               assert image.size == (4096, 768), (skin, image.size)
 
-          blue = Image.open(Path("assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png")).convert("RGBA")
+          blue = Image.open(Path(builder.GAME_SCENE_ROOT) / builder.KONGJWI_DIRS["blue-scholar"] / builder.KONGJWI_SHEET_NAME).convert("RGBA")
           for frame, (x, y) in {0: (259, 101), 1: (228, 106), 3: (281, 102)}.items():
               alpha = blue.getpixel((frame * 512 + x, y))[3]
               assert alpha >= 220, f"blue-scholar frame {frame}: crown hole regressed (alpha={alpha})"
 
-          night_path = Path("assets/art/game-scene/kongjwi/night-court/pour-sheet.png")
+          night_path = Path(builder.GAME_SCENE_ROOT) / builder.KONGJWI_DIRS["night-court"] / builder.KONGJWI_SHEET_NAME
           night = Image.open(night_path).convert("RGBA")
           assert night.size == (4096, 768), night.size
           expected_frames, alignments = builder.build_night_court_summon_frames(Path("."))
@@ -158,10 +158,10 @@ jobs:
               assert alignments[index]["anchor"]["y"] == 756
 
           for tool in tools:
-              base = Path("assets/art/game-scene/tools") / tool
-              master = Image.open(base / "master.png").convert("RGBA")
+              base = Path(builder.GAME_SCENE_ROOT) / builder.TOOL_DIRS[tool]
+              master = Image.open(base / builder.TOOL_MASTER_NAME).convert("RGBA")
               assert master.getchannel("A").getbbox(), f"{tool} canonical master is empty"
-              image = Image.open(base / "pour-sheet.png").convert("RGBA")
+              image = Image.open(base / builder.TOOL_SHEET_NAME).convert("RGBA")
               assert image.size == (4096, 768), (tool, image.size)
               first = np.asarray(image.crop((0, 0, 512, 768)), dtype=np.int16)
               fifth = np.asarray(image.crop((5 * 512, 0, 6 * 512, 768)), dtype=np.int16)
@@ -177,11 +177,11 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
             assets/art/kongjwi/kongjwi-night-court-cutout.png \
-            assets/art/game-scene/manifest.json \
-            assets/art/game-scene/kongjwi/*/pour-sheet.png \
-            assets/art/game-scene/kongjwi/night-court/provenance.json \
-            assets/art/game-scene/tools/*/master.png \
-            assets/art/game-scene/tools/*/pour-sheet.png
+            assets/그림/게임-장면/manifest.json \
+            assets/그림/게임-장면/콩쥐/*/물붓기-동작.png \
+            assets/그림/게임-장면/콩쥐/야간-궁중복/provenance.json \
+            assets/그림/게임-장면/바가지/*/기준-원본.png \
+            assets/그림/게임-장면/바가지/*/물붓기-동작.png
           if git diff --cached --quiet; then
             echo "No Kongjwi motion asset changes."
             exit 0

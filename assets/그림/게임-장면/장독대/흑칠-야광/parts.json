@@ -1,31 +1,31 @@
 {
   "version": 1,
   "frameLock": true,
-  "sourceOpen": "assets/art/jars/onggi/lid-open.png",
-  "sourceClosed": "assets/art/jars/onggi/thumbnail-no-toad.png",
-  "openNoToad": "open-no-toad.png",
-  "holeFront": "hole-front.png",
-  "runtimeSheet": "layers.png",
+  "sourceOpen": "assets/art/jars/night-lacquer/lid-open.png",
+  "sourceClosed": "assets/art/jars/night-lacquer/thumbnail-no-toad.png",
+  "openNoToad": "열림-두꺼비-없음.png",
+  "holeFront": "구멍-전경.png",
+  "runtimeSheet": "장독대-레이어.png",
   "runtimeFrames": {
     "back": 0,
     "front": 1
   },
   "registration": {
-    "scale": 1.9152671624910034,
+    "scale": 1.903420153557915,
     "translate": [
-      277.69160640230314,
-      23.33283065428236
+      289.2244406891738,
+      24.97200690643251
     ],
     "openBodyBox": [
-      431,
+      464,
       300,
-      1105,
-      935
+      1089,
+      931
     ],
     "closedBodyBox": [
-      77,
+      89,
       150,
-      435,
+      423,
       476
     ],
     "openCanvas": [
@@ -39,34 +39,34 @@
   },
   "fit": {
     "crop": [
-      413,
-      28,
-      1123,
-      953
+      446,
+      13,
+      1107,
+      949
     ],
-    "scale": 1.0335135135135136,
+    "scale": 1.0213675213675213,
     "offset": [
-      145,
+      174,
       34
     ],
     "size": [
-      734,
+      675,
       956
     ]
   },
   "cavitySpec": [
-    940.0,
-    690.0,
-    225.0,
-    190.0
+    940,
+    690,
+    220,
+    190
   ],
   "frontRingSpec": [
-    940.0,
-    690.0,
-    195.0,
-    165.0,
-    145.0,
-    120.0
+    940,
+    690,
+    190,
+    160,
+    145,
+    115
   ],
   "runtimePolicy": "source-locked open jar: outer frame/lid/pattern are kept from lid-open.png; only the toad cavity is replaced from the paired no-toad source; frame 1 is the no-toad broken-hole foreground rim"
 }

@@ -4,7 +4,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const strictAssets = process.argv.includes('--strict-assets');
-const manifest = JSON.parse(fs.readFileSync(path.join(root, 'assets/art/game-scene/manifest.json'), 'utf8'));
+const manifest = JSON.parse(fs.readFileSync(path.join(root, 'assets/그림/게임-장면/manifest.json'), 'utf8'));
 const cleanPath = pathname => String(pathname).split(/[?#]/, 1)[0];
 const declared = pathname => manifest.availability[pathname] ?? manifest.availability[cleanPath(pathname)];
 const expressionOverlay = manifest.assets.effects.toadExpression;

@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 
 const read = pathname => fs.readFileSync(new URL(`../${pathname}`, import.meta.url), "utf8");
-const manifest = JSON.parse(read("assets/art/game-scene/manifest.json"));
+const manifest = JSON.parse(read("assets/그림/게임-장면/manifest.json"));
 
 const expressionPaths = Object.freeze({
   default: "assets/images/toad-expressions/기본.png",
@@ -23,7 +23,7 @@ test("default toad uses existing complete expression PNGs instead of a missing f
   assert.equal(fieldBrown.mode, "full-expression");
   assert.equal(fieldBrown.skin, undefined);
   assert.deepEqual(manifest.assets.toadFallback, expressionPaths);
-  assert.equal(JSON.stringify(manifest).includes("assets/art/game-scene/toad/skins/field-brown.png"), false);
+  assert.equal(JSON.stringify(manifest).includes("assets/그림/게임-장면/두꺼비/스킨/field-brown.png"), false);
   for (const pathname of new Set(Object.values(expressionPaths))) {
     assert.equal(manifest.availability[pathname], true, `missing availability entry: ${pathname}`);
   }
@@ -37,7 +37,7 @@ test("premium toads keep their uploaded PNG skin and have a validated overlay co
     assert.equal(manifest.availability[definition.skin], true);
   }
   assert.deepEqual(manifest.assets.effects.toadExpression, {
-    path: "assets/art/game-scene/toad/expression-overlay-sheet.png",
+    path: "assets/그림/게임-장면/두꺼비/표정-오버레이-동작.png",
     enabled: false,
     validation: "truncated-png"
   });

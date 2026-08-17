@@ -13,10 +13,15 @@ ROOT = Path(__file__).resolve().parents[1]
 SKINS = ("gold-worker", "jade-guard", "star-night")
 SOURCE = ROOT / "assets/art/source-locked/toad/skins"
 COPIES = (
-    ROOT / "assets/art/game-scene/toad/skins",
+    ROOT / "assets/그림/게임-장면/두꺼비/스킨",
     ROOT / "assets/art/game-scene-v2/toad/skins",
 )
 EXPECTED_SIZE = (1024, 768)
+toad_files = {
+    "gold-worker": "황금-일꾼.png",
+    "jade-guard": "비취-수호.png",
+    "star-night": "별밤.png",
+}
 EXPECTED_CENTER_X = 511.5
 EXPECTED_BOTTOM = 742
 
@@ -56,7 +61,8 @@ def main() -> None:
         bbox, center_x, bottom = inspect(source)
         source_hash = digest(source)
         for directory in COPIES:
-            copy = directory / source.name
+            destination_name = toad_files[skin] if directory == COPIES[0] else source.name
+            copy = directory / destination_name
             inspect(copy)
             if digest(copy) != source_hash:
                 raise AssertionError(f"{copy}: does not match source-locked master")

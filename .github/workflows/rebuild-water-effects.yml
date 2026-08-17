@@ -32,7 +32,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/art/game-scene/effects/water-pour-sheet.png assets/art/game-scene/effects/water-leak-sheet.png
+          git add assets/그림/게임-장면/효과/물줄기-동작.png assets/그림/게임-장면/효과/구멍-누수-동작.png
           if git diff --cached --quiet; then
             echo "Water effect sheets are already current."
             exit 0

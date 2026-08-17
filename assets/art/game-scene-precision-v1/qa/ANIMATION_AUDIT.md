@@ -1,7 +1,7 @@
 # Animation asset audit
 
 - Manifest: assets/art/game-scene-precision-v1/animation-manifest.json
-- Manifest SHA256: db5fd4ae3c5b85e18d324d3ece078159b67a5a76624779c93c7fc1f10004a799
+- Manifest SHA256: 5b1c6453a547760c702bd4ab4638767b79460d487d73ece1277da68f95e43513
 - Scene logical canvas: 2048x1152
 - Strict failures: 0
 - Warnings: 5

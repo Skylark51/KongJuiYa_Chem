@@ -5,7 +5,7 @@ import path from "node:path";
 
 const root = process.cwd();
 const read = relative => fs.readFileSync(path.join(root, relative), "utf8");
-const manifest = JSON.parse(read("assets/art/game-scene/manifest.json"));
+const manifest = JSON.parse(read("assets/그림/게임-장면/manifest.json"));
 const html = read("콩쥐야_줘때써.html");
 const renderer = read("assets/js/scene-renderer.js");
 const controller = read("assets/js/scene-state-machine.js");

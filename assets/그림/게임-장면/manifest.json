@@ -41,24 +41,24 @@
   },
   "assets": {
     "background": {
-      "path": "assets/art/game-scene/background/courtyard-night-bg.png",
+      "path": "assets/그림/게임-장면/배경/야간-장독대-마당-배경.png",
       "fallback": "assets/images/background/courtyard-night.png"
     },
     "foreground": {
-      "path": "assets/art/game-scene/background/courtyard-night-fg.png",
+      "path": "assets/그림/게임-장면/배경/야간-장독대-마당-전경.png",
       "fallback": null
     },
     "kongjwi": {
       "underlayer": {
-        "sheet": "assets/art/game-scene/kongjwi/underlayer/pour-sheet.png",
+        "sheet": "assets/그림/게임-장면/콩쥐/기본-언더레이어/물붓기-동작.png",
         "fallback": "assets/art/kongjwi/kongjwi-underlayer-cutout.png"
       },
       "classic-red": {
-        "sheet": "assets/art/game-scene/kongjwi/classic-red/pour-sheet.png",
+        "sheet": "assets/그림/게임-장면/콩쥐/고전-홍색-한복/물붓기-동작.png",
         "fallback": "assets/art/kongjwi/kongjwi-classic-red-cutout.png"
       },
       "blue-scholar": {
-        "sheet": "assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png",
+        "sheet": "assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png",
         "fallback": "assets/art/kongjwi/kongjwi-blue-scholar-cutout.png",
         "sprite": {
           "frames": 30,
@@ -83,75 +83,75 @@
         "actionMode": "magic-pour"
       },
       "field-work": {
-        "sheet": "assets/art/game-scene/kongjwi/field-work/pour-sheet.png",
+        "sheet": "assets/그림/게임-장면/콩쥐/농사일-작업복/물붓기-동작.png",
         "fallback": "assets/art/kongjwi/kongjwi-field-work-cutout.png"
       },
       "ragged": {
-        "sheet": "assets/art/game-scene/kongjwi/ragged/pour-sheet.png",
+        "sheet": "assets/그림/게임-장면/콩쥐/누더기옷/물붓기-동작.png",
         "fallback": "assets/art/kongjwi/kongjwi-ragged-cutout.png"
       },
       "night-court": {
-        "sheet": "assets/art/game-scene/kongjwi/night-court/pour-sheet.png",
+        "sheet": "assets/그림/게임-장면/콩쥐/야간-궁중복/물붓기-동작.png",
         "fallback": "assets/art/kongjwi/kongjwi-night-court-cutout.png",
         "actionMode": "summon-servant-pour",
         "source": "assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png",
-        "provenance": "assets/art/game-scene/kongjwi/night-court/provenance.json"
+        "provenance": "assets/그림/게임-장면/콩쥐/야간-궁중복/provenance.json"
       }
     },
     "tools": {
       "wood": {
-        "sheet": "assets/art/game-scene/tools/wood/pour-sheet.png",
+        "sheet": "assets/그림/게임-장면/바가지/나무/물붓기-동작.png",
         "fallback": "assets/art/kongjwi-tools/wood.png"
       },
       "brass": {
-        "sheet": "assets/art/game-scene/tools/brass/pour-sheet.png",
+        "sheet": "assets/그림/게임-장면/바가지/돗쇠/물붓기-동작.png",
         "fallback": "assets/art/kongjwi-tools/brass.png"
       },
       "celadon": {
-        "sheet": "assets/art/game-scene/tools/celadon/pour-sheet.png",
+        "sheet": "assets/그림/게임-장면/바가지/청자/물붓기-동작.png",
         "fallback": "assets/art/kongjwi-tools/celadon.png"
       },
       "moon": {
-        "sheet": "assets/art/game-scene/tools/moon/pour-sheet.png",
+        "sheet": "assets/그림/게임-장면/바가지/월광/물붓기-동작.png",
         "fallback": "assets/art/kongjwi-tools/moon.png"
       }
     },
     "jars": {
       "onggi": {
-        "layers": "assets/art/game-scene/jars/onggi/layers.png?v=20260807-source-locked-jars1",
+        "layers": "assets/그림/게임-장면/장독대/전통-옹기/장독대-레이어.png?v=20260807-source-locked-jars1",
         "fallback": "assets/art/jars/onggi/lid-open.png",
         "sourceOpen": "assets/art/jars/onggi/lid-open.png",
         "sourceClosed": "assets/art/jars/onggi/thumbnail-no-toad.png",
-        "openNoToad": "assets/art/game-scene/jars/onggi/open-no-toad.png",
-        "holeFront": "assets/art/game-scene/jars/onggi/hole-front.png",
-        "parts": "assets/art/game-scene/jars/onggi/parts.json"
+        "openNoToad": "assets/그림/게임-장면/장독대/전통-옹기/열림-두꺼비-없음.png",
+        "holeFront": "assets/그림/게임-장면/장독대/전통-옹기/구멍-전경.png",
+        "parts": "assets/그림/게임-장면/장독대/전통-옹기/parts.json"
       },
       "celadon": {
-        "layers": "assets/art/game-scene/jars/celadon/layers.png?v=20260807-source-locked-jars1",
+        "layers": "assets/그림/게임-장면/장독대/청자/장독대-레이어.png?v=20260807-source-locked-jars1",
         "fallback": "assets/art/jars/celadon/lid-open.png",
         "sourceOpen": "assets/art/jars/celadon/lid-open.png",
         "sourceClosed": "assets/art/jars/celadon/thumbnail-no-toad.png",
-        "openNoToad": "assets/art/game-scene/jars/celadon/open-no-toad.png",
-        "holeFront": "assets/art/game-scene/jars/celadon/hole-front.png",
-        "parts": "assets/art/game-scene/jars/celadon/parts.json"
+        "openNoToad": "assets/그림/게임-장면/장독대/청자/열림-두꺼비-없음.png",
+        "holeFront": "assets/그림/게임-장면/장독대/청자/구멍-전경.png",
+        "parts": "assets/그림/게임-장면/장독대/청자/parts.json"
       },
       "moon-white": {
-        "layers": "assets/art/game-scene/jars/moon-white/layers.png?v=20260807-source-locked-jars1",
+        "layers": "assets/그림/게임-장면/장독대/달항아리/장독대-레이어.png?v=20260807-source-locked-jars1",
         "fallback": "assets/art/jars/moon-white/lid-open.png",
         "sourceOpen": "assets/art/jars/moon-white/lid-open.png",
         "sourceClosed": "assets/art/jars/moon-white/thumbnail-no-toad.png",
-        "openNoToad": "assets/art/game-scene/jars/moon-white/open-no-toad.png",
-        "holeFront": "assets/art/game-scene/jars/moon-white/hole-front.png",
-        "parts": "assets/art/game-scene/jars/moon-white/parts.json"
+        "openNoToad": "assets/그림/게임-장면/장독대/달항아리/열림-두꺼비-없음.png",
+        "holeFront": "assets/그림/게임-장면/장독대/달항아리/구멍-전경.png",
+        "parts": "assets/그림/게임-장면/장독대/달항아리/parts.json"
       },
       "night-lacquer": {
-        "layers": "assets/art/game-scene/jars/night-lacquer/layers.png?v=20260807-source-locked-jars1",
+        "layers": "assets/그림/게임-장면/장독대/흑칠-야광/장독대-레이어.png?v=20260807-source-locked-jars1",
         "fallback": "assets/art/jars/night-lacquer/lid-open.png",
         "sourceOpen": "assets/art/jars/night-lacquer/lid-open.png",
         "sourceClosed": "assets/art/jars/night-lacquer/thumbnail-no-toad.png",
-        "openNoToad": "assets/art/game-scene/jars/night-lacquer/open-no-toad.png",
-        "holeFront": "assets/art/game-scene/jars/night-lacquer/hole-front.png",
-        "parts": "assets/art/game-scene/jars/night-lacquer/parts.json"
+        "openNoToad": "assets/그림/게임-장면/장독대/흑칠-야광/열림-두꺼비-없음.png",
+        "holeFront": "assets/그림/게임-장면/장독대/흑칠-야광/구멍-전경.png",
+        "parts": "assets/그림/게임-장면/장독대/흑칠-야광/parts.json"
       }
     },
     "toads": {
@@ -160,24 +160,24 @@
       },
       "gold-worker": {
         "mode": "skin-motion",
-        "skin": "assets/art/game-scene/toad/skins/gold-worker.png"
+        "skin": "assets/그림/게임-장면/두꺼비/스킨/황금-일꾼.png"
       },
       "jade-guard": {
         "mode": "skin-motion",
-        "skin": "assets/art/game-scene/toad/skins/jade-guard.png"
+        "skin": "assets/그림/게임-장면/두꺼비/스킨/비취-수호.png"
       },
       "star-night": {
         "mode": "skin-motion",
-        "skin": "assets/art/game-scene/toad/skins/star-night.png"
+        "skin": "assets/그림/게임-장면/두꺼비/스킨/별밤.png"
       }
     },
     "effects": {
-      "waterStream": "assets/art/game-scene/effects/water-pour-sheet.png",
-      "waterSplash": "assets/art/game-scene/effects/water-splash-sheet.png",
-      "waterLeak": "assets/art/game-scene/effects/water-leak-sheet.png",
-      "waterSurface": "assets/art/game-scene/effects/water-surface-tile.png",
+      "waterStream": "assets/그림/게임-장면/효과/물줄기-동작.png",
+      "waterSplash": "assets/그림/게임-장면/효과/입구-물보라-동작.png",
+      "waterLeak": "assets/그림/게임-장면/효과/구멍-누수-동작.png",
+      "waterSurface": "assets/그림/게임-장면/효과/내부-수면-타일.png",
       "toadExpression": {
-        "path": "assets/art/game-scene/toad/expression-overlay-sheet.png",
+        "path": "assets/그림/게임-장면/두꺼비/표정-오버레이-동작.png",
         "enabled": false,
         "validation": "truncated-png"
       }
@@ -611,29 +611,29 @@
     }
   },
   "availability": {
-    "assets/art/game-scene/background/courtyard-night-bg.png": false,
-    "assets/art/game-scene/background/courtyard-night-fg.png": true,
-    "assets/art/game-scene/kongjwi/underlayer/pour-sheet.png": true,
-    "assets/art/game-scene/kongjwi/classic-red/pour-sheet.png": true,
-    "assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png": true,
-    "assets/art/game-scene/kongjwi/field-work/pour-sheet.png": true,
-    "assets/art/game-scene/kongjwi/ragged/pour-sheet.png": true,
-    "assets/art/game-scene/kongjwi/night-court/pour-sheet.png": true,
-    "assets/art/game-scene/tools/wood/pour-sheet.png": true,
-    "assets/art/game-scene/tools/brass/pour-sheet.png": true,
-    "assets/art/game-scene/tools/celadon/pour-sheet.png": true,
-    "assets/art/game-scene/tools/moon/pour-sheet.png": true,
-    "assets/art/game-scene/jars/onggi/layers.png": true,
-    "assets/art/game-scene/jars/celadon/layers.png": true,
-    "assets/art/game-scene/jars/moon-white/layers.png": true,
-    "assets/art/game-scene/jars/night-lacquer/layers.png": true,
-    "assets/art/game-scene/toad/skins/gold-worker.png": true,
-    "assets/art/game-scene/toad/skins/jade-guard.png": true,
-    "assets/art/game-scene/toad/skins/star-night.png": true,
-    "assets/art/game-scene/effects/water-pour-sheet.png": true,
-    "assets/art/game-scene/effects/water-splash-sheet.png": true,
-    "assets/art/game-scene/effects/water-leak-sheet.png": true,
-    "assets/art/game-scene/effects/water-surface-tile.png": true,
+    "assets/그림/게임-장면/배경/야간-장독대-마당-배경.png": false,
+    "assets/그림/게임-장면/배경/야간-장독대-마당-전경.png": true,
+    "assets/그림/게임-장면/콩쥐/기본-언더레이어/물붓기-동작.png": true,
+    "assets/그림/게임-장면/콩쥐/고전-홍색-한복/물붓기-동작.png": true,
+    "assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png": true,
+    "assets/그림/게임-장면/콩쥐/농사일-작업복/물붓기-동작.png": true,
+    "assets/그림/게임-장면/콩쥐/누더기옷/물붓기-동작.png": true,
+    "assets/그림/게임-장면/콩쥐/야간-궁중복/물붓기-동작.png": true,
+    "assets/그림/게임-장면/바가지/나무/물붓기-동작.png": true,
+    "assets/그림/게임-장면/바가지/돗쇠/물붓기-동작.png": true,
+    "assets/그림/게임-장면/바가지/청자/물붓기-동작.png": true,
+    "assets/그림/게임-장면/바가지/월광/물붓기-동작.png": true,
+    "assets/그림/게임-장면/장독대/전통-옹기/장독대-레이어.png": true,
+    "assets/그림/게임-장면/장독대/청자/장독대-레이어.png": true,
+    "assets/그림/게임-장면/장독대/달항아리/장독대-레이어.png": true,
+    "assets/그림/게임-장면/장독대/흑칠-야광/장독대-레이어.png": true,
+    "assets/그림/게임-장면/두꺼비/스킨/황금-일꾼.png": true,
+    "assets/그림/게임-장면/두꺼비/스킨/비취-수호.png": true,
+    "assets/그림/게임-장면/두꺼비/스킨/별밤.png": true,
+    "assets/그림/게임-장면/효과/물줄기-동작.png": true,
+    "assets/그림/게임-장면/효과/입구-물보라-동작.png": true,
+    "assets/그림/게임-장면/효과/구멍-누수-동작.png": true,
+    "assets/그림/게임-장면/효과/내부-수면-타일.png": true,
     "assets/images/toad-expressions/화남.png": true,
     "assets/images/toad-expressions/기본.png": true,
     "assets/images/toad-expressions/기쁨.png": true,
@@ -643,9 +643,9 @@
     "assets/images/toad-expressions/놀람.png": true,
     "assets/images/toad-expressions/존나기쁨.png": true,
     "assets/images/toad-expressions/슬픔.png": true,
-    "assets/art/game-scene/jars/onggi/layers.png?v=20260807-source-locked-jars1": true,
-    "assets/art/game-scene/jars/celadon/layers.png?v=20260807-source-locked-jars1": true,
-    "assets/art/game-scene/jars/moon-white/layers.png?v=20260807-source-locked-jars1": true,
-    "assets/art/game-scene/jars/night-lacquer/layers.png?v=20260807-source-locked-jars1": true
+    "assets/그림/게임-장면/장독대/전통-옹기/장독대-레이어.png?v=20260807-source-locked-jars1": true,
+    "assets/그림/게임-장면/장독대/청자/장독대-레이어.png?v=20260807-source-locked-jars1": true,
+    "assets/그림/게임-장면/장독대/달항아리/장독대-레이어.png?v=20260807-source-locked-jars1": true,
+    "assets/그림/게임-장면/장독대/흑칠-야광/장독대-레이어.png?v=20260807-source-locked-jars1": true
   }
 }

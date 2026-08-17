@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 
 const read = path => fs.readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
-const manifest = JSON.parse(read("assets/art/game-scene/manifest.json"));
+const manifest = JSON.parse(read("assets/그림/게임-장면/manifest.json"));
 
 test("jar cards always use the currently equipped jar PNG without recoloring", () => {
   const source = read("assets/js/theme-system.js");

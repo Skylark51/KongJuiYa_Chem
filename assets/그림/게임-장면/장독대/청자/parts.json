@@ -1,31 +1,31 @@
 {
   "version": 1,
   "frameLock": true,
-  "sourceOpen": "assets/art/jars/moon-white/lid-open.png",
-  "sourceClosed": "assets/art/jars/moon-white/thumbnail-no-toad.png",
-  "openNoToad": "open-no-toad.png",
-  "holeFront": "hole-front.png",
-  "runtimeSheet": "layers.png",
+  "sourceOpen": "assets/art/jars/celadon/lid-open.png",
+  "sourceClosed": "assets/art/jars/celadon/thumbnail-no-toad.png",
+  "openNoToad": "열림-두꺼비-없음.png",
+  "holeFront": "구멍-전경.png",
+  "runtimeSheet": "장독대-레이어.png",
   "runtimeFrames": {
     "back": 0,
     "front": 1
   },
   "registration": {
-    "scale": 1.9487670249671036,
+    "scale": 1.9413741660799892,
     "translate": [
-      281.090025120905,
-      36.386896115658715
+      273.00821348352275,
+      44.905896945925065
     ],
     "openBodyBox": [
-      445,
+      435,
       300,
-      1113,
-      964
+      1105,
+      969
     ],
     "closedBodyBox": [
-      76,
+      73,
       150,
-      435,
+      439,
       476
     ],
     "openCanvas": [
@@ -39,34 +39,34 @@
   },
   "fit": {
     "crop": [
-      427,
-      28,
-      1131,
-      983
+      417,
+      15,
+      1123,
+      987
     ],
-    "scale": 1.0010471204188482,
+    "scale": 0.9835390946502057,
     "offset": [
-      159,
+      165,
       34
     ],
     "size": [
-      705,
+      694,
       956
     ]
   },
   "cavitySpec": [
-    945.0,
-    675.0,
-    230.0,
-    195.0
+    930,
+    690,
+    235,
+    190
   ],
   "frontRingSpec": [
-    945.0,
-    675.0,
-    205.0,
-    165.0,
-    155.0,
-    120.0
+    930,
+    690,
+    195,
+    165,
+    145,
+    118
   ],
   "runtimePolicy": "source-locked open jar: outer frame/lid/pattern are kept from lid-open.png; only the toad cavity is replaced from the paired no-toad source; frame 1 is the no-toad broken-hole foreground rim"
 }

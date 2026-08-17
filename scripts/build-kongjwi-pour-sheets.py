@@ -45,7 +45,25 @@ NIGHT_SUMMON_SOURCE_CELL = (384, 512)
 NIGHT_SUMMON_SCALE = 1.30
 NIGHT_SUMMON_ALPHA_THRESHOLD = 16
 NIGHT_SUMMON_ANCHOR = (CELL[0] // 2, CELL[1] - 12)
-NIGHT_SUMMON_PROVENANCE = Path("assets/art/game-scene/kongjwi/night-court/provenance.json")
+GAME_SCENE_ROOT = Path("assets/그림/게임-장면")
+KONGJWI_DIRS = {
+    "underlayer": "기본-언더레이어",
+    "classic-red": "고전-홍색-한복",
+    "blue-scholar": "청색-학자복",
+    "field-work": "농사일-작업복",
+    "ragged": "누더기옷",
+    "night-court": "야간-궁중복",
+}
+TOOL_DIRS = {
+    "wood": "나무",
+    "brass": "돗쇠",
+    "celadon": "청자",
+    "moon": "월광",
+}
+KONGJWI_SHEET_NAME = "물붓기-동작.png"
+TOOL_MASTER_NAME = "기준-원본.png"
+TOOL_SHEET_NAME = KONGJWI_SHEET_NAME
+NIGHT_SUMMON_PROVENANCE = GAME_SCENE_ROOT / "콩쥐" / KONGJWI_DIRS["night-court"] / "provenance.json"
 
 SOURCES = {
     "underlayer": "kongjwi-underlayer-cutout.png",
@@ -348,7 +366,7 @@ def build_night_court_summon_frames(root: Path):
 
 
 def build_night_court_summon(root: Path, force: bool = False):
-    output = root / "assets/art/game-scene/kongjwi/night-court/pour-sheet.png"
+    output = root / GAME_SCENE_ROOT / KONGJWI_DIRS["night-court"] / KONGJWI_SHEET_NAME
     frames, alignments = build_night_court_summon_frames(root)
     if output.exists() and not force:
         with Image.open(output) as current:
@@ -390,7 +408,7 @@ def build_kongjwi(root: Path, force: bool = False):
         if skin == "night-court":
             continue
 
-        output = root / "assets/art/game-scene/kongjwi" / skin / "pour-sheet.png"
+        output = root / GAME_SCENE_ROOT / KONGJWI_DIRS[skin] / KONGJWI_SHEET_NAME
         if skin in AUTHORED_HQ_SKINS:
             canonical = root / AUTHORED_HQ_ROOT / skin / "pour-sheet.png"
             canonical_image = load_rgba(canonical)
@@ -431,8 +449,8 @@ def prepare_tool_pixels(source: Image.Image) -> Image.Image:
 
 
 def load_or_create_tool_master(root: Path, tool_key: str) -> Image.Image:
-    generated_dir = root / "assets/art/game-scene/tools" / tool_key
-    canonical = generated_dir / "master.png"
+    generated_dir = root / GAME_SCENE_ROOT / TOOL_DIRS[tool_key]
+    canonical = generated_dir / TOOL_MASTER_NAME
     if canonical.exists():
         try:
             return load_rgba(canonical)
@@ -447,7 +465,7 @@ def load_or_create_tool_master(root: Path, tool_key: str) -> Image.Image:
         # Some legacy static bucket PNGs have a valid PNG signature but a
         # truncated image stream. Preserve the already-rendering frame-0 pixels
         # once, instead of failing or recursively resampling whole sheets.
-        sheet_path = generated_dir / "pour-sheet.png"
+        sheet_path = generated_dir / TOOL_SHEET_NAME
         sheet = load_rgba(sheet_path)
         if sheet.size != (CELL[0] * FRAMES, CELL[1]):
             raise RuntimeError(f"Cannot recover {tool_key} master from {sheet_path}: {sheet.size}") from error
@@ -478,7 +496,7 @@ def rotate_tool_about_grip(tool: Image.Image, degrees: float):
 
 
 def build_tool_sheet(root: Path, tool_key: str, hand_points, force: bool = False):
-    output = root / f"assets/art/game-scene/tools/{tool_key}/pour-sheet.png"
+    output = root / GAME_SCENE_ROOT / TOOL_DIRS[tool_key] / TOOL_SHEET_NAME
     if output.exists() and not force:
         with Image.open(output) as current:
             if current.size != (CELL[0] * FRAMES, CELL[1]):
@@ -497,7 +515,7 @@ def build_tool_sheet(root: Path, tool_key: str, hand_points, force: bool = False
 
 
 def update_manifest(root: Path):
-    path = root / "assets/art/game-scene/manifest.json"
+    path = root / GAME_SCENE_ROOT / "manifest.json"
     manifest = json.loads(path.read_text(encoding="utf-8"))
     manifest["version"] = "20260815-blue-scholar-motionfix2"
 
@@ -552,7 +570,7 @@ def update_manifest(root: Path):
     responsive.setdefault("desktop", {})["scaleMode"] = "uniform-contain"
 
     availability = manifest.setdefault("availability", {})
-    availability.pop("assets/art/game-scene/kongjwi/underlayer/wood-grip-sheet.png", None)
+    availability.pop((GAME_SCENE_ROOT / "콩쥐" / KONGJWI_DIRS["underlayer"] / "나무-손잡이-동작.png").as_posix(), None)
     for skin in SOURCES:
         availability[manifest["assets"]["kongjwi"][skin]["sheet"]] = True
     for tool in TOOL_SOURCES:

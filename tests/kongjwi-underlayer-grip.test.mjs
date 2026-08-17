@@ -6,7 +6,7 @@ const root = resolve(import.meta.dirname, "..");
 const read = path => readFile(resolve(root, path), "utf8");
 const [catalog, manifestText, renderer, shop, css, uiEffects, builder, effects] = await Promise.all([
   read("data/shop-catalog.js"),
-  read("assets/art/game-scene/manifest.json"),
+  read("assets/그림/게임-장면/manifest.json"),
   read("assets/js/scene-renderer.js"),
   read("assets/js/shop-navigation.js"),
   read("assets/css/scene-source-aspect-fix.css"),

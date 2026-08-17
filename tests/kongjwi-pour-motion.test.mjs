@@ -16,7 +16,7 @@ function pngSize(file) {
 }
 
 test("all-outfit motion manifest uses the anatomy-safe uniform scene policy", () => {
-  const manifest = JSON.parse(fs.readFileSync(path.join(root, "assets/art/game-scene/manifest.json"), "utf8"));
+  const manifest = JSON.parse(fs.readFileSync(path.join(root, "assets/그림/게임-장면/manifest.json"), "utf8"));
   assert.ok(
     ["20260808-anatomy-safe1", "20260808-head-safe1", "20260808-head-safe2", "20260808-layer-safe1", "20260812-night-court-summon1", "20260815-blue-scholar-headsafe1", "20260815-blue-scholar-30f1"].includes(manifest.version),
     `unexpected migration version ${manifest.version}`
@@ -38,7 +38,7 @@ test("all-outfit motion manifest uses the anatomy-safe uniform scene policy", ()
 });
 
 test("all bucket sheets remain co-registered", () => {
-  const manifest = JSON.parse(fs.readFileSync(path.join(root, "assets/art/game-scene/manifest.json"), "utf8"));
+  const manifest = JSON.parse(fs.readFileSync(path.join(root, "assets/그림/게임-장면/manifest.json"), "utf8"));
   assert.deepEqual(manifest.sprites.tool.cell, { width: 512, height: 768 });
   assert.deepEqual(manifest.placements.tool, manifest.placements.kongjwi);
   assert.ok(manifest.layers["scene-foreground"] < manifest.layers["scene-kongjwi"], "foreground must not occlude Kongjwi");
@@ -106,7 +106,7 @@ test("item and night-court effects are data keyed", () => {
 });
 
 test("all Kongjwi sheets remain PNG and available", () => {
-  const manifest = JSON.parse(fs.readFileSync(path.join(root, "assets/art/game-scene/manifest.json"), "utf8"));
+  const manifest = JSON.parse(fs.readFileSync(path.join(root, "assets/그림/게임-장면/manifest.json"), "utf8"));
   for (const skin of skins) {
     const sheet = manifest.assets.kongjwi[skin].sheet;
     assert.equal(manifest.availability[sheet], true);
@@ -119,9 +119,9 @@ test("all Kongjwi sheets remain PNG and available", () => {
 });
 
 test("night-court production motion is the authored summon sequence", () => {
-  const manifest = JSON.parse(fs.readFileSync(path.join(root, "assets/art/game-scene/manifest.json"), "utf8"));
+  const manifest = JSON.parse(fs.readFileSync(path.join(root, "assets/그림/게임-장면/manifest.json"), "utf8"));
   const provenance = JSON.parse(fs.readFileSync(
-    path.join(root, "assets/art/game-scene/kongjwi/night-court/provenance.json"),
+    path.join(root, "assets/그림/게임-장면/콩쥐/야간-궁중복/provenance.json"),
     "utf8"
   ));
   const stateMachine = fs.readFileSync(path.join(root, "assets/js/scene-state-machine.js"), "utf8");

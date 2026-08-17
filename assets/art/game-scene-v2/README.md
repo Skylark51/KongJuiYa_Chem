@@ -2,7 +2,7 @@
 
 `game-scene-v2` is a parallel, non-runtime migration area for the next animation asset contract.
 
-The production renderer still reads `assets/art/game-scene/manifest.json`. V2 is intentionally staged without switching runtime behavior so asset work can be validated module-by-module.
+The production renderer still reads `assets/그림/게임-장면/manifest.json`. V2 is intentionally staged without switching runtime behavior so asset work can be validated module-by-module.
 
 ## Module boundaries
 

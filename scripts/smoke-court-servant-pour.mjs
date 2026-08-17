@@ -77,7 +77,7 @@ try {
     assert(qa.servantAnimation.includes("court-servant-authored-frames"), `${width}x${height}: Dolsoe frames not animating`);
     assert(qa.dropletsImage.includes("water-droplets-sheet.png"), `${width}x${height}: precision water missing`);
     assert(qa.dropletsOpacity > 0, `${width}x${height}: precision water invisible`);
-    assert(qa.streamImage.includes("water-pour-sheet.png"), `${width}x${height}: continuous water stream missing`);
+    assert(qa.streamImage.includes("물줄기-동작.png"), `${width}x${height}: continuous water stream missing`);
     assert(qa.streamOpacity > 0.9 && qa.waterFlow === "pour", `${width}x${height}: stream is not visibly pouring`);
     assert(advanceElapsedMs < 700, `${width}x${height}: next question cadence was too slow (${advanceElapsedMs}ms)`);
     assert(qa.currentQuestionId !== answeredQuestionId && qa.feedbackPending === false, `${width}x${height}: next question did not advance`);

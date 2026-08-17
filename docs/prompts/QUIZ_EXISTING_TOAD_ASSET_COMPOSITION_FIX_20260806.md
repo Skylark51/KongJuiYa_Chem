@@ -6,7 +6,7 @@
 
 ## 확인된 원인
 
-1. 기본 상품인 `field-brown`은 존재하지 않는 `assets/art/game-scene/toad/skins/field-brown.png`를 요청한다.
+1. 기본 상품인 `field-brown`은 존재하지 않는 `assets/그림/게임-장면/두꺼비/스킨/field-brown.png`를 요청한다.
 2. 기본 두꺼비가 누락되면 렌더러가 `assets/images/toad-expressions/*.png`의 완성형 두꺼비 PNG를 작은 표정 오버레이처럼 취급한다.
 3. 완성형 PNG 전체가 장독대 구멍용 작은 박스 안에 `contain`으로 들어가면서 얼굴·몸통 대신 이미지 일부만 노출된다.
 4. 황금·비취·별밤 스킨은 원본 PNG가 존재하지만 공통 표정 오버레이 시트가 없으므로, 없는 시트를 전제로 한 합성 구조를 사용하면 안 된다.
@@ -71,7 +71,7 @@
 
 ## 수정 대상
 
-- `assets/art/game-scene/manifest.json`
+- `assets/그림/게임-장면/manifest.json`
 - 기존 `assets/js/scene-renderer.js`의 `full-fallback`·`skin-only` 분기를 유지하고 manifest/CSS가 올바른 자산을 공급하도록 구성
 - `assets/css/toad-composition-fix.css`
 - `assets/css/mobile-quiz-balance.css`

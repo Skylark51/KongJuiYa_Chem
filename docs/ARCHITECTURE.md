@@ -37,7 +37,7 @@ The core clamps frame delta, locks answer submission during evaluation, stops ti
 
 ## Scene assets
 
-`assets/art/game-scene/manifest.json` defines one 2048 x 1152 logical scene. An `availability` value of `true` marks a production-required PNG; `false` marks a planned asset that may use its declared fallback.
+`assets/그림/게임-장면/manifest.json` defines one 2048 x 1152 logical scene. An `availability` value of `true` marks a production-required PNG; `false` marks a planned asset that may use its declared fallback.
 
 `scripts/validate-layered-scene.mjs` validates required dimensions, RGBA 8-bit-or-higher format, PNG chunk boundaries, and a complete terminal `IEND` chunk. Optional assets are only promoted into the required validation set when their manifest feature flag is enabled. This prevents an incomplete authored asset from silently becoming a runtime dependency.
 

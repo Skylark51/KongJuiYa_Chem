@@ -4,6 +4,11 @@ import { chromium } from "playwright";
 const baseUrl = process.env.TOAD_BASE_URL || "http://127.0.0.1:4173";
 const gamePath = "/%EC%BD%A9%EC%A5%90%EC%95%BC_%EC%A4%98%EB%95%8C%EC%8D%A8.html?training=atomic_number";
 const skins = ["gold-worker", "jade-guard", "star-night"];
+const runtimeToadPaths = {
+  "gold-worker": "/그림/게임-장면/두꺼비/스킨/황금-일꾼.png",
+  "jade-guard": "/그림/게임-장면/두꺼비/스킨/비취-수호.png",
+  "star-night": "/그림/게임-장면/두꺼비/스킨/별밤.png",
+}
 const viewports = [
   [390, 844], [430, 932], [844, 390], [1366, 768], [1920, 1080]
 ];
@@ -61,7 +66,7 @@ try {
           };
         }, skin);
         assert(qa.skin === skin, `${width}x${height} ${state}: equipped ${qa.skin}, expected ${skin}`);
-        assert(qa.src.includes(`/toad/skins/${skin}.png`), `${width}x${height} ${state}: wrong asset ${qa.src}`);
+        assert(qa.src.includes(runtimeToadPaths[skin]), `${width}x${height} ${state}: wrong asset ${qa.src}`);
         assert(qa.natural?.[0] === 1024 && qa.natural?.[1] === 768, `${width}x${height} ${state}: canvas ${qa.natural}`);
         assert(qa.contained, `${width}x${height} ${state}: toad layer escaped visual stage`);
       }

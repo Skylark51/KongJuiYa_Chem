@@ -149,19 +149,19 @@
 }
 
 .shop-page .shop-asset-tool[data-visual-key="wood"] {
-  background-image: url("../art/game-scene/tools/wood/pour-sheet.png?v=20260807-shop-tool-sheet1") !important;
+  background-image: url("../그림/게임-장면/바가지/나무/물붓기-동작.png?v=20260807-shop-tool-sheet1") !important;
 }
 
 .shop-page .shop-asset-tool[data-visual-key="brass"] {
-  background-image: url("../art/game-scene/tools/brass/pour-sheet.png?v=20260807-shop-tool-sheet1") !important;
+  background-image: url("../그림/게임-장면/바가지/돗쇠/물붓기-동작.png?v=20260807-shop-tool-sheet1") !important;
 }
 
 .shop-page .shop-asset-tool[data-visual-key="celadon"] {
-  background-image: url("../art/game-scene/tools/celadon/pour-sheet.png?v=20260807-shop-tool-sheet1") !important;
+  background-image: url("../그림/게임-장면/바가지/청자/물붓기-동작.png?v=20260807-shop-tool-sheet1") !important;
 }
 
 .shop-page .shop-asset-tool[data-visual-key="moon"] {
-  background-image: url("../art/game-scene/tools/moon/pour-sheet.png?v=20260807-shop-tool-sheet1") !important;
+  background-image: url("../그림/게임-장면/바가지/월광/물붓기-동작.png?v=20260807-shop-tool-sheet1") !important;
 }
 
 /* Do not show the old swatch-colored placeholder tile behind the product artwork. */

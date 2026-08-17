@@ -2,7 +2,7 @@
 
 이 문서는 현재 `main`에서 실제 배포에 사용되는 구조와 책임 경계를 기록한다.
 과거 photoreal 단일 합성 장면이나 `scene-art-loader.js` 기반 시도는 현재 아키텍처가 아니다.
-세부 구현이 이 문서와 충돌하면 `docs/ARCHITECTURE.md`, `assets/art/game-scene/manifest.json`, 현재 런타임 코드를 우선한다.
+세부 구현이 이 문서와 충돌하면 `docs/ARCHITECTURE.md`, `assets/그림/게임-장면/manifest.json`, 현재 런타임 코드를 우선한다.
 
 ## 화면 진입점
 
@@ -35,7 +35,7 @@
 
 현재 production 장면은 **한 장의 합성 원화가 아니라 manifest 기반 독립 PNG 레이어**다.
 
-- `assets/art/game-scene/manifest.json`: 논리 해상도, layer 순서, asset 경로, 기본 placement, anchor, frame sequence의 기준
+- `assets/그림/게임-장면/manifest.json`: 논리 해상도, layer 순서, asset 경로, 기본 placement, anchor, frame sequence의 기준
 - `assets/js/game-cosmetics-entry.js`: 저장된 코스메틱과 장면 렌더러 연결
 - `assets/js/scene-renderer.js`: manifest를 읽어 한 개의 `#layeredScene`을 구성하고 PNG/sprite layer를 배치
 - `assets/js/scene-state-machine.js`: 정답·오답·피버·경고·일시정지에 따른 장면 상태 전이
@@ -49,11 +49,11 @@
 
 Production art는 원본 RGBA PNG를 사용하며 JPEG/WebP/Base64 변환으로 대체하지 않는다.
 
-- 콩쥐: `assets/art/game-scene/kongjwi/<skin>/pour-sheet.png`, `4096 x 768`, 8개의 `512 x 768` cell
-- 바가지: `assets/art/game-scene/tools/<skin>/pour-sheet.png`, `4096 x 768`, 콩쥐와 co-registered
-- 장독대: `assets/art/game-scene/jars/<skin>/layers.png`, `2048 x 1024`, back/front 2 cell
-- 물줄기·물보라·누수·수면: `assets/art/game-scene/effects/**`
-- 전경: `assets/art/game-scene/background/courtyard-night-fg.png`
+- 콩쥐: `assets/그림/게임-장면/콩쥐/<skin>/pour-sheet.png`, `4096 x 768`, 8개의 `512 x 768` cell
+- 바가지: `assets/그림/게임-장면/바가지/<skin>/pour-sheet.png`, `4096 x 768`, 콩쥐와 co-registered
+- 장독대: `assets/그림/게임-장면/장독대/<skin>/layers.png`, `2048 x 1024`, back/front 2 cell
+- 물줄기·물보라·누수·수면: `assets/그림/게임-장면/효과/**`
+- 전경: `assets/그림/게임-장면/배경/야간-장독대-마당-전경.png`
 
 `manifest.json`의 `availability: true`는 production 필수 asset이고 `false`는 아직 authored asset이 준비되지 않아 fallback을 허용하는 상태다.
 Fallback은 임시 호환 경로이지 최종 미술 방향을 대체하지 않는다.

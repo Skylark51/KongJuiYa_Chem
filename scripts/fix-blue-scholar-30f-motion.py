@@ -25,7 +25,7 @@ from scipy.ndimage import distance_transform_edt
 
 ROOT = Path(__file__).resolve().parents[1]
 CANONICAL = ROOT / "assets/art/game-scene-v2/kongjwi/blue-scholar/pour-sheet.png"
-RUNTIME = ROOT / "assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png"
+RUNTIME = ROOT / "assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png"
 PREVIEW = ROOT / "assets/art/game-scene-v2/kongjwi/blue-scholar/preview.png"
 PROVENANCE = ROOT / "assets/art/game-scene-v2/kongjwi/blue-scholar/normalization.json"
 PACKED_SIZE = (1024, 1536)
@@ -196,7 +196,7 @@ def patch_runtime(source_sha: str, output_sha: str, metrics: list[dict]) -> None
         "frames": metrics,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    manifest_path = ROOT / "assets/art/game-scene/manifest.json"
+    manifest_path = ROOT / "assets/그림/게임-장면/manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     manifest["version"] = "20260815-blue-scholar-motionfix2"
     blue = manifest["assets"]["kongjwi"]["blue-scholar"]
@@ -354,9 +354,9 @@ const pngSize = path => { const b = read(path); return [b.readUInt32BE(16), b.re
 
 test("blue scholar canonical 30f sheet has true fixed 5x6 production cells", () => {
   assert.deepEqual(pngSize("assets/art/game-scene-v2/kongjwi/blue-scholar/pour-sheet.png"), [1280, 2304]);
-  assert.deepEqual(pngSize("assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png"), [1280, 2304]);
+  assert.deepEqual(pngSize("assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png"), [1280, 2304]);
   assert.deepEqual(pngSize("assets/art/game-scene-v2/kongjwi/blue-scholar/preview.png"), [256, 384]);
-  const manifest = JSON.parse(text("assets/art/game-scene/manifest.json"));
+  const manifest = JSON.parse(text("assets/그림/게임-장면/manifest.json"));
   const blue = manifest.assets.kongjwi["blue-scholar"];
   assert.equal(blue.sprite.frames, 30);
   assert.equal(blue.sprite.columns, 5);

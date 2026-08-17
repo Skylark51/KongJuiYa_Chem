@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - "scripts/build-source-locked-jar-layers.py"
-      - "assets/art/jars/**"
+      - "assets/그림/게임-장면/장독대/**"
       - "tests/jar-source-frame-regression.test.mjs"
       - ".github/workflows/build-source-locked-jar-layers.yml"
   workflow_dispatch:
@@ -41,12 +41,13 @@ jobs:
           from pathlib import Path
           from PIL import Image
           skins = ("onggi", "celadon", "moon-white", "night-lacquer")
+          jar_dirs = {"onggi": "전통-옹기", "celadon": "청자", "moon-white": "달항아리", "night-lacquer": "흑칠-야광"}
           for skin in skins:
-              root = Path("assets/art/game-scene/jars") / skin
+              root = Path("assets/그림/게임-장면/장독대") / jar_dirs[skin]
               expected = {
-                  "open-no-toad.png": (1024, 1024),
-                  "hole-front.png": (1024, 1024),
-                  "layers.png": (2048, 1024),
+                  "열림-두꺼비-없음.png": (1024, 1024),
+                  "구멍-전경.png": (1024, 1024),
+                  "장독대-레이어.png": (2048, 1024),
               }
               for name, size in expected.items():
                   image = Image.open(root / name)
@@ -62,7 +63,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/art/game-scene/manifest.json assets/art/game-scene/jars
+          git add assets/그림/게임-장면/manifest.json assets/그림/게임-장면/장독대
           if git diff --cached --quiet; then
             echo "No generated jar changes."
             exit 0

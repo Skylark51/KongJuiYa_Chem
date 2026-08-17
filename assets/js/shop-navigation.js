@@ -60,9 +60,9 @@ const JAR_ART = Object.freeze({
 const TOAD_ASSET_VERSION = "20260812-toad-skins2";
 const TOAD_ART = Object.freeze({
   "field-brown": `assets/art/source-locked/toad/base/field-brown.png?v=${TOAD_ASSET_VERSION}`,
-  "gold-worker": `assets/art/game-scene/toad/skins/gold-worker.png?v=${TOAD_ASSET_VERSION}`,
-  "jade-guard": `assets/art/game-scene/toad/skins/jade-guard.png?v=${TOAD_ASSET_VERSION}`,
-  "star-night": `assets/art/game-scene/toad/skins/star-night.png?v=${TOAD_ASSET_VERSION}`
+  "gold-worker": `assets/그림/게임-장면/두꺼비/스킨/황금-일꾼.png?v=${TOAD_ASSET_VERSION}`,
+  "jade-guard": `assets/그림/게임-장면/두꺼비/스킨/비취-수호.png?v=${TOAD_ASSET_VERSION}`,
+  "star-night": `assets/그림/게임-장면/두꺼비/스킨/별밤.png?v=${TOAD_ASSET_VERSION}`
 });
 
 const storage = new GameStorage();

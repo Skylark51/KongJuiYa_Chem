@@ -9,7 +9,7 @@ from PIL import Image, ImageDraw, ImageFilter
 SHEET_W = 4096
 CELL = 512
 FRAMES = 8
-OUT = Path("assets/art/game-scene/effects")
+OUT = Path("assets/그림/게임-장면/효과")
 
 
 def rgba_layer():
@@ -126,5 +126,5 @@ def save_rgba(image, filename):
 
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
-    save_rgba(build_pour(), "water-pour-sheet.png")
-    save_rgba(build_leak(), "water-leak-sheet.png")
+    save_rgba(build_pour(), "물줄기-동작.png")
+    save_rgba(build_leak(), "구멍-누수-동작.png")

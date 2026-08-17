@@ -8,9 +8,9 @@ const pngSize = path => { const b = read(path); return [b.readUInt32BE(16), b.re
 
 test("blue scholar canonical 30f sheet has true fixed 5x6 production cells", () => {
   assert.deepEqual(pngSize("assets/art/game-scene-v2/kongjwi/blue-scholar/pour-sheet.png"), [1280, 2304]);
-  assert.deepEqual(pngSize("assets/art/game-scene/kongjwi/blue-scholar/pour-sheet.png"), [1280, 2304]);
+  assert.deepEqual(pngSize("assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png"), [1280, 2304]);
   assert.deepEqual(pngSize("assets/art/game-scene-v2/kongjwi/blue-scholar/preview.png"), [256, 384]);
-  const manifest = JSON.parse(text("assets/art/game-scene/manifest.json"));
+  const manifest = JSON.parse(text("assets/그림/게임-장면/manifest.json"));
   const blue = manifest.assets.kongjwi["blue-scholar"];
   assert.equal(blue.sprite.frames, 30);
   assert.equal(blue.sprite.columns, 5);

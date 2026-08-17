@@ -10,7 +10,7 @@ for (const pathname of [
   "assets/art/source-locked/kongjwi/classic-red/base-cutout.png",
   "assets/art/source-locked/kongjwi/blue-scholar/base-cutout.png",
   "assets/art/source-locked/kongjwi/field-work/base-cutout.png",
-  "assets/art/game-scene/kongjwi/night-court/pour-sheet.png"
+  "assets/그림/게임-장면/콩쥐/야간-궁중복/물붓기-동작.png"
 ]) {
   assert.ok(renderer.includes(pathname), `${pathname} must be mapped in the shop renderer`);
 }

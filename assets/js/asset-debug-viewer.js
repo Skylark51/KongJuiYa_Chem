@@ -1,4 +1,4 @@
-const MANIFEST_URL = "assets/art/game-scene/manifest.json?v=20260807-source-locked-jars1";
+const MANIFEST_URL = "assets/그림/게임-장면/manifest.json?v=20260807-source-locked-jars1";
 const STYLE_ID = "asset-source-inspector-style";
 const BUTTON_ID = "ui-assetInspectorButton";
 const DIALOG_ID = "ui-assetInspectorDialog";

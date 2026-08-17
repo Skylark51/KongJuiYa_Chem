@@ -1,7 +1,7 @@
 # Precision animation asset pipeline
 
 The chemistry scene is the art and runtime gold master. Production currently
-uses assets/art/game-scene/manifest.json and a 2048 x 1152 logical canvas.
+uses assets/그림/게임-장면/manifest.json and a 2048 x 1152 logical canvas.
 The 1600 x 1000 size mentioned in an early brief is not used by the browser
 runtime or its regression tests, so this pipeline does not replace it.
 
@@ -55,7 +55,7 @@ of truth.
 | Water | declared origin and destination |
 
 The current production scene anchor coordinates remain in
-assets/art/game-scene/manifest.json. Precision-v1 records local sprite anchors
+assets/그림/게임-장면/manifest.json. Precision-v1 records local sprite anchors
 inside its own manifest and alignment-corrections.json.
 
 ## Reference-driven image generation
@@ -135,7 +135,7 @@ Contact sheets are QA files, never runtime assets.
 
 ## Runtime promotion checklist
 
-Before changing assets/art/game-scene/manifest.json:
+Before changing assets/그림/게임-장면/manifest.json:
 
 1. Strict audit result is PASS.
 2. Contact sheet is visually approved at original resolution.

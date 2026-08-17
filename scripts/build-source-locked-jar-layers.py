@@ -18,6 +18,16 @@ from PIL import Image
 VERSION = "20260807-source-locked-jars1"
 REFERENCE_SIZE = (1536, 1024)
 SKINS = ("onggi", "celadon", "moon-white", "night-lacquer")
+GAME_SCENE_ROOT = Path("assets/그림/게임-장면")
+JAR_DIRS = {
+    "onggi": "전통-옹기",
+    "celadon": "청자",
+    "moon-white": "달항아리",
+    "night-lacquer": "흑칠-야광",
+}
+JAR_LAYER_NAME = "장독대-레이어.png"
+JAR_OPEN_NAME = "열림-두꺼비-없음.png"
+JAR_HOLE_NAME = "구멍-전경.png"
 
 # cx, cy, cavity-rx, cavity-ry in the 1536x1024 source coordinate system.
 CAVITY = {
@@ -158,7 +168,7 @@ def fit_to_cell(array: np.ndarray, bbox, cell: int = 1024, margin: int = 34):
 
 def build_skin(root: Path, skin: str):
     source_dir = root / "assets" / "art" / "jars" / skin
-    output_dir = root / "assets" / "art" / "game-scene" / "jars" / skin
+    output_dir = root / GAME_SCENE_ROOT / JAR_DIRS[skin]
     output_dir.mkdir(parents=True, exist_ok=True)
 
     open_image = Image.open(source_dir / "lid-open.png").convert("RGBA")
@@ -179,18 +189,18 @@ def build_skin(root: Path, skin: str):
     sheet.alpha_composite(back_cell, (0, 0))
     sheet.alpha_composite(front_cell, (1024, 0))
 
-    back_cell.save(output_dir / "open-no-toad.png", optimize=True, compress_level=9)
-    front_cell.save(output_dir / "hole-front.png", optimize=True, compress_level=9)
-    sheet.save(output_dir / "layers.png", optimize=True, compress_level=9)
+    back_cell.save(output_dir / JAR_OPEN_NAME, optimize=True, compress_level=9)
+    front_cell.save(output_dir / JAR_HOLE_NAME, optimize=True, compress_level=9)
+    sheet.save(output_dir / JAR_LAYER_NAME, optimize=True, compress_level=9)
 
     parts = {
         "version": 1,
         "frameLock": True,
         "sourceOpen": f"assets/art/jars/{skin}/lid-open.png",
         "sourceClosed": f"assets/art/jars/{skin}/thumbnail-no-toad.png",
-        "openNoToad": "open-no-toad.png",
-        "holeFront": "hole-front.png",
-        "runtimeSheet": "layers.png",
+        "openNoToad": JAR_OPEN_NAME,
+        "holeFront": JAR_HOLE_NAME,
+        "runtimeSheet": JAR_LAYER_NAME,
         "runtimeFrames": {"back": 0, "front": 1},
         "registration": registration,
         "fit": fit,
@@ -205,7 +215,7 @@ def build_skin(root: Path, skin: str):
 
 
 def update_manifest(root: Path):
-    manifest_path = root / "assets" / "art" / "game-scene" / "manifest.json"
+    manifest_path = root / GAME_SCENE_ROOT / "manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     manifest["version"] = "2026.08.07-source-locked-jars1"
     manifest.setdefault("runtimePolicy", {})["jarFramePolicy"] = "source-locked-paired-png"
@@ -218,7 +228,7 @@ def update_manifest(root: Path):
     jars = manifest.setdefault("assets", {}).setdefault("jars", {})
     compositions = manifest.setdefault("jarCompositions", {})
     for skin in SKINS:
-        raw_layers = f"assets/art/game-scene/jars/{skin}/layers.png"
+        raw_layers = f"{GAME_SCENE_ROOT.as_posix()}/{JAR_DIRS[skin]}/{JAR_LAYER_NAME}"
         versioned_layers = f"{raw_layers}?v={VERSION}"
         jar = jars.setdefault(skin, {})
         jar.update({
@@ -226,9 +236,9 @@ def update_manifest(root: Path):
             "fallback": f"assets/art/jars/{skin}/lid-open.png",
             "sourceOpen": f"assets/art/jars/{skin}/lid-open.png",
             "sourceClosed": f"assets/art/jars/{skin}/thumbnail-no-toad.png",
-            "openNoToad": f"assets/art/game-scene/jars/{skin}/open-no-toad.png",
-            "holeFront": f"assets/art/game-scene/jars/{skin}/hole-front.png",
-            "parts": f"assets/art/game-scene/jars/{skin}/parts.json",
+            "openNoToad": f"{GAME_SCENE_ROOT.as_posix()}/{JAR_DIRS[skin]}/{JAR_OPEN_NAME}",
+            "holeFront": f"{GAME_SCENE_ROOT.as_posix()}/{JAR_DIRS[skin]}/{JAR_HOLE_NAME}",
+            "parts": f"{GAME_SCENE_ROOT.as_posix()}/{JAR_DIRS[skin]}/parts.json",
         })
         availability[raw_layers] = True
         availability[versioned_layers] = True

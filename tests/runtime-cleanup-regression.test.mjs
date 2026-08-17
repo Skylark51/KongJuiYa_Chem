@@ -16,11 +16,11 @@ test("Kongjwi motion workflow uses the canonical spelling and script path", () =
 
 test("layered PNG water stream is the only gameplay pour renderer", () => {
   const html = read("콩쥐야_줘때써.html");
-  const manifest = JSON.parse(read("assets/art/game-scene/manifest.json"));
+  const manifest = JSON.parse(read("assets/그림/게임-장면/manifest.json"));
   const renderer = read("assets/js/scene-renderer.js");
 
   assert.doesNotMatch(html, /scenePourArc|scene-pour-arc/);
-  assert.equal(manifest.assets.effects.waterStream, "assets/art/game-scene/effects/water-pour-sheet.png");
+  assert.equal(manifest.assets.effects.waterStream, "assets/그림/게임-장면/효과/물줄기-동작.png");
   assert.match(renderer, /scene-water-stream/);
   assert.match(renderer, /waterStream/);
 });

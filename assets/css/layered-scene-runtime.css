@@ -8,7 +8,7 @@
 
 /*
  * Runtime isolation for the layered PNG quiz scene.
- * Base actor placement comes from assets/art/game-scene/manifest.json.
+ * Base actor placement comes from assets/그림/게임-장면/manifest.json.
  * This file owns the layout boundary and cascade guards only.
  */
 .scene-stage-layout {

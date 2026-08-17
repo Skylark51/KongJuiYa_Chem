@@ -28,9 +28,9 @@
   },
   "toad": {
     "field-brown": {"path":"assets/art/source-locked/toad/base/field-brown.png","legacyPath":"assets/images/toad-expressions/기본.png","gitBlob":"1941cefc56948e4b3f07c69e685511e1e0b0f990"},
-    "gold-worker": {"path":"assets/art/source-locked/toad/skins/gold-worker.png","legacyPath":"assets/art/game-scene/toad/skins/gold-worker.png","gitBlob":"d48480a7ab4c0a1b08007dbe93fb4fc011fdca1b"},
-    "jade-guard": {"path":"assets/art/source-locked/toad/skins/jade-guard.png","legacyPath":"assets/art/game-scene/toad/skins/jade-guard.png","gitBlob":"54d40357851b5ba506689ba802984116aae8448c"},
-    "star-night": {"path":"assets/art/source-locked/toad/skins/star-night.png","legacyPath":"assets/art/game-scene/toad/skins/star-night.png","gitBlob":"72295bff1e2780948412d9e018b5764fb256c2f5"}
+    "gold-worker": {"path":"assets/art/source-locked/toad/skins/gold-worker.png","legacyPath":"assets/그림/게임-장면/두꺼비/스킨/gold-worker.png","gitBlob":"d48480a7ab4c0a1b08007dbe93fb4fc011fdca1b"},
+    "jade-guard": {"path":"assets/art/source-locked/toad/skins/jade-guard.png","legacyPath":"assets/그림/게임-장면/두꺼비/스킨/jade-guard.png","gitBlob":"54d40357851b5ba506689ba802984116aae8448c"},
+    "star-night": {"path":"assets/art/source-locked/toad/skins/star-night.png","legacyPath":"assets/그림/게임-장면/두꺼비/스킨/star-night.png","gitBlob":"72295bff1e2780948412d9e018b5764fb256c2f5"}
   },
   "background": {
     "courtyard-night": {"path":"assets/art/source-locked/background/courtyard-night.png","legacyPath":"assets/images/background/courtyard-night.png","gitBlob":"075dcb791ce72f16a39545c06d27e79c5e4268ec"}

@@ -2,7 +2,7 @@
   "version": "20260812-asset-modules-v2",
   "activeRuntime": false,
   "migration": {
-    "runtimeManifest": "assets/art/game-scene/manifest.json",
+    "runtimeManifest": "assets/그림/게임-장면/manifest.json",
     "policy": "parallel-safe-migration",
     "note": "V2 modules are staged in parallel. The production renderer remains on game-scene until each V2 module is validated."
   },

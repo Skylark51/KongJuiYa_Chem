@@ -23,7 +23,7 @@ test("precision manifest promotes only audited court-pour assets and preserves p
   const manifest = json(relativeManifest);
   assert.equal(manifest.activeRuntime, true);
   assert.deepEqual(manifest.sceneLogicalSize, { width: 2048, height: 1152 });
-  assert.equal(manifest.productionReference, "assets/art/game-scene/manifest.json");
+  assert.equal(manifest.productionReference, "assets/그림/게임-장면/manifest.json");
   assert.equal(manifest.policy.format, "png");
   assert.equal(manifest.policy.sourceOverwrite, false);
   assert.equal(manifest.policy.resamplingForAlignment, false);
@@ -139,7 +139,7 @@ test("night-court summon audits its actual aligned RGBA envelope", () => {
 test("production renderer stays shared while court effect mounts promoted precision assets", () => {
   const renderer = read("assets/js/scene-renderer.js").toString("utf8");
   const courtEffect = read("assets/js/court-servant-effect.js").toString("utf8");
-  assert.ok(renderer.includes("../art/game-scene/manifest.json"));
+  assert.ok(renderer.includes("../그림/게임-장면/manifest.json"));
   assert.ok(!renderer.includes("game-scene-precision-v1"));
   assert.ok(courtEffect.includes("dolsoe-c-sheet.png"));
   assert.ok(courtEffect.includes("water-droplets-sheet.png"));
