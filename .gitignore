@@ -1,0 +1,20 @@
+node_modules/
+www/
+.DS_Store
+.env
+.env.*
+
+# Capacitor/native build output
+android/.gradle/
+android/build/
+android/app/build/
+ios/App/build/
+ios/DerivedData/
+
+# Never commit signing credentials
+*.jks
+*.keystore
+*.p12
+*.mobileprovision
+*.cer
+*.provisionprofile

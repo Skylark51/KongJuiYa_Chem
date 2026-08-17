@@ -1,0 +1,8 @@
+{
+  "appId": "com.skylark51.kongjuiya",
+  "appName": "콩쥐야 줘때써",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}

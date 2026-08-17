@@ -1,0 +1,30 @@
+{
+  "name": "kongjuiya-science-game",
+  "version": "1.0.0",
+  "private": true,
+  "description": "콩쥐야 줘때써 web game packaged for iOS and Android with Capacitor.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "mobile:prepare": "node mobile/build-web.mjs",
+    "mobile:bootstrap": "node mobile/bootstrap.mjs",
+    "mobile:sync": "npm run mobile:prepare && cap sync",
+    "mobile:sync:ios": "npm run mobile:prepare && cap sync ios",
+    "mobile:sync:android": "npm run mobile:prepare && cap sync android",
+    "mobile:ios": "npm run mobile:sync:ios && cap open ios",
+    "mobile:android": "npm run mobile:sync:android && cap open android",
+    "mobile:run:ios": "npm run mobile:sync:ios && cap run ios",
+    "mobile:run:android": "npm run mobile:sync:android && cap run android",
+    "mobile:assets": "capacitor-assets generate"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.4.2",
+    "@capacitor/core": "8.4.2",
+    "@capacitor/ios": "8.4.2"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "3.0.5",
+    "@capacitor/cli": "8.4.2"
+  }
+}
