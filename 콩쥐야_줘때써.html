@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko" data-page="game" data-ui-version="20260817-earth-fossil-mobile-split1">
+<html lang="ko" data-page="game" data-ui-version="20260817-earth-fossil-mobile-regression2">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="assets/css/game-runtime-features.css?v=20260813-desktop-scene1">
   <link rel="stylesheet" href="assets/css/earth-science-desktop-quiz-layout.css?v=20260817-earth-desktop-split1">
   <link rel="stylesheet" href="assets/css/earth-fossil-mobile-layout.css?v=20260817-earth-fossil-mobile-split1">
+  <link rel="stylesheet" href="assets/css/earth-fossil-mobile-regression-fix.css?v=20260817-fossil-regression2">
 </head>
 <body class="jar-game-page">
   <a class="skip-link" href="#questionText">문제로 바로가기</a>
@@ -99,6 +100,7 @@
 
   <dialog id="exitDialog" class="modal-card" aria-labelledby="exitTitle"><form method="dialog"><p class="eyebrow">PAUSED</p><h2 id="exitTitle">장독대 채우기를 멈출까요?</h2><p>진행 상태는 브라우저에 저장됩니다.</p><div class="dialog-actions"><button id="continueButton" class="primary-button" value="cancel">계속하기</button><button id="confirmHomeButton" class="danger-button" value="home">장독대 고르기로</button></div></form></dialog>
   <dialog id="adDialog" class="modal-card ad-dialog" aria-label="광고"><form method="dialog"><div class="ad-slot" aria-label="광고 자리"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7275002640073391" crossorigin="anonymous"></script></div><div class="dialog-actions"><button class="primary-button" value="close">결과 확인</button></div></form></dialog>
+  <script type="module" src="assets/js/earth-fossil-scene-asset-guard.js?v=20260817-fossil-assets2"></script>
   <script type="module" src="assets/js/game-page.js?v=20260815-blue-scholar-gridfix1"></script>
   <script type="module" src="assets/js/chemistry-desktop-quiz-layout.js?v=20260817-chem-desktop-split1"></script>
   <script type="module" src="assets/js/earth-science-desktop-quiz-layout.js?v=20260817-earth-fossil-mobile-split1"></script>
