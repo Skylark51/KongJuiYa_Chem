@@ -1,0 +1,265 @@
+/*
+ * Earth Science / fossil-type only.
+ * On sub-desktop layouts the source image is removed from the authored scene
+ * and given its own grid row so it cannot cover Kongjwi, the jar, or effects.
+ */
+@media (max-width: 1179px) {
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .jar-game-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(116px, 21vh) clamp(150px, 27vh, 240px) minmax(0, 1fr);
+    grid-template-areas:
+      'hud'
+      'fossil-question'
+      'scene'
+      'question';
+    gap: 6px;
+    min-height: 0;
+    padding: 6px 8px max(8px, env(safe-area-inset-bottom));
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .fossil-mobile-question-slot {
+    grid-area: fossil-question;
+    display: block;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .fossil-mobile-question-slot .scene-question-zone {
+    position: relative !important;
+    inset: auto !important;
+    z-index: auto;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0;
+    min-height: 0;
+    pointer-events: auto;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .fossil-mobile-question-slot .scene-question-bubble {
+    position: relative;
+    inset: auto;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    width: 100%;
+    height: 100%;
+    min-height: 0 !important;
+    max-width: none;
+    margin: 0;
+    padding: 7px 10px 6px;
+    box-sizing: border-box;
+    border-radius: 14px;
+    overflow: hidden;
+    transform: none;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .fossil-mobile-question-slot .scene-question-bubble::after {
+    display: none;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .fossil-mobile-question-slot .scene-question-topline {
+    min-height: 0;
+    margin: 0 0 3px;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .fossil-mobile-question-slot .question-progress-line {
+    grid-template-columns: auto minmax(48px, 1fr);
+    gap: 7px;
+    font-size: 8px;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .fossil-mobile-question-slot .question-progress-line .desktop-timer,
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .fossil-mobile-question-slot .question-meta {
+    display: none;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .fossil-mobile-question-slot .scene-question-bubble h1[data-presentation='source-image'] {
+    align-self: stretch;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    align-items: center;
+    justify-items: center;
+    min-height: 0 !important;
+    max-height: none !important;
+    height: 100%;
+    margin: 0 !important;
+    gap: 2px;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .fossil-mobile-question-slot .subject-question-source {
+    order: 0;
+    align-self: center;
+    margin: 0;
+    color: #fff7e8;
+    font-size: 10px;
+    font-weight: 900;
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .fossil-mobile-question-slot .subject-question-image {
+    order: 1;
+    display: block;
+    width: auto;
+    height: 100%;
+    min-height: 0;
+    max-width: min(58vw, 270px);
+    max-height: 100%;
+    margin: 0;
+    object-fit: contain;
+    object-position: center center;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .fossil-mobile-question-slot .subject-question-prompt {
+    display: none;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .fossil-mobile-question-slot .timer-track {
+    height: 4px;
+    margin-top: 3px;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .scene-panel {
+    grid-area: scene;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .game-stage {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .question-panel {
+    grid-area: question;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) !important;
+    gap: 5px;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .question-answer-card {
+    display: grid;
+    grid-template-rows: auto minmax(70px, 1fr) !important;
+    gap: 5px;
+    min-height: 0;
+    height: 100%;
+    padding: 6px 7px;
+    overflow: hidden;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .question-answer-card .answer-form {
+    display: none !important;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .question-answer-card .feedback {
+    min-height: 22px;
+    margin: 0;
+    padding: 4px 7px;
+    overflow: hidden;
+    font-size: 8px;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .mobile-input-dock:not([hidden]) {
+    display: block;
+    min-height: 70px;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .mobile-keypad[data-input-mode='multiple_choice'] {
+    height: 100%;
+    padding: 2px 0 0;
+    gap: 0;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .keypad-keys.is-choice {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: minmax(58px, 1fr);
+    gap: 8px;
+    height: 100%;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .keypad-choice {
+    min-height: 58px !important;
+    padding: 8px 10px;
+    border-radius: 12px;
+    font-size: clamp(15px, 4.2vw, 18px);
+    font-weight: 900;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .training-progress {
+    display: none;
+  }
+}
+
+@media (max-width: 1179px) and (orientation: landscape) {
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .jar-game-layout {
+    grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+    grid-template-rows: minmax(92px, 0.34fr) minmax(0, 1fr);
+    grid-template-areas:
+      'fossil-question hud'
+      'scene question';
+    gap: 6px;
+    padding: 6px max(7px, env(safe-area-inset-right)) 6px max(7px, env(safe-area-inset-left));
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .fossil-mobile-question-slot .scene-question-bubble {
+    padding: 5px 8px 4px;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .fossil-mobile-question-slot .subject-question-image {
+    max-width: min(31vw, 220px);
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .question-panel {
+    grid-template-rows: auto minmax(0, 1fr) !important;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .keypad-choice {
+    min-height: 46px !important;
+    font-size: 14px;
+  }
+}
+
+@media (max-height: 650px) and (orientation: portrait) {
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .jar-game-layout {
+    grid-template-rows: auto minmax(96px, 18vh) minmax(128px, 24vh) minmax(0, 1fr);
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .fossil-mobile-question-slot .subject-question-source {
+    font-size: 9px;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .question-answer-card {
+    grid-template-rows: auto minmax(58px, 1fr) !important;
+    padding: 5px 6px;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .keypad-keys.is-choice {
+    grid-auto-rows: minmax(50px, 1fr);
+    gap: 6px;
+  }
+
+  html[data-subject='earth-science'] #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='split'] .keypad-choice {
+    min-height: 50px !important;
+    font-size: 14px;
+  }
+}
