@@ -7,12 +7,12 @@ const root = resolve(import.meta.dirname, "..");
 const read = path => readFile(resolve(root, path), "utf8");
 
 test("subject toolbar CSS entrypoint delegates layout, controls, and responsive policy", async () => {
-  const entry = await read("assets/css/subject-toolbar-parity.css");
+  const entry = await read("assets/css/subject-toolbar.css");
   const imports = entry.match(/@import url\([^)]*\);/g) || [];
   assert.equal(imports.length, 3);
-  assert.match(entry, /subject-toolbar\/layout\.css\?v=20260814-toolbar-modules1/);
-  assert.match(entry, /subject-toolbar\/controls\.css\?v=20260814-toolbar-modules1/);
-  assert.match(entry, /subject-toolbar\/responsive\.css\?v=20260814-toolbar-modules1/);
+  assert.match(entry, /subject-toolbar\/layout\.css\?v=20260815-toolbar-edge1/);
+  assert.match(entry, /subject-toolbar\/controls\.css\?v=20260815-toolbar-edge1/);
+  assert.match(entry, /subject-toolbar\/responsive\.css\?v=20260815-toolbar-edge1/);
   assert.doesNotMatch(entry, /\.subject-topbar\s*\{/);
 });
 
@@ -40,7 +40,7 @@ test("narrow viewport cannot re-enable the desktop toolbar even in forced deskto
 });
 
 test("toolbar JavaScript is split by DOM discovery, Chemistry contract, economy, and mount lifecycle", async () => {
-  const entry = await read("assets/js/subject-toolbar-parity.js");
+  const entry = await read("assets/js/subject-toolbar.js");
   const mount = await read("assets/js/subject-toolbar/mount.js");
   const nodes = await read("assets/js/subject-toolbar/nodes.js");
   const contract = await read("assets/js/subject-toolbar/chemistry-contract.js");
@@ -62,8 +62,8 @@ test("all subject-shell pages pin the modular toolbar entrypoints while Chemistr
   for (const subject of ["physics", "biology", "earth-science"]) {
     const html = await read(`subjects/${subject}/index.html`);
     assert.match(html, /subject-shell\.css\?v=20260812-subjects2/);
-    assert.match(html, /subject-toolbar-parity\.css\?v=20260814-toolbar-modules1/);
-    assert.match(html, /subject-toolbar-parity\.js\?v=20260814-toolbar-modules1/);
+    assert.match(html, /subject-toolbar\.css\?v=20260817-toolbar1/);
+    assert.match(html, /subject-toolbar\.js\?v=20260817-toolbar1/);
   }
   const chemistry = await read("subjects/chemistry/index.html");
   assert.match(chemistry, /class="lobby-topbar"/);
