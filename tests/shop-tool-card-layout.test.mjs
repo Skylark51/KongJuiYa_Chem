@@ -18,7 +18,7 @@ for (const tool of ["wood", "brass", "celadon", "moon"]) {
   );
 }
 
-const celadonPath = resolve(root, "assets/art/kongjwi-tools/celadon.png");
+const celadonPath = resolve(root, "assets/그림/공용/바가지/청자-바가지.png");
 const celadonBlob = execFileSync("git", ["hash-object", celadonPath], { encoding: "utf8" }).trim();
 assert.equal(
   celadonBlob,

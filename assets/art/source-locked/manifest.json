@@ -15,10 +15,10 @@
     "night-court": {"path":"assets/그림/공용/원본/콩쥐/야간-궁중복/기본-오려내기.png","legacyPath":"assets/그림/공용/콩쥐/정적/야간-궁중복.png","gitBlob":"692cee514f10ed6465f4528d5ab2abef5e2c0b9f"}
   },
   "tools": {
-    "wood": {"path":"assets/그림/공용/원본/바가지/나무-바가지.png","legacyPath":"assets/art/kongjwi-tools/wood.png","gitBlob":"d6d6acc89c470d3f24b5f3fd45abcd1a03bdb384"},
-    "brass": {"path":"assets/그림/공용/원본/바가지/놋쇠-바가지.png","legacyPath":"assets/art/kongjwi-tools/brass.png","gitBlob":"3a70bcdb2ae4b1ef3016ff8350ab345900f41f2a"},
-    "celadon": {"path":"assets/그림/공용/원본/바가지/청자-바가지.png","legacyPath":"assets/art/kongjwi-tools/celadon.png","gitBlob":"263f52ed4895636bc0a127a105c00ac6a3bde1d9"},
-    "moon": {"path":"assets/그림/공용/원본/바가지/월광-바가지.png","legacyPath":"assets/art/kongjwi-tools/moon.png","gitBlob":"cf585a0672653b6214d6e89948069a8a661ab4aa"}
+    "wood": {"path":"assets/그림/공용/원본/바가지/나무-바가지.png","legacyPath":"assets/그림/공용/바가지/나무-바가지.png","gitBlob":"d6d6acc89c470d3f24b5f3fd45abcd1a03bdb384"},
+    "brass": {"path":"assets/그림/공용/원본/바가지/놋쇠-바가지.png","legacyPath":"assets/그림/공용/바가지/놋쇠-바가지.png","gitBlob":"3a70bcdb2ae4b1ef3016ff8350ab345900f41f2a"},
+    "celadon": {"path":"assets/그림/공용/원본/바가지/청자-바가지.png","legacyPath":"assets/그림/공용/바가지/청자-바가지.png","gitBlob":"263f52ed4895636bc0a127a105c00ac6a3bde1d9"},
+    "moon": {"path":"assets/그림/공용/원본/바가지/월광-바가지.png","legacyPath":"assets/그림/공용/바가지/월광-바가지.png","gitBlob":"cf585a0672653b6214d6e89948069a8a661ab4aa"}
   },
   "jars": {
     "onggi": {"closed":{"path":"assets/그림/공용/원본/장독대/옹기/닫힘.png","legacyPath":"assets/그림/콩상점/상품/장독대/옹기/미리보기-두꺼비-없음.png","gitBlob":"cbbefe36193dd5362b6c574d867249fe77a98010"},"open":{"path":"assets/그림/공용/원본/장독대/옹기/열림.png","legacyPath":"assets/그림/콩상점/상품/장독대/옹기/뚜껑-열림.png","gitBlob":"61ab9f221c037152176aa5c969e720dd842e3dd9"}},
