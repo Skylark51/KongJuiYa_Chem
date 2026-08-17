@@ -8,6 +8,7 @@
 - Capacitor Android: 8.4.2
 - Capacitor 8 target SDK: Android 16 / API 36
 - Capacitor 8 minimum Android support: API 24+
+- Privacy Policy URL: `https://skylark51.github.io/KongJuiYa_Chem/privacy.html`
 
 Google Play은 2026-08-31부터 신규 앱과 앱 업데이트에 Android 16 / API 36 이상 타겟을 요구한다. 이 프로젝트는 Capacitor 8의 API 36 기준으로 맞춘다.
 
@@ -33,6 +34,7 @@ Android Studio에서 다음을 확인한다.
 - 앱 아이콘, feature graphic, 휴대전화/태블릿 스크린샷 준비
 - 앱 액세스, 광고 여부, 콘텐츠 등급, 타겟층, Data safety 문항 작성
 - Privacy Policy URL 등록
+- 앱 내부의 통합관 하단 `개인정보 처리방침` 링크 동작 확인
 - Play App Signing 사용
 
 ## AAB 생성 및 업로드

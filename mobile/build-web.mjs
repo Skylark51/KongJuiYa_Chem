@@ -6,7 +6,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
 const outDir = path.join(root, "www");
 
-const requiredFiles = ["index.html", "shop.html", "record-detail.html"];
+const requiredFiles = ["index.html", "shop.html", "record-detail.html", "privacy.html"];
 const requiredDirs = ["assets", "data", "subjects"];
 const optionalEntries = [
   "favicon.ico",
@@ -59,4 +59,4 @@ if (!/<head[\s>]/i.test(index)) {
 }
 
 console.log("Mobile web bundle prepared in www/.");
-console.log("Included: root app pages, assets/, data/, subjects/.");
+console.log("Included: root app pages, privacy policy, assets/, data/, subjects/.");

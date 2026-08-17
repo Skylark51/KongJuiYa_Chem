@@ -8,6 +8,7 @@
 - Capacitor: 8.4.2
 - iOS minimum supported by Capacitor 8: iOS 15+
 - App Store Connect 업로드 빌드 환경: Xcode 26+ / iOS 26 SDK+
+- Privacy Policy URL: `https://skylark51.github.io/KongJuiYa_Chem/privacy.html`
 
 ## 최초 네이티브 프로젝트 생성
 
@@ -32,9 +33,10 @@ Xcode에서 다음을 확정한다.
 - 새 앱 생성 후 Bundle ID 연결
 - 앱 이름, 부제, 설명, 키워드, 카테고리 입력
 - iPhone/iPad 대상 기기별 스크린샷 업로드
+- Privacy Policy URL 등록
 - App Privacy 문항을 실제 코드/외부 서비스 사용 기준으로 답변
 - 최신 age rating 문항 답변
-- 지원 URL 및 Privacy Policy URL 등록
+- 지원 URL 등록
 - 심사용 연락처와 Review Notes 작성
 
 ## 업로드
