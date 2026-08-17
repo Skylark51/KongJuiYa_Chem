@@ -1,14 +1,11 @@
 /*
  * Mobile scene correction.
- * Keep the authored scene at full width and place the dialogue as a compact
- * Kongjwi-side bubble above the character. Do not crop or horizontally split
- * the animation canvas to manufacture a dialogue lane.
+ * Keep the authored scene intact, but center the currently left-biased rendered
+ * scene inside the animation panel. Dialogue remains independent of the scene
+ * transform so it can stay above Kongjwi without moving the artwork itself.
  */
 
 @media (max-width: 900px), (pointer: coarse) {
-  /* Restore the full authored scene. The previous top-inset treatment could
-     interact with runtime actor wrappers and make the scene render as a left
-     half-canvas with an empty right side. */
   #ui-gameApp[data-strict-quiz-layout="split"] .scene-animation-zone .scene-layer-stack {
     inset: 0 !important;
     top: 0 !important;
@@ -33,9 +30,15 @@
     max-height: none !important;
   }
 
-  /* Dialogue belongs to Kongjwi's side, not to the center of the whole stage.
-     On the portrait mobile scene Kongjwi occupies the left third, so the bubble
-     is anchored there and kept narrow enough to stay clear of the jar/toad. */
+  /* The screenshot shows the rendered authored scene occupying the left half
+     of the animation panel. Move the complete layered scene as one unit to the
+     right by one quarter of the host width. This centers that half-width visual
+     footprint without stretching Kongjwi, the jar, the toad, or the background. */
+  #ui-gameApp[data-strict-quiz-layout="split"] .scene-animation-zone > .scene-layer-stack {
+    transform: translate3d(25%, 0, 0) !important;
+    transform-origin: center center !important;
+  }
+
   #ui-gameApp[data-strict-quiz-layout="split"] .scene-animation-zone .toad-bubble {
     top: 8px !important;
     right: auto !important;
@@ -70,6 +73,10 @@
 
 @media (max-width: 900px) and (max-height: 590px),
        (pointer: coarse) and (max-height: 590px) {
+  #ui-gameApp[data-strict-quiz-layout="split"] .scene-animation-zone > .scene-layer-stack {
+    transform: translate3d(25%, 0, 0) !important;
+  }
+
   #ui-gameApp[data-strict-quiz-layout="split"] .scene-animation-zone .toad-bubble {
     top: 5px !important;
     left: 10px !important;
@@ -80,6 +87,12 @@
 }
 
 @media (max-width: 900px) and (orientation: landscape) {
+  /* Landscape already has enough horizontal room; do not inherit the portrait
+     centering offset there. */
+  #ui-gameApp[data-strict-quiz-layout="split"] .scene-animation-zone > .scene-layer-stack {
+    transform: translate3d(0, 0, 0) !important;
+  }
+
   #ui-gameApp[data-strict-quiz-layout="split"] .scene-animation-zone .toad-bubble {
     top: 6px !important;
     left: 12px !important;
