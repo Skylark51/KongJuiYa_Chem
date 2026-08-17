@@ -188,7 +188,12 @@ export class UIAdapter {
     const element = this.$(id);
     if (!element) return;
     element.dataset.presentation = question?.presentation?.kind || "text";
-    if (this.questionPresentation?.render(element, question)) return;
+    if (this.questionPresentation?.render(element, question)) {
+      if (question?.trainingId === 'earth-fossil-type') {
+        element.querySelector('.subject-question-prompt')?.remove();
+      }
+      return;
+    }
     if (question?.promptHtml) {
       if (element.innerHTML !== question.promptHtml) element.innerHTML = question.promptHtml;
       return;
