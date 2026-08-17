@@ -1,0 +1,4 @@
+/* Stable subject-toolbar stylesheet entrypoint. Keep responsibilities isolated below. */
+@import url("./subject-toolbar/layout.css?v=20260815-toolbar-edge1");
+@import url("./subject-toolbar/controls.css?v=20260815-toolbar-edge1");
+@import url("./subject-toolbar/responsive.css?v=20260815-toolbar-edge1");
