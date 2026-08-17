@@ -8,49 +8,49 @@
 </head>
 <body class="quiz-maker">
   <header class="tool-header">
-    <div><p>DEVELOPER TOOL</p><h1>Quiz Maker</h1></div>
-    <div class="header-actions"><span id="saveState" role="status">준비 중…</span><button id="newButton">새 문제</button><button id="duplicateButton">복제</button><button id="saveButton" class="primary">저장</button></div>
+    <div class="tool-brand"><p>DEVELOPER TOOL</p><h1>Quiz Maker</h1><span>문제를 고르고, 작성하고, 미리본 뒤 저장하세요.</span></div>
+    <div class="header-actions"><span id="saveState" class="save-state" role="status">준비 중…</span><button id="newButton">새로 만들기</button><button id="duplicateButton">현재 문제 복제</button><button id="saveButton" class="primary">문제 저장</button></div>
   </header>
-  <main class="maker-grid">
+  <main class="maker-grid"><nav class="workflow-guide" aria-label="문제 제작 순서"><span><b>1</b> 과목·문제 선택</span><i>→</i><span><b>2</b> 내용 작성</span><i>→</i><span><b>3</b> 미리보기·저장</span></nav>
     <aside class="panel metadata-panel">
-      <h2>문제 메타데이터</h2>
+      <div class="panel-heading"><span class="step-number">1</span><div><h2>문제 선택</h2><p>과목과 분류를 먼저 선택하세요.</p></div></div>
       <label>과목<select id="subject"></select></label>
-      <label>category<select id="category"></select></label>
-      <button id="newCategoryButton" class="link-button">+ 새 category 추가</button>
-      <fieldset id="newCategoryFields" hidden><legend>새 분류</legend><label>분류 ID<input id="newTrainingId"></label><label>표시 제목<input id="newTrainingTitle"></label><label>category 이름<input id="newCategoryName"></label></fieldset>
-      <label>기존 문제<select id="existingQuestion"><option value="">새 문제</option></select></label>
+      <label>대분류<select id="category"></select></label>
+      <button id="newCategoryButton" class="link-button">+ 새 대분류 만들기</button>
+      <fieldset id="newCategoryFields" hidden><legend>새 대분류 정보</legend><label>분류 ID<input id="newTrainingId" placeholder="예: earth-fossil"></label><label>화면 표시 제목<input id="newTrainingTitle" placeholder="예: 화석의 종류"></label><label>대분류 이름<input id="newCategoryName" placeholder="예: 지질 시대"></label></fieldset>
+      <label>불러올 문제<select id="existingQuestion"><option value="">새 문제</option></select></label>
       <label>난이도<select id="difficulty"><option value="1">1 · 쉬움</option><option value="2">2 · 보통</option><option value="3">3 · 어려움</option></select></label>
-      <label>문제 ID<div class="inline"><input id="questionId"><button id="suggestIdButton">자동</button></div></label>
+      <label>문제 ID<div class="inline"><input id="questionId" placeholder="분류에 맞춰 자동 제안"><button id="suggestIdButton" title="현재 분류의 다음 번호를 제안합니다">새 ID 제안</button></div></label>
       <label>문제 형식<select id="questionType"></select></label>
-      <label>태그<input id="tags" placeholder="쉼표로 구분"></label>
+      <label>태그 <small>선택 사항</small><input id="tags" placeholder="예: 화석, 고생대 (쉼표로 구분)"></label>
       <section class="asset-picker">
-        <div class="section-title"><h3>사용 asset</h3><button id="clearAssetButton">연결 해제</button></div>
-        <input id="assetSearch" type="search" placeholder="파일명 검색">
+        <div class="section-title"><h3>문제 이미지 <small>선택 사항</small></h3><button id="clearAssetButton">이미지 제거</button></div>
+        <input id="assetSearch" type="search" placeholder="이미지 파일명 검색">
         <select id="assetFolder"><option value="">모든 폴더</option></select>
         <div id="assetGrid" class="asset-grid"></div>
         <img id="selectedAssetPreview" class="selected-asset" hidden alt="선택 asset 미리보기">
         <code id="assetPath">연결된 asset 없음</code>
-        <label>이미지 대체 텍스트<input id="imageAlt"></label>
-        <label>자료 표시 문구<input id="sourceLabel"></label>
+        <label>이미지 설명 <small>접근성 문구</small><input id="imageAlt" placeholder="예: 삼엽충 화석 사진"></label>
+        <label>이미지 위 표시 문구 <small>선택 사항</small><input id="sourceLabel" placeholder="예: 표준 화석"></label>
       </section>
     </aside>
 
     <section class="panel editor-panel">
-      <div class="section-title"><h2>문제 작성</h2><span id="editMode" class="badge">신규 추가</span></div>
-      <label>문제 본문<textarea id="prompt" class="prompt-area"></textarea></label>
-      <div class="section-title"><h3>선택지</h3><button id="addChoiceButton">+ 추가</button></div>
+      <div class="section-title"><div class="panel-heading"><span class="step-number">2</span><div><h2>문제 작성</h2><p>문제, 정답과 해설을 입력하세요.</p></div></div><span id="editMode" class="badge">신규 추가</span></div>
+      <label>문제 본문<textarea id="prompt" class="prompt-area" placeholder="학생에게 보여 줄 문제를 입력하세요."></textarea></label>
+      <div class="section-title"><h3>선택지 <small>왼쪽 원이 정답 선택</small></h3><button id="addChoiceButton">+ 선택지 추가</button></div>
       <div id="choices" class="choices-editor"></div>
       <label id="directAnswerLabel" hidden>정답<input id="directAnswer"></label>
-      <label>해설<textarea id="explanation" class="explanation-area"></textarea></label>
+      <label>해설<textarea id="explanation" class="explanation-area" placeholder="정답을 이해할 수 있는 해설을 입력하세요."></textarea></label>
       <div id="validation" class="validation" aria-live="polite"></div>
-      <details class="import-box"><summary>JSON Import</summary><textarea id="importText" placeholder="production question JSON"></textarea><button id="importButton">불러오기</button></details>
+      <details class="import-box"><summary>고급 기능 · JSON으로 불러오기</summary><textarea id="importText" placeholder="production question JSON"></textarea><button id="importButton">JSON 적용</button></details>
     </section>
 
     <aside class="panel preview-panel">
-      <div class="section-title"><h2>실제 게임 미리보기</h2><div><button data-preview="pc" class="active">PC</button><button data-preview="mobile">Mobile</button></div></div>
+      <div class="section-title"><div class="panel-heading"><span class="step-number">3</span><div><h2>미리보기</h2><p>실제 게임 표시를 확인하세요.</p></div></div><div class="preview-toggle" aria-label="미리보기 화면 크기"><button data-preview="pc" class="active">PC</button><button data-preview="mobile">모바일</button></div></div>
       <div id="previewShell" class="preview-shell pc"><iframe id="previewFrame" src="./preview.html" title="실제 퀴즈 renderer 미리보기"></iframe></div>
-      <p class="target-file">저장 대상: <code id="targetFile"></code></p>
-      <details open><summary>JSON 보기 · production schema</summary><pre id="jsonPreview"></pre><div class="export-actions"><button id="copyJsonButton">JSON 복사</button><button id="downloadJsonButton">파일 저장</button></div></details>
+      <p class="target-file"><strong>저장 파일</strong><code id="targetFile"></code></p>
+      <details class="json-box"><summary>고급 기능 · 저장될 JSON 확인</summary><pre id="jsonPreview"></pre><div class="export-actions"><button id="copyJsonButton">JSON 복사</button><button id="downloadJsonButton">파일 저장</button></div></details>
     </aside>
   </main>
   <script type="module" src="./app.js"></script>
