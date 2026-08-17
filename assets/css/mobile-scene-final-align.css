@@ -1,0 +1,53 @@
+/*
+ * Mobile portrait scene alignment hotfix.
+ * Loaded directly by the game HTML so Safari/GitHub Pages cannot keep an old
+ * dynamically-injected placement rule. Move the complete authored scene as a
+ * single unit; do not alter individual Kongjwi/jar/toad placements.
+ */
+
+@media (max-width: 900px) and (orientation: portrait),
+       (pointer: coarse) and (orientation: portrait) {
+  #ui-gameApp[data-strict-quiz-layout="split"] .scene-animation-zone {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  #ui-gameApp[data-strict-quiz-layout="split"] .scene-animation-zone > .scene-layer-stack {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 100% !important;
+    max-width: none !important;
+    transform: translate3d(25vw, 0, 0) !important;
+    transform-origin: 0 50% !important;
+  }
+
+  /* Dialogue is independent from the artwork transform and stays in the
+     reserved upper-left Kongjwi area. */
+  #ui-gameApp[data-strict-quiz-layout="split"] .scene-animation-zone .toad-bubble {
+    top: 7px !important;
+    left: 12px !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: min(62vw, 286px) !important;
+    max-width: calc(100% - 24px) !important;
+    min-height: 0 !important;
+    padding: 6px 9px !important;
+    transform: none !important;
+    text-align: left !important;
+    z-index: 220 !important;
+  }
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+  #ui-gameApp[data-strict-quiz-layout="split"] .scene-animation-zone > .scene-layer-stack {
+    transform: translate3d(0, 0, 0) !important;
+  }
+}
