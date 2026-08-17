@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ko" data-content-dashboard>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>게임 콘텐츠 대시보드</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="dashboard-shell">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">DEVELOPER TOOL</p>
+        <h1>콘텐츠 대시보드</h1>
+        <p class="subtitle">전체 콘텐츠 상태 · <span id="analysisTime">분석 결과 불러오는 중</span></p>
+      </div>
+      <div class="header-actions" aria-label="분석 결과 내보내기">
+        <button id="exportJson" type="button" class="button secondary">JSON 내보내기</button>
+        <button id="exportCsv" type="button" class="button secondary">CSV 내보내기</button>
+      </div>
+    </header>
+
+    <p id="loadStatus" class="load-status" role="status">콘텐츠 report를 불러오고 있습니다.</p>
+
+    <section aria-labelledby="kpiTitle">
+      <h2 id="kpiTitle" class="sr-only">핵심 지표</h2>
+      <div id="kpiGrid" class="kpi-grid" data-testid="kpi-grid"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="subjectTitle">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">BALANCE</p>
+          <h2 id="subjectTitle">과목별 콘텐츠 분포</h2>
+        </div>
+        <p>문제 수와 asset·해설 상태를 과목별로 비교합니다.</p>
+      </div>
+      <div class="table-scroll">
+        <table class="data-table subject-table">
+          <thead>
+            <tr>
+              <th>과목</th>
+              <th>문제 분포</th>
+              <th>Category</th>
+              <th>평균/Category</th>
+              <th>이미지</th>
+              <th>Animation</th>
+              <th>해설</th>
+              <th>해설 누락</th>
+            </tr>
+          </thead>
+          <tbody id="subjectRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="analysis-grid">
+      <section class="panel" aria-labelledby="categoryTitle">
+        <div class="section-heading compact">
+          <div>
+            <p class="section-kicker">CATEGORY</p>
+            <h2 id="categoryTitle">Category 분석</h2>
+          </div>
+        </div>
+        <div class="inline-controls">
+          <label>과목
+            <select id="categorySubject"></select>
+          </label>
+          <label>정렬
+            <select id="categorySort">
+              <option value="count-desc">문제 수 많은 순</option>
+              <option value="count-asc">문제 수 적은 순</option>
+              <option value="name-asc">이름순</option>
+              <option value="error-desc">오류 개수순</option>
+              <option value="warning-desc">경고 개수순</option>
+            </select>
+          </label>
+        </div>
+        <div id="categoryList" class="metric-list"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="difficultyTitle">
+        <div class="section-heading compact">
+          <div>
+            <p class="section-kicker">DIFFICULTY</p>
+            <h2 id="difficultyTitle">난이도 분포</h2>
+          </div>
+        </div>
+        <div id="difficultyGroups" class="distribution-groups"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="typeTitle">
+        <div class="section-heading compact">
+          <div>
+            <p class="section-kicker">QUESTION TYPE</p>
+            <h2 id="typeTitle">문제 형식 분석</h2>
+          </div>
+        </div>
+        <div id="typeList" class="metric-list"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="assetTitle">
+        <div class="section-heading compact">
+          <div>
+            <p class="section-kicker">ASSET</p>
+            <h2 id="assetTitle">Asset 통계</h2>
+          </div>
+        </div>
+        <div id="assetStats" class="asset-grid"></div>
+        <p class="hint">미사용 asset은 다른 UI·scene에서 사용될 수 있는 검토 후보이며 삭제 대상이 아닙니다.</p>
+      </section>
+    </div>
+
+    <section class="panel" aria-labelledby="qualityTitle">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">QUALITY</p>
+          <h2 id="qualityTitle">데이터 품질 검사</h2>
+        </div>
+        <div id="issueSummary" class="issue-summary"></div>
+      </div>
+      <div class="table-scroll quality-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>수준</th>
+              <th>검사 코드</th>
+              <th>과목</th>
+              <th>문제 ID / Category</th>
+              <th>내용</th>
+            </tr>
+          </thead>
+          <tbody id="issueRows"></tbody>
+        </table>
+      </div>
+      <p id="issueLimitNote" class="hint"></p>
+    </section>
+
+    <section class="panel question-panel" aria-labelledby="questionTitle">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">INVENTORY</p>
+          <h2 id="questionTitle">문제 목록</h2>
+        </div>
+        <p id="questionCount">0개 표시</p>
+      </div>
+
+      <div class="filter-grid" aria-label="문제 필터">
+        <label class="search-field">검색
+          <input id="searchFilter" type="search" placeholder="ID, 문제, category, asset 파일명" autocomplete="off">
+        </label>
+        <label>과목<select id="subjectFilter"></select></label>
+        <label>Category<select id="categoryFilter"></select></label>
+        <label>난이도<select id="difficultyFilter"></select></label>
+        <label>Type<select id="typeFilter"></select></label>
+        <label>Asset<select id="assetFilter">
+          <option value="">전체</option>
+          <option value="yes">있음</option>
+          <option value="no">없음</option>
+        </select></label>
+        <label>Animation<select id="animationFilter">
+          <option value="">전체</option>
+          <option value="yes">있음</option>
+          <option value="no">없음</option>
+        </select></label>
+        <label>해설<select id="explanationFilter">
+          <option value="">전체</option>
+          <option value="yes">있음</option>
+          <option value="no">없음</option>
+        </select></label>
+        <label>상태<select id="statusFilter">
+          <option value="">전체</option>
+          <option value="error">오류</option>
+          <option value="warning">경고</option>
+          <option value="ok">정상</option>
+        </select></label>
+      </div>
+
+      <div class="table-scroll question-scroll">
+        <table class="data-table question-table">
+          <thead>
+            <tr>
+              <th><button type="button" data-sort="id">ID</button></th>
+              <th><button type="button" data-sort="subject">과목</button></th>
+              <th><button type="button" data-sort="category">Category</button></th>
+              <th><button type="button" data-sort="difficulty">난이도</button></th>
+              <th><button type="button" data-sort="prompt">문제</button></th>
+              <th><button type="button" data-sort="type">Type</button></th>
+              <th>Asset</th>
+              <th>해설</th>
+              <th><button type="button" data-sort="status">상태</button></th>
+            </tr>
+          </thead>
+          <tbody id="questionRows"></tbody>
+        </table>
+      </div>
+
+      <nav class="pagination" aria-label="문제 페이지">
+        <label>페이지 크기
+          <select id="pageSize">
+            <option value="25">25</option>
+            <option value="50" selected>50</option>
+            <option value="100">100</option>
+          </select>
+        </label>
+        <div>
+          <button id="prevPage" type="button" class="button compact-button">이전</button>
+          <span id="pageInfo">1 / 1</span>
+          <button id="nextPage" type="button" class="button compact-button">다음</button>
+        </div>
+      </nav>
+    </section>
+  </main>
+
+  <dialog id="questionDetail" class="detail-dialog" aria-labelledby="detailTitle">
+    <form method="dialog" class="dialog-close-row">
+      <button class="icon-button" aria-label="문제 상세 닫기">×</button>
+    </form>
+    <div class="detail-content">
+      <p id="detailSubject" class="section-kicker"></p>
+      <h2 id="detailTitle">문제 상세</h2>
+      <div id="detailStatus" class="detail-status"></div>
+      <dl class="detail-meta">
+        <div><dt>ID</dt><dd id="detailId"></dd></div>
+        <div><dt>Category</dt><dd id="detailCategory"></dd></div>
+        <div><dt>난이도</dt><dd id="detailDifficulty"></dd></div>
+        <div><dt>Type</dt><dd id="detailType"></dd></div>
+        <div><dt>Animation</dt><dd id="detailAnimation"></dd></div>
+      </dl>
+      <section>
+        <h3>문제 본문</h3>
+        <p id="detailPrompt" class="detail-copy"></p>
+      </section>
+      <section>
+        <h3>선택지</h3>
+        <ol id="detailChoices" class="choice-list"></ol>
+      </section>
+      <section>
+        <h3>정답</h3>
+        <p id="detailAnswer" class="detail-copy"></p>
+      </section>
+      <section>
+        <h3>해설</h3>
+        <p id="detailExplanation" class="detail-copy"></p>
+      </section>
+      <section>
+        <h3>Asset</h3>
+        <pre id="detailAssets" class="asset-path"></pre>
+        <img id="detailPreview" class="asset-preview" alt="문제 asset 미리보기">
+      </section>
+      <section>
+        <h3>검출 상태</h3>
+        <ul id="detailIssues" class="detail-issues"></ul>
+      </section>
+    </div>
+  </dialog>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

@@ -7,6 +7,9 @@
     "node": ">=22"
   },
   "scripts": {
+    "content:analyze": "node tools/content-dashboard/analyze-content.mjs",
+    "content:test": "node --test tools/content-dashboard/tests/content-dashboard.test.mjs",
+    "content:smoke": "node tools/content-dashboard/dashboard-smoke.mjs",
     "mobile:prepare": "node mobile/build-web.mjs",
     "mobile:bootstrap": "node mobile/bootstrap.mjs",
     "mobile:sync": "npm run mobile:prepare && cap sync",
