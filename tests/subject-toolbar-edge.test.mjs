@@ -11,7 +11,7 @@ test("non-chemistry mobile toolbars mirror Chemistry edge-to-edge geometry", asy
     read("assets/css/mobile-fixed-shell.css"),
     read("assets/css/mobile-unified-shell.css"),
     read("assets/css/subject-toolbar/responsive.css"),
-    read("assets/css/subject-toolbar-parity.css")
+    read("assets/css/subject-toolbar.css")
   ]);
 
   assert.match(chemistryTop, /right: 0 !important;/);
@@ -34,6 +34,6 @@ test("non-chemistry mobile toolbars mirror Chemistry edge-to-edge geometry", asy
     "subjects/earth-science/index.html"
   ]) {
     const html = await read(path);
-    assert.match(html, /subject-toolbar-parity\.css\?v=20260815-toolbar-edge1/);
+    assert.match(html, /subject-toolbar\.css\?v=20260817-toolbar1/);
   }
 });
