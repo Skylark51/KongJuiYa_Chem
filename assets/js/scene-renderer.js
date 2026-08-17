@@ -1,7 +1,8 @@
 import { createSceneStateController } from "./scene-state-machine.js";
 import { resolveSceneCosmeticEffects } from "./scene-cosmetic-effects.js";
+import { resolveSceneAssetPath } from "./scene-asset-paths.js";
 
-const MANIFEST_URL = new URL("../그림/게임-장면/manifest.json?v=20260815-blue-scholar-motionfix2", import.meta.url).href;
+const MANIFEST_URL = new URL("../그림/게임-장면/manifest.json?v=20260817-scene-assets-cleanup1", import.meta.url).href;
 const RUNTIME_STYLE_ID = "layered-scene-animation-runtime";
 const RUNTIME_STYLE_URL = new URL("../css/game-asset-animation.css?v=20260815-blue-scholar-motionfix2", import.meta.url).href;
 const SITE_ROOT_URL = new URL("../../", import.meta.url);
@@ -20,7 +21,7 @@ const key = (value, aliases, fallback) => aliases?.[String(value || "").trim()] 
 const layer = (stack, name) => stack?.querySelector(`.${name}`) || null;
 const versionedAssetUrl = (url, version) => {
   if (!url) return "";
-  const resolved = new URL(url, SITE_ROOT_URL);
+  const resolved = new URL(resolveSceneAssetPath(url), SITE_ROOT_URL);
   resolved.searchParams.set("scene", version || "unversioned");
   return resolved.href;
 };
@@ -116,6 +117,11 @@ function image(node, asset, cover = false) {
   img.alt = "";
   img.draggable = false;
   img.decoding = "async";
+  img.addEventListener("error", () => {
+    img.hidden = true;
+    img.style.display = "none";
+    node.dataset.assetState = "error";
+  }, { once: true });
   img.src = asset.url;
   node.hidden = false;
   node.append(img);
@@ -320,7 +326,7 @@ export function mountSceneRenderer(root, { cosmetics = {} } = {}) {
       background: target(manifest, a.background.path, a.background.fallback),
       foreground: target(manifest, a.foreground.path, a.foreground.fallback),
       kongjwi: authoredKongjwi,
-      tool: motionRig ? authoredTool : { url: toolAsset.fallback, authored: false },
+      tool: motionRig ? authoredTool : { url: versionedAssetUrl(toolAsset.fallback, manifest.version), authored: false },
       jar: target(manifest, jarAsset.layers, jarAsset.fallback),
       toad: target(manifest, toadAsset.skin),
       expression: target(manifest, expressionPath),

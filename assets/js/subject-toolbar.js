@@ -1,4 +1,4 @@
-import "./jar-selection-preview-parity.js";
+import "./jar-selection-preview.js";
 import { startSubjectToolbarParity } from "./subject-toolbar/mount.js";
 
 startSubjectToolbarParity();

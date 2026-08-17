@@ -2,7 +2,7 @@ import { applyDeviceMode, getDeviceMode, syncViewport } from "./device-entry.js"
 import { GAME_TITLE, displayJarName } from "./theme-system.js";
 import { mountHistoricalBgm } from "./historical-bgm.js";
 import { mountMobileKeypad } from "./mobile-keypad.js";
-import { mountGameScene } from "./game-cosmetics-entry.js?v=20260815-blue-scholar-gridfix1";
+import { mountGameScene } from "./game-cosmetics-entry.js?v=20260817-scene-assets-cleanup1";
 import { activeSubjectLobbyUrl } from "./site-routing.js";
 import { subjectById } from "../../data/subjects.js";
 

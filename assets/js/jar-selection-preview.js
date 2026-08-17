@@ -1,8 +1,8 @@
 import { createJarPreview } from "./theme-system.js";
 import { siteUrl } from "./site-routing.js";
 
-const STYLESHEET = "assets/css/jar-selection-preview-parity.css?v=20260817-jar-subject-bg1";
-const STYLESHEET_MARKER = "jar-selection-preview-parity";
+const STYLESHEET = "assets/css/jar-selection-preview.css?v=20260817-jar-preview1";
+const STYLESHEET_MARKER = "jar-selection-preview";
 const COSMETIC_STORAGE_KEY = "kongjuiya-cosmetics-v1";
 
 function ensureStylesheet() {
@@ -21,8 +21,8 @@ function makePreview() {
 }
 
 function enhanceSubjectCard(card) {
-  if (!card || card.dataset.jarPreviewParity === "ready") return;
-  card.dataset.jarPreviewParity = "ready";
+  if (!card || card.dataset.jarPreview === "ready") return;
+  card.dataset.jarPreview = "ready";
   card.classList.add("has-jar-preview");
   card.prepend(makePreview());
 }
@@ -41,7 +41,7 @@ function refreshSubjectPreviews() {
     const replacement = makePreview();
     if (current) current.replaceWith(replacement);
     else card.prepend(replacement);
-    card.dataset.jarPreviewParity = "ready";
+    card.dataset.jarPreview = "ready";
     card.classList.add("has-jar-preview");
   });
 }
@@ -53,7 +53,7 @@ function observeSubjectShell() {
   observer.observe(shell, { childList: true, subtree: true });
 }
 
-export function mountJarSelectionPreviewParity() {
+export function mountJarSelectionPreview() {
   ensureStylesheet();
   enhanceSubjectGrid();
   observeSubjectShell();
@@ -67,4 +67,4 @@ export function mountJarSelectionPreviewParity() {
   });
 }
 
-mountJarSelectionPreviewParity();
+mountJarSelectionPreview();

@@ -1,6 +1,6 @@
 import "./redox-single-line.js";
 import { bootstrapGameRuntime } from "./main.js";
-import { initializeGamePage } from "./ui-effects.js?v=20260815-blue-scholar-gridfix1";
+import { initializeGamePage } from "./ui-effects.js?v=20260817-scene-assets-cleanup1";
 import { mountOpeningCountdown } from "./opening-countdown-flow.js";
 
 mountOpeningCountdown();
