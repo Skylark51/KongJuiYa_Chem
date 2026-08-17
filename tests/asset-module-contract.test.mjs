@@ -29,7 +29,7 @@ for (const key of kongjwiKeys) {
   const module = v2.modules.kongjwi[key];
   assert.ok(source, `missing locked Kongjwi source: ${key}`);
   assert.ok(module, `missing V2 Kongjwi module: ${key}`);
-  assert.match(source.path, /^assets\/art\/source-locked\/kongjwi\/.+\/base-cutout\.png$/);
+  assert.match(source.path, /^assets\/그림\/공용\/원본\/콩쥐\/.+\/기본-오려내기\.png$/);
   assert.doesNotMatch(source.path, /\.webp$/i);
   assert.equal(module.sourceOriginal, source.path);
   assert.equal(module.identityPolicy, "source-locked-current-art");

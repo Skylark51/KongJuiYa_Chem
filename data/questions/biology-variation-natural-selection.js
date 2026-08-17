@@ -1,9 +1,9 @@
-const EVOLUTION_IMAGE_ROOT = "assets/images/biology/evolution/";
+const EVOLUTION_IMAGE_ROOT = "assets/이미지/생명과학/진화/";
 
 export const BIOLOGY_VARIATION_NATURAL_SELECTION_QUESTIONS = Object.freeze([
   {
     id: "biology-variation-common-feature",
-    image: EVOLUTION_IMAGE_ROOT + "variation-observations.png",
+    image: EVOLUTION_IMAGE_ROOT + "변이-관찰.png",
     imageAlt: "사람의 홍채, 사랑앵무의 깃털, 무당벌레 딱지날개의 색과 무늬가 개체마다 다르다는 표",
     sourceLabel: "자료 1 · 자연에서 관찰되는 현상",
     prompt: "(가)~(다)의 공통적인 특징으로 가장 적절한 것은?",
@@ -13,7 +13,7 @@ export const BIOLOGY_VARIATION_NATURAL_SELECTION_QUESTIONS = Object.freeze([
   },
   {
     id: "biology-variation-term",
-    image: EVOLUTION_IMAGE_ROOT + "variation-observations.png",
+    image: EVOLUTION_IMAGE_ROOT + "변이-관찰.png",
     imageAlt: "사람의 홍채, 사랑앵무의 깃털, 무당벌레 딱지날개의 색과 무늬가 개체마다 다르다는 표",
     sourceLabel: "자료 1 · 자연에서 관찰되는 현상",
     prompt: "자료처럼 같은 종의 개체 사이에서 형질이 서로 다르게 나타나는 현상은?",
@@ -23,7 +23,7 @@ export const BIOLOGY_VARIATION_NATURAL_SELECTION_QUESTIONS = Object.freeze([
   },
   {
     id: "biology-variation-mutation",
-    image: EVOLUTION_IMAGE_ROOT + "variation-causes.png",
+    image: EVOLUTION_IMAGE_ROOT + "변이-원인.png",
     imageAlt: "새로운 유전자가 만들어지는 원인 가와 부모와 다른 형질의 자손이 나타나는 원인 나를 설명한 표",
     sourceLabel: "자료 2 · 변이의 원인",
     prompt: "새로운 유전자가 만들어지는 원인 (가)는?",
@@ -33,7 +33,7 @@ export const BIOLOGY_VARIATION_NATURAL_SELECTION_QUESTIONS = Object.freeze([
   },
   {
     id: "biology-variation-sexual-reproduction",
-    image: EVOLUTION_IMAGE_ROOT + "variation-causes.png",
+    image: EVOLUTION_IMAGE_ROOT + "변이-원인.png",
     imageAlt: "새로운 유전자가 만들어지는 원인 가와 부모와 다른 형질의 자손이 나타나는 원인 나를 설명한 표",
     sourceLabel: "자료 2 · 변이의 원인",
     prompt: "생식세포의 다양한 조합으로 부모와 다른 형질의 자손이 나타나는 원인 (나)는?",
@@ -43,7 +43,7 @@ export const BIOLOGY_VARIATION_NATURAL_SELECTION_QUESTIONS = Object.freeze([
   },
   {
     id: "biology-peacock-mutation",
-    image: EVOLUTION_IMAGE_ROOT + "mutation-and-reproduction.png",
+    image: EVOLUTION_IMAGE_ROOT + "돌연변이와-번식.png",
     imageAlt: "푸른색 깃털 공작 무리에서 흰색 깃털 공작이 우연히 태어난 사례와 서로 다른 깃털색 비둘기의 자손 사례",
     sourceLabel: "자료 3 · 공작과 비둘기의 변이",
     prompt: "푸른색 깃털 공작 무리에서 흰색 깃털 공작이 우연히 태어난 주된 원인은?",
@@ -53,7 +53,7 @@ export const BIOLOGY_VARIATION_NATURAL_SELECTION_QUESTIONS = Object.freeze([
   },
   {
     id: "biology-pigeon-reproduction",
-    image: EVOLUTION_IMAGE_ROOT + "mutation-and-reproduction.png",
+    image: EVOLUTION_IMAGE_ROOT + "돌연변이와-번식.png",
     imageAlt: "푸른색 깃털 공작 무리에서 흰색 깃털 공작이 우연히 태어난 사례와 서로 다른 깃털색 비둘기의 자손 사례",
     sourceLabel: "자료 3 · 공작과 비둘기의 변이",
     prompt: "밝은색과 어두운색 깃털 비둘기 사이에서 다양한 얼굴색의 자손이 나타난 까닭은?",
@@ -63,7 +63,7 @@ export const BIOLOGY_VARIATION_NATURAL_SELECTION_QUESTIONS = Object.freeze([
   },
   {
     id: "biology-natural-selection-statements",
-    image: EVOLUTION_IMAGE_ROOT + "natural-selection-statements.png",
+    image: EVOLUTION_IMAGE_ROOT + "자연선택-문장.png",
     imageAlt: "자연선택은 변이가 있는 생물 무리에서 일어나고, 환경 적응과 생존에 유리한 개체의 번식에 관한 세 문장",
     sourceLabel: "자료 4 · 자연선택의 특징",
     prompt: "자연선택에 관한 설명으로 옳은 것을 모두 고른 것은?",
@@ -73,7 +73,7 @@ export const BIOLOGY_VARIATION_NATURAL_SELECTION_QUESTIONS = Object.freeze([
   },
   {
     id: "biology-natural-selection-offspring",
-    image: EVOLUTION_IMAGE_ROOT + "natural-selection-statements.png",
+    image: EVOLUTION_IMAGE_ROOT + "자연선택-문장.png",
     imageAlt: "자연선택은 변이가 있는 생물 무리에서 일어나고, 환경 적응과 생존에 유리한 개체의 번식에 관한 세 문장",
     sourceLabel: "자료 4 · 자연선택의 특징",
     prompt: "자연선택 과정에서 다음 세대로 더 많이 전달되는 형질은?",
@@ -83,7 +83,7 @@ export const BIOLOGY_VARIATION_NATURAL_SELECTION_QUESTIONS = Object.freeze([
   },
   {
     id: "biology-evolution-order",
-    image: EVOLUTION_IMAGE_ROOT + "evolution-sequence.png",
+    image: EVOLUTION_IMAGE_ROOT + "진화-순서.png",
     imageAlt: "개체의 유전적 변이, 유리한 유전자의 전달, 집단의 유전적 변화와 새로운 생물종 출현을 차례로 제시한 표",
     sourceLabel: "자료 5 · 변이에서 진화까지",
     prompt: "자료에서 나타난 진화 과정의 순서로 옳은 것은?",
@@ -93,7 +93,7 @@ export const BIOLOGY_VARIATION_NATURAL_SELECTION_QUESTIONS = Object.freeze([
   },
   {
     id: "biology-evolution-selection-step",
-    image: EVOLUTION_IMAGE_ROOT + "evolution-sequence.png",
+    image: EVOLUTION_IMAGE_ROOT + "진화-순서.png",
     imageAlt: "개체의 유전적 변이, 유리한 유전자의 전달, 집단의 유전적 변화와 새로운 생물종 출현을 차례로 제시한 표",
     sourceLabel: "자료 5 · 변이에서 진화까지",
     prompt: "(나)에서 설명하는 핵심 과정은?",

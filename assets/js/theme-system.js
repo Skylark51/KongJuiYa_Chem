@@ -4,10 +4,10 @@ export const GAME_TITLE = "콩쥐야 줘때써 - 화학편";
 
 const JAR_THUMBNAIL_STYLE_ID = "jar-png-preview-style-v4";
 const JAR_PREVIEW_PNGS = Object.freeze({
-  onggi: "assets/art/jars/onggi/thumbnail-no-toad.png",
-  celadon: "assets/art/jars/celadon/thumbnail-no-toad.png",
-  "moon-white": "assets/art/jars/moon-white/thumbnail-no-toad.png",
-  "night-lacquer": "assets/art/jars/night-lacquer/thumbnail-no-toad.png"
+  onggi: "assets/그림/콩상점/상품/장독대/옹기/미리보기-두꺼비-없음.png",
+  celadon: "assets/그림/콩상점/상품/장독대/청자/미리보기-두꺼비-없음.png",
+  "moon-white": "assets/그림/콩상점/상품/장독대/달빛-백색/미리보기-두꺼비-없음.png",
+  "night-lacquer": "assets/그림/콩상점/상품/장독대/밤-칠기/미리보기-두꺼비-없음.png"
 });
 const COSMETIC_STORAGE_KEY = "kongjuiya-cosmetics-v1";
 const JAR_ITEM_TO_SKIN = Object.freeze({

@@ -1,8 +1,8 @@
 const MASKS = Object.freeze({
-  "kongjwi-classic-red.webp": "assets/art/kongjwi/masks/kongjwi-classic-red-seed.png?v=20260805-outfit-cutout2",
-  "kongjwi-blue-scholar.webp": "assets/art/kongjwi/masks/kongjwi-blue-scholar-seed.png?v=20260805-outfit-cutout2",
-  "kongjwi-field-work.webp": "assets/art/kongjwi/masks/kongjwi-field-work-seed.png?v=20260805-outfit-cutout2",
-  "kongjwi-night-court.webp": "assets/art/kongjwi/masks/kongjwi-night-court-seed.png?v=20260805-outfit-cutout2"
+  "kongjwi-classic-red.webp": "assets/그림/공용/콩쥐/마스크/고전-홍색-한복/씨앗.png?v=20260805-outfit-cutout2",
+  "kongjwi-blue-scholar.webp": "assets/그림/공용/콩쥐/마스크/청색-학자복/씨앗.png?v=20260805-outfit-cutout2",
+  "kongjwi-field-work.webp": "assets/그림/공용/콩쥐/마스크/농사일-작업복/씨앗.png?v=20260805-outfit-cutout2",
+  "kongjwi-night-court.webp": "assets/그림/공용/콩쥐/마스크/야간-궁중복/씨앗.png?v=20260805-outfit-cutout2"
 });
 const cache = new Map();
 const px = i => i * 4;

@@ -170,7 +170,7 @@ function createProductCard(item) {
     visual.classList.add("shop-jar-visual");
     const sprite = document.createElement("img");
     sprite.className = "shop-jar-sprite";
-    sprite.src = "assets/art/sprites/jars.png";
+    sprite.src = "assets/그림/공용/장독대/장독대-상품-스프라이트.png";
     sprite.alt = "";
     sprite.style.setProperty("--jar-sprite-left", JAR_SPRITE_OFFSETS[item.visualKey] || "24%");
     visual.append(sprite);
