@@ -1,4 +1,5 @@
 import { TRAINING_MODES } from "./training-modes.js";
+import { QUIZ_MAKER_AUTHORED_CONTENT } from "./questions/quiz-maker-authored.js";
 
 const chemistryQuizzes = Object.freeze(TRAINING_MODES.map(mode => Object.freeze({
   id: mode.id,
@@ -68,11 +69,18 @@ const biologyQuizzes = Object.freeze([
   }
 ].map(quiz => Object.freeze(quiz)));
 
+const authoredQuizzes = subjectId => Object.freeze((QUIZ_MAKER_AUTHORED_CONTENT[subjectId]?.trainingModes || []).map(mode => Object.freeze({
+  id: mode.id, title: mode.title, category: mode.category,
+  description: mode.shortDescription || mode.description,
+  implementation: `콩쥐야_줘때써.html?subject=${encodeURIComponent(subjectId)}&training=${encodeURIComponent(mode.id)}`,
+  source: "quiz-maker-authored", status: "live"
+})));
+
 export const SUBJECT_QUIZZES = Object.freeze({
-  chemistry: chemistryQuizzes,
-  physics: Object.freeze([]),
-  biology: biologyQuizzes,
-  "earth-science": earthScienceQuizzes
+  chemistry: Object.freeze([...chemistryQuizzes, ...authoredQuizzes("chemistry")]),
+  physics: authoredQuizzes("physics"),
+  biology: Object.freeze([...biologyQuizzes, ...authoredQuizzes("biology")]),
+  "earth-science": Object.freeze([...earthScienceQuizzes, ...authoredQuizzes("earth-science")])
 });
 
 export const SUBJECT_CATEGORIES = Object.freeze({

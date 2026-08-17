@@ -15,6 +15,7 @@ import {
   binaryRuntimeQuestion,
   multipleChoiceRuntimeQuestion
 } from "./questions/_runtime-choice.js";
+import { QUIZ_MAKER_AUTHORED_CONTENT } from "./questions/quiz-maker-authored.js";
 
 const SUBJECT_IDS = new Set(["chemistry", "physics", "biology", "earth-science"]);
 const rules = (leak = 1.5) => Object.freeze({
@@ -132,9 +133,28 @@ function validateContent(content) {
     const errors = [];
     if (!question.id) errors.push("missing question id");
     if (!modeIds.has(question.trainingId)) errors.push(`${question.id}: unknown training`);
-    if (!hasValidCorrectChoice(question)) errors.push(`${question.id}: invalid choices`);
+    if (["binary_choice", "multiple_choice"].includes(question.type)) {
+      if (!hasValidCorrectChoice(question)) errors.push(`${question.id}: invalid choices`);
+    } else if (!Array.isArray(question.answers) || !question.answers.length) errors.push(`${question.id}: invalid answers`);
     return errors;
   });
+}
+
+function authoredContent(subjectId) {
+  return QUIZ_MAKER_AUTHORED_CONTENT[subjectId] || { trainingModes: [], questions: [], overrides: {} };
+}
+
+function mergeAuthoredQuestions(subjectId, questions) {
+  const authored = authoredContent(subjectId);
+  const overrides = authored.overrides || {};
+  return Object.freeze([
+    ...questions.map(question => overrides[question.id] ? Object.freeze({ ...question, ...overrides[question.id] }) : question),
+    ...(authored.questions || [])
+  ]);
+}
+
+function mergeAuthoredModes(subjectId, trainingModes) {
+  return Object.freeze([...trainingModes, ...(authoredContent(subjectId).trainingModes || [])]);
 }
 
 export function createSubjectGameContent({ subjectId, trainingModes = [], questions = [], validateQuestions = null }) {
@@ -155,16 +175,24 @@ export function createSubjectGameContent({ subjectId, trainingModes = [], questi
 export const SUBJECT_GAME_CONTENT = Object.freeze({
   chemistry: createSubjectGameContent({
     subjectId: "chemistry",
-    trainingModes: CHEMISTRY_TRAINING_MODES,
-    questions: CHEMISTRY_QUESTIONS,
-    validateQuestions: validateChemistryQuestions
+    trainingModes: mergeAuthoredModes("chemistry", CHEMISTRY_TRAINING_MODES),
+    questions: mergeAuthoredQuestions("chemistry", CHEMISTRY_QUESTIONS),
+    validateQuestions: () => validateChemistryQuestions(mergeAuthoredQuestions("chemistry", CHEMISTRY_QUESTIONS))
   }),
-  physics: createSubjectGameContent({ subjectId: "physics" }),
-  biology: createSubjectGameContent({ subjectId: "biology", trainingModes: biologyModes, questions: biologyQuestions }),
+  physics: createSubjectGameContent({
+    subjectId: "physics",
+    trainingModes: mergeAuthoredModes("physics", []),
+    questions: mergeAuthoredQuestions("physics", [])
+  }),
+  biology: createSubjectGameContent({
+    subjectId: "biology",
+    trainingModes: mergeAuthoredModes("biology", biologyModes),
+    questions: mergeAuthoredQuestions("biology", biologyQuestions)
+  }),
   "earth-science": createSubjectGameContent({
     subjectId: "earth-science",
-    trainingModes: earthModes,
-    questions: [...earthTypeQuestions, ...earthEraQuestions, ...earthGeologicEraKeywordQuestions]
+    trainingModes: mergeAuthoredModes("earth-science", earthModes),
+    questions: mergeAuthoredQuestions("earth-science", [...earthTypeQuestions, ...earthEraQuestions, ...earthGeologicEraKeywordQuestions])
   })
 });
 
