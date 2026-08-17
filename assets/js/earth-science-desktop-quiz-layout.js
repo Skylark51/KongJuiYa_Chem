@@ -9,7 +9,10 @@ function isEarthSciencePage() {
 }
 
 function isFossilTypeTraining(app) {
-  return app?.dataset.trainingId === FOSSIL_TYPE_TRAINING_ID;
+  const trainingId = app?.dataset.trainingId
+    || new URLSearchParams(location.search).get('training')
+    || '';
+  return trainingId === FOSSIL_TYPE_TRAINING_ID;
 }
 
 export function mountEarthScienceDesktopQuizLayout() {
