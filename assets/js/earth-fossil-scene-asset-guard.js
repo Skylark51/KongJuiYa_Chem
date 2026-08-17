@@ -4,6 +4,7 @@ const ACTIVE = params.get("subject") === "earth-science"
 
 const DEFAULT_TOAD = "assets/그림/공용/두꺼비/표정/기본.png";
 const DEFAULT_TOOL = "assets/art/kongjwi-tools/wood.png";
+const SCENE_LAYER_SELECTOR = ".scene-background, .scene-toad-expression, .scene-toad-skin, .scene-tool";
 
 function migratedToadPath(image) {
   try {
@@ -30,14 +31,33 @@ function fallbackFor(image) {
 
 function hideBrokenLayer(image) {
   image.hidden = true;
-  const layer = image.closest(".scene-toad-expression, .scene-toad-skin, .scene-tool");
-  if (layer) layer.hidden = true;
+  image.style.display = "none";
+  const layer = image.closest(SCENE_LAYER_SELECTOR);
+  if (layer) {
+    layer.hidden = true;
+    layer.style.display = "none";
+  }
 }
 
 function handleSceneAssetError(event) {
   const image = event.target;
+  if (!(image instanceof HTMLImageElement)) return;
+  if (!image.classList.contains("scene-layer-image")) return;
+  if (!image.closest("#visualStage")) return;
+
+  // The authored courtyard background was removed during the Korean asset migration,
+  // while the manifest still points at the deleted English fallback path. Hiding the
+  // failed full-scene image is preferable to Safari's centered broken-image glyph.
+  if (image.closest(".scene-background")) {
+    hideBrokenLayer(image);
+    return;
+  }
+
   const fallbackPath = fallbackFor(image);
-  if (!fallbackPath) return;
+  if (!fallbackPath) {
+    hideBrokenLayer(image);
+    return;
+  }
 
   const fallbackUrl = new URL(fallbackPath, document.baseURI).href;
   if ((image.currentSrc || image.src) === fallbackUrl) {
@@ -45,9 +65,13 @@ function handleSceneAssetError(event) {
     return;
   }
 
-  const layer = image.closest(".scene-toad-expression, .scene-toad-skin, .scene-tool");
-  if (layer) layer.hidden = false;
+  const layer = image.closest(SCENE_LAYER_SELECTOR);
+  if (layer) {
+    layer.hidden = false;
+    layer.style.removeProperty("display");
+  }
   image.hidden = false;
+  image.style.removeProperty("display");
   image.src = fallbackUrl;
 }
 

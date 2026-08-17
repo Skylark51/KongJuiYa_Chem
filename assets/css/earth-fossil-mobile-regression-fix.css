@@ -3,6 +3,17 @@
  * The answer controls must keep their intrinsic height; portrait surplus belongs
  * to the authored scene so controls stay near the thumb zone without a dead panel.
  */
+
+/*
+ * The courtyard background source no longer exists after the asset migration.
+ * Never let a failed full-scene <img> render Safari's broken-image glyph.
+ */
+html[data-subject='earth-science']
+#ui-gameApp[data-training-id='earth-fossil-type']
+.scene-background .scene-layer-image {
+  display: none !important;
+}
+
 @media (max-width: 1179px) and (orientation: portrait) {
   html[data-subject='earth-science']
   #ui-gameApp[data-training-id='earth-fossil-type'][data-fossil-mobile-layout='separated']
