@@ -1,0 +1,49 @@
+#trainingGrid .jar-preview.jar-preview-photo,
+#subjectQuizGrid .jar-preview.jar-preview-photo {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: 1 / 1;
+  flex: 0 0 auto;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: #21150f;
+  background-position: center 51% !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+#trainingGrid .training-card,
+#subjectQuizGrid .subject-quiz-card.has-jar-preview {
+  overflow: hidden;
+}
+
+#subjectQuizGrid .subject-quiz-card.has-jar-preview > .jar-preview.jar-preview-photo {
+  width: calc(100% + 36px);
+  max-width: none;
+  margin: -18px -18px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+#subjectQuizGrid .jar-preview.jar-preview-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 246, 218, .035), transparent 48%, rgba(18, 8, 3, .18));
+}
+
+#subjectQuizGrid .jar-preview.jar-preview-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border: 1px solid rgba(255, 232, 184, .09);
+  box-shadow: inset 0 -24px 30px rgba(12, 6, 3, .18);
+}
