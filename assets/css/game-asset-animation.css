@@ -12,11 +12,15 @@
 .scene-layer-stack {
   --scene-water-level: 70%;
   position: absolute;
-  inset: 0;
+  left: 50%;
+  top: 50%;
+  width: var(--scene-render-width, 100%);
+  height: var(--scene-render-height, 100%);
   overflow: hidden;
   pointer-events: none;
   contain: layout paint;
-  transform: translateZ(0);
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
 }
 
 .scene-layer {
@@ -286,18 +290,8 @@
 }
 
 @media (max-width: 900px), (pointer: coarse) {
-  .scene-layer-stack {
-    inset: 0;
-  }
-
   .scene-layer-image.is-cover {
     object-position: center bottom;
-  }
-}
-
-@media (orientation: portrait) and (max-width: 900px) {
-  .scene-layer-stack {
-    transform-origin: center bottom;
   }
 }
 

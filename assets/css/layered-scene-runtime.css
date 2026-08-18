@@ -50,15 +50,15 @@
   inset: auto !important;
   left: 50% !important;
   right: auto !important;
-  top: auto !important;
-  bottom: 0 !important;
+  top: 50% !important;
+  bottom: auto !important;
   width: var(--scene-render-width, 100%) !important;
   height: var(--scene-render-height, 100%) !important;
   min-width: 0;
   min-height: 0;
   z-index: 1;
-  transform: translateX(-50%) translateZ(0) !important;
-  transform-origin: center bottom;
+  transform: translate(-50%, -50%) !important;
+  transform-origin: center center;
 }
 
 .scene-animation-zone > #layeredScene > .scene-layer[hidden] {

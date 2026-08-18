@@ -1,6 +1,6 @@
 const MOBILE_QUERY = '(max-width: 900px), (pointer: coarse)';
 const DIALOGUE_STYLE_ID = 'dialogue-above-kongjwi-style';
-const DIALOGUE_STYLE_URL = new URL('../css/dialogue-above-kongjwi.css?v=20260818-dialogue-position3', import.meta.url).href;
+const DIALOGUE_STYLE_URL = new URL('../css/dialogue-above-kongjwi.css?v=20260818-fixed-scene-frame1', import.meta.url).href;
 
 function ensureDialoguePositionStylesheet() {
   let link = document.getElementById(DIALOGUE_STYLE_ID);
