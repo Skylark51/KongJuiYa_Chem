@@ -79,8 +79,12 @@ export function mountShopContext({
     if (target === "records") link.href = route("records");
   });
 
-  const bottomNav = documentRef.querySelector('[data-subject-toolbar="bottom"]');
-  if (bottomNav) bottomNav.setAttribute("aria-label", subject.name + "편 주요 메뉴");
+  const bottomNav = documentRef.querySelector(".mobile-bottom-nav");
+  if (bottomNav) {
+    bottomNav.classList.add("subject-mobile-nav");
+    bottomNav.dataset.subjectToolbar = "bottom";
+    bottomNav.setAttribute("aria-label", subject.name + "편 주요 메뉴");
+  }
   mountSubjectNavigationIcons(documentRef);
 
   const brand = documentRef.querySelector(".app-brand");
