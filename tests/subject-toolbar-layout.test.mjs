@@ -6,54 +6,43 @@ import { resolve } from "node:path";
 const root = resolve(import.meta.dirname, "..");
 const read = path => readFile(resolve(root, path), "utf8");
 
-test("subject toolbar CSS entrypoint delegates layout, controls, and responsive policy", async () => {
+test("subject toolbar CSS entrypoint delegates to one unified master", async () => {
   const entry = await read("assets/css/subject-toolbar.css");
   const imports = entry.match(/@import url\([^)]*\);/g) || [];
-  assert.equal(imports.length, 3);
-  assert.match(entry, /subject-toolbar\/layout\.css\?v=20260815-toolbar-edge1/);
-  assert.match(entry, /subject-toolbar\/controls\.css\?v=20260815-toolbar-edge1/);
-  assert.match(entry, /subject-toolbar\/responsive\.css\?v=20260815-toolbar-edge1/);
+  assert.equal(imports.length, 1);
+  assert.match(entry, /subject-toolbar\/unified\.css\?v=20260818-unified1/);
   assert.doesNotMatch(entry, /\.subject-topbar\s*\{/);
 });
 
 test("subject toolbar keeps Chemistry hierarchy at compact desktop widths", async () => {
-  const layout = await read("assets/css/subject-toolbar/layout.css");
-  const controls = await read("assets/css/subject-toolbar/controls.css");
-  const responsive = await read("assets/css/subject-toolbar/responsive.css");
-  assert.match(layout, /\.subject-topbar>\*\{min-width:0\}/);
-  assert.match(layout, /\.subject-desktop-nav\{[^}]*min-width:max-content[^}]*white-space:nowrap/);
-  assert.match(controls, /\.subject-desktop-nav button,\.subject-desktop-nav a\{[^}]*white-space:nowrap[^}]*word-break:keep-all/);
-  const compact = responsive.slice(responsive.indexOf("@media(max-width:940px)"), responsive.indexOf("@media(max-width:700px)"));
-  assert.match(compact, /\.subject-topbar\{grid-template-columns:minmax\(0,1fr\) auto\}/);
-  assert.match(compact, /\.subject-desktop-nav\{grid-column:1\/-1;grid-row:2;justify-self:center\}/);
-  assert.match(compact, /\.subject-top-actions\{grid-column:2;grid-row:1\}/);
+  const unified = await read("assets/css/subject-toolbar/unified.css");
+  assert.match(unified, /\[data-subject-toolbar="top"\]>\*\{min-width:0\}/);
+  assert.match(unified, /\.subject-desktop-nav\{display:flex;min-width:max-content/);
+  assert.match(unified, /@media\(max-width:940px\)/);
+  assert.match(unified, /grid-column:1\/-1;grid-row:2;justify-self:center/);
 });
 
 test("narrow viewport cannot re-enable the desktop toolbar even in forced desktop mode", async () => {
-  const responsive = await read("assets/css/subject-toolbar/responsive.css");
-  const narrowStart = responsive.indexOf("@media(max-width:700px)");
-  const mobileDatasetStart = responsive.indexOf('html[data-device-layout="mobile"] body');
-  assert.ok(narrowStart >= 0 && mobileDatasetStart > narrowStart);
-  const narrow = responsive.slice(narrowStart, mobileDatasetStart);
-  assert.match(narrow, /\.subject-desktop-nav,\.subject-top-actions \.bean-wallet,\.subject-top-actions \.science-portal-link\{display:none\}/);
-  assert.match(narrow, /\.subject-mobile-nav\{[^}]*display:grid/);
+  const unified = await read("assets/css/subject-toolbar/unified.css");
+  assert.match(unified, /\.subject-desktop-nav\{display:none!important\}/);
+  assert.match(unified, /grid-template-columns:repeat\(5,minmax\(0,1fr\)\)!important/);
 });
 
-test("toolbar JavaScript is split by DOM discovery, Chemistry contract, economy, and mount lifecycle", async () => {
+test("toolbar JavaScript uses one markup renderer, icon set, economy adapter, and mount lifecycle", async () => {
   const entry = await read("assets/js/subject-toolbar.js");
   const mount = await read("assets/js/subject-toolbar/mount.js");
-  const nodes = await read("assets/js/subject-toolbar/nodes.js");
-  const contract = await read("assets/js/subject-toolbar/chemistry-contract.js");
+  const markup = await read("assets/js/subject-toolbar/markup.js");
+  const icons = await read("assets/js/subject-toolbar/icons.js");
   const beans = await read("assets/js/subject-toolbar/beans.js");
 
-  assert.match(entry, /import \{ startSubjectToolbarParity \} from "\.\/subject-toolbar\/mount\.js";/);
+  assert.match(entry, /import \{ startSubjectToolbar \} from "\.\/subject-toolbar\/mount\.js";/);
   assert.doesNotMatch(entry, /querySelector|localStorage|requestAnimationFrame/);
-  assert.match(mount, /from "\.\/nodes\.js"/);
-  assert.match(mount, /from "\.\/chemistry-contract\.js"/);
+  assert.match(mount, /from "\.\/markup\.js"/);
+  assert.match(mount, /from "\.\/icons\.js"/);
   assert.match(mount, /from "\.\/beans\.js"/);
-  assert.match(nodes, /collectSubjectToolbarNodes/);
-  assert.match(contract, /applyChemistryToolbarClassContract/);
-  assert.match(contract, /ensureSharedBeanWallet/);
+  assert.match(markup, /data-subject-toolbar="top"/);
+  assert.match(markup, /data-subject-toolbar="bottom"/);
+  assert.match(icons, /SUBJECT_NAV_ICONS/);
   assert.match(beans, /SHARED_CHEMISTRY_SAVE_KEY/);
   assert.doesNotMatch(beans, /querySelector\("\.subject-topbar"\)/);
 });
@@ -62,11 +51,10 @@ test("all subject-shell pages pin the modular toolbar entrypoints while Chemistr
   for (const subject of ["physics", "biology", "earth-science"]) {
     const html = await read(`subjects/${subject}/index.html`);
     assert.match(html, /subject-shell\.css\?v=20260812-subjects2/);
-    assert.match(html, /subject-toolbar\.css\?v=20260817-toolbar1/);
-    assert.match(html, /subject-toolbar\.js\?v=20260817-toolbar1/);
+    assert.match(html, /subject-toolbar\.css\?v=20260818-unified1/);
+    assert.match(html, /subject-toolbar\.js\?v=20260818-unified1/);
   }
   const chemistry = await read("subjects/chemistry/index.html");
-  assert.match(chemistry, /class="lobby-topbar"/);
-  assert.match(chemistry, /class="desktop-tabs"/);
-  assert.match(chemistry, /class="topbar-actions"/);
+  assert.match(chemistry, /subject-toolbar\.css\?v=20260818-unified1/);
+  assert.match(chemistry, /subject-toolbar\.js\?v=20260818-unified1/);
 });

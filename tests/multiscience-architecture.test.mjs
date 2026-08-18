@@ -145,17 +145,19 @@ test("all authored local href and src targets exist", async () => {
 
 test("shared subject shell exposes product navigation, empty states, and global shop context", async () => {
   const shell = await read("assets/js/subject-shell.js");
+  const toolbar = await read("assets/js/subject-toolbar/markup.js");
+  const toolbarStyles = await read("assets/css/subject-toolbar/unified.css");
   const styles = await read("assets/css/subject-shell.css");
   const shop = await read("shop.html");
   const shopContext = await read("assets/js/shop-context.js");
-  assert.match(shell, /data-view-target="home"/);
-  assert.match(shell, /data-view-target="jars"/);
-  assert.match(shell, /data-view-target="records"/);
+  assert.match(toolbar, /view: "home"/);
+  assert.match(toolbar, /view: "jars"/);
+  assert.match(toolbar, /view: "records"/);
   assert.match(shell, /플레이 기록 없음/);
   assert.match(shell, /아직 등록된 __SUBJECT__ 장독대가 없습니다/);
   assert.match(shell, /shop\.html\?subject=/);
   assert.match(shell, /action\.disabled = true/);
-  assert.match(styles, /grid-template-columns:repeat\(6,minmax\(0,1fr\)\)/);
+  assert.match(toolbarStyles, /grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
   assert.match(styles, /prefers-reduced-motion/);
   assert.match(shop, /assets\/js\/shop-context\.js/);
   assert.match(shopContext, /subjectLobbyUrl/);
