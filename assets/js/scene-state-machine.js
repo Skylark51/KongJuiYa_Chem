@@ -9,6 +9,7 @@ export const SCENE_FEEDBACK_DURATION_MS = Object.freeze({
 });
 const POUR_CHARACTER_FRAMES = [2, 2, 3, 3, 4, 4, 5, 5, 5, 6, 6];
 const BLUE_SCHOLAR_CORRECT_FRAMES = Array.from({ length: 15 }, (_, index) => index);
+const CLASSIC_RED_CORRECT_FRAMES = Array.from({ length: 30 }, (_, index) => index);
 const BLUE_SCHOLAR_FEVER_FRAMES = Array.from({ length: 10 }, (_, index) => index + 15);
 const BLUE_SCHOLAR_IDLE_FRAMES = [0, 1, 0];
 const BLUE_SCHOLAR_WRONG_FRAMES = [0];
@@ -136,8 +137,8 @@ export class LayeredSceneStateController {
     this.playSequence("waterLeak", sequence, energetic ? 760 : 1120, { loop: true, hold: true });
   }
 
-  isBlueScholar30f() {
-    return this.renderer.getKongjwiOutfit?.() === "blue-scholar";
+  isReferencePour30f() {
+    return ["classic-red", "blue-scholar"].includes(this.renderer.getKongjwiOutfit?.());
   }
 
   playCorrectFeedback(detail = {}, { hold = false } = {}) {
@@ -145,10 +146,11 @@ export class LayeredSceneStateController {
     const plan = sequences.answerCorrect || {};
     const courtMode = isCourtServantMode();
 
-    const blueScholar = this.isBlueScholar30f();
+    const referencePour = this.isReferencePour30f();
+    const classicRed = this.renderer.getKongjwiOutfit?.() === "classic-red";
     this.renderer.setFlowPhase("prepare");
-    this.schedule(() => this.renderer.setFlowPhase("pour"), blueScholar ? 610 : 400);
-    this.schedule(() => this.renderer.setFlowPhase("settle"), blueScholar ? 1120 : 1040);
+    this.schedule(() => this.renderer.setFlowPhase("pour"), referencePour ? 610 : 400);
+    this.schedule(() => this.renderer.setFlowPhase("settle"), referencePour ? 1120 : 1040);
     if (!hold) this.schedule(() => this.renderer.setFlowPhase("idle"), 1320);
 
     if (courtMode) {
@@ -167,8 +169,8 @@ export class LayeredSceneStateController {
     }
 
     resetCourtServantPour();
-    if (blueScholar) {
-      this.playSequence("kongjwi", BLUE_SCHOLAR_CORRECT_FRAMES, 1360, { hold });
+    if (referencePour) {
+      this.playSequence("kongjwi", classicRed ? CLASSIC_RED_CORRECT_FRAMES : BLUE_SCHOLAR_CORRECT_FRAMES, 1360, { hold });
       this.renderer.setFrame("tool", 0);
       this.playSequence("waterStream", plan.waterStream || POUR_STREAM_FRAMES, 560, { delay: 610, hold });
       this.playSequence("waterSplash", plan.waterSplash || POUR_SPLASH_FRAMES, 430, { delay: 735, hold });
@@ -197,7 +199,7 @@ export class LayeredSceneStateController {
         resetCourtServantPour();
         this.wrongStreak = 0;
         this.renderer.setExpression("default");
-        this.playSequence("kongjwi", this.isBlueScholar30f() ? BLUE_SCHOLAR_IDLE_FRAMES : (sequences.idle?.kongjwi || [0, 1, 0]), 1800, { loop: true });
+        this.playSequence("kongjwi", this.isReferencePour30f() ? BLUE_SCHOLAR_IDLE_FRAMES : (sequences.idle?.kongjwi || [0, 1, 0]), 1800, { loop: true });
         this.playSequence("tool", [0, 1, 0], 1800, { loop: true });
         this.startLeakLoop();
         break;
@@ -205,7 +207,7 @@ export class LayeredSceneStateController {
       case "question":
         resetCourtServantPour();
         this.renderer.setExpression("idle-blink");
-        this.playSequence("kongjwi", this.isBlueScholar30f() ? BLUE_SCHOLAR_IDLE_FRAMES : [0, 1, 0], 620);
+        this.playSequence("kongjwi", this.isReferencePour30f() ? BLUE_SCHOLAR_IDLE_FRAMES : [0, 1, 0], 620);
         this.playSequence("tool", [0, 1, 0], 620);
         this.startLeakLoop();
         this.schedule(() => this.renderer.setExpression("default"), 680);
@@ -226,7 +228,7 @@ export class LayeredSceneStateController {
         this.renderer.setExpression(
           this.wrongStreak >= 3 ? "rage" : this.wrongStreak === 2 ? "angry" : "wrong"
         );
-        this.playSequence("kongjwi", this.isBlueScholar30f() ? BLUE_SCHOLAR_WRONG_FRAMES : (sequences.answerWrong?.kongjwi || [7]), 560, { hold: true });
+        this.playSequence("kongjwi", this.isReferencePour30f() ? BLUE_SCHOLAR_WRONG_FRAMES : (sequences.answerWrong?.kongjwi || [7]), 560, { hold: true });
         this.playSequence("tool", [7], 560, { hold: true });
         this.startLeakLoop({ energetic: true });
         this.schedule(() => this.apply("question"), SCENE_FEEDBACK_DURATION_MS.wrong);
@@ -236,7 +238,7 @@ export class LayeredSceneStateController {
         resetCourtServantPour();
         this.wrongStreak += 1;
         this.renderer.setExpression("timeout");
-        this.playSequence("kongjwi", this.isBlueScholar30f() ? BLUE_SCHOLAR_WRONG_FRAMES : [7], 700, { hold: true });
+        this.playSequence("kongjwi", this.isReferencePour30f() ? BLUE_SCHOLAR_WRONG_FRAMES : [7], 700, { hold: true });
         this.playSequence("tool", [7], 700, { hold: true });
         this.startLeakLoop({ energetic: true });
         this.schedule(() => this.apply("question"), SCENE_FEEDBACK_DURATION_MS.timeout);
@@ -255,7 +257,7 @@ export class LayeredSceneStateController {
       case "fever":
         this.wrongStreak = 0;
         this.renderer.setExpression("combo");
-        if (this.isBlueScholar30f()) {
+        if (this.isReferencePour30f()) {
           this.playSequence("kongjwi", BLUE_SCHOLAR_FEVER_FRAMES, 980, { hold: true });
           this.playSequence("waterStream", POUR_STREAM_FRAMES, 520, { delay: 300, hold: true });
           this.playSequence("waterSplash", POUR_SPLASH_FRAMES, 420, { delay: 430, hold: true });
@@ -274,7 +276,7 @@ export class LayeredSceneStateController {
       case "over":
         resetCourtServantPour();
         this.renderer.setExpression(detail.reason === "timeout" ? "timeout" : "wrong");
-        this.playSequence("kongjwi", this.isBlueScholar30f() ? BLUE_SCHOLAR_WRONG_FRAMES : [7], 700, { hold: true });
+        this.playSequence("kongjwi", this.isReferencePour30f() ? BLUE_SCHOLAR_WRONG_FRAMES : [7], 700, { hold: true });
         this.playSequence("tool", [7], 700, { hold: true });
         this.startLeakLoop({ energetic: true });
         break;
