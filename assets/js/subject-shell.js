@@ -2,6 +2,7 @@ import { subjectById } from "../../data/subjects.js";
 import { categoriesForSubject, quizzesForSubject } from "../../data/subject-quizzes.js";
 import { siteUrl } from "./site-routing.js";
 import { GLOBAL_STORAGE_KEYS, SubjectStorage, summarizeSubjectRecords } from "./subject-storage.js";
+import { createSubjectToolbarMarkup } from "./subject-toolbar/markup.js";
 
 const subjectId = document.documentElement.dataset.subject;
 const subject = subjectById(subjectId);
@@ -17,6 +18,7 @@ if (activeCategory !== "전체" && !categories.includes(activeCategory)) activeC
 
 const shopHref = siteUrl("shop.html?subject=" + encodeURIComponent(subject.id));
 const portalHref = siteUrl("");
+const toolbarMarkup = createSubjectToolbarMarkup({ subject, shopHref, portalHref });
 document.documentElement.dataset.theme = subject.theme;
 document.title = "콩쥐야 줘때써 - " + subject.name + "편";
 try {
@@ -27,11 +29,8 @@ try {
 
 root.innerHTML = [
   '<a class="skip-link" href="#subjectMain">본문으로 바로가기</a>',
-  '<header class="subject-topbar">',
-  '<a class="subject-brand" href="?view=home" data-view-target="home" aria-label="__SUBJECT__편 홈으로 이동"><span aria-hidden="true">甕</span><span><strong>콩쥐야 줘때써 - __SUBJECT__편</strong><small>__ENGLISH__ TRAINING HALL</small></span></a>',
-  '<nav class="subject-desktop-nav" aria-label="__SUBJECT__편 주요 메뉴"><button type="button" data-view-target="home">홈</button><button type="button" data-view-target="jars">장독대</button><button type="button" data-view-target="records">기록</button><a href="__SHOP__">콩 상점</a></nav>',
-  '<div class="subject-top-actions"><a class="portal-return" href="__PORTAL__" aria-label="과학 통합관으로 돌아가기">과학 통합관</a><button class="settings-button" type="button" data-settings-open aria-label="설정 열기">⚙</button></div>',
-  '</header><main id="subjectMain">',
+  toolbarMarkup.top,
+  '<main id="subjectMain">',
   '<section class="subject-view subject-home-view" data-subject-view="home"><div class="subject-hero"><div class="subject-hero-copy">',
   '<p class="eyebrow">SCIENCE SUBJECT HALL</p><span class="subject-icon" aria-hidden="true">__ICON__</span><h1>__SUBJECT__편</h1><strong>__ENGLISH_TITLE__</strong>',
   '<p>콩쥐가 붓는 물을 지키고, 두꺼비와 함께 __SUBJECT__ 장독대를 채워 보세요.</p><button class="primary-action" type="button" data-view-target="jars">장독대 둘러보기</button></div>',
@@ -42,7 +41,8 @@ root.innerHTML = [
   '<div id="subjectQuizEmpty" class="subject-empty" role="status"><span aria-hidden="true">甕</span><h3>아직 등록된 __SUBJECT__ 장독대가 없습니다.</h3><p>새로운 퀴즈가 추가될 예정입니다.</p></div></section>',
   '<section class="subject-view subject-panel" data-subject-view="records" hidden aria-labelledby="recordsTitle"><header class="section-heading"><div><p class="eyebrow">PLAY RECORD</p><h2 id="recordsTitle" tabindex="-1">__SUBJECT__ 장독대 기록</h2></div><p>이 과목에서 실제로 플레이한 결과만 표시합니다.</p></header>',
   '<div class="subject-record-summary"><article><span>총 플레이</span><strong id="subjectTotalPlays">0</strong></article><article><span>전체 정답률</span><strong id="subjectAccuracy">—</strong></article><article><span>최고 콤보</span><strong id="subjectBestCombo">0</strong></article><article><span>총 풀이 문제</span><strong id="subjectTotalAnswers">0</strong></article></div><div id="subjectRecordList" class="subject-record-list" aria-live="polite"></div></section>',
-  '</main><nav class="subject-mobile-nav" aria-label="__SUBJECT__편 주요 메뉴"><button type="button" data-view-target="home"><span aria-hidden="true">⌂</span>홈</button><button type="button" data-view-target="jars"><span aria-hidden="true">甕</span>장독대</button><button type="button" data-view-target="records"><span aria-hidden="true">冊</span>기록</button><a href="__SHOP__"><span aria-hidden="true">豆</span>상점</a><button type="button" data-settings-open aria-label="설정 열기"><span aria-hidden="true">⚙</span>설정</button><a href="__PORTAL__" aria-label="과학 통합관으로 돌아가기"><span aria-hidden="true">科</span>통합관</a></nav>',
+  '</main>',
+  toolbarMarkup.bottom,
   '<dialog id="subjectSettings" class="subject-settings" aria-labelledby="subjectSettingsTitle"><form method="dialog"><button class="dialog-close" value="cancel" aria-label="설정 닫기">×</button><p class="eyebrow">GLOBAL SETTINGS</p><h2 id="subjectSettingsTitle">콩쥐야 줘때써 설정</h2><p>음량과 화면 모드는 모든 과목에서 공유됩니다.</p><label>전체 음량 <input id="subjectVolume" type="range" min="0" max="1" step="0.05"></label><label>기기 화면<select id="subjectDeviceMode"><option value="auto">자동 감지</option><option value="desktop">PC 버전</option><option value="mobile">모바일 버전</option></select></label><label class="toggle-row"><input id="subjectMotion" type="checkbox"> 애니메이션 사용</label><div class="dialog-actions"><button value="cancel">취소</button><button class="primary-action" value="save">저장</button></div></form></dialog>'
 ].join("").replaceAll("__SUBJECT__", subject.name).replaceAll("__ENGLISH_TITLE__", subject.englishName).replaceAll("__ENGLISH__", subject.englishName.toUpperCase()).replaceAll("__ICON__", subject.icon).replaceAll("__SHOP__", shopHref).replaceAll("__PORTAL__", portalHref);
 

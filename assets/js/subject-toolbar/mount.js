@@ -1,33 +1,35 @@
-import { collectSubjectToolbarNodes } from "./nodes.js";
-import {
-  applyChemistryToolbarClassContract,
-  ensureSharedBeanWallet,
-  normalizeSubjectToolbarCopy
-} from "./chemistry-contract.js";
+import { subjectById } from "../../../data/subjects.js";
+import { siteUrl } from "../site-routing.js";
 import { bindSharedBeanUpdates, renderSharedBeans } from "./beans.js";
+import { mountSubjectNavigationIcons } from "./icons.js";
+import { createSubjectToolbarMarkup, replaceSubjectToolbars } from "./markup.js";
 
-export function mountSubjectToolbarParity({ doc = document, target = window } = {}) {
+export function mountSubjectToolbar({ doc = document, target = window } = {}) {
   const html = doc.documentElement;
-  if (html.dataset.toolbarParityReady === "true") return true;
-  if (html.dataset.subjectShellReady !== "true") return false;
+  if (html.dataset.subjectToolbarReady === "true") return true;
+  const subject = subjectById(html.dataset.subject);
+  if (!subject) return false;
+  if (subject.id !== "chemistry" && html.dataset.subjectShellReady !== "true") return false;
 
-  const nodes = collectSubjectToolbarNodes(doc);
-  if (!nodes.topbar || !nodes.brand || !nodes.desktopNav || !nodes.actions || !nodes.mobileNav) return false;
+  const shopHref = siteUrl("shop.html?subject=" + encodeURIComponent(subject.id));
+  const portalHref = siteUrl("");
+  const activeView = new URL(target.location.href).searchParams.get("view") || "home";
+  const markup = createSubjectToolbarMarkup({ subject, shopHref, portalHref, activeView });
 
-  applyChemistryToolbarClassContract(nodes);
-  normalizeSubjectToolbarCopy(nodes);
-  ensureSharedBeanWallet(nodes, doc);
+  if (subject.id === "chemistry") replaceSubjectToolbars(doc, markup);
+  if (!doc.querySelector("[data-subject-toolbar=top]") || !doc.querySelector("[data-subject-toolbar=bottom]")) return false;
+  mountSubjectNavigationIcons(doc);
   renderSharedBeans(doc, target.localStorage);
   bindSharedBeanUpdates(target, doc, target.localStorage);
 
   html.dataset.toolbarMaster = "chemistry";
-  html.dataset.toolbarParityReady = "true";
+  html.dataset.subjectToolbarReady = "true";
   return true;
 }
 
-export function startSubjectToolbarParity({ doc = document, target = window } = {}) {
+export function startSubjectToolbar({ doc = document, target = window } = {}) {
   const attempt = () => {
-    if (!mountSubjectToolbarParity({ doc, target })) target.requestAnimationFrame(attempt);
+    if (!mountSubjectToolbar({ doc, target })) target.requestAnimationFrame(attempt);
   };
   attempt();
 }
