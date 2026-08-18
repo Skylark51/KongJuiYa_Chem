@@ -21,7 +21,7 @@ test("jar cards always use the currently equipped jar PNG without recoloring", (
 
 test("layered scene loads the current runtime stylesheet and one uniform logical scale", () => {
   const renderer = read("assets/js/scene-renderer.js");
-  assert.match(renderer, /game-asset-animation\.css\?v=20260808-motion-polish1/);
+  assert.match(renderer, /game-asset-animation\.css\?v=20260818-fixed-scene-frame1/);
   assert.match(renderer, /await ensureRuntimeStylesheet\(\)/);
   assert.match(renderer, /function fitStackToHost/);
   assert.match(renderer, /Math\.min\(hostWidth \/ logical\.width, hostHeight \/ logical\.height\)/);

@@ -239,18 +239,7 @@ html[data-subject="earth-science"] #ui-gameApp {
     overflow: hidden;
   }
 
-  /* Dialogue lane / actor canvas split inside the animation zone. */
-  #ui-gameApp[data-strict-quiz-layout="split"] .scene-animation-zone .scene-layer-stack {
-    inset: var(--strict-dialogue-lane) 0 0 !important;
-    border-top: 1px solid rgba(255, 255, 255, .08);
-  }
-
-  #ui-gameApp[data-strict-quiz-layout="split"] .scene-animation-zone .quiz-scene-actors {
-    position: absolute !important;
-    inset: var(--strict-dialogue-lane) 0 0 !important;
-    width: 100% !important;
-    height: auto !important;
-  }
+  /* Dialogue stays a zone overlay; the layered artwork owns the full frame. */
 
   #ui-gameApp[data-strict-quiz-layout="split"] .scene-animation-zone .toad-bubble {
     top: 4px !important;

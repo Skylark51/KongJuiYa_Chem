@@ -4,7 +4,7 @@ import { resolveSceneAssetPath } from "./scene-asset-paths.js";
 
 const MANIFEST_URL = new URL("../그림/게임-장면/manifest.json?v=20260817-scene-assets-cleanup1", import.meta.url).href;
 const RUNTIME_STYLE_ID = "layered-scene-animation-runtime";
-const RUNTIME_STYLE_URL = new URL("../css/game-asset-animation.css?v=20260815-blue-scholar-motionfix2", import.meta.url).href;
+const RUNTIME_STYLE_URL = new URL("../css/game-asset-animation.css?v=20260818-fixed-scene-frame1", import.meta.url).href;
 const SITE_ROOT_URL = new URL("../../", import.meta.url);
 const ORDER = [
   "scene-background", "scene-kongjwi", "scene-tool", "scene-water-stream",
@@ -68,9 +68,25 @@ function fitStackToHost(host, stack, logical) {
   const scale = Math.min(hostWidth / logical.width, hostHeight / logical.height);
   const renderWidth = logical.width * scale;
   const renderHeight = logical.height * scale;
+
+  // The stack is the one fixed 16:9 scene frame. Write every geometry value
+  // from scratch so repeated ResizeObserver/orientation callbacks cannot
+  // accumulate transforms or inherit a legacy mobile offset.
   stack.style.setProperty("--scene-render-width", `${renderWidth}px`);
   stack.style.setProperty("--scene-render-height", `${renderHeight}px`);
   stack.style.setProperty("--scene-uniform-scale", String(scale));
+  stack.style.setProperty("position", "absolute", "important");
+  stack.style.setProperty("inset", "auto", "important");
+  stack.style.setProperty("left", "50%", "important");
+  stack.style.setProperty("top", "50%", "important");
+  stack.style.setProperty("right", "auto", "important");
+  stack.style.setProperty("bottom", "auto", "important");
+  stack.style.setProperty("width", `${renderWidth}px`, "important");
+  stack.style.setProperty("height", `${renderHeight}px`, "important");
+  stack.style.setProperty("min-width", "0", "important");
+  stack.style.setProperty("min-height", "0", "important");
+  stack.style.setProperty("transform", "translate(-50%, -50%)", "important");
+  stack.style.setProperty("transform-origin", "center center", "important");
   stack.dataset.scaleMode = "uniform-contain";
   stack.dataset.logicalAspect = `${logical.width}:${logical.height}`;
 }
