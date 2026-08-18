@@ -1,5 +1,6 @@
 import { subjectById } from "../../data/subjects.js";
 import { siteUrl, subjectLobbyUrl } from "./site-routing.js";
+import { mountSubjectNavigationIcons } from "./subject-toolbar/icons.js";
 
 export const LAST_SUBJECT_KEY = "kongjuiya:last-subject";
 export const DEFAULT_SHOP_SUBJECT = "chemistry";
@@ -59,6 +60,7 @@ export function mountShopContext({
   const route = view => returnUrlForSubject(subject.id, view, documentRef);
   const shopRoute = shopUrlForSubject(subject.id, documentRef);
 
+  root.dataset.subject = subject.id;
   root.dataset.shopSubject = subject.id;
   root.dataset.returnSubject = subject.id;
   if (body) body.dataset.subject = subject.id;
@@ -76,6 +78,10 @@ export function mountShopContext({
     if (target === "jars") link.href = route("jars");
     if (target === "records") link.href = route("records");
   });
+
+  const bottomNav = documentRef.querySelector('[data-subject-toolbar="bottom"]');
+  if (bottomNav) bottomNav.setAttribute("aria-label", subject.name + "편 주요 메뉴");
+  mountSubjectNavigationIcons(documentRef);
 
   const brand = documentRef.querySelector(".app-brand");
   if (brand) {
