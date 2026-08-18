@@ -212,12 +212,12 @@ html[data-shop-subject] .outfit-wardrobe-option.is-selected {
   background: var(--shop-theme-accent-soft);
 }
 
-html[data-shop-subject] .mobile-bottom-nav {
+html[data-shop-subject] .mobile-bottom-nav:not([data-subject-toolbar="bottom"]) {
   border-color: var(--shop-theme-line);
   background: color-mix(in srgb, var(--shop-theme-topbar) 96%, transparent);
 }
 
-html[data-shop-subject] .mobile-bottom-nav [aria-current="page"] {
+html[data-shop-subject] .mobile-bottom-nav:not([data-subject-toolbar="bottom"]) [aria-current="page"] {
   background: var(--shop-theme-accent-soft);
   color: var(--shop-theme-accent-light);
 }
