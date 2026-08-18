@@ -2,6 +2,8 @@
  * One global bean shop, four visual contexts.
  * Product layout, images, prices, inventory and equipment state remain shared.
  */
+@import url("./subject-toolbar.css?v=20260818-bean-icon1");
+
 :root,
 html[data-shop-subject="chemistry"] {
   --shop-theme-bg-start: #100d0a;
@@ -13,7 +15,7 @@ html[data-shop-subject="chemistry"] {
   --shop-theme-workspace-start: rgba(37, 29, 21, .985);
   --shop-theme-workspace-end: rgba(17, 14, 11, .99);
   --shop-theme-card-start: rgba(43, 33, 24, .98);
-  --shop-theme-card-end: rgba(22, 17, 13, .99);
+  --shop-theme-card-end: rgba(22, 17, 13,.99);
   --shop-theme-item-start: rgba(40, 31, 23, .99);
   --shop-theme-item-end: rgba(19, 15, 12, .99);
   --shop-theme-control: #2a2119;
