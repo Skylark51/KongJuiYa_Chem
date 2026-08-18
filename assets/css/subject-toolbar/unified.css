@@ -17,7 +17,7 @@ html[data-subject="earth-science"]{--subject-toolbar-primary:#53aeb4;--subject-t
 [data-subject-toolbar="top"] .subject-top-actions{display:flex;min-width:0;align-items:center;justify-content:flex-end;gap:8px}
 [data-subject-toolbar="top"] .science-portal-link{display:inline-flex;min-height:39px;align-items:center;justify-content:center;padding:0 13px;border:1px solid var(--subject-toolbar-border);border-radius:999px;background:rgba(31,23,17,.72);color:var(--subject-toolbar-strong);font-size:10px;font-weight:900;text-decoration:none;white-space:nowrap}
 [data-subject-toolbar="top"] .bean-wallet{display:flex;min-height:44px;align-items:center;gap:9px;padding:7px 12px;border:1px solid var(--subject-toolbar-border);border-radius:999px;background:color-mix(in srgb,var(--subject-toolbar-muted),#241b11 72%);text-decoration:none;white-space:nowrap}
-[data-subject-toolbar="top"] .bean-wallet::before{content:"\\8C46";display:grid;width:27px;height:27px;place-items:center;border-radius:50%;background:linear-gradient(145deg,var(--subject-toolbar-strong),var(--subject-toolbar-primary));color:#172018;font-family:"Noto Serif KR",serif;font-weight:900}
+[data-subject-toolbar="top"] .bean-wallet::before{content:"豆";display:grid;width:27px;height:27px;place-items:center;border-radius:50%;background:linear-gradient(145deg,var(--subject-toolbar-strong),var(--subject-toolbar-primary));color:#172018;font-family:"Noto Serif KR",serif;font-weight:900}
 [data-subject-toolbar="top"] .bean-wallet small,[data-subject-toolbar="top"] .bean-wallet strong{display:block}
 [data-subject-toolbar="top"] .bean-wallet small{color:#9b8b74;font-size:8px}
 [data-subject-toolbar="top"] .bean-wallet strong{font-size:14px}
