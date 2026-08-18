@@ -363,9 +363,9 @@ export function mountSceneRenderer(root, { cosmetics = {} } = {}) {
     image(layer(stack, "scene-background"), chosen.background, true);
     image(layer(stack, "scene-foreground"), chosen.foreground, true);
     const kongjwiSpriteSpec = outfitAsset.sprite || s.kongjwi;
-    const isBlueScholar30f = outfit === "blue-scholar" && Number(kongjwiSpriteSpec.frames) === 30;
+    const isReferencePour30f = ["classic-red", "blue-scholar"].includes(outfit) && Number(kongjwiSpriteSpec.frames) === 30;
     sprite(layer(stack, "scene-kongjwi"), chosen.kongjwi, kongjwiSpriteSpec);
-    if (isBlueScholar30f) clearLayer(layer(stack, "scene-tool"));
+    if (isReferencePour30f) clearLayer(layer(stack, "scene-tool"));
     else sprite(layer(stack, "scene-tool"), chosen.tool, s.tool);
 
     if (motionRig && chosen.stream.url) sprite(layer(stack, "scene-water-stream"), chosen.stream, s.waterStream);

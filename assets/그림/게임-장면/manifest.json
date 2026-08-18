@@ -55,7 +55,28 @@
       },
       "classic-red": {
         "sheet": "assets/그림/게임-장면/콩쥐/고전-홍색-한복/물붓기-동작.png",
-        "fallback": "assets/art/kongjwi/kongjwi-classic-red-cutout.png"
+        "fallback": "assets/art/kongjwi/kongjwi-classic-red-cutout.png",
+        "sprite": {
+          "frames": 30,
+          "columns": 5,
+          "rows": 6,
+          "cell": {
+            "width": 256,
+            "height": 384
+          },
+          "sourceSize": {
+            "width": 1280,
+            "height": 2304
+          }
+        },
+        "placement": {
+          "x": 205,
+          "y": 246,
+          "width": 474,
+          "height": 711
+        },
+        "animationProfile": "classic-red-30f",
+        "actionMode": "magic-pour"
       },
       "blue-scholar": {
         "sheet": "assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png",
