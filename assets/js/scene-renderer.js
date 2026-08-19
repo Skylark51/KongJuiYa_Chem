@@ -162,11 +162,30 @@ function sprite(node, asset, spec, frame = 0) {
   const count = Math.max(1, Number(spec.frames || 1));
   const columns = Math.max(1, Number(spec.columns || count));
   const rows = Math.max(1, Number(spec.rows || 1));
+  const exactCell = spec.renderMode === "exact-cell";
   span.style.setProperty("--scene-frame-count", String(count));
   span.style.setProperty("--scene-frame-columns", String(columns));
   span.style.setProperty("--scene-frame-rows", String(rows));
 
-  if (rows > 1) {
+  if (exactCell) {
+    // The night-court sheet is rendered from one integer source cell at a
+    // time. Canvas drawImage clips before scaling, so no adjacent frame can
+    // be sampled at a fractional CSS background-position boundary.
+    span.classList.add("scene-sprite-exact-cell");
+    span.dataset.cellWidth = String(spec.cell?.width);
+    span.dataset.cellHeight = String(spec.cell?.height);
+    const canvas = document.createElement("canvas");
+    canvas.className = "scene-sprite-cell-canvas";
+    canvas.width = Number(spec.cell?.width);
+    canvas.height = Number(spec.cell?.height);
+    span.append(canvas);
+    const source = new Image();
+    source.decoding = "async";
+    source.addEventListener("load", () => drawExactCell(span, Number(span.dataset.frame) || 0), { once: true });
+    source.addEventListener("error", () => { node.dataset.assetState = "error"; }, { once: true });
+    source.src = asset.url;
+    span.__sceneExactCellSource = source;
+  } else if (rows > 1) {
     // A multi-row sheet is one oversized image clipped by one frame-sized
     // viewport. Avoid background-position rounding on mobile Safari.
     span.classList.add("scene-sprite-grid");
@@ -190,6 +209,30 @@ function sprite(node, asset, spec, frame = 0) {
   node.append(span);
   frameOf(node, frame);
 }
+function drawExactCell(spriteNode, frame) {
+  const source = spriteNode?.__sceneExactCellSource;
+  const canvas = spriteNode?.querySelector(".scene-sprite-cell-canvas");
+  const cellWidth = Number(spriteNode?.dataset.cellWidth);
+  const cellHeight = Number(spriteNode?.dataset.cellHeight);
+  const columns = Number(spriteNode?.style.getPropertyValue("--scene-frame-columns")) || 1;
+  if (!source?.complete || !source.naturalWidth || !canvas || !cellWidth || !cellHeight) return;
+  const column = frame % columns;
+  const row = Math.floor(frame / columns);
+  const context = canvas.getContext("2d", { alpha: true });
+  if (!context) return;
+  context.clearRect(0, 0, cellWidth, cellHeight);
+  context.drawImage(
+    source,
+    column * cellWidth,
+    row * cellHeight,
+    cellWidth,
+    cellHeight,
+    0,
+    0,
+    cellWidth,
+    cellHeight,
+  );
+}
 function fallbackWaterArc(node) {
   if (!node) return;
   node.replaceChildren();
@@ -210,7 +253,10 @@ function frameOf(node, frame) {
   const rows = Math.max(1, Number(spriteNode.style.getPropertyValue("--scene-frame-rows")) || 1);
   const next = Math.max(0, Math.min(count - 1, Number(frame) || 0));
 
-  if (rows > 1) {
+  spriteNode.dataset.frame = String(next);
+  if (spriteNode.classList.contains("scene-sprite-exact-cell")) {
+    drawExactCell(spriteNode, next);
+  } else if (rows > 1) {
     const column = next % columns;
     const row = Math.floor(next / columns);
     const sheet = spriteNode.querySelector(".scene-sprite-sheet-image");
