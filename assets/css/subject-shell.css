@@ -32,3 +32,24 @@ button,input,select{font:inherit}button,a{touch-action:manipulation}button{borde
 @media(max-width:700px){body{padding-bottom:82px}.subject-shell{padding:7px 8px 24px}.subject-topbar{top:max(5px,env(safe-area-inset-top));padding:7px;border-radius:15px}.subject-desktop-nav{display:none}.subject-brand>span:first-child{width:40px;height:40px;font-size:20px}.subject-brand strong{font-size:13px}.subject-brand small{font-size:6px}.portal-return{min-height:39px;padding:0 10px;font-size:9px}.settings-button{display:none}.subject-hero{min-height:455px;margin-top:9px;border-radius:21px}.subject-hero-copy{width:100%;padding:27px 19px 125px}.subject-icon{width:64px;height:64px;margin:13px 0 10px;font-size:29px}.subject-hero h1{font-size:clamp(38px,12vw,55px)}.subject-hero-copy>p:not(.eyebrow){font-size:13px}.subject-story{right:13px;bottom:13px;left:13px}.subject-story span{font-size:7px}.subject-welcome,.subject-panel{padding:17px;border-radius:18px}.section-heading{align-items:flex-start;flex-direction:column}.section-heading>p{text-align:left}.subject-quiz-grid,.subject-record-list{grid-template-columns:1fr}.subject-record-summary{grid-template-columns:repeat(2,1fr)}.subject-empty{min-height:260px;padding:20px 13px}.subject-empty h3{font-size:19px}.subject-mobile-nav{position:fixed;z-index:50;right:7px;bottom:max(7px,env(safe-area-inset-bottom));left:7px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;padding:6px;border:1px solid var(--line);border-radius:17px;background:rgba(13,15,18,.95);box-shadow:0 18px 55px rgba(0,0,0,.48);backdrop-filter:blur(18px)}.subject-mobile-nav button,.subject-mobile-nav a{display:grid;min-width:0;min-height:51px;place-items:center;gap:2px;padding:4px 1px;border-radius:11px;background:transparent;color:#958b7d;font-size:8px;font-weight:900;text-decoration:none;cursor:pointer}.subject-mobile-nav [aria-current="page"]{background:var(--accent-soft);color:var(--accent-strong)}.subject-mobile-nav span{font-family:serif;font-size:16px}}
 @media(max-width:380px){.subject-brand small{display:none}.portal-return{padding:0 7px}.subject-mobile-nav{right:4px;left:4px;gap:1px;padding:5px}.subject-mobile-nav button,.subject-mobile-nav a{font-size:7px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}html.reduce-motion *,html.reduce-motion *::before,html.reduce-motion *::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+
+/* Shared subject-home courtyard: mirrors Chemistry's runtime lobby hero. */
+.subject-hero{
+  background-color:#17110d;
+  background-image:url("../그림/메인/배경/밤-뜰.png");
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+.subject-hero::after{
+  content:"";
+  position:absolute;
+  z-index:1;
+  inset:0;
+  background:linear-gradient(90deg,rgba(10,8,6,.94) 0,rgba(10,8,6,.76) 37%,rgba(10,8,6,.16) 67%,rgba(10,8,6,.08)),linear-gradient(180deg,rgba(0,0,0,.12),transparent 55%,rgba(0,0,0,.5));
+  pointer-events:none;
+}
+@media(max-width:760px){
+  .subject-hero{background-position:48% center;background-size:cover}
+  .subject-hero::after{background:linear-gradient(180deg,rgba(8,6,4,.9) 0%,rgba(8,6,4,.58) 34%,rgba(8,6,4,.36) 58%,rgba(8,6,4,.91) 100%),linear-gradient(90deg,rgba(8,6,4,.18),transparent 58%,rgba(8,6,4,.16))}
+}
