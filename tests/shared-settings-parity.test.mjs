@@ -17,14 +17,26 @@ test("main and game surfaces share one canonical settings module", async () => {
   assert.match(shared, /audioSettingsDialog/);
 });
 
-test("canonical settings contains the union of lobby and game controls", async () => {
+test("canonical settings keeps shared controls without a saved difficulty selector", async () => {
   const shared = await read("assets/js/shared-settings-dialog.js");
   for (const label of [
-    "BGM 음량", "효과음 음량", "전체 음소거", "기본 난도",
+    "BGM 음량", "효과음 음량", "전체 음소거",
     "기본 문항 수", "애니메이션 사용", "기기 화면"
   ]) assert.ok(shared.includes(label), label);
+  assert.doesNotMatch(shared, /기본 난도|sharedDifficulty|difficulty/i);
   assert.match(shared, /MIN_QUESTION_COUNT = 5/);
   assert.match(shared, /MAX_QUESTION_COUNT = 100/);
+});
+
+test("stored legacy difficulty cannot select a new jar session", async () => {
+  for (const path of [
+    "assets/js/main.js",
+    "assets/js/ui-effects.js",
+    "assets/js/lobby-actions.js",
+    "assets/js/subject-shell.js"
+  ]) {
+    assert.doesNotMatch(await read(path), /settings(?:\?\.|\.)difficulty/);
+  }
 });
 
 test("shared settings preserves legacy data while synchronizing canonical keys", async () => {

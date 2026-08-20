@@ -1,13 +1,13 @@
 import { TRAINING_MODES, TRAINING_CATEGORIES, getTrainingMode } from "../../data/training-modes.js";
 import { GameStorage, describeDailyMission } from "./storage.js";
 import { UpgradeSystem } from "./upgrade-system.js";
-import { applyDeviceMode, getDeviceMode, mountDeviceControls } from "./device-entry.js";
+import { applyDeviceMode, getDeviceMode } from "./device-entry.js";
 import { GAME_TITLE, applyJarTheme, createJarPreview, displayJarName } from "./theme-system.js";
 import { renderDashboard, dashboardMetrics, formatPlayedAt } from "./dashboard-v4.js";
-import { DIFFICULTY_LABELS, hasPlayHistory, modeMetrics, playedModes, recommendQuickStart, storedDifficulty } from "./lobby-logic.js";
+import { hasPlayHistory, modeMetrics, recommendQuickStart } from "./lobby-logic.js";
 import { siteUrl } from "./site-routing.js";
+import { difficultyLabel, isSessionDifficulty, openDifficultySelection, writeTrainingSelection } from "./jar-session.js";
 
-const SELECTION_KEY = "kongjuiya-training-selection";
 const CATEGORY_SELECTION_KEY = "kongjuiya-training-category";
 const CATEGORY_ORDER = Object.freeze([
   "원자 구조",
@@ -47,7 +47,6 @@ function selectCategory(category) {
 
 let activeCategory = storedCategory();
 let primaryAction = null;
-let settingsMounted = false;
 
 function element(tag, className, text) {
   const node = document.createElement(tag);
@@ -74,15 +73,34 @@ function applyMotion() {
   document.documentElement.classList.toggle("reduce-motion", storage.data.settings.animations === false);
 }
 
-function launchTraining(mode, difficulty = storedDifficulty(storage.data, mode), resume = false) {
-  if (!mode) return;
-  const safeDifficulty = mode.difficultyLevels?.includes(difficulty) ? difficulty : mode.recommendedDifficulty || "normal";
-  try {
-    sessionStorage.setItem(SELECTION_KEY, JSON.stringify({ trainingId: mode.id, difficulty: safeDifficulty, resume: Boolean(resume) }));
-  } catch {
-    // The training query string still selects the intended mode when session storage is unavailable.
-  }
+function routeToTraining(mode, difficulty, resume = false) {
+  writeTrainingSelection({ trainingId: mode.id, difficulty, resume });
   location.href = siteUrl("콩쥐야_줘때써.html?training=" + encodeURIComponent(mode.id));
+}
+
+function returnToJarSelection() {
+  if (globalThis.KongJuiYaLobby?.setLobbyScreen) {
+    globalThis.KongJuiYaLobby.setLobbyScreen("jars");
+    return;
+  }
+  location.href = siteUrl("subjects/chemistry/?view=jars");
+}
+
+function launchTraining(mode, { resume = false } = {}) {
+  if (!mode) return;
+  if (resume) {
+    const difficulty = storage.data.currentRun?.selectedDifficulty || storage.data.currentRun?.difficulty;
+    if (isSessionDifficulty(difficulty)) routeToTraining(mode, difficulty, true);
+    else returnToJarSelection();
+    return;
+  }
+  openDifficultySelection({ mode }).then(difficulty => {
+    if (!difficulty) {
+      returnToJarSelection();
+      return;
+    }
+    routeToTraining(mode, difficulty);
+  });
 }
 
 function currentRunMode() {
@@ -96,12 +114,12 @@ function renderMainCta() {
   const resumed = currentRunMode();
 
   if (resumed) {
-    const difficulty = storage.data.currentRun?.difficulty || storedDifficulty(storage.data, resumed);
+    const difficulty = storage.data.currentRun?.selectedDifficulty || storage.data.currentRun?.difficulty;
     button.textContent = "이어서 채우기";
     alternative.textContent = "다른 장독대 선택";
     alternative.href = "#trainingSection";
-    hint.textContent = displayJarName(resumed) + " · " + (DIFFICULTY_LABELS[difficulty] || "보통") + " 난도에서 이어집니다.";
-    primaryAction = () => launchTraining(resumed, difficulty, true);
+    hint.textContent = displayJarName(resumed) + " · " + (isSessionDifficulty(difficulty) ? difficultyLabel(difficulty) + " 난이도" : "진행 중") + "에서 이어집니다.";
+    primaryAction = () => launchTraining(resumed, { resume: true });
     return;
   }
 
@@ -110,8 +128,8 @@ function renderMainCta() {
     button.textContent = recommendation.reason === "약점 복습" ? "약점 장독대 시작" : "빠른 퀴즈 시작";
     alternative.textContent = "장독대 선택";
     alternative.href = "#trainingSection";
-    hint.textContent = recommendation.reason + " · " + displayJarName(recommendation.mode) + " · " + (DIFFICULTY_LABELS[recommendation.difficulty] || "보통") + " 난도";
-    primaryAction = () => launchTraining(recommendation.mode, recommendation.difficulty, recommendation.resume);
+    hint.textContent = recommendation.reason + " · " + displayJarName(recommendation.mode) + " · 난이도를 골라 시작하세요.";
+    primaryAction = () => launchTraining(recommendation.mode, { resume: recommendation.resume });
     return;
   }
 
@@ -119,14 +137,14 @@ function renderMainCta() {
   button.textContent = "원자 번호부터 시작";
   alternative.textContent = "장독대 선택";
   alternative.href = "#trainingSection";
-  hint.textContent = "저장된 기본 난도로 원자 번호 장독대를 시작합니다.";
-  primaryAction = () => launchTraining(first, storedDifficulty(storage.data, first));
+  hint.textContent = "원자 번호 장독대의 난이도를 골라 시작해 보세요.";
+  primaryAction = () => launchTraining(first);
 }
 
 function renderQuickQuiz() {
   const recommendation = recommendQuickStart(storage.data);
   setText("#quickQuizLabel", recommendation.reason + " · " + displayJarName(recommendation.mode));
-  setText("#quickQuizDetail", recommendation.detail + " · " + (DIFFICULTY_LABELS[recommendation.difficulty] || "보통") + " 난도");
+  setText("#quickQuizDetail", recommendation.detail + " · 난이도를 골라 시작하세요.");
 }
 
 function renderMission(status = "") {
@@ -185,8 +203,7 @@ function renderTrainingCards() {
     copy.append(
       element("span", "card-category", mode.category),
       element("h3", null, displayJarName(mode)),
-      element("p", null, mode.shortDescription),
-      element("span", "recommended", "기본 난도 · " + (DIFFICULTY_LABELS[storedDifficulty(storage.data, mode)] || "보통"))
+      element("p", null, mode.shortDescription)
     );
 
     const summary = element("dl", "training-metrics");
@@ -330,38 +347,6 @@ function openLab() {
   if (dialog && !dialog.open) dialog.showModal();
 }
 
-function mountSettings() {
-  const dialog = $("#settingsDialog");
-  const form = dialog?.querySelector("form");
-  if (!dialog || !form) return;
-
-  const open = () => {
-    $("#volumeSetting").value = storage.data.settings.volume;
-    $("#motionSetting").checked = storage.data.settings.animations !== false;
-    $("#difficultySetting").value = storage.data.settings.difficulty || "normal";
-    if (!settingsMounted) {
-      mountDeviceControls({ settingsForm: form, before: form.querySelector(".dialog-actions"), requireChoice: false });
-      settingsMounted = true;
-    }
-    if (!dialog.open) dialog.showModal();
-  };
-
-  $("#settingsButton")?.addEventListener("click", open);
-  $("#bottomSettingsButton")?.addEventListener("click", open);
-  dialog.addEventListener("close", () => {
-    if (dialog.returnValue !== "save") return;
-    storage.updateSettings({
-      volume: Number($("#volumeSetting").value),
-      animations: $("#motionSetting").checked,
-      difficulty: $("#difficultySetting").value,
-      deviceMode: getDeviceMode() || "auto"
-    });
-    applyMotion();
-    applyDeviceMode(getDeviceMode() || "auto");
-    renderAll();
-  });
-}
-
 function renderAll() {
   renderMainCta();
   renderQuickQuiz();
@@ -378,7 +363,7 @@ function bindActions() {
   $("#mainCta")?.addEventListener("click", () => primaryAction?.());
   $("#quickQuizButton")?.addEventListener("click", () => {
     const recommendation = recommendQuickStart(storage.data);
-    launchTraining(recommendation.mode, recommendation.difficulty, recommendation.resume);
+    launchTraining(recommendation.mode, { resume: recommendation.resume });
   });
   $("#labButton")?.addEventListener("click", openLab);
   $("#researchSummaryButton")?.addEventListener("click", openLab);
@@ -407,7 +392,6 @@ function init() {
   applyMotion();
   applyDeviceMode(getDeviceMode() || "auto");
   bindActions();
-  mountSettings();
   renderAll();
 }
 

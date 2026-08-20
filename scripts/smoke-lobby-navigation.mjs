@@ -116,24 +116,39 @@ async function exerciseLobby(browser, name, viewport, mobile) {
     assert(consoleErrors.length === 0, `${name}: lobby console errors\n${consoleErrors.join("\n")}`);
     assert(obsoleteRequests.length === 0, `${name}: obsolete lobby photo requests\n${obsoleteRequests.join("\n")}`);
 
+    await page.click("#mainCta");
+    await page.waitForSelector("#jarDifficultyDialog[open]");
+    assert(await page.locator("#jarDifficultyDialog [data-session-difficulty]").count() === 3, `${name}: session difficulty choices missing`);
+    assert(await page.locator("#jarDifficultyDialog").textContent().then(text => text.includes("쉬운 문제만") && text.includes("쉬움 50% + 보통 50%") && text.includes("쉬움 20% + 보통 30% + 어려움 50%")), `${name}: session difficulty descriptions missing`);
+    await page.locator("#jarDifficultyDialog [value=cancel]").last().click();
+    await waitForView(page, "jars");
+    await page.click(homeControl);
+    await waitForView(page, "home");
+    await page.click("#mainCta");
+    await page.waitForSelector("#jarDifficultyDialog[open]");
     await Promise.all([
       page.waitForURL(url => decodeURIComponent(url.pathname).endsWith("/콩쥐야_줘때써.html") && url.searchParams.has("training")),
-      page.click("#mainCta")
+      page.locator("#jarDifficultyDialog [data-session-difficulty=normal]").click()
     ]);
+    await page.waitForFunction(() => globalThis.KongJuiYaGame?.game?.state?.status === "running", null, { timeout: 15000 });
 
     const launch = await page.evaluate(() => {
-      let selection = null;
-      try { selection = JSON.parse(sessionStorage.getItem("kongjuiya-training-selection")); } catch {}
+      const api = globalThis.KongJuiYaGame;
       const url = new URL(location.href);
-      return { training: url.searchParams.get("training"), selection };
+      return {
+        training: url.searchParams.get("training"),
+        selectedTraining: api?.game?.state?.trainingId || null,
+        selectedDifficulty: api?.game?.state?.difficulty || null,
+        selectionConsumed: sessionStorage.getItem("kongjuiya-training-selection") === null
+      };
     });
 
     assert(launch.training, `${name}: quick start did not include a training id`);
-    assert(launch.selection?.trainingId === launch.training, `${name}: session selection and URL training differ`);
-    assert(["easy", "normal", "hard"].includes(launch.selection?.difficulty), `${name}: invalid default difficulty`);
+    assert(launch.selectedTraining === launch.training, `${name}: selected training and URL training differ`);
+    assert(["easy", "normal", "hard"].includes(launch.selectedDifficulty), `${name}: invalid session difficulty`);
+    assert(launch.selectionConsumed, `${name}: selected difficulty was retained as a reusable default`);
 
     if (name === "desktop") {
-      await page.waitForFunction(() => globalThis.KongJuiYaGame?.game?.state?.status === "running", null, { timeout: 15000 });
       const persistedBefore = await page.evaluate(() => {
         const api = globalThis.KongJuiYaGame;
         api.submit(api.game.question.answers[0]);

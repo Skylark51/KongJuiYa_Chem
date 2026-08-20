@@ -130,31 +130,6 @@ function bindViewControls() {
   }
 }
 
-function installMainCtaFallback() {
-  const button = document.getElementById("mainCta");
-  if (!button) return;
-
-  button.addEventListener("click", () => {
-    const before = location.href;
-    queueMicrotask(() => {
-      if (location.href !== before) return;
-      const difficulty = ["easy", "normal", "hard"].includes(storage.data.settings?.difficulty)
-        ? storage.data.settings.difficulty
-        : "normal";
-      try {
-        sessionStorage.setItem("kongjuiya-training-selection", JSON.stringify({
-          trainingId: "atomic_number",
-          difficulty,
-          resume: false
-        }));
-      } catch {
-        // Query string remains a complete fallback when session storage is blocked.
-      }
-      location.assign(siteUrl("콩쥐야_줘때써.html?training=atomic_number"));
-    });
-  });
-}
-
 async function installOptionalEnhancements() {
   try {
     const { mountHistoricalBgm } = await import("./historical-bgm.js");
@@ -173,7 +148,6 @@ async function installOptionalEnhancements() {
 
 installMobileUi();
 bindViewControls();
-installMainCtaFallback();
 
 addEventListener("popstate", event => {
   setLobbyScreen(event.state?.view || currentViewFromUrl(), { historyMode: "none", focus: false });

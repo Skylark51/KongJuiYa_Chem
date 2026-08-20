@@ -63,6 +63,8 @@ export class GameCore {
     this.listeners = new Map();
     this.submissionLocked = false;
     this.warningLevel = null;
+    this.sessionQueue = [];
+    this.sessionQueueCursor = 0;
     this.state = this.initialState();
   }
 
@@ -91,6 +93,16 @@ export class GameCore {
       lastResponseMs: 0,
       stageIndex: 0,
       beansEarned: 0,
+      totalQuestions: 0,
+      correctAnswers: 0,
+      wrongAnswers: 0,
+      timeoutAnswers: 0,
+      categoryResults: {},
+      sessionQuestionIds: [],
+      sessionQuestionCursor: 0,
+      sessionRequestedQuota: null,
+      sessionActualQuota: null,
+      sessionFallbackUsed: false,
       feedbackPending: false
     };
   }
@@ -231,7 +243,9 @@ export class GameCore {
     difficulty = "normal",
     resumeState = null,
     reviewMode = false,
-    questionId = null
+    questionId = null,
+    questionQueue = [],
+    sessionMetadata = null
   } = {}) {
     this.cadence?.cancel?.();
     this.advanceAfterResume = false;
@@ -255,6 +269,30 @@ export class GameCore {
 
     this.state.reviewMode = Boolean(reviewMode);
 
+    const queueSource = resumeState?.trainingId === mode.id && Array.isArray(resumeState.sessionQuestionIds)
+      ? resumeState.sessionQuestionIds
+      : questionQueue;
+    this.sessionQueue = (Array.isArray(queueSource) ? queueSource : [])
+      .map(item => typeof item === "string" ? item : item?.id)
+      .filter(id => this.questionEngine.getQuestion(id)?.trainingId === mode.id);
+    const resumedAnswerCount = Number(
+      resumeState?.totalQuestions ?? (
+        Number(resumeState?.correctAnswers ?? resumeState?.correctInStage) || 0
+      )
+    );
+    this.sessionQueueCursor = resumeState?.trainingId === mode.id
+      ? Math.max(0, Math.min(this.sessionQueue.length, Math.floor(resumedAnswerCount) || 0))
+      : 0;
+    this.state.sessionQuestionIds = [...this.sessionQueue];
+    this.state.sessionQuestionCursor = this.sessionQueueCursor;
+    this.state.sessionRequestedQuota = sessionMetadata?.requestedQuota && typeof sessionMetadata.requestedQuota === "object"
+      ? { ...sessionMetadata.requestedQuota }
+      : null;
+    this.state.sessionActualQuota = sessionMetadata?.actualQuota && typeof sessionMetadata.actualQuota === "object"
+      ? { ...sessionMetadata.actualQuota }
+      : null;
+    this.state.sessionFallbackUsed = Boolean(sessionMetadata?.fallbackUsed);
+
     this.state.water = Math.min(
       this.maxWater(),
       mode.rules.initialWater +
@@ -276,7 +314,11 @@ export class GameCore {
         "bestCombo",
         "correctInStage",
         "feverCount",
-        "beansEarned"
+        "beansEarned",
+        "totalQuestions",
+        "correctAnswers",
+        "wrongAnswers",
+        "timeoutAnswers"
       ]) {
         if (
           Number.isFinite(
@@ -288,6 +330,17 @@ export class GameCore {
           );
         }
       }
+
+      if (resumeState.categoryResults && typeof resumeState.categoryResults === "object") {
+        this.state.categoryResults = { ...resumeState.categoryResults };
+      }
+      if (resumeState.sessionRequestedQuota && typeof resumeState.sessionRequestedQuota === "object") {
+        this.state.sessionRequestedQuota = { ...resumeState.sessionRequestedQuota };
+      }
+      if (resumeState.sessionActualQuota && typeof resumeState.sessionActualQuota === "object") {
+        this.state.sessionActualQuota = { ...resumeState.sessionActualQuota };
+      }
+      this.state.sessionFallbackUsed = Boolean(resumeState.sessionFallbackUsed);
 
       this.state.water = clamp(
         this.state.water,
@@ -327,16 +380,22 @@ export class GameCore {
         )
       : null;
 
-    if (
-      !question ||
-      question.trainingId !==
-        this.state.trainingId
-    ) {
+    if (!question || question.trainingId !== this.state.trainingId) {
+      const queuedId = this.sessionQueue[this.sessionQueueCursor];
+      if (queuedId) {
+        this.sessionQueueCursor += 1;
+        this.state.sessionQuestionCursor = this.sessionQueueCursor;
+        const queued = this.questionEngine.getQuestion(queuedId);
+        if (queued?.trainingId === this.state.trainingId) question = queued;
+      }
+    }
+
+    if (!question || question.trainingId !== this.state.trainingId) {
       question = this.questionEngine.next({
         trainingId: this.state.trainingId,
-        difficultyRange:
-          this.difficultyConfig()
-            .difficultyRange,
+        difficultyRange: this.sessionQueue.length
+          ? [1, 3]
+          : this.difficultyConfig().difficultyRange,
         reviewMode: this.state.reviewMode
       });
     }
@@ -353,6 +412,28 @@ export class GameCore {
     });
 
     return question;
+  }
+
+  recordSessionAnswer(correct, timeout = false) {
+    this.state.totalQuestions += 1;
+    if (correct) this.state.correctAnswers += 1;
+    else if (timeout) this.state.timeoutAnswers += 1;
+    else this.state.wrongAnswers += 1;
+
+    const category = this.training?.category;
+    if (!category) return;
+    const current = this.state.categoryResults[category] || { totalQuestions: 0, correctAnswers: 0 };
+    current.totalQuestions += 1;
+    if (correct) current.correctAnswers += 1;
+    this.state.categoryResults = { ...this.state.categoryResults, [category]: current };
+  }
+
+  hasFixedSessionQueue() {
+    return this.sessionQueue.length > 0;
+  }
+
+  completedFixedSession() {
+    return this.hasFixedSessionQueue() && this.state.totalQuestions >= this.sessionQueue.length;
   }
 
   tick(deltaSeconds) {
@@ -685,6 +766,7 @@ export class GameCore {
     );
 
     this.state.correctInStage += 1;
+    this.recordSessionAnswer(true);
 
     if (this.state.feverActive) {
       this.extendFever();
@@ -801,7 +883,8 @@ export class GameCore {
       action.beans || 0;
 
     const clearsTraining = this.state.correctInStage >= this.config.correctAnswersToClear;
-    this.state.feedbackPending = !clearsTraining;
+    const completesFixedSession = this.completedFixedSession() && !clearsTraining;
+    this.state.feedbackPending = !clearsTraining && !completesFixedSession;
 
     this.emit("answer:correct", {
       question,
@@ -832,10 +915,10 @@ export class GameCore {
 
     this.speak(category);
 
-    if (
-      clearsTraining
-    ) {
+    if (clearsTraining) {
       this.clearTraining();
+    } else if (completesFixedSession) {
+      this.completeSession();
     } else {
       this.deferNextQuestion("correct");
     }
@@ -876,6 +959,8 @@ export class GameCore {
 
     this.state.combo = 0;
 
+    this.recordSessionAnswer(false);
+
     this.state.lastWrongQuestionId =
       question?.id || null;
 
@@ -898,6 +983,8 @@ export class GameCore {
 
     if (this.state.water <= 0) {
       this.over("water_empty");
+    } else if (this.completedFixedSession()) {
+      this.completeSession();
     } else {
       this.speak("wrong");
       this.deferNextQuestion("wrong");
@@ -931,6 +1018,8 @@ export class GameCore {
 
     this.state.combo = 0;
 
+    this.recordSessionAnswer(false, true);
+
     this.state.lastWrongQuestionId =
       question?.id || null;
 
@@ -953,6 +1042,8 @@ export class GameCore {
 
     if (this.state.water <= 0) {
       this.over("water_empty");
+    } else if (this.completedFixedSession()) {
+      this.completeSession();
     } else {
       this.speak("timeout");
       this.deferNextQuestion("timeout");
@@ -961,7 +1052,7 @@ export class GameCore {
 
   deferNextQuestion(kind) {
     const advance = () => {
-      if (["over", "cleared"].includes(this.state.status)) return;
+      if (["over", "cleared", "completed"].includes(this.state.status)) return;
       if (this.state.status === "paused") {
         this.advanceAfterResume = true;
         return;
@@ -1004,6 +1095,22 @@ export class GameCore {
     });
   }
 
+  completeSession() {
+    this.cadence?.cancel?.();
+    this.state.feedbackPending = false;
+    this.state.status = "completed";
+
+    this.endFever("session_complete");
+
+    this.emit("game:complete", {
+      score: this.state.score,
+      training: this.training,
+      beansEarned: this.state.beansEarned
+    });
+
+    return this.snapshot();
+  }
+
   pause() {
     if (
       this.state.status !== "running"
@@ -1042,7 +1149,7 @@ export class GameCore {
 
   over(reason = "ended") {
     if (
-      ["over", "cleared"].includes(
+      ["over", "cleared", "completed"].includes(
         this.state.status
       )
     ) {

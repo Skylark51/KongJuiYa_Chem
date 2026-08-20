@@ -1,4 +1,5 @@
 import { defaultUpgradeLevels } from "../../data/upgrades.js";
+import { createJarSessionRecord } from "./jar-records.js";
 
 export const STORAGE_KEY = "kongjuiya-chem-save";
 export const STORAGE_VERSION = 5;
@@ -16,6 +17,16 @@ export const DAILY_MISSION_DEFINITIONS = Object.freeze([
 const object = value => value && typeof value === "object" && !Array.isArray(value) ? value : {};
 const number = value => Number.isFinite(Number(value)) ? Number(value) : 0;
 const nonNegative = value => Math.max(0, number(value));
+const optionalAccuracy = value => {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed >= 0 && parsed <= 100 ? Math.round(parsed) : null;
+};
+const bestAccuracyFromRuns = runs => {
+  const values = (Array.isArray(runs) ? runs : [])
+    .map(run => optionalAccuracy(run?.accuracy))
+    .filter(value => value != null);
+  return values.length ? Math.max(...values) : null;
+};
 const difficultyKeys = ["easy", "normal", "hard"];
 
 const emptyMode = () => ({
@@ -32,7 +43,7 @@ const defaults = () => ({
   version: STORAGE_VERSION,
   settings: { volume: 0.8, animations: true, difficulty: "normal", deviceMode: "auto" },
   statistics: {},
-  overall: { totalPlays: 0, bestCombo: 0, totalBeansEarned: 0, totalBeansSpent: 0, toadHits: 0, waterPours: 0 },
+  overall: { totalPlays: 0, totalCompletions: 0, bestCombo: 0, bestAccuracy: null, totalBeansEarned: 0, totalBeansSpent: 0, toadHits: 0, waterPours: 0 },
   economy: { beans: 0, lifetimeBeans: 0, spentBeans: 0 },
   upgrades: defaultUpgradeLevels(),
   actionStatistics: emptyActions(),
@@ -123,6 +134,11 @@ export function migrateSave(value) {
   const settings = object(source.settings);
   const economy = object(source.economy);
   const overall = object(source.overall);
+  const recentRuns = Array.isArray(source.recentRuns) ? source.recentRuns.slice(0, 20) : [];
+  const totalCompletions = Object.hasOwn(overall, "totalCompletions")
+    ? nonNegative(overall.totalCompletions)
+    : recentRuns.filter(run => run?.status === "cleared").length;
+  const bestAccuracy = optionalAccuracy(overall.bestAccuracy) ?? bestAccuracyFromRuns(recentRuns);
   const deviceMode = ["auto", "desktop", "mobile"].includes(settings.deviceMode) ? settings.deviceMode : "auto";
   const difficulty = difficultyKeys.includes(settings.difficulty) ? settings.difficulty : base.settings.difficulty;
   return {
@@ -132,9 +148,9 @@ export function migrateSave(value) {
     economy: { beans: nonNegative(economy.beans), lifetimeBeans: nonNegative(economy.lifetimeBeans), spentBeans: nonNegative(economy.spentBeans) },
     upgrades: { ...base.upgrades, ...object(source.upgrades) },
     actionStatistics: { ...base.actionStatistics, ...object(source.actionStatistics) },
-    overall: { ...base.overall, ...overall },
+    overall: { ...base.overall, ...overall, totalCompletions, bestAccuracy },
     feverTierRecord: nonNegative(source.feverTierRecord),
-    recentRuns: Array.isArray(source.recentRuns) ? source.recentRuns.slice(0, 20) : [],
+    recentRuns,
     currentRun: object(source.currentRun).trainingId ? { ...source.currentRun } : null,
     dailyMission: normalizeDailyMission(source.dailyMission)
   };
@@ -322,16 +338,34 @@ export class GameStorage {
       plays: 0, bestScore: 0, correct: 0, wrong: 0, ...object(stats.byDifficulty[difficulty])
     };
     byDifficulty.bestScore = Math.max(byDifficulty.bestScore, Math.round(state.score || 0));
+    const sessionRecord = createJarSessionRecord(state, {
+      subject: state.subject || "chemistry",
+      playDate: stats.lastPlayedAt
+    });
+    const previousBestAccuracy = optionalAccuracy(this.data.overall.bestAccuracy) ?? bestAccuracyFromRuns(this.data.recentRuns);
+    const isPersonalBestAccuracy = sessionRecord.accuracy != null && (
+      previousBestAccuracy == null || sessionRecord.accuracy > previousBestAccuracy
+    );
+    if (sessionRecord.accuracy != null) {
+      this.data.overall.bestAccuracy = Math.max(previousBestAccuracy ?? 0, sessionRecord.accuracy);
+    }
     this.data.recentRuns.unshift({
       endedAt: stats.lastPlayedAt, trainingId: state.trainingId, difficulty,
       score: Math.round(state.score || 0), status: state.status, beansEarned: state.beansEarned || 0,
       questionCount: Number(state.correctAnswersPerStage || 0),
-      correct: Number(state.correctInStage || 0),
-      bestCombo: Number(state.bestCombo || state.combo || 0)
+      correct: sessionRecord.correctAnswers,
+      wrong: sessionRecord.wrongAnswers,
+      timeout: sessionRecord.timeoutAnswers,
+      bestCombo: sessionRecord.maxCombo,
+      ...sessionRecord,
+      isPersonalBestAccuracy
     });
     this.data.recentRuns = this.data.recentRuns.slice(0, 20);
     this.data.currentRun = null;
-    if (state.status === "cleared") this.advanceDailyMission("training_complete");
+    if (state.status === "cleared") {
+      this.data.overall.totalCompletions = nonNegative(this.data.overall.totalCompletions) + 1;
+      this.advanceDailyMission("training_complete");
+    }
     if (state.bestCombo >= 5 || state.combo >= 5) this.advanceDailyMission("combo_5");
     if (state.water >= 100) this.advanceDailyMission("water_full");
     this.persist();

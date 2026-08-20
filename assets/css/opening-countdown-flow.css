@@ -36,8 +36,7 @@
 }
 
 .scene-question-bubble > #startOverlay.game-start-countdown > #startButton,
-.scene-question-bubble > #startOverlay.game-start-countdown > #ui-trainingSelect,
-.scene-question-bubble > #startOverlay.game-start-countdown > #ui-difficultySelect {
+.scene-question-bubble > #startOverlay.game-start-countdown > #ui-trainingSelect {
   display: none !important;
 }
 

@@ -1,8 +1,11 @@
 import { subjectById } from "../../data/subjects.js";
 import { categoriesForSubject, quizzesForSubject } from "../../data/subject-quizzes.js";
+import { getSubjectGameContent } from "../../data/subject-game-content.js";
 import { siteUrl } from "./site-routing.js";
-import { GLOBAL_STORAGE_KEYS, SubjectStorage, summarizeSubjectRecords } from "./subject-storage.js";
+import { GLOBAL_STORAGE_KEYS, SubjectStorage } from "./subject-storage.js";
 import { createSubjectToolbarMarkup } from "./subject-toolbar/markup.js";
+import { openDifficultySelection, writeTrainingSelection } from "./jar-session.js";
+import { buildJarRecordAnalytics } from "./jar-records.js";
 
 const subjectId = document.documentElement.dataset.subject;
 const subject = subjectById(subjectId);
@@ -13,6 +16,7 @@ if (!subject || !root || subject.id === "chemistry") throw new Error("Unknown su
 const storage = new SubjectStorage(subject.id);
 const quizzes = quizzesForSubject(subject.id);
 const categories = categoriesForSubject(subject.id);
+const recordModes = getSubjectGameContent(subject.id)?.trainingModes || [];
 let activeCategory = storage.read("selected-category", "전체");
 if (activeCategory !== "전체" && !categories.includes(activeCategory)) activeCategory = "전체";
 
@@ -21,6 +25,22 @@ const portalHref = siteUrl("");
 const toolbarMarkup = createSubjectToolbarMarkup({ subject, shopHref, portalHref });
 document.documentElement.dataset.theme = subject.theme;
 document.title = "콩쥐야 줘때써 - " + subject.name + "편";
+
+function ensureRecordStyles() {
+  if (document.querySelector('link[data-subject-jar-record-styles="true"]')) return;
+  const stylesheet = document.createElement("link");
+  stylesheet.rel = "stylesheet";
+  stylesheet.dataset.subjectJarRecordStyles = "true";
+  stylesheet.href = siteUrl("assets/css/jar-records.css?v=20260820-growth1");
+  document.head.append(stylesheet);
+  const layout = document.createElement("link");
+  layout.rel = "stylesheet";
+  layout.dataset.subjectJarRecordStyles = "true";
+  layout.href = siteUrl("assets/css/subject-jar-records.css?v=20260820-growth1");
+  document.head.append(layout);
+}
+
+ensureRecordStyles();
 try {
   localStorage.setItem(GLOBAL_STORAGE_KEYS.lastSubject, subject.id);
 } catch {
@@ -39,8 +59,8 @@ root.innerHTML = [
   '<section class="subject-view subject-panel" data-subject-view="jars" hidden aria-labelledby="jarTitle"><header class="section-heading"><div><p class="eyebrow">JAR SELECTION</p><h2 id="jarTitle" tabindex="-1">채울 장독대를 고르세요</h2></div><p>__SUBJECT__ 퀴즈와 카테고리는 registry에서 자동으로 불러옵니다.</p></header>',
   '<div id="subjectCategoryFilter" class="subject-category-filter" aria-label="__SUBJECT__ 카테고리" hidden></div><div id="subjectQuizGrid" class="subject-quiz-grid" aria-live="polite"></div>',
   '<div id="subjectQuizEmpty" class="subject-empty" role="status"><span aria-hidden="true">甕</span><h3>아직 등록된 __SUBJECT__ 장독대가 없습니다.</h3><p>새로운 퀴즈가 추가될 예정입니다.</p></div></section>',
-  '<section class="subject-view subject-panel" data-subject-view="records" hidden aria-labelledby="recordsTitle"><header class="section-heading"><div><p class="eyebrow">PLAY RECORD</p><h2 id="recordsTitle" tabindex="-1">__SUBJECT__ 장독대 기록</h2></div><p>이 과목에서 실제로 플레이한 결과만 표시합니다.</p></header>',
-  '<div class="subject-record-summary"><article><span>총 플레이</span><strong id="subjectTotalPlays">0</strong></article><article><span>전체 정답률</span><strong id="subjectAccuracy">—</strong></article><article><span>최고 콤보</span><strong id="subjectBestCombo">0</strong></article><article><span>총 풀이 문제</span><strong id="subjectTotalAnswers">0</strong></article></div><div id="subjectRecordList" class="subject-record-list" aria-live="polite"></div></section>',
+  '<section class="subject-view subject-panel" data-subject-view="records" hidden aria-labelledby="recordsTitle"><header class="section-heading"><div><p class="eyebrow">PLAY RECORD</p><h2 id="recordsTitle" tabindex="-1">__SUBJECT__ 장독대 기록</h2></div><p>내 이전 기록과 비교해 성장 흐름을 확인하세요.</p></header>',
+  '<article class="jar-record-goal subject-record-goal" aria-live="polite"><p><strong id="subjectNextGoal">첫 장독대를 채우면 다음 목표를 알려드려요.</strong></p></article><div class="subject-record-summary"><article><span>장독대 완료</span><strong id="subjectTotalPlays">0</strong></article><article><span>총 풀이 문항</span><strong id="subjectTotalAnswers">0</strong></article><article><span>총 정답 수</span><strong id="subjectCorrectAnswers">0</strong></article><article><span>전체 정답률</span><strong id="subjectAccuracy">—</strong></article><article><span>최고 연속 정답</span><strong id="subjectBestCombo">0</strong></article></div><section class="subject-record-growth" aria-labelledby="subjectGrowthTitle"><h3 id="subjectGrowthTitle">최근 성장</h3><dl class="jar-growth-grid"><div><dt>직전 플레이 대비</dt><dd id="subjectAccuracyChange">첫 기록 후 비교 가능</dd></div><div><dt>개인 최고 정답률</dt><dd id="subjectPersonalBest">—</dd></div><div><dt>성장 기록</dt><dd id="subjectBestNotice">기록을 쌓아 보세요</dd></div></dl><div id="subjectRecordTrend" class="subject-record-trend" aria-live="polite"></div></section><section class="subject-record-categories" aria-labelledby="subjectCategoryRecordTitle"><h3 id="subjectCategoryRecordTitle">영역별 실력</h3><div id="subjectCategoryList" class="jar-category-list" aria-live="polite"></div></section><div id="subjectRecordList" class="subject-record-list" aria-live="polite"></div></section>',
   '</main>',
   toolbarMarkup.bottom,
   '<dialog id="subjectSettings" class="subject-settings" aria-labelledby="subjectSettingsTitle"><form method="dialog"><button class="dialog-close" value="cancel" aria-label="설정 닫기">×</button><p class="eyebrow">GLOBAL SETTINGS</p><h2 id="subjectSettingsTitle">콩쥐야 줘때써 설정</h2><p>음량과 화면 모드는 모든 과목에서 공유됩니다.</p><label>전체 음량 <input id="subjectVolume" type="range" min="0" max="1" step="0.05"></label><label>기기 화면<select id="subjectDeviceMode"><option value="auto">자동 감지</option><option value="desktop">PC 버전</option><option value="mobile">모바일 버전</option></select></label><label class="toggle-row"><input id="subjectMotion" type="checkbox"> 애니메이션 사용</label><div class="dialog-actions"><button value="cancel">취소</button><button class="primary-action" value="save">저장</button></div></form></dialog>'
@@ -107,13 +127,24 @@ function renderQuizzes() {
     title.textContent = quiz.title;
     const description = document.createElement("p");
     description.textContent = quiz.description;
-    const action = quiz.implementation
-      ? document.createElement("a")
-      : document.createElement("button");
+    const action = document.createElement("button");
     action.className = "primary-action";
     if (quiz.implementation) {
-      action.href = siteUrl(quiz.implementation);
+      action.type = "button";
       action.textContent = "장독대 시작";
+      action.addEventListener("click", () => {
+        const target = new URL(siteUrl(quiz.implementation));
+        const trainingId = target.searchParams.get("training");
+        if (!trainingId) return;
+        openDifficultySelection({ mode: quiz }).then(difficulty => {
+          if (!difficulty) {
+            setView("jars", { replace: true });
+            return;
+          }
+          writeTrainingSelection({ trainingId, difficulty, resume: false });
+          location.href = target.href;
+        });
+      });
     } else {
       card.classList.add("is-planned");
       action.type = "button";
@@ -126,30 +157,118 @@ function renderQuizzes() {
   }));
 }
 
+const numberText = value => Math.round(Number(value) || 0).toLocaleString("ko-KR");
+const percentText = value => value == null ? "—" : Math.round(value) + "%";
+
+function statusClass(status) {
+  if (status === "강점") return "is-strength";
+  if (status === "보완 필요") return "is-needs-work";
+  return "";
+}
+
+function renderSubjectTrend(region, sessions) {
+  region.replaceChildren();
+  const comparable = sessions.filter(session => session.accuracy != null);
+  if (!comparable.length) {
+    const empty = document.createElement("p");
+    empty.className = "jar-record-empty";
+    empty.textContent = sessions.length ? "정답률을 알 수 있는 새 기록부터 성장 흐름을 보여드립니다." : "첫 장독대를 채우면 최근 7회 정답률 흐름을 보여드립니다.";
+    region.append(empty);
+    return;
+  }
+  comparable.forEach((session, index) => {
+    const column = document.createElement("div");
+    const bar = document.createElement("i");
+    bar.style.height = Math.max(5, Math.min(100, session.accuracy)) + "%";
+    bar.setAttribute("aria-label", (index + 1) + "회차 정답률 " + percentText(session.accuracy));
+    const label = document.createElement("span");
+    label.textContent = percentText(session.accuracy);
+    column.append(bar, label);
+    region.append(column);
+  });
+}
+
+function renderSubjectCategories(region, categories) {
+  region.replaceChildren();
+  if (!categories.length) {
+    const empty = document.createElement("p");
+    empty.className = "jar-record-empty";
+    empty.textContent = "영역별 기록은 장독대를 시작하면 표시됩니다.";
+    region.append(empty);
+    return;
+  }
+  categories.forEach(category => {
+    const row = document.createElement("article");
+    row.className = "jar-category-row";
+    const label = document.createElement("div");
+    label.className = "jar-category-label";
+    const title = document.createElement("strong");
+    title.textContent = category.category;
+    const detail = document.createElement("span");
+    detail.textContent = "풀이 " + numberText(category.totalQuestions) + "문항 · 정답률 " + percentText(category.accuracy);
+    label.append(title, detail);
+    const progress = document.createElement("div");
+    progress.className = "jar-category-progress";
+    const recent = document.createElement("span");
+    const recentLabel = document.createElement("span");
+    recentLabel.textContent = "최근 정답률";
+    const recentValue = document.createElement("b");
+    recentValue.textContent = percentText(category.recentAccuracy);
+    recent.append(recentLabel, recentValue);
+    const track = document.createElement("div");
+    track.className = "jar-category-track";
+    const fill = document.createElement("i");
+    fill.style.width = Math.max(0, Math.min(100, category.accuracy ?? 0)) + "%";
+    track.append(fill);
+    progress.append(recent, track);
+    const status = document.createElement("b");
+    status.className = "jar-category-status " + statusClass(category.status);
+    status.textContent = category.status;
+    row.append(label, progress, status);
+    region.append(row);
+  });
+}
+
 function renderRecords() {
   const records = storage.read("records", []);
-  const summary = summarizeSubjectRecords(records);
-  document.getElementById("subjectTotalPlays").textContent = String(summary.plays);
-  document.getElementById("subjectAccuracy").textContent = summary.accuracy == null ? "—" : summary.accuracy + "%";
-  document.getElementById("subjectBestCombo").textContent = String(summary.bestCombo);
-  document.getElementById("subjectTotalAnswers").textContent = String(summary.answers);
+  const overall = storage.read("record-summary", {});
+  const analytics = buildJarRecordAnalytics({ records, modes: recordModes, subject: subject.id, overall });
+  const setText = (id, value) => {
+    const element = document.getElementById(id);
+    if (element) element.textContent = value;
+  };
+  setText("subjectTotalPlays", numberText(analytics.totals.completedPlays));
+  setText("subjectTotalAnswers", numberText(analytics.totals.totalQuestions));
+  setText("subjectCorrectAnswers", numberText(analytics.totals.correctAnswers));
+  setText("subjectAccuracy", percentText(analytics.totals.accuracy));
+  setText("subjectBestCombo", numberText(analytics.totals.maxCombo));
+  setText("subjectNextGoal", analytics.nextGoal);
+  const change = analytics.growth.accuracyChange;
+  setText("subjectAccuracyChange", change == null ? "첫 기록 후 비교 가능" : (change > 0 ? "+" : "") + change + "%");
+  setText("subjectPersonalBest", percentText(analytics.growth.personalBest));
+  const bestNotice = analytics.growth.latestIsPersonalBest
+    ? "개인 최고 정답률 갱신!"
+    : analytics.growth.latestAccuracy == null ? "기록을 쌓아 보세요" : "다음 장독대에서 갱신 도전";
+  setText("subjectBestNotice", bestNotice);
+  document.getElementById("subjectBestNotice")?.closest("div")?.classList.toggle("is-personal-best", analytics.growth.latestIsPersonalBest);
+  renderSubjectTrend(document.getElementById("subjectRecordTrend"), analytics.recentSessions);
+  renderSubjectCategories(document.getElementById("subjectCategoryList"), analytics.categories);
+
   const list = document.getElementById("subjectRecordList");
-  if (!records.length) {
+  if (!analytics.sessions.length) {
     const empty = document.createElement("p");
     empty.className = "record-empty";
     empty.textContent = "플레이 기록 없음";
     list.replaceChildren(empty);
     return;
   }
-  list.replaceChildren(...records.map(record => {
+  list.replaceChildren(...analytics.sessions.slice().reverse().map(record => {
     const item = document.createElement("article");
     item.className = "subject-record-card";
     const title = document.createElement("h3");
-    title.textContent = record.title || record.quizId || "장독대 기록";
+    title.textContent = record.title || record.trainingId || "장독대 기록";
     const copy = document.createElement("p");
-    const correct = Number(record.correct) || 0;
-    const wrong = Number(record.wrong) || 0;
-    copy.textContent = "정답 " + correct + " · 오답 " + wrong + " · 총 " + (correct + wrong) + "문제";
+    copy.textContent = "정답 " + record.correctAnswers + " · 오답 " + (record.wrongAnswers + record.timeoutAnswers) + " · 총 " + record.totalQuestions + "문항 · " + percentText(record.accuracy);
     item.append(title, copy);
     return item;
   }));

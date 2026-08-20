@@ -55,4 +55,9 @@ test("recordAnswer and finishRun persist analytics exactly once per call", () =>
   assert.equal(storage.data.recentRuns.length, 1);
   assert.deepEqual(storage.data.recentRuns[0].questionCount, 10);
   assert.equal(storage.mode("ph").playDates.length, 1);
+  assert.equal(storage.data.overall.bestAccuracy, 100);
+  storage.finishRun({ trainingId: "ph", difficulty: "normal", score: 450, status: "completed", totalQuestions: 10, correctAnswers: 8, wrongAnswers: 2, bestCombo: 3 });
+  assert.equal(storage.data.overall.bestAccuracy, 100);
+  assert.equal(storage.data.overall.totalCompletions, 1);
+  assert.equal(storage.data.recentRuns[0].isPersonalBestAccuracy, false);
 });

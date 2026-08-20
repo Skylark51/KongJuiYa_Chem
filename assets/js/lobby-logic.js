@@ -45,11 +45,6 @@ export function playedModes(data, modes = TRAINING_MODES) {
     .filter(entry => entry.metrics.plays > 0 || entry.metrics.attempts > 0);
 }
 
-export function storedDifficulty(data, mode) {
-  const desired = data.settings?.difficulty || "normal";
-  return mode?.difficultyLevels?.includes(desired) ? desired : mode?.recommendedDifficulty || "normal";
-}
-
 export function hasPlayHistory(data, modes = TRAINING_MODES) {
   return Number(data.overall?.totalPlays || 0) > 0 || playedModes(data, modes).length > 0 || (data.recentRuns?.length || 0) > 0;
 }
@@ -62,7 +57,6 @@ export function recommendQuickStart(data, modes = TRAINING_MODES) {
   if (weak) {
     return {
       mode: weak.mode,
-      difficulty: storedDifficulty(data, weak.mode),
       resume: false,
       reason: "약점 복습",
       detail: "오답률이 높은 장독대"
@@ -73,7 +67,6 @@ export function recommendQuickStart(data, modes = TRAINING_MODES) {
   if (resumed) {
     return {
       mode: resumed,
-      difficulty: storedDifficulty(data, resumed),
       resume: true,
       reason: "이어 채우기",
       detail: "저장된 진행 중 게임"
@@ -89,7 +82,6 @@ export function recommendQuickStart(data, modes = TRAINING_MODES) {
 
   return {
     mode: selected,
-    difficulty: storedDifficulty(data, selected),
     resume: false,
     reason: "첫 장독대",
     detail: "입문 장독대 추천"

@@ -121,7 +121,6 @@
       <p class="eyebrow">SETTINGS</p>
       <h2 id="settingsTitle">콩쥐야 줘때써 - 화학편 설정</h2>
       <label>음량 <input id="volumeSetting" type="range" min="0" max="1" step="0.1"></label>
-      <label>기본 난도<select id="difficultySetting"><option value="easy">쉬움</option><option value="normal">보통</option><option value="hard">어려움</option></select></label>
       <label class="toggle-row"><input id="motionSetting" type="checkbox"> 애니메이션 사용</label>
       <div class="dialog-actions"><button class="secondary-button" value="cancel">취소</button><button class="primary-button" value="save">저장</button></div>
     </form>
@@ -142,7 +141,6 @@
     const dialog = document.getElementById("settingsDialog");
     const form = dialog?.querySelector("form");
     const volume = document.getElementById("volumeSetting");
-    const difficulty = document.getElementById("difficultySetting");
     const motion = document.getElementById("motionSetting");
     const media = matchMedia("(max-width: 760px)");
     let deviceControlsMounted = false;
@@ -155,7 +153,6 @@
 
     const openSettings = () => {
       volume.value = storage.data.settings.volume ?? 0.7;
-      difficulty.value = storage.data.settings.difficulty || "normal";
       motion.checked = storage.data.settings.animations !== false;
       if (!deviceControlsMounted && form) {
         mountDeviceControls({ settingsForm: form, before: form.querySelector(".dialog-actions"), requireChoice: false });
@@ -178,7 +175,6 @@
       const nextVolume = Number(volume.value);
       storage.updateSettings({
         volume: nextVolume,
-        difficulty: difficulty.value,
         animations: motion.checked,
         deviceMode: getDeviceMode() || "auto"
       });

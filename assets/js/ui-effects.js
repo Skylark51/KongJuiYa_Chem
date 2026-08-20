@@ -5,11 +5,10 @@ import { mountMobileKeypad } from "./mobile-keypad.js";
 import { mountGameScene } from "./game-cosmetics-entry.js?v=20260817-scene-assets-cleanup1";
 import { activeSubjectLobbyUrl } from "./site-routing.js";
 import { subjectById } from "../../data/subjects.js";
+import { clearTrainingSelection, difficultyLabel, isSessionDifficulty, readTrainingSelection } from "./jar-session.js";
 
-const SELECTION_KEY = "kongjuiya-training-selection";
 const byId = id => document.getElementById(id);
 const formatNumber = value => Math.round(Number(value) || 0).toLocaleString("ko-KR");
-const DIFFICULTY_NAMES = Object.freeze({ easy: "쉬움", normal: "보통", hard: "어려움" });
 
 function setOfficialTitle(subjectId = "chemistry") {
   const subject = subjectById(subjectId);
@@ -23,14 +22,6 @@ function setOfficialTitle(subjectId = "chemistry") {
   for (const selector of ["meta[property='og:title']", "meta[name='twitter:title']"]) {
     const node = document.querySelector(selector);
     if (node) node.content = title;
-  }
-}
-
-function readSelection() {
-  try {
-    return JSON.parse(sessionStorage.getItem(SELECTION_KEY) || "null");
-  } catch {
-    return null;
   }
 }
 
@@ -51,7 +42,7 @@ export async function initializeGamePage(api = globalThis.KongJuiYaGame) {
   setOfficialTitle(api.subjectId);
   const storage = api.storage;
   mountHistoricalBgm({ initialVolume: storage.data.settings?.volume ?? 0.5 });
-  const selection = readSelection();
+  const selection = readTrainingSelection();
   const requestedTrainingId = new URLSearchParams(location.search).get("training");
 
   if (!requestedTrainingId && !selection?.trainingId) {
@@ -65,12 +56,11 @@ export async function initializeGamePage(api = globalThis.KongJuiYaGame) {
     throw new Error(`알 수 없는 장독대 ID: ${requestedTrainingId || selection?.trainingId || "(없음)"}`);
   }
 
-  const savedDifficulty = storage.data.settings?.difficulty;
-  const difficulty = mode.difficultyLevels?.includes(selection?.difficulty)
-    ? selection.difficulty
-    : mode.difficultyLevels?.includes(savedDifficulty)
-      ? savedDifficulty
-      : mode.recommendedDifficulty || "normal";
+  if (selection?.trainingId !== mode.id || !isSessionDifficulty(selection?.difficulty)) {
+    location.replace(activeSubjectLobbyUrl("jars"));
+    return;
+  }
+  const difficulty = selection.difficulty;
 
   const resumeState = selection?.resume && storage.data.currentRun?.trainingId === mode.id
     ? storage.data.currentRun
@@ -85,16 +75,10 @@ export async function initializeGamePage(api = globalThis.KongJuiYaGame) {
   applyDeviceMode(getDeviceMode() || "auto", { force: true });
   api.selectTraining(mode.id);
 
-  const difficultySelect = byId("ui-difficultySelect");
-  if (difficultySelect) {
-    difficultySelect.value = difficulty;
-    difficultySelect.dispatchEvent(new Event("change", { bubbles: true }));
-  }
-
   const jarName = displayJarName(mode);
   byId("ui-trainingName").textContent = jarName;
   byId("ui-trainingCategory").textContent = mode.category;
-  byId("ui-difficultyLabel").textContent = DIFFICULTY_NAMES[difficulty] || "보통";
+  byId("ui-difficultyLabel").textContent = difficultyLabel(difficulty);
   byId("ui-progressTraining").textContent = jarName;
   byId("categoryLabel").textContent = `${mode.category} · ${jarName}`;
   byId("ui-targetScore").textContent = formatNumber(3000);
@@ -102,9 +86,11 @@ export async function initializeGamePage(api = globalThis.KongJuiYaGame) {
   const scene = mountGameScene(app, { storage });
   const removers = [];
   const targetQuestionCount = api.questionCount;
-  let questionCount = resumeState ? Math.min(targetQuestionCount, Number(resumeState.correctInStage || 0) + 1) : 1;
-  let correctCount = resumeState ? Number(resumeState.correctInStage || 0) : 0;
-  let wrongCount = 0;
+  let questionCount = resumeState
+    ? Math.min(targetQuestionCount, Number((resumeState.totalQuestions ?? resumeState.correctInStage) || 0) + 1)
+    : 1;
+  let correctCount = resumeState ? Number((resumeState.correctAnswers ?? resumeState.correctInStage) || 0) : 0;
+  let wrongCount = resumeState ? Number(resumeState.wrongAnswers || 0) + Number(resumeState.timeoutAnswers || 0) : 0;
   let bubbleTimer = 0;
   let feverTimer = 0;
   let keypad = null;
@@ -162,14 +148,18 @@ export async function initializeGamePage(api = globalThis.KongJuiYaGame) {
     if (!dialog.open) dialog.showModal();
   }
 
-  function decorateResult(clear) {
+  function decorateResult(kind) {
     const panel = byId("resultPanel");
     if (!panel) return;
 
     const heading = panel.querySelector("h2");
     if (heading) {
       heading.id = "resultTitle";
-      heading.textContent = clear ? "장독대 채우기 완료" : "물이 모두 샜습니다";
+      heading.textContent = kind === "clear"
+        ? "장독대 채우기 완료"
+        : kind === "complete"
+          ? "이번 장독대 플레이 완료"
+          : "물이 모두 샜습니다";
     }
 
     const restartButton = panel.querySelector("#ui-restartGameButton");
@@ -262,15 +252,22 @@ export async function initializeGamePage(api = globalThis.KongJuiYaGame) {
   listen(removers, "game:pause", () => updatePauseButton(true));
   listen(removers, "game:resume", () => updatePauseButton(false));
   listen(removers, "game:over", () => {
-    decorateResult(false);
+    decorateResult("over");
     announce("게임 오버");
     keypad?.setLocked(true);
     showAdSlot();
   });
   listen(removers, "game:clear", () => {
-    decorateResult(true);
+    decorateResult("clear");
     byId("feedback").textContent = "장독대 채우기 완료!";
     announce("장독대 채우기 완료");
+    keypad?.setLocked(true);
+    showAdSlot();
+  });
+  listen(removers, "game:complete", () => {
+    decorateResult("complete");
+    byId("feedback").textContent = `${targetQuestionCount}문제 플레이 완료! 기록에서 성장 추세를 확인해 보세요.`;
+    announce("이번 장독대 플레이 완료");
     keypad?.setLocked(true);
     showAdSlot();
   });
@@ -286,6 +283,7 @@ export async function initializeGamePage(api = globalThis.KongJuiYaGame) {
   listen(removers, "ui:device-mode", () => syncViewport());
 
   api.start({ difficulty, resumeState });
+  clearTrainingSelection();
   keypad = mountMobileKeypad({
     api,
     form: byId("ui-answerForm"),

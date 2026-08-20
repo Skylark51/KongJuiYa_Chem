@@ -31,6 +31,7 @@ export class UIAdapter {
     engine.on("answer:timeout", detail => this.feedback(`⌛ 시간 초과 · 물 -${Math.round(detail.waterPenalty)}%`, "wrong"));
     engine.on("training:clear", detail => this.feedback(`${this.trainingLabel(detail.training.title)} 장독대 채우기 완료!`, "correct"));
     engine.on("game:over", detail => this.showResult("게임 오버", detail.state));
+    engine.on("game:complete", detail => this.showResult("이번 장독대 플레이 완료", detail.state));
     engine.on("game:clear", detail => this.showResult("장독대 채우기 완료", detail.state));
     engine.on("fever:start", detail => this.feedback(`🔥 피버 시작! 점수 ${detail.scoreMultiplier}배`, "correct"));
     engine.on("toad:speak", detail => this.text("ui-toadSpeech", detail.text));
@@ -57,18 +58,6 @@ export class UIAdapter {
     select.value = selectedId || "";
     select.addEventListener("change", () => onChange?.(select.value));
     (story || button.parentElement)?.insertBefore(select, button);
-  }
-
-  installDifficulty(value = "normal", onChange) {
-    const button = this.$("startButton");
-    if (!button || this.$("ui-difficultySelect")) return;
-    const select = this.document.createElement("select");
-    select.id = "ui-difficultySelect";
-    select.hidden = true;
-    select.innerHTML = '<option value="easy">쉬움</option><option value="normal">보통</option><option value="hard">어려움</option>';
-    select.value = value;
-    select.addEventListener("change", () => onChange?.(select.value));
-    button.parentElement?.insertBefore(select, button);
   }
 
   answer() {

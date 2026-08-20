@@ -1,4 +1,17 @@
 import { SubjectStorage } from "./subject-storage.js";
+import { createJarSessionRecord } from "./jar-records.js";
+
+const optionalAccuracy = value => {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed >= 0 && parsed <= 100 ? Math.round(parsed) : null;
+};
+const nonNegative = value => Math.max(0, Number(value) || 0);
+const bestAccuracyFromRecords = records => {
+  const values = (Array.isArray(records) ? records : [])
+    .map(record => optionalAccuracy(record?.accuracy))
+    .filter(value => value != null);
+  return values.length ? Math.max(...values) : null;
+};
 
 export class SubjectGameStorage {
   constructor(subjectId, globalStorage, trainingProvider, storage = globalThis.localStorage) {
@@ -38,23 +51,50 @@ export class SubjectGameStorage {
     return this.currentRun;
   }
 
+  getRecordSummary(records = this.subjectStorage.read("records", [])) {
+    const stored = this.subjectStorage.read("record-summary", {});
+    const bestAccuracy = optionalAccuracy(stored?.bestAccuracy) ?? bestAccuracyFromRecords(records);
+    const totalCompletions = Number.isFinite(Number(stored?.totalCompletions))
+      ? nonNegative(stored.totalCompletions)
+      : (Array.isArray(records) ? records : []).filter(record => record?.status === "cleared").length;
+    return { bestAccuracy, totalCompletions };
+  }
+
   finishRun(state) {
     const records = this.subjectStorage.read("records", []);
     const mode = this.trainingProvider(state.trainingId);
+    const completedAt = new Date().toISOString();
+    const sessionRecord = createJarSessionRecord(state, {
+      subject: this.subjectId,
+      mode,
+      playDate: completedAt
+    });
+    const summary = this.getRecordSummary(records);
+    const isPersonalBestAccuracy = sessionRecord.accuracy != null && (
+      summary.bestAccuracy == null || sessionRecord.accuracy > summary.bestAccuracy
+    );
     const record = Object.freeze({
       quizId: state.trainingId,
       title: mode?.title || state.trainingId,
       difficulty: state.difficulty || "normal",
       score: Math.round(Number(state.score) || 0),
-      correct: Number(this.currentRun?.correct) || Number(state.correctInStage) || 0,
-      wrong: Number(this.currentRun?.wrong) || 0,
-      timeout: Number(this.currentRun?.timeout) || 0,
-      bestCombo: Number(state.bestCombo || state.combo) || 0,
+      correct: sessionRecord.correctAnswers,
+      wrong: sessionRecord.wrongAnswers,
+      timeout: sessionRecord.timeoutAnswers,
+      bestCombo: sessionRecord.maxCombo,
       questionCount: Number(state.correctAnswersPerStage) || 0,
       status: state.status,
-      completedAt: new Date().toISOString()
+      completedAt,
+      ...sessionRecord,
+      isPersonalBestAccuracy
     });
     this.subjectStorage.write("records", [record, ...records].slice(0, 100));
+    this.subjectStorage.write("record-summary", {
+      bestAccuracy: sessionRecord.accuracy == null
+        ? summary.bestAccuracy
+        : Math.max(summary.bestAccuracy ?? 0, sessionRecord.accuracy),
+      totalCompletions: summary.totalCompletions + (state.status === "cleared" ? 1 : 0)
+    });
     this.currentRun = null;
     this.subjectStorage.write("current-run", null);
     return this.getTrainingStats(state.trainingId);

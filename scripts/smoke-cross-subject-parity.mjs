@@ -140,6 +140,13 @@ try {
     const url = new URL("/콩쥐야_줘때써.html", baseUrl);
     url.searchParams.set("subject", subjectId);
     url.searchParams.set("training", trainingId);
+    await page.addInitScript(id => {
+      sessionStorage.setItem("kongjuiya-training-selection", JSON.stringify({
+        trainingId: id,
+        difficulty: "normal",
+        resume: false
+      }));
+    }, trainingId);
     await page.goto(url.href, { waitUntil: "networkidle" });
     await page.waitForFunction(() => document.documentElement.dataset.gameRuntime === "ready");
     await waitRunning(page);

@@ -1,6 +1,7 @@
 import { TRAINING_MODES } from "../../data/training-modes.js";
 import { displayJarName } from "./theme-system.js";
 import { modeMetrics, playedModes } from "./lobby-logic.js";
+import { buildJarRecordAnalytics } from "./jar-records.js";
 
 const number = value => Math.round(Number(value) || 0).toLocaleString("ko-KR");
 const percent = value => value == null ? "—" : Math.round(value) + "%";
@@ -18,6 +19,13 @@ export function formatPlayedAt(value) {
 
 export function dashboardMetrics(data, modes = TRAINING_MODES) {
   const entries = playedModes(data, modes);
+  const analytics = buildJarRecordAnalytics({
+    records: data.recentRuns,
+    modes,
+    subject: "chemistry",
+    statistics: data.statistics,
+    overall: data.overall
+  });
   const totalAnswers = entries.reduce((sum, entry) => sum + entry.metrics.attempts, 0);
   const totalCorrect = entries.reduce((sum, entry) => sum + entry.metrics.correct, 0);
   const responseCount = entries.reduce((sum, entry) => sum + entry.metrics.responseCount, 0);
@@ -36,43 +44,47 @@ export function dashboardMetrics(data, modes = TRAINING_MODES) {
     .sort((left, right) => new Date(right.metrics.lastPlayedAt) - new Date(left.metrics.lastPlayedAt))[0];
 
   return {
-    totalPlays,
-    accuracy: totalAnswers ? Math.round(totalCorrect / totalAnswers * 100) : null,
-    bestCombo,
+    totalPlays: analytics.totals.completedPlays,
+    totalAnswers: analytics.totals.totalQuestions,
+    correctAnswers: analytics.totals.correctAnswers,
+    accuracy: analytics.totals.accuracy,
+    bestCombo: analytics.totals.maxCombo,
     beans: Number(data.economy?.beans || 0),
     averageResponseMs: responseCount ? Math.round(responseTotal / responseCount) : null,
     mostMissed,
-    latestPlayedAt: latestRun?.endedAt || latestStat?.metrics.lastPlayedAt || null,
+    latestPlayedAt: analytics.sessions.at(-1)?.playDate || latestRun?.endedAt || latestStat?.metrics.lastPlayedAt || null,
     entries,
-    recentRuns: (data.recentRuns || []).filter(run => run && Number.isFinite(Number(run.score))).slice(0, 8)
+    recentRuns: analytics.recentSessions,
+    analytics
   };
 }
 
 function replaceTrend(region, runs) {
   region.replaceChildren();
-  if (!runs.length) {
+  const comparableRuns = runs.filter(run => run.accuracy != null);
+  if (!comparableRuns.length) {
     const empty = document.createElement("p");
     empty.className = "dashboard-empty-state";
-    empty.textContent = "아직 플레이 기록이 없습니다. 첫 장독대를 채우면 점수 그래프가 생성됩니다.";
+    empty.textContent = runs.length ? "정답률을 알 수 있는 새 기록부터 성장 흐름을 보여드립니다." : "아직 플레이 기록이 없습니다. 첫 장독대를 채우면 최근 정답률 흐름을 보여드립니다.";
     region.append(empty);
     return;
   }
 
-  if (runs.length === 1) {
-    const run = runs[0];
+  if (comparableRuns.length === 1) {
+    const run = comparableRuns[0];
     const single = document.createElement("div");
     single.className = "dashboard-single-run";
     const score = document.createElement("strong");
-    score.textContent = number(run.score) + "점";
+    score.textContent = percent(run.accuracy);
     const detail = document.createElement("span");
-    detail.textContent = formatPlayedAt(run.endedAt) + " · 첫 기록";
+    detail.textContent = formatPlayedAt(run.playDate) + " · 첫 기록";
     single.append(score, detail);
     region.append(single);
     return;
   }
 
-  const ordered = [...runs].reverse();
-  const scores = ordered.map(run => Number(run.score || 0));
+  const ordered = [...comparableRuns];
+  const scores = ordered.map(run => Number(run.accuracy));
   const minimum = Math.min(...scores);
   const maximum = Math.max(...scores);
   const range = Math.max(1, maximum - minimum);
@@ -89,12 +101,12 @@ function replaceTrend(region, runs) {
   const chart = svg("svg", {
     class: "dashboard-chart",
     role: "img",
-    "aria-label": "최근 " + ordered.length + "회 플레이 점수 추이",
+    "aria-label": "최근 " + ordered.length + "회 플레이 정답률 추이",
     viewBox: "0 0 " + width + " " + height,
     preserveAspectRatio: "xMidYMid meet"
   });
   const title = svg("title");
-  title.textContent = "최근 " + ordered.length + "회 플레이 점수 추이";
+  title.textContent = "최근 " + ordered.length + "회 플레이 정답률 추이";
   chart.append(title);
 
   const guides = svg("g", { class: "dashboard-grid-lines", "aria-hidden": "true" });
@@ -128,41 +140,55 @@ function replaceTrend(region, runs) {
   region.append(chart);
 }
 
-function renderModeBars(root, entries) {
+function statusClass(status) {
+  if (status === "강점") return "is-strength";
+  if (status === "보완 필요") return "is-needs-work";
+  return "";
+}
+
+function renderModeBars(root, categories) {
   root.replaceChildren();
-  if (!entries.length) {
+  if (!categories.length) {
     const empty = document.createElement("p");
-    empty.className = "dashboard-empty-state compact";
-    empty.textContent = "플레이한 장독대의 정답률이 여기에 표시됩니다.";
+    empty.className = "dashboard-empty-state compact jar-record-empty";
+    empty.textContent = "플레이한 장독대의 영역별 실력이 여기에 표시됩니다.";
     root.append(empty);
     return;
   }
 
-  entries
-    .slice()
-    .sort((left, right) => (right.metrics.lastPlayedAt || "").localeCompare(left.metrics.lastPlayedAt || ""))
-    .forEach(entry => {
-      const row = document.createElement("article");
-      row.className = "dashboard-mode-row";
-      const label = document.createElement("div");
-      const title = document.createElement("strong");
-      title.textContent = displayJarName(entry.mode);
-      const detail = document.createElement("span");
-      detail.textContent = entry.metrics.attempts ? "답안 " + entry.metrics.attempts + "개" : "플레이 기록";
-      label.append(title, detail);
+  categories.forEach(category => {
+    const row = document.createElement("article");
+    row.className = "jar-category-row";
+    const label = document.createElement("div");
+    label.className = "jar-category-label";
+    const title = document.createElement("strong");
+    title.textContent = category.category;
+    const detail = document.createElement("span");
+    detail.textContent = "풀이 " + number(category.totalQuestions) + "문항 · 정답률 " + percent(category.accuracy);
+    label.append(title, detail);
 
-      const track = document.createElement("div");
-      track.className = "dashboard-mode-track";
-      track.setAttribute("aria-label", displayJarName(entry.mode) + " 정답률 " + percent(entry.metrics.accuracy));
-      const fill = document.createElement("i");
-      fill.style.width = (entry.metrics.accuracy ?? 0) + "%";
-      track.append(fill);
+    const progress = document.createElement("div");
+    progress.className = "jar-category-progress";
+    const recent = document.createElement("span");
+    const recentLabel = document.createElement("span");
+    recentLabel.textContent = "최근 정답률";
+    const recentValue = document.createElement("b");
+    recentValue.textContent = percent(category.recentAccuracy);
+    recent.append(recentLabel, recentValue);
+    const track = document.createElement("div");
+    track.className = "jar-category-track";
+    track.setAttribute("aria-label", category.category + " 정답률 " + percent(category.accuracy));
+    const fill = document.createElement("i");
+    fill.style.width = Math.max(0, Math.min(100, category.accuracy ?? 0)) + "%";
+    track.append(fill);
+    progress.append(recent, track);
 
-      const result = document.createElement("b");
-      result.textContent = percent(entry.metrics.accuracy);
-      row.append(label, track, result);
-      root.append(row);
-    });
+    const result = document.createElement("b");
+    result.className = "jar-category-status " + statusClass(category.status);
+    result.textContent = category.status;
+    row.append(label, progress, result);
+    root.append(row);
+  });
 }
 
 export function renderDashboard(storage, root = document) {
@@ -173,17 +199,25 @@ export function renderDashboard(storage, root = document) {
   };
 
   setText("#dashboardTotalPlays", number(metrics.totalPlays));
+  setText("#dashboardTotalAnswers", number(metrics.totalAnswers));
+  setText("#dashboardCorrectAnswers", number(metrics.correctAnswers));
   setText("#dashboardAccuracy", percent(metrics.accuracy));
   setText("#dashboardBestCombo", number(metrics.bestCombo));
-  setText("#dashboardBeans", number(metrics.beans));
-  setText("#dashboardAverageResponse", metrics.averageResponseMs == null ? "—" : number(metrics.averageResponseMs) + "ms");
-  setText("#dashboardMostMissed", metrics.mostMissed ? displayJarName(metrics.mostMissed.mode) : "—");
-  setText("#dashboardRecentPlayed", metrics.latestPlayedAt ? formatPlayedAt(metrics.latestPlayedAt) : "—");
+  setText("#dashboardGoalText", metrics.analytics.nextGoal);
+  const change = metrics.analytics.growth.accuracyChange;
+  setText("#dashboardAccuracyChange", change == null ? "첫 기록 후 비교 가능" : (change > 0 ? "+" : "") + change + "%");
+  setText("#dashboardPersonalBest", percent(metrics.analytics.growth.personalBest));
+  const bestNotice = metrics.analytics.growth.latestIsPersonalBest
+    ? "개인 최고 정답률 갱신!"
+    : metrics.analytics.growth.latestAccuracy == null ? "기록을 쌓아 보세요" : "다음 장독대에서 갱신 도전";
+  setText("#dashboardBestNotice", bestNotice);
+  const notice = root.querySelector("#dashboardBestNotice")?.closest("div");
+  notice?.classList.toggle("is-personal-best", metrics.analytics.growth.latestIsPersonalBest);
 
   const trendRegion = root.querySelector("#dashboardTrendRegion");
   if (trendRegion) replaceTrend(trendRegion, metrics.recentRuns);
 
   const bars = root.querySelector("#dashboardModeBars");
-  if (bars) renderModeBars(bars, metrics.entries);
+  if (bars) renderModeBars(bars, metrics.analytics.categories);
   return metrics;
 }
