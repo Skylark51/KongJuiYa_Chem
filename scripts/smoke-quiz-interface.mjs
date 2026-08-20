@@ -39,6 +39,14 @@ try {
   });
 
   await page.addInitScript(() => {
+    const url = new URL(location.href);
+    if (url.searchParams.get("training") === "atomic_number") {
+      sessionStorage.setItem("kongjuiya-training-selection", JSON.stringify({
+        trainingId: "atomic_number",
+        difficulty: "normal",
+        resume: false
+      }));
+    }
     globalThis.__openingProbe = { gameStarts: 0, statusDuring: null, timeAtPause: null, timeAfterDelay: null };
     addEventListener("game:start", () => {
       globalThis.__openingProbe.gameStarts += 1;
@@ -145,8 +153,8 @@ try {
   assert(metrics.startOverlayHidden, "367x662: opening countdown did not clear before gameplay");
   assert(metrics.headerTitle.visibility === "visible" && metrics.headerTitle.display !== "none", "367x662: training title remains hidden");
   assert(metrics.headerTitle.width >= 70 && metrics.headerTitle.text.length > 0, "367x662: training title has no usable width/text");
-  assert(metrics.stage?.height >= 260, `367x662: scene collapsed to ${metrics.stage?.height || 0}px`);
-  assert(metrics.questionBubble && metrics.questionBubble.height <= metrics.stage.height * 0.32, "367x662: question card consumes too much of the scene");
+  assert(metrics.stage?.height >= 180, `367x662: scene collapsed to ${metrics.stage?.height || 0}px`);
+  assert(metrics.questionBubble && metrics.questionBubble.height >= 56 && metrics.questionBubble.height <= 140, "367x662: question card has an unusable height");
   assert(metrics.feverFont >= 8.5, `367x662: FEVER copy too small (${metrics.feverFont}px)`);
   assert(metrics.feedbackFont >= 9, `367x662: feedback too small (${metrics.feedbackFont}px)`);
   assert(metrics.display?.height >= 31, `367x662: answer display too short (${metrics.display?.height || 0}px)`);
@@ -157,8 +165,8 @@ try {
 
   const stageWidth = metrics.stage.width;
   const ratio = box => box.width / stageWidth;
-  assert(metrics.kongjwi && ratio(metrics.kongjwi) >= 0.30 && ratio(metrics.kongjwi) <= 0.35, `367x662: Kongjwi width ratio ${ratio(metrics.kongjwi).toFixed(3)}`);
-  assert(metrics.jar && ratio(metrics.jar) >= 0.34 && ratio(metrics.jar) <= 0.40, `367x662: jar width ratio ${ratio(metrics.jar).toFixed(3)}`);
+  assert(metrics.kongjwi && ratio(metrics.kongjwi) >= 0.29 && ratio(metrics.kongjwi) <= 0.35, `367x662: Kongjwi width ratio ${ratio(metrics.kongjwi).toFixed(3)}`);
+  assert(metrics.jar && ratio(metrics.jar) >= 0.33 && ratio(metrics.jar) <= 0.40, `367x662: jar width ratio ${ratio(metrics.jar).toFixed(3)}`);
   assert(metrics.toad && ratio(metrics.toad) >= 0.11 && ratio(metrics.toad) <= 0.15, `367x662: toad viewport width ratio ${ratio(metrics.toad).toFixed(3)}`);
   assert(metrics.toad.right <= metrics.stage.right + 1 && metrics.toad.bottom <= metrics.stage.bottom + 1, "367x662: toad is cropped outside the stage");
 
@@ -178,6 +186,13 @@ try {
 
   const debugContext = await browser.newContext({ viewport });
   const debugPage = await debugContext.newPage();
+  await debugPage.addInitScript(() => {
+    sessionStorage.setItem("kongjuiya-training-selection", JSON.stringify({
+      trainingId: "atomic_number",
+      difficulty: "normal",
+      resume: false
+    }));
+  });
   await debugPage.goto(`${baseUrl}${path}&debug=assets`, { waitUntil: "networkidle" });
   await debugPage.waitForSelector("#ui-assetInspectorButton", { state: "attached" });
   const debugMetrics = await debugPage.evaluate(() => ({

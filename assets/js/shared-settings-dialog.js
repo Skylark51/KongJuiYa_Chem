@@ -5,7 +5,6 @@ import { getDeviceMode, setDeviceMode } from "./device-entry.js";
 const SUPPORTED_PAGES = new Set(["lobby", "subject-shell", "game"]);
 const LEGACY_DIALOG_IDS = ["settingsDialog", "subjectSettings", "audioSettingsDialog"];
 const AUDIO_DEFAULTS = Object.freeze({ bgmVolume: 0.8, sfxVolume: 0.8, mute: false });
-const DIFFICULTIES = new Set(["easy", "normal", "hard"]);
 const DEVICE_MODES = new Set(["auto", "desktop", "mobile"]);
 const MIN_QUESTION_COUNT = 5;
 const MAX_QUESTION_COUNT = 100;
@@ -54,7 +53,6 @@ export function readSharedSettings({ storage = globalThis.localStorage, gameStor
   const deviceMode = getDeviceMode(storage) || (DEVICE_MODES.has(legacy.deviceMode) ? legacy.deviceMode : "auto");
   return {
     ...audio,
-    difficulty: DIFFICULTIES.has(legacy.difficulty) ? legacy.difficulty : "normal",
     questionCount: clampQuestionCount(legacy.questionCount),
     animations: typeof preferences.animations === "boolean" ? preferences.animations : legacy.animations !== false,
     deviceMode
@@ -73,7 +71,6 @@ export function saveSharedSettings(values, {
     bgmVolume: clamp01(values?.bgmVolume ?? current.bgmVolume),
     sfxVolume: clamp01(values?.sfxVolume ?? current.sfxVolume),
     mute: Boolean(values?.mute),
-    difficulty: DIFFICULTIES.has(values?.difficulty) ? values.difficulty : current.difficulty,
     questionCount: clampQuestionCount(values?.questionCount ?? current.questionCount),
     animations: values?.animations !== false,
     deviceMode: DEVICE_MODES.has(values?.deviceMode) ? values.deviceMode : current.deviceMode
@@ -89,7 +86,6 @@ export function saveSharedSettings(values, {
   store.data = store.load();
   store.updateSettings({
     volume: next.mute ? 0 : next.bgmVolume,
-    difficulty: next.difficulty,
     questionCount: next.questionCount,
     animations: next.animations,
     deviceMode: next.deviceMode
@@ -141,7 +137,6 @@ function createDialog(documentRef) {
 
       <fieldset class="shared-settings-group">
         <legend>게임</legend>
-        <label class="shared-settings-row"><span>기본 난도</span><select id="sharedDifficulty"><option value="easy">쉬움</option><option value="normal">보통</option><option value="hard">어려움</option></select></label>
         <label class="shared-settings-row"><span>기본 문항 수</span><input id="sharedQuestionCount" type="number" inputmode="numeric" min="${MIN_QUESTION_COUNT}" max="${MAX_QUESTION_COUNT}" step="1"><small>${MIN_QUESTION_COUNT}~${MAX_QUESTION_COUNT}문항</small></label>
         <label class="shared-settings-toggle"><input id="sharedAnimations" type="checkbox"><span>애니메이션 사용</span></label>
       </fieldset>
@@ -191,7 +186,6 @@ function bindDialog(dialog, { documentRef, windowRef, storage }) {
   const bgmValue = field("sharedBgmValue");
   const sfxValue = field("sharedSfxValue");
   const mute = field("sharedMuteAudio");
-  const difficulty = field("sharedDifficulty");
   const questionCount = field("sharedQuestionCount");
   const animations = field("sharedAnimations");
   const deviceMode = field("sharedDeviceMode");
@@ -205,7 +199,6 @@ function bindDialog(dialog, { documentRef, windowRef, storage }) {
     bgm.value = String(settings.bgmVolume);
     sfx.value = String(settings.sfxVolume);
     mute.checked = settings.mute;
-    difficulty.value = settings.difficulty;
     questionCount.value = String(settings.questionCount);
     animations.checked = settings.animations;
     deviceMode.value = settings.deviceMode;
@@ -225,7 +218,6 @@ function bindDialog(dialog, { documentRef, windowRef, storage }) {
       bgmVolume: bgm.value,
       sfxVolume: sfx.value,
       mute: mute.checked,
-      difficulty: difficulty.value,
       questionCount: questionCount.value,
       animations: animations.checked,
       deviceMode: deviceMode.value

@@ -27,7 +27,7 @@ const subjects = [
     "시상 화석과 표준 화석 구분 장독대",
     "표준 화석의 시대 구분 장독대",
     "지질 시대 키워드 구분 장독대"
-  ], ["통합과학2 - 지질 시대의 환경과 생물"], 2]
+  ], ["통합과학2 - 지질 시대의 환경과 생물"], 3]
 ];
 
 function assert(condition, message) {
@@ -37,7 +37,7 @@ function assert(condition, message) {
 async function assertNoOverflow(page, label) {
   const overflow = await page.evaluate(() => ({
     horizontal: document.documentElement.scrollWidth - innerWidth,
-    titleClipped: [...document.querySelectorAll(".subject-brand strong, .subject-hero h1")]
+    titleClipped: [...document.querySelectorAll(".subject-hero h1")]
       .some(node => node.scrollWidth > node.clientWidth + 1)
   }));
   assert(overflow.horizontal <= 1, label + ": horizontal overflow " + overflow.horizontal + "px");
@@ -81,8 +81,8 @@ try {
       await page.goto(baseUrl + "/subjects/" + subjectId + "/", { waitUntil: "networkidle" });
       await page.waitForFunction(() => document.documentElement.dataset.subjectShellReady === "true");
       assert(await page.title() === "콩쥐야 줘때써 - " + subjectName + "편", label + ": title");
-      assert(await page.locator(".portal-return").isVisible(), label + ": portal return");
-      assert(await page.locator('a[aria-label="과학 통합관으로 돌아가기"]').count() >= 2, label + ": explicit portal links");
+      assert(await page.locator(".science-portal-link").isVisible(), label + ": portal return");
+      assert(await page.locator('a[aria-label="과학 통합관으로 이동"]').count() >= 1, label + ": explicit portal link");
       await assertNoOverflow(page, label + " home");
 
       await page.locator('[data-view-target="jars"]:visible').first().click();
@@ -96,7 +96,7 @@ try {
         assert(await page.locator("#subjectCategoryFilter").isVisible(), label + ": category filter hidden");
         assert(await page.locator("#subjectCategoryFilter button").count() === categoryNames.length + 1, label + ": category filters");
         assert(await page.locator(".subject-quiz-card").count() === jarTitles.length, label + ": authored jar count");
-        assert(await page.locator(".subject-quiz-card a").count() === liveCount, label + ": live jar count");
+        assert(await page.locator(".subject-quiz-card:not(.is-planned) button").count() === liveCount, label + ": live jar count");
         assert(await page.locator(".subject-quiz-card.is-planned button:disabled").count() === jarTitles.length - liveCount, label + ": planned jars must be disabled");
         assert(await page.locator(".subject-quiz-card h3").allTextContents().then(titles => titles.join("|")) === jarTitles.join("|"), label + ": jar titles");
         assert(await page.locator("#subjectCategoryFilter button").allTextContents().then(labels => labels.slice(1).join("|")) === categoryNames.join("|"), label + ": category names");
@@ -105,6 +105,13 @@ try {
           assert(await page.locator(".subject-quiz-card").count() === 1, label + ": evolution category jar count");
           assert(await page.locator(".subject-quiz-card h3").textContent() === "변이와 자연선택 과정 구분 장독대", label + ": evolution jar title");
           await page.getByRole("button", { name: "전체", exact: true }).click();
+        }
+        if (liveCount) {
+          await page.locator(".subject-quiz-card:not(.is-planned) button").first().click();
+          await page.waitForSelector("#jarDifficultyDialog[open]");
+          assert(await page.locator("#jarDifficultyDialog [data-session-difficulty]").count() === 3, label + ": difficulty choices");
+          await page.locator("#jarDifficultyDialog [value=cancel]").last().click();
+          assert(await page.locator("#subjectQuizGrid").isVisible(), label + ": cancel did not return to jars");
         }
       }
       await assertNoOverflow(page, label + " jars");
@@ -139,7 +146,7 @@ try {
   });
   await page.reload({ waitUntil: "networkidle" });
   await page.locator('[data-view-target="records"]:visible').first().click();
-  assert(await page.locator("#subjectTotalPlays").textContent() === "1", "physics fixture record missing");
+  assert(await page.locator("#subjectTotalAnswers").textContent() === "4", "physics fixture record missing");
   assert(await page.locator("#subjectAccuracy").textContent() === "75%", "physics accuracy incorrect");
 
   await page.goto(baseUrl + "/subjects/biology/?view=records", { waitUntil: "networkidle" });
@@ -149,8 +156,8 @@ try {
   assert(!(await page.locator("#subjectCategoryFilter").textContent()).includes("산화환원"), "biology leaked chemistry category");
 
   await page.locator("[data-settings-open]:visible").first().click();
-  assert(await page.locator("#subjectVolume").inputValue() === "0.35", "global audio did not carry");
-  await page.locator('.dialog-close').click();
+  assert(await page.locator("#sharedBgmVolume").inputValue() === "0.35", "global audio did not carry");
+  await page.locator('.shared-settings-close').click();
 
   await page.goto(baseUrl + "/shop.html?subject=biology", { waitUntil: "networkidle" });
   assert(new URL(await page.locator('.desktop-tabs a').first().getAttribute("href")).pathname.endsWith("/subjects/biology/"), "shop return subject lost");

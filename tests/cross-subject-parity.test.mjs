@@ -22,7 +22,6 @@ test("subject compatibility bootstraps cannot own game state, dialogue, scene, o
   ];
   for (const file of [
     "assets/js/biology-evolution-quiz.js",
-    "assets/js/earth-science-fossil-quiz.js",
     "assets/js/subject-quiz-redirect.js"
   ]) {
     const source = await read(file);

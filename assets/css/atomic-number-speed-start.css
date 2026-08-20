@@ -38,8 +38,7 @@
 }
 
 #startOverlay.game-start-countdown > #startButton,
-#startOverlay.game-start-countdown > #ui-trainingSelect,
-#startOverlay.game-start-countdown > #ui-difficultySelect {
+#startOverlay.game-start-countdown > #ui-trainingSelect {
   display: none !important;
 }
 

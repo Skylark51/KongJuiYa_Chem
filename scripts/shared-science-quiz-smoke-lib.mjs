@@ -4,7 +4,7 @@ import { mkdir } from "node:fs/promises";
 const EVENT_TYPES = [
   "game:start", "training:start", "question:changed", "answer:correct", "answer:wrong",
   "answer:timeout", "water:warning", "water:critical", "fever:start", "game:pause",
-  "game:resume", "game:clear", "game:over", "toad:speak"
+  "game:resume", "game:clear", "game:complete", "game:over", "toad:speak"
 ];
 
 function assert(condition, message) {
@@ -55,6 +55,17 @@ export async function runSharedQuizSmoke({
       const context = await browser.newContext({ viewport });
       const page = await context.newPage();
       const errors = [];
+      await page.addInitScript(() => {
+        const url = new URL(location.href);
+        const trainingId = url.searchParams.get("training");
+        if (decodeURIComponent(url.pathname).endsWith("/콩쥐야_줘때써.html") && trainingId) {
+          sessionStorage.setItem("kongjuiya-training-selection", JSON.stringify({
+            trainingId,
+            difficulty: "normal",
+            resume: false
+          }));
+        }
+      });
       await page.addInitScript(types => {
         globalThis.__sharedQuizEvents = [];
         for (const type of types) addEventListener(type, () => globalThis.__sharedQuizEvents.push(type));
@@ -129,7 +140,9 @@ export async function runSharedQuizSmoke({
           await choose(page, true);
           await waitFeedbackCadence(page);
         }
-        await page.waitForFunction(() => globalThis.KongJuiYaGame.game.state.status === "cleared");
+        await page.waitForFunction(() => ["cleared", "completed"].includes(globalThis.KongJuiYaGame.game.state.status));
+        const finalStatus = await page.evaluate(() => globalThis.KongJuiYaGame.game.state.status);
+        assert(finalStatus === "completed", runLabel + ": mixed-answer fixed session should finish without a jar clear");
         assert(await page.locator("#resultPanel").isVisible(), runLabel + ": result panel");
         assert(await page.evaluate(id => {
           const records = JSON.parse(localStorage.getItem(`kongjuiya:${id}:records`) || "[]");
@@ -137,7 +150,7 @@ export async function runSharedQuizSmoke({
         }, subjectId), runLabel + ": isolated record");
 
         const events = await page.evaluate(() => globalThis.__sharedQuizEvents);
-        for (const required of ["game:start", "question:changed", "answer:correct", "answer:wrong", "answer:timeout", "fever:start", "game:pause", "game:resume", "game:clear", "toad:speak"]) {
+        for (const required of ["game:start", "question:changed", "answer:correct", "answer:wrong", "answer:timeout", "fever:start", "game:pause", "game:resume", "game:complete", "toad:speak"]) {
           assert(events.includes(required), runLabel + ": event " + required);
         }
 
@@ -146,6 +159,8 @@ export async function runSharedQuizSmoke({
           if (dialog?.open) dialog.close();
         });
         await page.locator("#ui-restartGameButton").click();
+        await page.waitForSelector("#jarDifficultyDialog[open]");
+        await page.locator("#jarDifficultyDialog [data-session-difficulty=normal]").click();
         await waitRunning(page);
         await page.evaluate(() => {
           const game = globalThis.KongJuiYaGame.game;
@@ -165,7 +180,8 @@ export async function runSharedQuizSmoke({
 
       await page.goto(new URL(`/subjects/${subjectId}/?view=records`, baseUrl).href, { waitUntil: "networkidle" });
       await page.waitForFunction(() => document.documentElement.dataset.subjectShellReady === "true");
-      assert(Number(await page.locator("#subjectTotalPlays").textContent()) >= trainingIds.length, viewportName + ": record view");
+      assert(Number(await page.locator("#subjectTotalAnswers").textContent()) > 0, viewportName + ": record answers");
+      assert(await page.locator(".subject-record-card").count() >= trainingIds.length, viewportName + ": record sessions");
       assert(errors.length === 0, viewportName + ": " + errors.join(" | "));
       await context.close();
     }

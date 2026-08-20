@@ -10,6 +10,14 @@ import { ActionSystem } from "./action-system.js";
 import { UIAdapter } from "./ui-adapter.js";
 import { installMetalReactivityChoiceLabels } from "./metal-reactivity-choice-ui.js";
 import { QuizCadenceController } from "./quiz-cadence.js";
+import {
+  buildDifficultyQuestionSession,
+  isSessionDifficulty,
+  openDifficultySelection,
+  readTrainingSelection,
+  writeTrainingSelection
+} from "./jar-session.js";
+import { activeSubjectLobbyUrl } from "./site-routing.js";
 
 export const DEFAULT_QUESTION_COUNT = 10;
 export const MIN_QUESTION_COUNT = 5;
@@ -20,11 +28,6 @@ export function clampQuestionCount(value) {
   return Number.isFinite(count)
     ? Math.max(MIN_QUESTION_COUNT, Math.min(MAX_QUESTION_COUNT, count))
     : DEFAULT_QUESTION_COUNT;
-}
-
-function readSelection() {
-  try { return JSON.parse(sessionStorage.getItem("kongjuiya-training-selection") || "null"); }
-  catch { return null; }
 }
 
 export function bootstrapGameRuntime({ subjectId = subjectIdFromLocation() } = {}) {
@@ -42,7 +45,7 @@ const globalStorage = new GameStorage();
 const storage = content.subjectId === "chemistry"
   ? globalStorage
   : new SubjectGameStorage(content.subjectId, globalStorage, getTrainingMode);
-const selection = readSelection();
+const selection = readTrainingSelection();
 const savedQuestionCount = selection?.resume
   ? Number(storage.data.currentRun?.correctAnswersPerStage || 0)
   : 0;
@@ -64,7 +67,8 @@ installMetalReactivityChoiceLabels();
 
 const requestedTrainingId = new URLSearchParams(location.search).get("training");
 let selectedTrainingId = getTrainingMode(requestedTrainingId)?.id || null;
-let selectedDifficulty = storage.data.settings.difficulty || "normal";
+let selectedDifficulty = isSessionDifficulty(selection?.difficulty) ? selection.difficulty : null;
+let lastQuestionSession = null;
 let questionStartedAt = performance.now();
 let lastFrameTime = performance.now();
 let frameRequestId = 0;
@@ -105,11 +109,28 @@ function start(options = {}) {
     return;
   }
 
-  storage.startRun(selectedTrainingId, selectedDifficulty);
+  const difficulty = isSessionDifficulty(options.difficulty) ? options.difficulty : selectedDifficulty;
+  if (!isSessionDifficulty(difficulty)) {
+    ui.feedback("장독대 난이도를 먼저 선택해 주세요.", "wrong");
+    return;
+  }
+  selectedDifficulty = difficulty;
+  const questionSession = options.resumeState
+    ? null
+    : buildDifficultyQuestionSession(QUESTIONS, {
+      trainingId: selectedTrainingId,
+      difficulty,
+      questionCount
+    });
+  if (questionSession) lastQuestionSession = questionSession;
+
+  storage.startRun(selectedTrainingId, difficulty);
   game.start({
+    ...options,
     trainingId: selectedTrainingId,
-    difficulty: selectedDifficulty,
-    ...options
+    difficulty,
+    questionQueue: questionSession?.questionIds,
+    sessionMetadata: questionSession
   });
   questionStartedAt = performance.now();
   saveCurrentRun();
@@ -133,7 +154,19 @@ function submit(value) {
   }
 }
 
-ui.bind(game, { start, submit, restart: start });
+function restartWithDifficultyChoice() {
+  const mode = getTrainingMode(selectedTrainingId);
+  openDifficultySelection({ mode }).then(difficulty => {
+    if (!difficulty) {
+      location.href = activeSubjectLobbyUrl("jars");
+      return;
+    }
+    writeTrainingSelection({ trainingId: selectedTrainingId, difficulty, resume: false });
+    location.reload();
+  });
+}
+
+ui.bind(game, { start, submit, restart: restartWithDifficultyChoice });
 ui.installTrainingSelector(
   TRAINING_MODES.map(mode => ({
     ...mode,
@@ -142,11 +175,6 @@ ui.installTrainingSelector(
   selectedTrainingId,
   selectTraining
 );
-ui.installDifficulty(selectedDifficulty, value => {
-  selectedDifficulty = value;
-  storage.updateSettings({ difficulty: value });
-});
-
 game.on("answer:timeout", detail => {
   storage.recordAnswer(
     detail.question,
@@ -156,6 +184,9 @@ game.on("answer:timeout", detail => {
     game.state.difficulty
   );
   questionStartedAt = performance.now();
+  saveCurrentRun();
+});
+game.on("question:changed", () => {
   saveCurrentRun();
 });
 game.on("answer:correct", detail => {
@@ -194,7 +225,12 @@ game.on("fever:start", detail => {
 game.on("game:over", detail => {
   if (frameRequestId) cancelAnimationFrame(frameRequestId);
   frameRequestId = 0;
-  storage.finishRun(detail.state);
+  storage.finishRun({ ...detail.state, subject: content.subjectId });
+});
+game.on("game:complete", detail => {
+  if (frameRequestId) cancelAnimationFrame(frameRequestId);
+  frameRequestId = 0;
+  storage.finishRun({ ...detail.state, subject: content.subjectId });
 });
 game.on("game:clear", detail => {
   if (frameRequestId) cancelAnimationFrame(frameRequestId);
@@ -209,7 +245,7 @@ game.on("game:clear", detail => {
     );
     detail.state.beansEarned = (detail.state.beansEarned || 0) + bonus;
   }
-  storage.finishRun(detail.state);
+  storage.finishRun({ ...detail.state, subject: content.subjectId });
 });
 
 document.addEventListener("visibilitychange", () => {
@@ -258,6 +294,7 @@ const api = Object.freeze({
   actions,
   cadence,
   questionCount,
+  getQuestionSession: () => lastQuestionSession,
   TRAINING_MODES,
   start,
   submit,

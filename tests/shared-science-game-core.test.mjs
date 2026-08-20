@@ -12,6 +12,7 @@ import {
   EARTH_SCIENCE_FOSSIL_TYPE_QUESTIONS,
   EARTH_SCIENCE_FOSSIL_ERA_QUESTIONS
 } from "../data/questions/earth-science-fossil-type.js";
+import { EARTH_SCIENCE_GEOLOGIC_ERA_KEYWORD_QUESTIONS } from "../data/questions/earth-science-geologic-era-keywords.js";
 import { QuestionEngine } from "../assets/js/question-engine.js";
 import { GameCore } from "../assets/js/game-core.js";
 
@@ -24,8 +25,8 @@ const makeCore = (content, clearAt = 20) => new GameCore({
   eventTarget: null
 });
 
-test("biology and earth compatibility entries own no game state or cadence", async () => {
-  for (const file of ["assets/js/biology-evolution-quiz.js", "assets/js/earth-science-fossil-quiz.js"]) {
+test("biology compatibility entry and shared redirect own no game state or cadence", async () => {
+  for (const file of ["assets/js/biology-evolution-quiz.js"]) {
     const source = await read(file);
     assert.match(source, /mountSharedQuiz/);
     assert.doesNotMatch(source, /\b(?:correct|wrong|combo|bestCombo|water|answered)\s*:/);
@@ -46,7 +47,11 @@ test("schema adapters preserve authored biology and earth content", () => {
   });
 
   const earth = SUBJECT_GAME_CONTENT["earth-science"].questions;
-  const sourceEarth = [...EARTH_SCIENCE_FOSSIL_TYPE_QUESTIONS, ...EARTH_SCIENCE_FOSSIL_ERA_QUESTIONS];
+  const sourceEarth = [
+    ...EARTH_SCIENCE_FOSSIL_TYPE_QUESTIONS,
+    ...EARTH_SCIENCE_FOSSIL_ERA_QUESTIONS,
+    ...EARTH_SCIENCE_GEOLOGIC_ERA_KEYWORD_QUESTIONS
+  ];
   assert.equal(earth.length, sourceEarth.length);
   sourceEarth.forEach((source, index) => {
     for (const key of ["id", "answer", "image", "name", "explanation"]) {
