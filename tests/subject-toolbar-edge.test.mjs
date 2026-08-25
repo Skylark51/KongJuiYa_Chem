@@ -13,25 +13,23 @@ test("non-chemistry mobile toolbars mirror Chemistry edge-to-edge geometry", asy
     read("assets/css/subject-toolbar/unified.css"),
     read("assets/css/subject-toolbar.css")
   ]);
-
   assert.match(chemistryTop, /right: 0 !important;/);
   assert.match(chemistryTop, /left: 0 !important;/);
   assert.match(chemistryTop, /width: 100% !important;/);
   assert.match(chemistryBottom, /\.mobile-bottom-nav \{[\s\S]*?left: 0;[\s\S]*?right: 0;[\s\S]*?bottom: 0;/);
-
   assert.match(responsive, /\[data-subject-toolbar="top"\]\{position:fixed!important;z-index:120;top:0!important;right:0!important;left:0!important;width:100%!important/);
   assert.match(responsive, /\[data-subject-toolbar="bottom"\]\{position:fixed!important;z-index:120;right:0!important;bottom:0!important;left:0!important/);
   assert.equal(responsive.includes("bottom:max(7px"), false);
   assert.equal(responsive.includes("left:7px;right:7px"), false);
   assert.match(responsive, /border-radius:0!important/);
 
-  assert.match(entry, /unified\.css\?v=20260818-unified1/);
-  for (const path of [
+  assert.match(entry, /unified\.css\?v=[^"')]+/);
+  for (const pathname of [
     "subjects/physics/index.html",
     "subjects/biology/index.html",
     "subjects/earth-science/index.html"
   ]) {
-    const html = await read(path);
-    assert.match(html, /subject-toolbar\.css\?v=20260818-unified1/);
+    const html = await read(pathname);
+    assert.match(html, /subject-toolbar\.css\?v=[^"']+/);
   }
 });

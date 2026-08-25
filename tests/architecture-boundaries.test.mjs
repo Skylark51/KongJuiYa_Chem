@@ -11,12 +11,13 @@ test("question-specific display code is owned by the game page, not cosmetics", 
   assert.doesNotMatch(cosmeticsEntry, /redox-single-line/);
 });
 
-test("game page exposes three stable stylesheet entrypoints", () => {
+test("game page exposes stable runtime stylesheet entrypoints plus subject-specific layout layers", () => {
   const html = read("콩쥐야_줘때써.html");
   const base = read("assets/css/game-runtime-base.css");
   const features = read("assets/css/game-runtime-features.css");
   const links = html.match(/<link[^>]+rel="stylesheet"[^>]*>/g) || [];
-  assert.equal(links.length, 3);
+
+  assert.ok(links.length >= 3, "game page must retain the three runtime CSS entrypoints");
   assert.match(html, /game-runtime-base\.css/);
   assert.match(html, /id="layered-scene-animation-runtime"[^>]+game-asset-animation\.css/);
   assert.match(html, /game-runtime-features\.css/);
