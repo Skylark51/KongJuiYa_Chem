@@ -29,14 +29,13 @@ const SWATCHES = Object.freeze({
   "night-lacquer": ["#0d0d13", "#4e315c"]
 });
 
-const ASSET_VERSION = "20260815-blue-scholar-current-preview1";
-// The shop and wardrobe use static full-body previews. Blue scholar must
-// stay visually identical to the current 30-frame gameplay art, so its preview
-// is extracted from that canonical current-design sheet rather than the legacy cutout.
+const ASSET_VERSION = "20260825-korean-assets2";
+// The shop and wardrobe use static full-body previews. Blue scholar stays
+// visually identical to the current 30-frame gameplay art through its canonical preview PNG.
 const OUTFIT_ART = Object.freeze({
   underlayer: `assets/그림/공용/원본/콩쥐/속옷/기본-오려내기.png?v=${ASSET_VERSION}`,
   "classic-red": `assets/그림/공용/원본/콩쥐/고전-홍색-한복/기본-오려내기.png?v=${ASSET_VERSION}`,
-  "blue-scholar": `assets/art/game-scene-v2/kongjwi/blue-scholar/preview.png?v=${ASSET_VERSION}`,
+  "blue-scholar": `assets/그림/공용/콩쥐/미리보기/청색-학자복.png?v=${ASSET_VERSION}`,
   "field-green": `assets/그림/공용/원본/콩쥐/농사일-작업복/기본-오려내기.png?v=${ASSET_VERSION}`,
   "royal-night": `assets/그림/공용/원본/콩쥐/야간-궁중복/기본-오려내기.png?v=${ASSET_VERSION}`
 });

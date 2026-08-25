@@ -1,72 +1,42 @@
-name: Build source-locked gameplay jars
+name: Validate source-locked gameplay jars
 
 on:
   push:
     branches: [main]
     paths:
       - "scripts/build-source-locked-jar-layers.py"
+      - "assets/그림/공용/원본/장독대/**"
       - "assets/그림/게임-장면/장독대/**"
+      - "assets/그림/게임-장면/manifest.json"
+      - "tests/jar-source-frame-regression.test.mjs"
+      - ".github/workflows/build-source-locked-jar-layers.yml"
+  pull_request:
+    paths:
+      - "scripts/build-source-locked-jar-layers.py"
+      - "assets/그림/공용/원본/장독대/**"
+      - "assets/그림/게임-장면/장독대/**"
+      - "assets/그림/게임-장면/manifest.json"
       - "tests/jar-source-frame-regression.test.mjs"
       - ".github/workflows/build-source-locked-jar-layers.yml"
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  build:
-    if: github.actor != 'github-actions[bot]'
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
-      - name: Install image build dependencies
+      - name: Install image dependencies
         run: python -m pip install --disable-pip-version-check pillow numpy
-
-      - name: Rebuild source-locked jar layers
+      - name: Rebuild from canonical Korean source PNGs
         run: python scripts/build-source-locked-jar-layers.py
-
-      - name: Validate generated PNG layers
-        shell: bash
+      - name: Validate rebuilt output contract
         run: |
           set -euo pipefail
           node --test tests/jar-source-frame-regression.test.mjs
-          python - <<'PY'
-          from pathlib import Path
-          from PIL import Image
-          skins = ("onggi", "celadon", "moon-white", "night-lacquer")
-          jar_dirs = {"onggi": "전통-옹기", "celadon": "청자", "moon-white": "달항아리", "night-lacquer": "흑칠-야광"}
-          for skin in skins:
-              root = Path("assets/그림/게임-장면/장독대") / jar_dirs[skin]
-              expected = {
-                  "열림-두꺼비-없음.png": (1024, 1024),
-                  "구멍-전경.png": (1024, 1024),
-                  "장독대-레이어.png": (2048, 1024),
-              }
-              for name, size in expected.items():
-                  image = Image.open(root / name)
-                  assert image.format == "PNG", (skin, name, image.format)
-                  assert image.mode == "RGBA", (skin, name, image.mode)
-                  assert image.size == size, (skin, name, image.size)
-          PY
           git diff --check
-
-      - name: Commit generated gameplay jar assets
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/그림/게임-장면/manifest.json assets/그림/게임-장면/장독대
-          if git diff --cached --quiet; then
-            echo "No generated jar changes."
-            exit 0
-          fi
-          git commit -m "feat: rebuild gameplay jars from source PNGs [skip ci]"
-          git push

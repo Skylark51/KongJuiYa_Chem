@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Build gameplay jar layers directly from the four authored shop/source PNG pairs.
+"""Build gameplay jar layers from the four canonical Korean-source PNG pairs.
 
-The outer open-lid jar frame is never redrawn. The only body edit is inside the
-broken-hole/toad cavity, where pixels are borrowed from the paired no-toad PNG.
-A foreground ring is extracted from that same no-toad source so the animated
-toad sits behind the real broken ceramic edge.
+The authored open jar is never redrawn. Only the toad cavity is patched from
+the paired closed/no-toad PNG, and the broken-hole foreground ring is extracted
+from that same source. Runtime output stays under assets/그림/게임-장면/장독대.
 """
 from __future__ import annotations
 
@@ -19,17 +18,23 @@ VERSION = "20260807-source-locked-jars1"
 REFERENCE_SIZE = (1536, 1024)
 SKINS = ("onggi", "celadon", "moon-white", "night-lacquer")
 GAME_SCENE_ROOT = Path("assets/그림/게임-장면")
+SOURCE_ROOT = Path("assets/그림/공용/원본/장독대")
 JAR_DIRS = {
     "onggi": "전통-옹기",
     "celadon": "청자",
     "moon-white": "달항아리",
     "night-lacquer": "흑칠-야광",
 }
+SOURCE_DIRS = {
+    "onggi": "옹기",
+    "celadon": "청자",
+    "moon-white": "달빛-백색",
+    "night-lacquer": "밤-칠기",
+}
 JAR_LAYER_NAME = "장독대-레이어.png"
 JAR_OPEN_NAME = "열림-두꺼비-없음.png"
 JAR_HOLE_NAME = "구멍-전경.png"
 
-# cx, cy, cavity-rx, cavity-ry in the 1536x1024 source coordinate system.
 CAVITY = {
     "celadon": (930, 690, 235, 190),
     "moon-white": (945, 675, 230, 195),
@@ -37,8 +42,6 @@ CAVITY = {
     "onggi": (940, 690, 225, 190),
 }
 
-# cx, cy, outer-rx, outer-ry, inner-rx, inner-ry. This is the real ceramic
-# foreground crescent that is placed above the animated toad.
 FRONT_RING = {
     "celadon": (930, 690, 195, 165, 145, 118),
     "moon-white": (945, 675, 205, 165, 155, 120),
@@ -46,14 +49,17 @@ FRONT_RING = {
     "onggi": (940, 690, 195, 165, 145, 120),
 }
 
-# Per-skin toad boxes in shared 2048x1152 logical scene coordinates. They
-# follow the source-locked hole centers rather than the old synthetic jar art.
 TOAD_BOX = {
     "onggi": {"x": 1484, "y": 657, "width": 360, "height": 280},
     "celadon": {"x": 1463, "y": 636, "width": 370, "height": 290},
     "moon-white": {"x": 1476, "y": 629, "width": 356, "height": 278},
     "night-lacquer": {"x": 1470, "y": 658, "width": 370, "height": 290},
 }
+
+
+def source_paths(skin: str) -> tuple[Path, Path]:
+    source_dir = SOURCE_ROOT / SOURCE_DIRS[skin]
+    return source_dir / "열림.png", source_dir / "닫힘.png"
 
 
 def smoothstep(value: np.ndarray) -> np.ndarray:
@@ -64,10 +70,7 @@ def smoothstep(value: np.ndarray) -> np.ndarray:
 def scale_spec(spec: tuple[float, ...], size: tuple[int, int]) -> tuple[float, ...]:
     sx = size[0] / REFERENCE_SIZE[0]
     sy = size[1] / REFERENCE_SIZE[1]
-    result = []
-    for index, value in enumerate(spec):
-        result.append(value * (sx if index % 2 == 0 else sy))
-    return tuple(result)
+    return tuple(value * (sx if index % 2 == 0 else sy) for index, value in enumerate(spec))
 
 
 def body_bbox(array: np.ndarray, y0_ratio: float = 300 / 1024, alpha_threshold: int = 10):
@@ -125,7 +128,6 @@ def foreground_ring(registered_closed: np.ndarray, spec):
     yy, xx = np.ogrid[: registered_closed.shape[0], : registered_closed.shape[1]]
     outer = ((xx - cx) / outer_rx) ** 2 + ((yy - cy) / outer_ry) ** 2
     inner = ((xx - cx) / inner_rx) ** 2 + ((yy - cy) / inner_ry) ** 2
-    # Analytical one-pixel-ish feather at both ring edges.
     outer_alpha = np.clip((1.02 - outer) / 0.04, 0.0, 1.0)
     inner_alpha = np.clip((inner - 0.98) / 0.04, 0.0, 1.0)
     mask = smoothstep(outer_alpha) * smoothstep(inner_alpha)
@@ -158,22 +160,16 @@ def fit_to_cell(array: np.ndarray, bbox, cell: int = 1024, margin: int = 34):
     canvas = Image.new("RGBA", (cell, cell), (0, 0, 0, 0))
     offset = ((cell - width) // 2, (cell - height) // 2)
     canvas.alpha_composite(resized, offset)
-    return canvas, {
-        "crop": list(bbox),
-        "scale": scale,
-        "offset": list(offset),
-        "size": [width, height],
-    }
+    return canvas, {"crop": list(bbox), "scale": scale, "offset": list(offset), "size": [width, height]}
 
 
 def build_skin(root: Path, skin: str):
-    source_dir = root / "assets" / "art" / "jars" / skin
-    output_dir = root / GAME_SCENE_ROOT / JAR_DIRS[skin]
+    open_path, closed_path = (root / path for path in source_paths(skin))
+    output_dir = root / GAME_SCENE_ROOT / "장독대" / JAR_DIRS[skin]
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    open_image = Image.open(source_dir / "lid-open.png").convert("RGBA")
-    closed_image = Image.open(source_dir / "thumbnail-no-toad.png").convert("RGBA")
-
+    open_image = Image.open(open_path).convert("RGBA")
+    closed_image = Image.open(closed_path).convert("RGBA")
     open_array = np.asarray(open_image, dtype=np.uint8)
     registered_closed, registration = align_closed_to_open(open_array, closed_image)
     cavity_spec = scale_spec(CAVITY[skin], open_image.size)
@@ -188,16 +184,17 @@ def build_skin(root: Path, skin: str):
     sheet = Image.new("RGBA", (2048, 1024), (0, 0, 0, 0))
     sheet.alpha_composite(back_cell, (0, 0))
     sheet.alpha_composite(front_cell, (1024, 0))
-
     back_cell.save(output_dir / JAR_OPEN_NAME, optimize=True, compress_level=9)
     front_cell.save(output_dir / JAR_HOLE_NAME, optimize=True, compress_level=9)
     sheet.save(output_dir / JAR_LAYER_NAME, optimize=True, compress_level=9)
 
+    source_open = open_path.relative_to(root).as_posix()
+    source_closed = closed_path.relative_to(root).as_posix()
     parts = {
-        "version": 1,
+        "version": 2,
         "frameLock": True,
-        "sourceOpen": f"assets/art/jars/{skin}/lid-open.png",
-        "sourceClosed": f"assets/art/jars/{skin}/thumbnail-no-toad.png",
+        "sourceOpen": source_open,
+        "sourceClosed": source_closed,
         "openNoToad": JAR_OPEN_NAME,
         "holeFront": JAR_HOLE_NAME,
         "runtimeSheet": JAR_LAYER_NAME,
@@ -206,10 +203,7 @@ def build_skin(root: Path, skin: str):
         "fit": fit,
         "cavitySpec": list(cavity_spec),
         "frontRingSpec": list(ring_spec),
-        "runtimePolicy": (
-            "source-locked open jar: outer frame/lid/pattern are kept from lid-open.png; "
-            "only the toad cavity is replaced from the paired no-toad source; frame 1 is the no-toad broken-hole foreground rim"
-        ),
+        "runtimePolicy": "canonical Korean source pair -> source-locked open jar layers",
     }
     (output_dir / "parts.json").write_text(json.dumps(parts, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
@@ -217,28 +211,26 @@ def build_skin(root: Path, skin: str):
 def update_manifest(root: Path):
     manifest_path = root / GAME_SCENE_ROOT / "manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    manifest["version"] = "2026.08.07-source-locked-jars1"
     manifest.setdefault("runtimePolicy", {})["jarFramePolicy"] = "source-locked-paired-png"
-    manifest.setdefault("anchors", {})["jarHoleCenter"] = {"x": 1655, "y": 788}
-    manifest["anchors"]["toadFace"] = {"x": 1655, "y": 748}
-    manifest.setdefault("placements", {})["toad"] = {"x": 1470, "y": 645, "width": 360, "height": 280}
-    manifest.setdefault("fallbackPlacements", {})["toad"] = {"x": 1470, "y": 645, "width": 360, "height": 280}
-
     availability = manifest.setdefault("availability", {})
     jars = manifest.setdefault("assets", {}).setdefault("jars", {})
     compositions = manifest.setdefault("jarCompositions", {})
+
     for skin in SKINS:
-        raw_layers = f"{GAME_SCENE_ROOT.as_posix()}/{JAR_DIRS[skin]}/{JAR_LAYER_NAME}"
+        raw_layers = f"{GAME_SCENE_ROOT.as_posix()}/장독대/{JAR_DIRS[skin]}/{JAR_LAYER_NAME}"
         versioned_layers = f"{raw_layers}?v={VERSION}"
+        source_dir = SOURCE_DIRS[skin]
+        source_open = f"{SOURCE_ROOT.as_posix()}/{source_dir}/열림.png"
+        source_closed = f"{SOURCE_ROOT.as_posix()}/{source_dir}/닫힘.png"
         jar = jars.setdefault(skin, {})
         jar.update({
             "layers": versioned_layers,
-            "fallback": f"assets/art/jars/{skin}/lid-open.png",
-            "sourceOpen": f"assets/art/jars/{skin}/lid-open.png",
-            "sourceClosed": f"assets/art/jars/{skin}/thumbnail-no-toad.png",
-            "openNoToad": f"{GAME_SCENE_ROOT.as_posix()}/{JAR_DIRS[skin]}/{JAR_OPEN_NAME}",
-            "holeFront": f"{GAME_SCENE_ROOT.as_posix()}/{JAR_DIRS[skin]}/{JAR_HOLE_NAME}",
-            "parts": f"{GAME_SCENE_ROOT.as_posix()}/{JAR_DIRS[skin]}/parts.json",
+            "fallback": source_open,
+            "sourceOpen": source_open,
+            "sourceClosed": source_closed,
+            "openNoToad": f"{GAME_SCENE_ROOT.as_posix()}/장독대/{JAR_DIRS[skin]}/{JAR_OPEN_NAME}",
+            "holeFront": f"{GAME_SCENE_ROOT.as_posix()}/장독대/{JAR_DIRS[skin]}/{JAR_HOLE_NAME}",
+            "parts": f"{GAME_SCENE_ROOT.as_posix()}/장독대/{JAR_DIRS[skin]}/parts.json",
         })
         availability[raw_layers] = True
         availability[versioned_layers] = True
@@ -256,7 +248,7 @@ def main():
     for skin in SKINS:
         build_skin(root, skin)
     update_manifest(root)
-    print("Built source-locked gameplay jar layers for:", ", ".join(SKINS))
+    print("Built source-locked gameplay jar layers from canonical Korean source PNGs:", ", ".join(SKINS))
 
 
 if __name__ == "__main__":

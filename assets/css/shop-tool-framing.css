@@ -3,8 +3,8 @@
 
 /*
  * Product-card framing for the four bucket tools.
- * Store thumbnails always use the dedicated product PNGs. Generated/canonical
- * game-scene tool masters and pour sheets are animation assets, never card art.
+ * Store thumbnails use the canonical authored bucket PNGs under the Korean
+ * source tree. Generated gameplay sheets are animation assets, never card art.
  */
 .shop-page .shop-grid[data-category="tool"] .shop-item-visual::before,
 .shop-page .shop-category-card[data-category="tool"] .shop-category-visual::before {
@@ -30,19 +30,19 @@
 }
 
 .shop-page .shop-asset-tool[data-visual-key="wood"] {
-  background-image: url("../art/kongjwi-tools/wood.png?v=20260814-tool-card4") !important;
+  background-image: url("../그림/공용/원본/바가지/나무-바가지.png?v=20260825-korean-assets1") !important;
 }
 
 .shop-page .shop-asset-tool[data-visual-key="brass"] {
-  background-image: url("../art/kongjwi-tools/brass.png?v=20260814-tool-card4") !important;
+  background-image: url("../그림/공용/원본/바가지/놋쇠-바가지.png?v=20260825-korean-assets1") !important;
 }
 
 .shop-page .shop-asset-tool[data-visual-key="celadon"] {
-  background-image: url("../그림/공용/원본/바가지/청자-바가지.png?v=20260818-celadon-bucket1") !important;
+  background-image: url("../그림/공용/원본/바가지/청자-바가지.png?v=20260825-korean-assets1") !important;
 }
 
 .shop-page .shop-asset-tool[data-visual-key="moon"] {
-  background-image: url("../art/kongjwi-tools/moon.png?v=20260814-tool-card4") !important;
+  background-image: url("../그림/공용/원본/바가지/월광-바가지.png?v=20260825-korean-assets1") !important;
 }
 
 :is(html[data-device-layout="mobile"], html[data-mobile-ui="shadcn"]) .shop-page .shop-grid[data-category="tool"] .shop-asset-tool {

@@ -1,0 +1,35 @@
+{
+  "version": "20260821-korean-assets1",
+  "policy": {
+    "immutableOriginals": true,
+    "runtimeUsesKoreanCanonicalPaths": true,
+    "note": "원본은 assets/그림/공용/원본 아래에서만 관리하며 런타임 파생 에셋은 assets/그림/게임-장면 아래에 둔다."
+  },
+  "kongjwi": {
+    "underlayer": "assets/그림/공용/원본/콩쥐/속옷/기본-오려내기.png",
+    "classic-red": "assets/그림/공용/원본/콩쥐/고전-홍색-한복/기본-오려내기.png",
+    "blue-scholar": "assets/그림/공용/원본/콩쥐/청색-학자복/기본-오려내기.png",
+    "field-work": "assets/그림/공용/원본/콩쥐/농사일-작업복/기본-오려내기.png",
+    "ragged": "assets/그림/공용/원본/콩쥐/누더기옷/기본-오려내기.png",
+    "night-court": "assets/그림/공용/원본/콩쥐/야간-궁중복/기본-오려내기.png"
+  },
+  "tools": {
+    "wood": "assets/그림/공용/원본/바가지/나무-바가지.png",
+    "brass": "assets/그림/공용/원본/바가지/놋쇠-바가지.png",
+    "celadon": "assets/그림/공용/원본/바가지/청자-바가지.png",
+    "moon": "assets/그림/공용/원본/바가지/월광-바가지.png"
+  },
+  "jars": {
+    "onggi": {"open":"assets/그림/공용/원본/장독대/옹기/열림.png","closed":"assets/그림/공용/원본/장독대/옹기/닫힘.png"},
+    "celadon": {"open":"assets/그림/공용/원본/장독대/청자/열림.png","closed":"assets/그림/공용/원본/장독대/청자/닫힘.png"},
+    "moon-white": {"open":"assets/그림/공용/원본/장독대/달빛-백색/열림.png","closed":"assets/그림/공용/원본/장독대/달빛-백색/닫힘.png"},
+    "night-lacquer": {"open":"assets/그림/공용/원본/장독대/밤-칠기/열림.png","closed":"assets/그림/공용/원본/장독대/밤-칠기/닫힘.png"}
+  },
+  "toad": {
+    "field-brown": "assets/그림/공용/원본/두꺼비/기본-갈색.png",
+    "gold-worker": "assets/그림/공용/원본/두꺼비/금빛-일꾼.png",
+    "jade-guard": "assets/그림/공용/원본/두꺼비/옥빛-수호자.png",
+    "star-night": "assets/그림/공용/원본/두꺼비/별밤.png"
+  },
+  "background": "assets/그림/공용/원본/배경/밤-뜰.png"
+}

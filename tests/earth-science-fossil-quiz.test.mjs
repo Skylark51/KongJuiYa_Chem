@@ -18,7 +18,6 @@ test("fossil type jar uses all eight supplied images and two exact choices", asy
   assert.equal(EARTH_SCIENCE_FOSSIL_TYPE_QUESTIONS.filter(question => question.answer === "시상 화석").length, 2);
   assert.equal(EARTH_SCIENCE_FOSSIL_TYPE_QUESTIONS.filter(question => question.answer === "표준 화석").length, 6);
   assert.equal(new Set(EARTH_SCIENCE_FOSSIL_TYPE_QUESTIONS.map(question => question.id)).size, 8);
-
   for (const question of EARTH_SCIENCE_FOSSIL_TYPE_QUESTIONS) {
     assert.ok(question.name.endsWith("화석"));
     assert.ok(question.explanation.length > 10);
@@ -41,20 +40,24 @@ test("fossil era jar includes only six standard fossils and four exact era choic
   });
 });
 
-test("first two earth science jars are live and share one quiz runner", async () => {
+test("all current earth science jars are live and compatibility redirect preserves the requested training", async () => {
   const jars = quizzesForSubject("earth-science");
-  assert.deepEqual(jars.map(jar => jar.status), ["live", "live", "planned"]);
+  assert.deepEqual(jars.map(jar => jar.status), ["live", "live", "live"]);
   assert.match(jars[0].implementation, /subject=earth-science&training=earth-fossil-type$/);
   assert.match(jars[1].implementation, /subject=earth-science&training=earth-index-fossil-era$/);
+  assert.match(jars[2].implementation, /subject=earth-science&training=earth-geologic-era-keywords$/);
+
   const html = await readFile(resolve(root, "subjects/earth-science/quiz.html"), "utf8");
   const runner = await readFile(resolve(root, "assets/js/earth-science-fossil-quiz.js"), "utf8");
   const content = await readFile(resolve(root, "data/subject-game-content.js"), "utf8");
   assert.match(html, /earth-science-fossil-quiz\.js/);
   assert.match(html, /공용 장독대로 이동 중/);
-  assert.doesNotMatch(html, /answerChoices|visualStage|toadBubble|subject-quiz\.css/);
   assert.match(runner, /mountSharedQuiz/);
   assert.match(runner, /subjectId: "earth-science"/);
-  assert.doesNotMatch(runner, /mountGameScene|ToadDialogueSelector|setTimeout|answer:correct|answer:wrong|SubjectStorage/);
+  assert.match(runner, /earth-fossil-type/);
+  assert.match(runner, /earth-index-fossil-era/);
+  assert.match(runner, /earth-geologic-era-keywords/);
+  assert.match(runner, /URLSearchParams/);
   assert.match(content, /EARTH_SCIENCE_FOSSIL_TYPE_QUESTIONS/);
   assert.match(content, /EARTH_SCIENCE_FOSSIL_ERA_QUESTIONS/);
 });

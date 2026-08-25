@@ -1,679 +1,84 @@
 {
-  "version": "20260815-blue-scholar-motionfix2",
-  "logicalSize": {
-    "width": 2048,
-    "height": 1152
-  },
-  "runtimePolicy": {
-    "format": "png",
-    "base64": false,
-    "webpFallback": false,
-    "canvasExport": false,
-    "cssSkinFilters": false,
-    "loadStrategy": "selected-cosmetics-first",
-    "fallbackMode": "coherent-static-rig",
-    "jarFramePolicy": "source-locked-paired-png",
-    "kongjwiMotionPolicy": "source-locked-intact-standard-outfits-night-court-summon-derived",
-    "kongjwiFramePolicy": "source-character-pixels-whole-body-pose-only",
-    "toolMotionPolicy": "source-master-grip-pivot-co-registered",
-    "uniformScalePolicy": "shared-2048x1152-contain",
-    "waterAnimationPolicy": "synchronized-pour-fill-leak",
-    "cosmeticFxPolicy": "data-keyed-runtime-effects",
-    "anatomySafetyPolicy": "complete-source-required-no-headless-cutouts",
-    "nightCourtMotionSource": "assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png",
-    "nightCourtActionMode": "summon-servant-pour",
-    "nightCourtFramePolicy": "uniform-scale-integer-anchor-no-redraw"
-  },
-  "layers": {
-    "scene-background": 0,
-    "scene-kongjwi": 10,
-    "scene-tool": 11,
-    "scene-water-stream": 30,
-    "scene-jar-back": 40,
-    "scene-water-fill": 50,
-    "scene-toad-skin": 60,
-    "scene-toad-expression": 70,
-    "scene-jar-front": 80,
-    "scene-water-splash": 90,
-    "scene-water-leak": 100,
-    "scene-foreground": 5,
-    "scene-ui": 120
-  },
+  "version": "20260821-korean-assets1",
+  "logicalSize": {"width": 2048, "height": 1152},
+  "runtimePolicy": {"format":"png","base64":false,"webpFallback":false,"canvasExport":false,"cssSkinFilters":false,"loadStrategy":"selected-cosmetics-first","fallbackMode":"coherent-static-rig","jarFramePolicy":"source-locked-paired-png","kongjwiMotionPolicy":"source-locked-intact-standard-outfits-night-court-summon-derived","kongjwiFramePolicy":"source-character-pixels-whole-body-pose-only","toolMotionPolicy":"source-master-grip-pivot-co-registered","uniformScalePolicy":"shared-2048x1152-contain","waterAnimationPolicy":"synchronized-pour-fill-leak","cosmeticFxPolicy":"data-keyed-runtime-effects","anatomySafetyPolicy":"complete-source-required-no-headless-cutouts","nightCourtMotionSource":"assets/그림/개발자료/궁중복-소환/콩쥐-소환-원본.png","nightCourtActionMode":"summon-servant-pour","nightCourtFramePolicy":"uniform-scale-integer-anchor-no-redraw"},
+  "layers": {"scene-background":0,"scene-kongjwi":10,"scene-tool":11,"scene-water-stream":30,"scene-jar-back":40,"scene-water-fill":50,"scene-toad-skin":60,"scene-toad-expression":70,"scene-jar-front":80,"scene-water-splash":90,"scene-water-leak":100,"scene-foreground":5,"scene-ui":120},
   "assets": {
-    "background": {
-      "path": "assets/그림/게임-장면/배경/야간-장독대-마당-배경.png",
-      "fallback": "assets/images/background/courtyard-night.png"
-    },
-    "foreground": {
-      "path": "assets/그림/게임-장면/배경/야간-장독대-마당-전경.png",
-      "fallback": null
-    },
+    "background": {"path":"assets/그림/게임-장면/배경/야간-장독대-마당-배경.png","fallback":"assets/그림/공용/원본/배경/밤-뜰.png"},
+    "foreground": {"path":"assets/그림/게임-장면/배경/야간-장독대-마당-전경.png","fallback":null},
     "kongjwi": {
-      "underlayer": {
-        "sheet": "assets/그림/게임-장면/콩쥐/기본-언더레이어/물붓기-동작.png",
-        "fallback": "assets/art/kongjwi/kongjwi-underlayer-cutout.png"
-      },
-      "classic-red": {
-        "sheet": "assets/그림/게임-장면/콩쥐/고전-홍색-한복/물붓기-동작.png",
-        "fallback": "assets/art/kongjwi/kongjwi-classic-red-cutout.png",
-        "sprite": {
-          "frames": 30,
-          "columns": 5,
-          "rows": 6,
-          "cell": {
-            "width": 256,
-            "height": 384
-          },
-          "sourceSize": {
-            "width": 1280,
-            "height": 2304
-          }
-        },
-        "placement": {
-          "x": 205,
-          "y": 246,
-          "width": 474,
-          "height": 711
-        },
-        "animationProfile": "classic-red-30f",
-        "actionMode": "magic-pour"
-      },
-      "blue-scholar": {
-        "sheet": "assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png",
-        "fallback": "assets/art/kongjwi/kongjwi-blue-scholar-cutout.png",
-        "sprite": {
-          "frames": 30,
-          "columns": 5,
-          "rows": 6,
-          "cell": {
-            "width": 256,
-            "height": 384
-          },
-          "sourceSize": {
-            "width": 1280,
-            "height": 2304
-          }
-        },
-        "placement": {
-          "x": 205,
-          "y": 260,
-          "width": 546,
-          "height": 820
-        },
-        "animationProfile": "blue-scholar-30f",
-        "actionMode": "magic-pour"
-      },
-      "field-work": {
-        "sheet": "assets/그림/게임-장면/콩쥐/농사일-작업복/물붓기-동작.png",
-        "fallback": "assets/art/kongjwi/kongjwi-field-work-cutout.png"
-      },
-      "ragged": {
-        "sheet": "assets/그림/게임-장면/콩쥐/누더기옷/물붓기-동작.png",
-        "fallback": "assets/art/kongjwi/kongjwi-ragged-cutout.png"
-      },
-      "night-court": {
-        "sheet": "assets/그림/게임-장면/콩쥐/야간-궁중복/물붓기-동작.png",
-        "fallback": "assets/art/kongjwi/kongjwi-night-court-cutout.png",
-        "sprite": {
-          "frames": 8,
-          "columns": 8,
-          "rows": 1,
-          "cell": { "width": 512, "height": 768 },
-          "renderMode": "exact-cell"
-        },
-        "actionMode": "summon-servant-pour",
-        "source": "assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png",
-        "provenance": "assets/그림/게임-장면/콩쥐/야간-궁중복/provenance.json"
-      }
+      "underlayer": {"sheet":"assets/그림/게임-장면/콩쥐/기본-언더레이어/물붓기-동작.png","fallback":"assets/그림/공용/원본/콩쥐/속옷/기본-오려내기.png"},
+      "classic-red": {"sheet":"assets/그림/게임-장면/콩쥐/고전-홍색-한복/물붓기-동작.png","fallback":"assets/그림/공용/원본/콩쥐/고전-홍색-한복/기본-오려내기.png","sprite":{"frames":30,"columns":5,"rows":6,"cell":{"width":256,"height":384},"sourceSize":{"width":1280,"height":2304}},"placement":{"x":205,"y":246,"width":474,"height":711},"animationProfile":"classic-red-30f","actionMode":"magic-pour"},
+      "blue-scholar": {"sheet":"assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png","fallback":"assets/그림/공용/원본/콩쥐/청색-학자복/기본-오려내기.png","sprite":{"frames":30,"columns":5,"rows":6,"cell":{"width":256,"height":384},"sourceSize":{"width":1280,"height":2304}},"placement":{"x":205,"y":260,"width":546,"height":820},"animationProfile":"blue-scholar-30f","actionMode":"magic-pour"},
+      "field-work": {"sheet":"assets/그림/게임-장면/콩쥐/농사일-작업복/물붓기-동작.png","fallback":"assets/그림/공용/원본/콩쥐/농사일-작업복/기본-오려내기.png"},
+      "ragged": {"sheet":"assets/그림/게임-장면/콩쥐/누더기옷/물붓기-동작.png","fallback":"assets/그림/공용/원본/콩쥐/누더기옷/기본-오려내기.png"},
+      "night-court": {"sheet":"assets/그림/게임-장면/콩쥐/야간-궁중복/물붓기-동작.png","fallback":"assets/그림/공용/원본/콩쥐/야간-궁중복/기본-오려내기.png","sprite":{"frames":8,"columns":8,"rows":1,"cell":{"width":512,"height":768},"renderMode":"exact-cell"},"actionMode":"summon-servant-pour","source":"assets/그림/개발자료/궁중복-소환/콩쥐-소환-원본.png","provenance":"assets/그림/게임-장면/콩쥐/야간-궁중복/provenance.json"}
     },
     "tools": {
-      "wood": {
-        "sheet": "assets/그림/게임-장면/바가지/나무/물붓기-동작.png",
-        "fallback": "assets/art/kongjwi-tools/wood.png"
-      },
-      "brass": {
-        "sheet": "assets/그림/게임-장면/바가지/돗쇠/물붓기-동작.png",
-        "fallback": "assets/art/kongjwi-tools/brass.png"
-      },
-      "celadon": {
-        "sheet": "assets/그림/게임-장면/바가지/청자/물붓기-동작.png",
-        "fallback": "assets/art/kongjwi-tools/celadon.png"
-      },
-      "moon": {
-        "sheet": "assets/그림/게임-장면/바가지/월광/물붓기-동작.png",
-        "fallback": "assets/art/kongjwi-tools/moon.png"
-      }
+      "wood":{"sheet":"assets/그림/게임-장면/바가지/나무/물붓기-동작.png","fallback":"assets/그림/공용/원본/바가지/나무-바가지.png"},
+      "brass":{"sheet":"assets/그림/게임-장면/바가지/돗쇠/물붓기-동작.png","fallback":"assets/그림/공용/원본/바가지/놋쇠-바가지.png"},
+      "celadon":{"sheet":"assets/그림/게임-장면/바가지/청자/물붓기-동작.png","fallback":"assets/그림/공용/원본/바가지/청자-바가지.png"},
+      "moon":{"sheet":"assets/그림/게임-장면/바가지/월광/물붓기-동작.png","fallback":"assets/그림/공용/원본/바가지/월광-바가지.png"}
     },
     "jars": {
-      "onggi": {
-        "layers": "assets/그림/게임-장면/장독대/전통-옹기/장독대-레이어.png?v=20260807-source-locked-jars1",
-        "fallback": "assets/art/jars/onggi/lid-open.png",
-        "sourceOpen": "assets/art/jars/onggi/lid-open.png",
-        "sourceClosed": "assets/art/jars/onggi/thumbnail-no-toad.png",
-        "openNoToad": "assets/그림/게임-장면/장독대/전통-옹기/열림-두꺼비-없음.png",
-        "holeFront": "assets/그림/게임-장면/장독대/전통-옹기/구멍-전경.png",
-        "parts": "assets/그림/게임-장면/장독대/전통-옹기/parts.json"
-      },
-      "celadon": {
-        "layers": "assets/그림/게임-장면/장독대/청자/장독대-레이어.png?v=20260807-source-locked-jars1",
-        "fallback": "assets/art/jars/celadon/lid-open.png",
-        "sourceOpen": "assets/art/jars/celadon/lid-open.png",
-        "sourceClosed": "assets/art/jars/celadon/thumbnail-no-toad.png",
-        "openNoToad": "assets/그림/게임-장면/장독대/청자/열림-두꺼비-없음.png",
-        "holeFront": "assets/그림/게임-장면/장독대/청자/구멍-전경.png",
-        "parts": "assets/그림/게임-장면/장독대/청자/parts.json"
-      },
-      "moon-white": {
-        "layers": "assets/그림/게임-장면/장독대/달항아리/장독대-레이어.png?v=20260807-source-locked-jars1",
-        "fallback": "assets/art/jars/moon-white/lid-open.png",
-        "sourceOpen": "assets/art/jars/moon-white/lid-open.png",
-        "sourceClosed": "assets/art/jars/moon-white/thumbnail-no-toad.png",
-        "openNoToad": "assets/그림/게임-장면/장독대/달항아리/열림-두꺼비-없음.png",
-        "holeFront": "assets/그림/게임-장면/장독대/달항아리/구멍-전경.png",
-        "parts": "assets/그림/게임-장면/장독대/달항아리/parts.json"
-      },
-      "night-lacquer": {
-        "layers": "assets/그림/게임-장면/장독대/흑칠-야광/장독대-레이어.png?v=20260807-source-locked-jars1",
-        "fallback": "assets/art/jars/night-lacquer/lid-open.png",
-        "sourceOpen": "assets/art/jars/night-lacquer/lid-open.png",
-        "sourceClosed": "assets/art/jars/night-lacquer/thumbnail-no-toad.png",
-        "openNoToad": "assets/그림/게임-장면/장독대/흑칠-야광/열림-두꺼비-없음.png",
-        "holeFront": "assets/그림/게임-장면/장독대/흑칠-야광/구멍-전경.png",
-        "parts": "assets/그림/게임-장면/장독대/흑칠-야광/parts.json"
-      }
+      "onggi":{"layers":"assets/그림/게임-장면/장독대/전통-옹기/장독대-레이어.png?v=20260807-source-locked-jars1","fallback":"assets/그림/공용/원본/장독대/옹기/열림.png","sourceOpen":"assets/그림/공용/원본/장독대/옹기/열림.png","sourceClosed":"assets/그림/공용/원본/장독대/옹기/닫힘.png","openNoToad":"assets/그림/게임-장면/장독대/전통-옹기/열림-두꺼비-없음.png","holeFront":"assets/그림/게임-장면/장독대/전통-옹기/구멍-전경.png","parts":"assets/그림/게임-장면/장독대/전통-옹기/parts.json"},
+      "celadon":{"layers":"assets/그림/게임-장면/장독대/청자/장독대-레이어.png?v=20260807-source-locked-jars1","fallback":"assets/그림/공용/원본/장독대/청자/열림.png","sourceOpen":"assets/그림/공용/원본/장독대/청자/열림.png","sourceClosed":"assets/그림/공용/원본/장독대/청자/닫힘.png","openNoToad":"assets/그림/게임-장면/장독대/청자/열림-두꺼비-없음.png","holeFront":"assets/그림/게임-장면/장독대/청자/구멍-전경.png","parts":"assets/그림/게임-장면/장독대/청자/parts.json"},
+      "moon-white":{"layers":"assets/그림/게임-장면/장독대/달항아리/장독대-레이어.png?v=20260807-source-locked-jars1","fallback":"assets/그림/공용/원본/장독대/달빛-백색/열림.png","sourceOpen":"assets/그림/공용/원본/장독대/달빛-백색/열림.png","sourceClosed":"assets/그림/공용/원본/장독대/달빛-백색/닫힘.png","openNoToad":"assets/그림/게임-장면/장독대/달항아리/열림-두꺼비-없음.png","holeFront":"assets/그림/게임-장면/장독대/달항아리/구멍-전경.png","parts":"assets/그림/게임-장면/장독대/달항아리/parts.json"},
+      "night-lacquer":{"layers":"assets/그림/게임-장면/장독대/흑칠-야광/장독대-레이어.png?v=20260807-source-locked-jars1","fallback":"assets/그림/공용/원본/장독대/밤-칠기/열림.png","sourceOpen":"assets/그림/공용/원본/장독대/밤-칠기/열림.png","sourceClosed":"assets/그림/공용/원본/장독대/밤-칠기/닫힘.png","openNoToad":"assets/그림/게임-장면/장독대/흑칠-야광/열림-두꺼비-없음.png","holeFront":"assets/그림/게임-장면/장독대/흑칠-야광/구멍-전경.png","parts":"assets/그림/게임-장면/장독대/흑칠-야광/parts.json"}
     },
-    "toads": {
-      "field-brown": {
-        "mode": "full-expression"
-      },
-      "gold-worker": {
-        "mode": "skin-motion",
-        "skin": "assets/그림/게임-장면/두꺼비/스킨/황금-일꾼.png"
-      },
-      "jade-guard": {
-        "mode": "skin-motion",
-        "skin": "assets/그림/게임-장면/두꺼비/스킨/비취-수호.png"
-      },
-      "star-night": {
-        "mode": "skin-motion",
-        "skin": "assets/그림/게임-장면/두꺼비/스킨/별밤.png"
-      }
-    },
-    "effects": {
-      "waterStream": "assets/그림/게임-장면/효과/물줄기-동작.png",
-      "waterSplash": "assets/그림/게임-장면/효과/입구-물보라-동작.png",
-      "waterLeak": "assets/그림/게임-장면/효과/구멍-누수-동작.png",
-      "waterSurface": "assets/그림/게임-장면/효과/내부-수면-타일.png",
-      "toadExpression": {
-        "path": "assets/그림/게임-장면/두꺼비/표정-오버레이-동작.png",
-        "enabled": false,
-        "validation": "truncated-png"
-      }
-    },
-    "toadFallback": {
-      "default": "assets/images/toad-expressions/기본.png",
-      "correct": "assets/images/toad-expressions/기쁨.png",
-      "combo": "assets/images/toad-expressions/존나기쁨.png",
-      "wrong": "assets/images/toad-expressions/슬픔.png",
-      "angry": "assets/images/toad-expressions/화남.png",
-      "rage": "assets/images/toad-expressions/화남.png",
-      "surprised": "assets/images/toad-expressions/놀람.png",
-      "confused": "assets/images/toad-expressions/심오함.png",
-      "timeout": "assets/images/toad-expressions/눈물.png",
-      "idle-blink": "assets/images/toad-expressions/지루함.png"
-    }
+    "toads": {"field-brown":{"mode":"full-expression"},"gold-worker":{"mode":"skin-motion","skin":"assets/그림/게임-장면/두꺼비/스킨/황금-일꾼.png"},"jade-guard":{"mode":"skin-motion","skin":"assets/그림/게임-장면/두꺼비/스킨/비취-수호.png"},"star-night":{"mode":"skin-motion","skin":"assets/그림/게임-장면/두꺼비/스킨/별밤.png"}},
+    "effects": {"waterStream":"assets/그림/게임-장면/효과/물줄기-동작.png","waterSplash":"assets/그림/게임-장면/효과/입구-물보라-동작.png","waterLeak":"assets/그림/게임-장면/효과/구멍-누수-동작.png","waterSurface":"assets/그림/게임-장면/효과/내부-수면-타일.png","toadExpression":{"path":"assets/그림/게임-장면/두꺼비/표정-오버레이-동작.png","enabled":false,"validation":"truncated-png"}},
+    "toadFallback": {"default":"assets/그림/공용/두꺼비/표정/기본.png","correct":"assets/그림/공용/두꺼비/표정/기쁨.png","combo":"assets/그림/공용/두꺼비/표정/존나기쁨.png","wrong":"assets/그림/공용/두꺼비/표정/슬픔.png","angry":"assets/그림/공용/두꺼비/표정/화남.png","rage":"assets/그림/공용/두꺼비/표정/화남.png","surprised":"assets/그림/공용/두꺼비/표정/놀람.png","confused":"assets/그림/공용/두꺼비/표정/심오함.png","timeout":"assets/그림/공용/두꺼비/표정/눈물.png","idle-blink":"assets/그림/공용/두꺼비/표정/지루함.png"}
   },
-  "sprites": {
-    "kongjwi": {
-      "cell": {
-        "width": 512,
-        "height": 768
-      },
-      "frames": 8
-    },
-    "tool": {
-      "cell": {
-        "width": 512,
-        "height": 768
-      },
-      "frames": 8
-    },
-    "jar": {
-      "cell": {
-        "width": 1024,
-        "height": 1024
-      },
-      "frames": 2,
-      "states": {
-        "back": 0,
-        "front": 1
-      }
-    },
-    "waterStream": {
-      "cell": {
-        "width": 512,
-        "height": 512
-      },
-      "frames": 8
-    },
-    "waterSplash": {
-      "cell": {
-        "width": 512,
-        "height": 512
-      },
-      "frames": 6
-    },
-    "waterLeak": {
-      "cell": {
-        "width": 512,
-        "height": 512
-      },
-      "frames": 8
-    },
-    "toadExpression": {
-      "cell": {
-        "width": 512,
-        "height": 384
-      },
-      "frames": 10
-    }
-  },
-  "frames": {
-    "kongjwi": {
-      "idle": 0,
-      "idle-blink": 1,
-      "prepare": 2,
-      "lift": 3,
-      "tilt": 4,
-      "pour": 5,
-      "return": 6,
-      "wrong": 7
-    },
-    "toadExpression": {
-      "default": 0,
-      "correct": 1,
-      "combo": 2,
-      "wrong": 3,
-      "angry": 4,
-      "rage": 5,
-      "surprised": 6,
-      "confused": 7,
-      "timeout": 8,
-      "idle-blink": 9
-    },
-    "sequences": {
-      "answerCorrect": {
-        "kongjwi": [
-          2,
-          3,
-          4,
-          5,
-          6
-        ],
-        "tool": [
-          2,
-          3,
-          4,
-          5,
-          6
-        ],
-        "waterStream": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7
-        ],
-        "waterSplash": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "kongjwiTimeline": [
-          2,
-          2,
-          3,
-          3,
-          4,
-          4,
-          5,
-          5,
-          5,
-          6,
-          6
-        ],
-        "toolTimeline": [
-          2,
-          2,
-          3,
-          3,
-          4,
-          4,
-          5,
-          5,
-          5,
-          6,
-          6
-        ],
-        "nightCourtKongjwiTimeline": [
-          2,
-          2,
-          3,
-          3,
-          4,
-          4,
-          5,
-          5,
-          5,
-          6,
-          6
-        ]
-      },
-      "answerWrong": {
-        "kongjwi": [
-          7
-        ]
-      },
-      "idle": {
-        "kongjwi": [
-          0,
-          1,
-          0
-        ]
-      },
-      "leak": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7
-      ]
-    }
-  },
-  "anchors": {
-    "kongjwiFeet": {
-      "x": 500,
-      "y": 1018
-    },
-    "toolHandle": {
-      "x": 560,
-      "y": 671
-    },
-    "waterStart": {
-      "x": 663,
-      "y": 538
-    },
-    "jarMouthCenter": {
-      "x": 1500,
-      "y": 445
-    },
-    "jarHoleCenter": {
-      "x": 1655,
-      "y": 788
-    },
-    "toadFace": {
-      "x": 1655,
-      "y": 748
-    }
-  },
-  "placements": {
-    "kongjwi": {
-      "x": 205,
-      "y": 260,
-      "width": 546,
-      "height": 820
-    },
-    "tool": {
-      "x": 205,
-      "y": 260,
-      "width": 546,
-      "height": 820
-    },
-    "waterStream": {
-      "x": 660,
-      "y": 340,
-      "width": 820,
-      "height": 560
-    },
-    "jar": {
-      "x": 1105,
-      "y": 215,
-      "width": 830,
-      "height": 830
-    },
-    "waterFill": {
-      "x": 1280,
-      "y": 473,
-      "width": 433,
-      "height": 378
-    },
-    "toad": {
-      "x": 1470,
-      "y": 645,
-      "width": 360,
-      "height": 280
-    },
-    "waterSplash": {
-      "x": 1195,
-      "y": 270,
-      "width": 480,
-      "height": 480
-    },
-    "waterLeak": {
-      "x": 1385,
-      "y": 600,
-      "width": 480,
-      "height": 480
-    }
-  },
-  "fallbackPlacements": {
-    "kongjwi": {
-      "x": 250,
-      "y": 300,
-      "width": 520,
-      "height": 720
-    },
-    "tool": {
-      "x": 560,
-      "y": 555,
-      "width": 220,
-      "height": 235
-    },
-    "waterStream": {
-      "x": 650,
-      "y": 390,
-      "width": 900,
-      "height": 430
-    },
-    "toad": {
-      "x": 1470,
-      "y": 645,
-      "width": 360,
-      "height": 280
-    }
-  },
+  "sprites": {"kongjwi":{"cell":{"width":512,"height":768},"frames":8},"tool":{"cell":{"width":512,"height":768},"frames":8},"jar":{"cell":{"width":1024,"height":1024},"frames":2,"states":{"back":0,"front":1}},"waterStream":{"cell":{"width":512,"height":512},"frames":8},"waterSplash":{"cell":{"width":512,"height":512},"frames":6},"waterLeak":{"cell":{"width":512,"height":512},"frames":8},"toadExpression":{"cell":{"width":512,"height":384},"frames":10}},
+  "frames": {"kongjwi":{"idle":0,"idle-blink":1,"prepare":2,"lift":3,"tilt":4,"pour":5,"return":6,"wrong":7},"toadExpression":{"default":0,"correct":1,"combo":2,"wrong":3,"angry":4,"rage":5,"surprised":6,"confused":7,"timeout":8,"idle-blink":9},"sequences":{"answerCorrect":{"kongjwi":[2,3,4,5,6],"tool":[2,3,4,5,6],"waterStream":[1,2,3,4,5,6,7],"waterSplash":[1,2,3,4,5],"kongjwiTimeline":[2,2,3,3,4,4,5,5,5,6,6],"toolTimeline":[2,2,3,3,4,4,5,5,5,6,6],"nightCourtKongjwiTimeline":[2,2,3,3,4,4,5,5,5,6,6]},"answerWrong":{"kongjwi":[7]},"idle":{"kongjwi":[0,1,0]},"leak":[0,1,2,3,4,5,6,7]}},
+  "anchors": {"kongjwiFeet":{"x":500,"y":1018},"toolHandle":{"x":560,"y":671},"waterStart":{"x":663,"y":538},"jarMouthCenter":{"x":1500,"y":445},"jarHoleCenter":{"x":1655,"y":788},"toadFace":{"x":1655,"y":748}},
+  "placements": {"kongjwi":{"x":205,"y":260,"width":546,"height":820},"tool":{"x":205,"y":260,"width":546,"height":820},"waterStream":{"x":660,"y":340,"width":820,"height":560},"jar":{"x":1105,"y":215,"width":830,"height":830},"waterFill":{"x":1280,"y":473,"width":433,"height":378},"toad":{"x":1470,"y":645,"width":360,"height":280},"waterSplash":{"x":1195,"y":270,"width":480,"height":480},"waterLeak":{"x":1385,"y":600,"width":480,"height":480}},
+  "fallbackPlacements": {"kongjwi":{"x":250,"y":300,"width":520,"height":720},"tool":{"x":560,"y":555,"width":220,"height":235},"waterStream":{"x":650,"y":390,"width":900,"height":430},"toad":{"x":1470,"y":645,"width":360,"height":280}},
   "jarCompositions": {
-    "onggi": {
-      "toad": {
-        "x": 1484,
-        "y": 657,
-        "width": 360,
-        "height": 280
-      },
-      "fullExpression": {
-        "scale": 2.15,
-        "x": 0,
-        "y": 13,
-        "originY": 48
-      },
-      "skinMotion": {
-        "scale": 1.16,
-        "x": 0,
-        "y": 3,
-        "originY": 58
-      },
-      "mask": {
-        "radiusX": 47,
-        "radiusY": 44,
-        "centerX": 50,
-        "centerY": 51
-      }
-    },
-    "celadon": {
-      "toad": {
-        "x": 1463,
-        "y": 636,
-        "width": 370,
-        "height": 290
-      },
-      "fullExpression": {
-        "scale": 2.22,
-        "x": 0,
-        "y": 14,
-        "originY": 48
-      },
-      "skinMotion": {
-        "scale": 1.18,
-        "x": 0,
-        "y": 3,
-        "originY": 58
-      },
-      "mask": {
-        "radiusX": 48,
-        "radiusY": 45,
-        "centerX": 50,
-        "centerY": 51
-      }
-    },
-    "moon-white": {
-      "toad": {
-        "x": 1476,
-        "y": 629,
-        "width": 356,
-        "height": 278
-      },
-      "fullExpression": {
-        "scale": 2.18,
-        "x": 0,
-        "y": 13,
-        "originY": 48
-      },
-      "skinMotion": {
-        "scale": 1.16,
-        "x": 0,
-        "y": 3,
-        "originY": 58
-      },
-      "mask": {
-        "radiusX": 47,
-        "radiusY": 44,
-        "centerX": 50,
-        "centerY": 51
-      }
-    },
-    "night-lacquer": {
-      "toad": {
-        "x": 1470,
-        "y": 658,
-        "width": 370,
-        "height": 290
-      },
-      "fullExpression": {
-        "scale": 2.2,
-        "x": 0,
-        "y": 14,
-        "originY": 48
-      },
-      "skinMotion": {
-        "scale": 1.18,
-        "x": 0,
-        "y": 3,
-        "originY": 58
-      },
-      "mask": {
-        "radiusX": 48,
-        "radiusY": 45,
-        "centerX": 50,
-        "centerY": 51
-      }
-    }
+    "onggi":{"toad":{"x":1484,"y":657,"width":360,"height":280},"fullExpression":{"scale":2.15,"x":0,"y":13,"originY":48},"skinMotion":{"scale":1.16,"x":0,"y":3,"originY":58},"mask":{"radiusX":47,"radiusY":44,"centerX":50,"centerY":51}},
+    "celadon":{"toad":{"x":1463,"y":636,"width":370,"height":290},"fullExpression":{"scale":2.22,"x":0,"y":14,"originY":48},"skinMotion":{"scale":1.18,"x":0,"y":3,"originY":58},"mask":{"radiusX":48,"radiusY":45,"centerX":50,"centerY":51}},
+    "moon-white":{"toad":{"x":1476,"y":629,"width":356,"height":278},"fullExpression":{"scale":2.18,"x":0,"y":13,"originY":48},"skinMotion":{"scale":1.16,"x":0,"y":3,"originY":58},"mask":{"radiusX":47,"radiusY":44,"centerX":50,"centerY":51}},
+    "night-lacquer":{"toad":{"x":1470,"y":658,"width":370,"height":290},"fullExpression":{"scale":2.2,"x":0,"y":14,"originY":48},"skinMotion":{"scale":1.18,"x":0,"y":3,"originY":58},"mask":{"radiusX":48,"radiusY":45,"centerX":50,"centerY":51}}
   },
-  "jarOffsets": {
-    "onggi": {
-      "x": 0,
-      "y": 0,
-      "scale": 1
-    },
-    "celadon": {
-      "x": 0,
-      "y": 0,
-      "scale": 1
-    },
-    "moon-white": {
-      "x": 0,
-      "y": 0,
-      "scale": 1
-    },
-    "night-lacquer": {
-      "x": 0,
-      "y": 0,
-      "scale": 1
-    }
-  },
-  "responsive": {
-    "coordinateSystem": "shared-2048x1152",
-    "mobile": {
-      "safeInset": 24,
-      "scaleMode": "uniform-contain"
-    },
-    "desktop": {
-      "safeInset": 0,
-      "scaleMode": "uniform-contain"
-    }
-  },
+  "jarOffsets": {"onggi":{"x":0,"y":0,"scale":1},"celadon":{"x":0,"y":0,"scale":1},"moon-white":{"x":0,"y":0,"scale":1},"night-lacquer":{"x":0,"y":0,"scale":1}},
+  "responsive": {"coordinateSystem":"shared-2048x1152","mobile":{"safeInset":24,"scaleMode":"uniform-contain"},"desktop":{"safeInset":0,"scaleMode":"uniform-contain"}},
   "availability": {
-    "assets/그림/게임-장면/배경/야간-장독대-마당-배경.png": false,
-    "assets/그림/게임-장면/배경/야간-장독대-마당-전경.png": true,
-    "assets/그림/게임-장면/콩쥐/기본-언더레이어/물붓기-동작.png": true,
-    "assets/그림/게임-장면/콩쥐/고전-홍색-한복/물붓기-동작.png": true,
-    "assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png": true,
-    "assets/그림/게임-장면/콩쥐/농사일-작업복/물붓기-동작.png": true,
-    "assets/그림/게임-장면/콩쥐/누더기옷/물붓기-동작.png": true,
-    "assets/그림/게임-장면/콩쥐/야간-궁중복/물붓기-동작.png": true,
-    "assets/그림/게임-장면/바가지/나무/물붓기-동작.png": true,
-    "assets/그림/게임-장면/바가지/돗쇠/물붓기-동작.png": true,
-    "assets/그림/게임-장면/바가지/청자/물붓기-동작.png": true,
-    "assets/그림/게임-장면/바가지/월광/물붓기-동작.png": true,
-    "assets/그림/게임-장면/장독대/전통-옹기/장독대-레이어.png": true,
-    "assets/그림/게임-장면/장독대/청자/장독대-레이어.png": true,
-    "assets/그림/게임-장면/장독대/달항아리/장독대-레이어.png": true,
-    "assets/그림/게임-장면/장독대/흑칠-야광/장독대-레이어.png": true,
-    "assets/그림/게임-장면/두꺼비/스킨/황금-일꾼.png": true,
-    "assets/그림/게임-장면/두꺼비/스킨/비취-수호.png": true,
-    "assets/그림/게임-장면/두꺼비/스킨/별밤.png": true,
-    "assets/그림/게임-장면/효과/물줄기-동작.png": true,
-    "assets/그림/게임-장면/효과/입구-물보라-동작.png": true,
-    "assets/그림/게임-장면/효과/구멍-누수-동작.png": true,
-    "assets/그림/게임-장면/효과/내부-수면-타일.png": true,
-    "assets/images/toad-expressions/화남.png": true,
-    "assets/images/toad-expressions/기본.png": true,
-    "assets/images/toad-expressions/기쁨.png": true,
-    "assets/images/toad-expressions/눈물.png": true,
-    "assets/images/toad-expressions/심오함.png": true,
-    "assets/images/toad-expressions/지루함.png": true,
-    "assets/images/toad-expressions/놀람.png": true,
-    "assets/images/toad-expressions/존나기쁨.png": true,
-    "assets/images/toad-expressions/슬픔.png": true,
-    "assets/그림/게임-장면/장독대/전통-옹기/장독대-레이어.png?v=20260807-source-locked-jars1": true,
-    "assets/그림/게임-장면/장독대/청자/장독대-레이어.png?v=20260807-source-locked-jars1": true,
-    "assets/그림/게임-장면/장독대/달항아리/장독대-레이어.png?v=20260807-source-locked-jars1": true,
-    "assets/그림/게임-장면/장독대/흑칠-야광/장독대-레이어.png?v=20260807-source-locked-jars1": true
+    "assets/그림/게임-장면/배경/야간-장독대-마당-배경.png":false,
+    "assets/그림/게임-장면/배경/야간-장독대-마당-전경.png":true,
+    "assets/그림/게임-장면/콩쥐/기본-언더레이어/물붓기-동작.png":true,
+    "assets/그림/게임-장면/콩쥐/고전-홍색-한복/물붓기-동작.png":true,
+    "assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png":true,
+    "assets/그림/게임-장면/콩쥐/농사일-작업복/물붓기-동작.png":true,
+    "assets/그림/게임-장면/콩쥐/누더기옷/물붓기-동작.png":true,
+    "assets/그림/게임-장면/콩쥐/야간-궁중복/물붓기-동작.png":true,
+    "assets/그림/게임-장면/바가지/나무/물붓기-동작.png":true,
+    "assets/그림/게임-장면/바가지/돗쇠/물붓기-동작.png":true,
+    "assets/그림/게임-장면/바가지/청자/물붓기-동작.png":true,
+    "assets/그림/게임-장면/바가지/월광/물붓기-동작.png":true,
+    "assets/그림/게임-장면/장독대/전통-옹기/장독대-레이어.png":true,
+    "assets/그림/게임-장면/장독대/청자/장독대-레이어.png":true,
+    "assets/그림/게임-장면/장독대/달항아리/장독대-레이어.png":true,
+    "assets/그림/게임-장면/장독대/흑칠-야광/장독대-레이어.png":true,
+    "assets/그림/게임-장면/두꺼비/스킨/황금-일꾼.png":true,
+    "assets/그림/게임-장면/두꺼비/스킨/비취-수호.png":true,
+    "assets/그림/게임-장면/두꺼비/스킨/별밤.png":true,
+    "assets/그림/게임-장면/효과/물줄기-동작.png":true,
+    "assets/그림/게임-장면/효과/입구-물보라-동작.png":true,
+    "assets/그림/게임-장면/효과/구멍-누수-동작.png":true,
+    "assets/그림/게임-장면/효과/내부-수면-타일.png":true,
+    "assets/그림/공용/두꺼비/표정/기본.png":true,
+    "assets/그림/공용/두꺼비/표정/기쁨.png":true,
+    "assets/그림/공용/두꺼비/표정/존나기쁨.png":true,
+    "assets/그림/공용/두꺼비/표정/슬픔.png":true,
+    "assets/그림/공용/두꺼비/표정/화남.png":true,
+    "assets/그림/공용/두꺼비/표정/놀람.png":true,
+    "assets/그림/공용/두꺼비/표정/심오함.png":true,
+    "assets/그림/공용/두꺼비/표정/눈물.png":true,
+    "assets/그림/공용/두꺼비/표정/지루함.png":true,
+    "assets/그림/게임-장면/장독대/전통-옹기/장독대-레이어.png?v=20260807-source-locked-jars1":true,
+    "assets/그림/게임-장면/장독대/청자/장독대-레이어.png?v=20260807-source-locked-jars1":true,
+    "assets/그림/게임-장면/장독대/달항아리/장독대-레이어.png?v=20260807-source-locked-jars1":true,
+    "assets/그림/게임-장면/장독대/흑칠-야광/장독대-레이어.png?v=20260807-source-locked-jars1":true
   }
 }
