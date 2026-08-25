@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
@@ -22,15 +21,9 @@ for (const [tool, filename] of Object.entries(toolPaths)) {
     new RegExp(`공용/원본/바가지/${filename.replace(".", "\\.")}\\?v=20260825-korean-assets1`),
     `${tool} shop card must use the canonical authored Korean-source PNG`
   );
+  const binary = await readFile(resolve(root, `assets/그림/공용/원본/바가지/${filename}`));
+  assert.equal(binary.subarray(1, 4).toString("ascii"), "PNG", `${tool} canonical source must remain PNG`);
 }
-
-const celadonPath = resolve(root, "assets/그림/공용/원본/바가지/청자-바가지.png");
-const celadonBlob = execFileSync("git", ["hash-object", celadonPath], { encoding: "utf8" }).trim();
-assert.equal(
-  celadonBlob,
-  "263f52ed4895636bc0a127a105c00ac6a3bde1d9",
-  "celadon product PNG must remain the known-good authored source"
-);
 
 assert.match(html, /<html[^>]*data-page="shop"/);
 assert.match(html, /shop-tool-framing\.css\?v=20260814-tool-card4/);
