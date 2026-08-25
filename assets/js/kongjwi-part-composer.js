@@ -1,18 +1,18 @@
 /**
  * Pixel-preserving Kongjwi outfit-part composer.
  *
- * Every visible character pixel comes from assets/art/kongjwi. Runtime code only
- * swaps authored outfit/expression layers and applies DOM transforms.
+ * Runtime parts live under the Korean canonical asset tree. This module only
+ * swaps authored layers and applies DOM transforms; it never regenerates art.
  */
 
-export const KONGJWI_ASSET_ROOT = "assets/art/kongjwi-parts/";
-const ASSET_VERSION = "20260805-outfit-rig1";
+export const KONGJWI_ASSET_ROOT = "assets/그림/공용/콩쥐/파츠/";
+const ASSET_VERSION = "20260821-korean-assets1";
 
 export const KONGJWI_RIGS = Object.freeze({
-  "classic-red": Object.freeze({ root: "classic-red/" }),
-  "blue-scholar": Object.freeze({ root: "blue-scholar/" }),
-  "field-green": Object.freeze({ root: "field-green/" }),
-  "royal-night": Object.freeze({ root: "royal-night/" })
+  "classic-red": Object.freeze({ root: "고전-홍색-한복/" }),
+  "blue-scholar": Object.freeze({ root: "청색-학자복/" }),
+  "field-green": Object.freeze({ root: "농사일-작업복/" }),
+  "royal-night": Object.freeze({ root: "야간-궁중복/" })
 });
 
 export const KONGJWI_PARTS = Object.freeze({
@@ -32,18 +32,12 @@ const EXPRESSION_FILES = Object.freeze({
   celebrate: "face-celebrate.png"
 });
 
-const TOOL_ROWS = Object.freeze({
-  wood: 0,
-  brass: 1,
-  celadon: 2,
-  moon: 3
-});
-
+const TOOL_ROWS = Object.freeze({ wood: 0, brass: 1, celadon: 2, moon: 3 });
 const TOOL_FILES = Object.freeze({
-  wood: "wood.png",
-  brass: "brass.png",
-  celadon: "celadon.png",
-  moon: "moon.png"
+  wood: "assets/그림/공용/원본/바가지/나무-바가지.png",
+  brass: "assets/그림/공용/원본/바가지/놋쇠-바가지.png",
+  celadon: "assets/그림/공용/원본/바가지/청자-바가지.png",
+  moon: "assets/그림/공용/원본/바가지/월광-바가지.png"
 });
 
 const PART_ORDER = Object.freeze([
@@ -57,81 +51,46 @@ const PART_ORDER = Object.freeze([
 
 const POSES = Object.freeze({
   standing: Object.freeze({
-    canvas: "translate3d(0, 0, 0) rotate(0deg)",
-    torso: "translate3d(0, 0, 0) rotate(0deg)",
-    lowerBody: "translate3d(0, 0, 0) rotate(0deg)",
-    armLeft: "translate3d(0, 0, 0) rotate(0deg)",
-    armRight: "translate3d(0, 0, 0) rotate(0deg)",
-    hairNeck: "translate3d(0, 0, 0) rotate(0deg)",
-    face: "translate3d(0, 0, 0) rotate(0deg)",
-    tool: "translate3d(0, 0, 0) rotate(0deg)"
+    canvas: "translate3d(0, 0, 0) rotate(0deg)", torso: "translate3d(0, 0, 0) rotate(0deg)",
+    lowerBody: "translate3d(0, 0, 0) rotate(0deg)", armLeft: "translate3d(0, 0, 0) rotate(0deg)",
+    armRight: "translate3d(0, 0, 0) rotate(0deg)", hairNeck: "translate3d(0, 0, 0) rotate(0deg)",
+    face: "translate3d(0, 0, 0) rotate(0deg)", tool: "translate3d(0, 0, 0) rotate(0deg)"
   }),
   pour: Object.freeze({
-    canvas: "translate3d(0, -1.2%, 0) rotate(-2deg)",
-    torso: "translate3d(0, 0, 0) rotate(-1deg)",
-    lowerBody: "translate3d(0, 0, 0) rotate(0deg)",
-    armLeft: "translate3d(-1.5%, -2.4%, 0) rotate(-13deg)",
-    armRight: "translate3d(1.4%, -1.2%, 0) rotate(18deg)",
-    hairNeck: "translate3d(-1%, -1.2%, 0) rotate(-4deg)",
-    face: "translate3d(-1%, -1.2%, 0) rotate(-4deg)",
-    tool: "translate3d(65%, -18%, 0) rotate(-38deg)"
+    canvas: "translate3d(0, -1.2%, 0) rotate(-2deg)", torso: "translate3d(0, 0, 0) rotate(-1deg)",
+    lowerBody: "translate3d(0, 0, 0) rotate(0deg)", armLeft: "translate3d(-1.5%, -2.4%, 0) rotate(-13deg)",
+    armRight: "translate3d(1.4%, -1.2%, 0) rotate(18deg)", hairNeck: "translate3d(-1%, -1.2%, 0) rotate(-4deg)",
+    face: "translate3d(-1%, -1.2%, 0) rotate(-4deg)", tool: "translate3d(65%, -18%, 0) rotate(-38deg)"
   }),
   wrong: Object.freeze({
-    canvas: "translate3d(1.2%, 0, 0) rotate(3deg)",
-    torso: "translate3d(0, 0, 0) rotate(2deg)",
-    lowerBody: "translate3d(0, 0, 0) rotate(1deg)",
-    armLeft: "translate3d(-2%, 1%, 0) rotate(8deg)",
-    armRight: "translate3d(2%, 1%, 0) rotate(-9deg)",
-    hairNeck: "translate3d(1.5%, 0, 0) rotate(7deg)",
-    face: "translate3d(1.5%, 0, 0) rotate(7deg)",
-    tool: "translate3d(-8%, 7%, 0) rotate(14deg)"
+    canvas: "translate3d(1.2%, 0, 0) rotate(3deg)", torso: "translate3d(0, 0, 0) rotate(2deg)",
+    lowerBody: "translate3d(0, 0, 0) rotate(1deg)", armLeft: "translate3d(-2%, 1%, 0) rotate(8deg)",
+    armRight: "translate3d(2%, 1%, 0) rotate(-9deg)", hairNeck: "translate3d(1.5%, 0, 0) rotate(7deg)",
+    face: "translate3d(1.5%, 0, 0) rotate(7deg)", tool: "translate3d(-8%, 7%, 0) rotate(14deg)"
   }),
   timeout: Object.freeze({
-    canvas: "translate3d(0.8%, 1%, 0) rotate(2deg)",
-    torso: "translate3d(0, 1%, 0) rotate(1deg)",
-    lowerBody: "translate3d(0, 1%, 0) rotate(1deg)",
-    armLeft: "translate3d(-1%, 2%, 0) rotate(6deg)",
-    armRight: "translate3d(1%, 2%, 0) rotate(-5deg)",
-    hairNeck: "translate3d(0, 2%, 0) rotate(5deg)",
-    face: "translate3d(0, 2%, 0) rotate(5deg)",
-    tool: "translate3d(-6%, 8%, 0) rotate(10deg)"
+    canvas: "translate3d(0.8%, 1%, 0) rotate(2deg)", torso: "translate3d(0, 1%, 0) rotate(1deg)",
+    lowerBody: "translate3d(0, 1%, 0) rotate(1deg)", armLeft: "translate3d(-1%, 2%, 0) rotate(6deg)",
+    armRight: "translate3d(1%, 2%, 0) rotate(-5deg)", hairNeck: "translate3d(0, 2%, 0) rotate(5deg)",
+    face: "translate3d(0, 2%, 0) rotate(5deg)", tool: "translate3d(-6%, 8%, 0) rotate(10deg)"
   }),
   celebrate: Object.freeze({
-    canvas: "translate3d(0, -1.8%, 0) rotate(-1deg)",
-    torso: "translate3d(0, -1%, 0) rotate(-1deg)",
-    lowerBody: "translate3d(0, 0, 0) rotate(0deg)",
-    armLeft: "translate3d(-2%, -3%, 0) rotate(-18deg)",
-    armRight: "translate3d(2%, -3%, 0) rotate(18deg)",
-    hairNeck: "translate3d(0, -2%, 0) rotate(-2deg)",
-    face: "translate3d(0, -2%, 0) rotate(-2deg)",
-    tool: "translate3d(55%, -20%, 0) rotate(-34deg)"
+    canvas: "translate3d(0, -1.8%, 0) rotate(-1deg)", torso: "translate3d(0, -1%, 0) rotate(-1deg)",
+    lowerBody: "translate3d(0, 0, 0) rotate(0deg)", armLeft: "translate3d(-2%, -3%, 0) rotate(-18deg)",
+    armRight: "translate3d(2%, -3%, 0) rotate(18deg)", hairNeck: "translate3d(0, -2%, 0) rotate(-2deg)",
+    face: "translate3d(0, -2%, 0) rotate(-2deg)", tool: "translate3d(55%, -20%, 0) rotate(-34deg)"
   })
 });
 
-const EXPRESSION_TO_POSE = Object.freeze({
-  neutral: "standing",
-  focused: "standing",
-  correct: "pour",
-  wrong: "wrong",
-  timeout: "timeout",
-  celebrate: "celebrate"
-});
-
+const EXPRESSION_TO_POSE = Object.freeze({ neutral: "standing", focused: "standing", correct: "pour", wrong: "wrong", timeout: "timeout", celebrate: "celebrate" });
 const VALID_EXPRESSIONS = new Set(Object.keys(EXPRESSION_TO_POSE));
 
-function setStyle(element, property, value) {
-  element?.style?.setProperty(property, value);
-}
-
-function rigFor(outfit) {
-  return KONGJWI_RIGS[outfit] ? outfit : "classic-red";
-}
-
+function setStyle(element, property, value) { element?.style?.setProperty(property, value); }
+function rigFor(outfit) { return KONGJWI_RIGS[outfit] ? outfit : "classic-red"; }
 function assetUrl(outfit, file) {
   const key = rigFor(outfit);
   return `${KONGJWI_ASSET_ROOT}${KONGJWI_RIGS[key].root}${file}?v=${ASSET_VERSION}`;
 }
-
 function createPart(name, file, outfit = "classic-red") {
   const image = document.createElement("img");
   image.className = "kongjwi-part kongjwi-part-image";
@@ -142,7 +101,6 @@ function createPart(name, file, outfit = "classic-red") {
   image.decoding = "async";
   return image;
 }
-
 function createTool() {
   const tool = document.createElement("span");
   tool.className = "kongjwi-part kongjwi-tool-part";
@@ -150,7 +108,6 @@ function createTool() {
   tool.setAttribute("aria-hidden", "true");
   return tool;
 }
-
 function createImpactLayer() {
   const layer = document.createElement("span");
   layer.className = "kongjwi-impact-layer";
@@ -167,7 +124,6 @@ function createImpactLayer() {
 export function mountKongjwiComposer(host, { root = document.documentElement, dashboard = false } = {}) {
   if (!host) return null;
   if (host.__kongjwiPartComposer) return host.__kongjwiPartComposer;
-
   host.classList.add("kongjwi-part-host");
   host.dataset.kongjwiParts = "loading";
   const canvas = document.createElement("div");
@@ -196,17 +152,12 @@ export function mountKongjwiComposer(host, { root = document.documentElement, da
   let destroyed = false;
   const removers = [];
 
-  function listen(type, handler) {
-    globalThis.addEventListener(type, handler);
-    removers.push(() => globalThis.removeEventListener(type, handler));
-  }
-
+  function listen(type, handler) { globalThis.addEventListener(type, handler); removers.push(() => globalThis.removeEventListener(type, handler)); }
   function setFace(nextExpression = expression) {
     const next = VALID_EXPRESSIONS.has(nextExpression) ? nextExpression : "neutral";
     const face = layers.get("face");
     if (face) face.src = assetUrl(outfit, EXPRESSION_FILES[next]);
   }
-
   function setOutfit(visualKey = root?.dataset?.kongjwiOutfit || "classic-red") {
     if (destroyed) return;
     outfit = rigFor(visualKey);
@@ -219,14 +170,12 @@ export function mountKongjwiComposer(host, { root = document.documentElement, da
     canvas.dataset.outfit = outfit;
     root?.setAttribute?.("data-kongjwi-rig", outfit);
   }
-
   function setTool(visualKey = root?.dataset?.toolSkin || "wood") {
     const key = Object.hasOwn(TOOL_ROWS, visualKey) ? visualKey : "wood";
     tool.dataset.toolSkin = key;
-    tool.style.backgroundImage = `url("assets/art/kongjwi-tools/${TOOL_FILES[key]}?v=${ASSET_VERSION}")`;
+    tool.style.backgroundImage = `url("${TOOL_FILES[key]}?v=${ASSET_VERSION}")`;
     root?.setAttribute?.("data-kongjwi-tool", key);
   }
-
   function setPose(nextPose = "standing", { retrigger = true } = {}) {
     if (destroyed) return;
     const next = POSES[nextPose] ? nextPose : "standing";
@@ -243,23 +192,10 @@ export function mountKongjwiComposer(host, { root = document.documentElement, da
     setStyle(layers.get("head-hair-neck"), "--kongjwi-part-transform", plan.hairNeck);
     setStyle(layers.get("face"), "--kongjwi-part-transform", plan.face);
     setStyle(tool, "--kongjwi-part-transform", plan.tool);
-    if (retrigger) {
-      canvas.classList.remove("is-moving");
-      void canvas.offsetWidth;
-      canvas.classList.add("is-moving");
-    }
+    if (retrigger) { canvas.classList.remove("is-moving"); void canvas.offsetWidth; canvas.classList.add("is-moving"); }
   }
-
-  function clearResetTimer() {
-    globalThis.clearTimeout(resetTimer);
-    resetTimer = 0;
-  }
-
-  function clearHitTimer() {
-    globalThis.clearTimeout(hitTimer);
-    hitTimer = 0;
-  }
-
+  function clearResetTimer() { globalThis.clearTimeout(resetTimer); resetTimer = 0; }
+  function clearHitTimer() { globalThis.clearTimeout(hitTimer); hitTimer = 0; }
   function triggerHit() {
     if (destroyed) return;
     clearHitTimer();
@@ -267,12 +203,8 @@ export function mountKongjwiComposer(host, { root = document.documentElement, da
     canvas.classList.remove("is-hit");
     void canvas.offsetWidth;
     canvas.classList.add("is-hit");
-    hitTimer = globalThis.setTimeout(() => {
-      canvas.classList.remove("is-hit");
-      canvas.dataset.hit = "false";
-    }, 760);
+    hitTimer = globalThis.setTimeout(() => { canvas.classList.remove("is-hit"); canvas.dataset.hit = "false"; }, 760);
   }
-
   function setExpression(nextExpression = "neutral", { duration = 1120, persistent = false } = {}) {
     if (destroyed) return;
     const next = VALID_EXPRESSIONS.has(nextExpression) ? nextExpression : "neutral";
@@ -291,7 +223,6 @@ export function mountKongjwiComposer(host, { root = document.documentElement, da
       }, Math.max(720, Number(duration) || 1120));
     }
   }
-
   function syncCosmetics() {
     if (destroyed) return;
     setOutfit(root?.dataset?.kongjwiOutfit || "classic-red");
@@ -299,46 +230,21 @@ export function mountKongjwiComposer(host, { root = document.documentElement, da
     host.dataset.kongjwiParts = "ready";
   }
 
-  listen("answer:correct", event => {
-    const combo = Number(event?.detail?.combo) || 0;
-    setExpression("correct", { duration: combo >= 3 ? 1320 : 1120 });
-  });
-  listen("answer:wrong", () => {
-    setExpression("wrong", { duration: 1180 });
-    triggerHit();
-  });
-  listen("answer:timeout", () => {
-    setExpression("timeout", { duration: 1350 });
-    triggerHit();
-  });
+  listen("answer:correct", event => { const combo = Number(event?.detail?.combo) || 0; setExpression("correct", { duration: combo >= 3 ? 1320 : 1120 }); });
+  listen("answer:wrong", () => { setExpression("wrong", { duration: 1180 }); triggerHit(); });
+  listen("answer:timeout", () => { setExpression("timeout", { duration: 1350 }); triggerHit(); });
   listen("game:clear", () => setExpression("celebrate", { persistent: true }));
-  listen("game:over", () => {
-    setExpression("wrong", { persistent: true });
-    triggerHit();
-  });
+  listen("game:over", () => { setExpression("wrong", { persistent: true }); triggerHit(); });
   listen("game:pause", () => setPose("standing", { retrigger: false }));
   listen("game:resume", () => setExpression("neutral"));
 
-  const observer = root && typeof MutationObserver === "function"
-    ? new MutationObserver(syncCosmetics)
-    : null;
+  const observer = root && typeof MutationObserver === "function" ? new MutationObserver(syncCosmetics) : null;
   observer?.observe(root, { attributes: true, attributeFilter: ["data-kongjwi-outfit", "data-tool-skin"] });
 
   const composer = {
-    host,
-    canvas,
-    layers,
-    tool,
-    impact,
-    get pose() { return pose; },
-    get expression() { return expression; },
-    get outfit() { return outfit; },
-    setPose,
-    setExpression,
-    setOutfit,
-    setTool,
-    syncCosmetics,
-    triggerHit,
+    host, canvas, layers, tool, impact,
+    get pose() { return pose; }, get expression() { return expression; }, get outfit() { return outfit; },
+    setPose, setExpression, setOutfit, setTool, syncCosmetics, triggerHit,
     destroy() {
       if (destroyed) return;
       destroyed = true;

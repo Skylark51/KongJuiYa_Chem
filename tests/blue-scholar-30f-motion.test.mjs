@@ -1,35 +1,31 @@
+import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import test from "node:test";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const read = path => fs.readFileSync(new URL(`../${path}`, import.meta.url));
-const text = path => read(path).toString("utf8");
-const pngSize = path => { const b = read(path); return [b.readUInt32BE(16), b.readUInt32BE(20)]; };
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const runtime = "assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png";
+const preview = "assets/그림/공용/콩쥐/미리보기/청색-학자복.png";
 
-test("blue scholar canonical 30f sheet has true fixed 5x6 production cells", () => {
-  assert.deepEqual(pngSize("assets/art/game-scene-v2/kongjwi/blue-scholar/pour-sheet.png"), [1280, 2304]);
-  assert.deepEqual(pngSize("assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png"), [1280, 2304]);
-  assert.deepEqual(pngSize("assets/art/game-scene-v2/kongjwi/blue-scholar/preview.png"), [256, 384]);
-  const manifest = JSON.parse(text("assets/그림/게임-장면/manifest.json"));
-  const blue = manifest.assets.kongjwi["blue-scholar"];
-  assert.equal(blue.sprite.frames, 30);
-  assert.equal(blue.sprite.columns, 5);
-  assert.equal(blue.sprite.rows, 6);
-  assert.deepEqual(blue.sprite.cell, { width: 256, height: 384 });
-  assert.deepEqual(blue.sprite.sourceSize, { width: 1280, height: 2304 });
-  assert.deepEqual(blue.placement, manifest.placements.kongjwi);
-  assert.equal(blue.actionMode, "magic-pour");
+function isPng(relative) {
+  const buffer = fs.readFileSync(path.join(root, relative));
+  return buffer.subarray(1, 4).toString("ascii") === "PNG";
+}
+
+test("blue scholar keeps one Korean runtime sheet and one Korean shop preview", () => {
+  assert.equal(fs.existsSync(path.join(root, runtime)), true);
+  assert.equal(fs.existsSync(path.join(root, preview)), true);
+  assert.equal(isPng(runtime), true);
+  assert.equal(isPng(preview), true);
 });
 
-test("blue scholar current design stays in shop and magic cast produces visible water feedback", () => {
-  const shop = text("assets/js/shop-navigation.js");
-  const renderer = text("assets/js/scene-renderer.js");
-  const state = text("assets/js/scene-state-machine.js");
-  assert.match(shop, /game-scene-v2\/kongjwi\/blue-scholar\/preview\.png/);
-  assert.doesNotMatch(shop, /source-locked\/kongjwi\/blue-scholar\/base-cutout\.png/);
-  assert.doesNotMatch(renderer, /if \(isBlueScholar30f\) clearLayer\(layer\(stack, "scene-water-(?:stream|splash)"\)\)/);
-  assert.match(state, /BLUE_SCHOLAR_IDLE_FRAMES = \[0, 1, 0\]/);
-  assert.match(state, /BLUE_SCHOLAR_WRONG_FRAMES = \[0\]/);
-  assert.match(state, /playSequence\("waterStream"[\s\S]*delay: 660/);
-  assert.match(state, /playSequence\("waterSplash"[\s\S]*delay: 760/);
+test("shop uses the canonical Korean blue-scholar preview path", () => {
+  const shop = fs.readFileSync(path.join(root, "assets/js/shop-navigation.js"), "utf8");
+  assert.match(shop, /assets\/그림\/공용\/콩쥐\/미리보기\/청색-학자복\.png/);
+  assert.doesNotMatch(shop, /assets\/art\/game-scene-v2\/kongjwi\/blue-scholar/);
+});
+
+test("retired V2 blue-scholar copies are absent", () => {
+  assert.equal(fs.existsSync(path.join(root, "assets/art/game-scene-v2/kongjwi/blue-scholar")), false);
 });

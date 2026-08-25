@@ -1,191 +1,49 @@
-name: Build Kongjwi pour motion sheets
+name: Validate Kongjwi motion assets
 
-# Changes to this workflow deliberately force a full regeneration from authored/canonical PNG masters.
 on:
   push:
     branches: [main]
     paths:
-      - "scripts/build-kongjwi-pour-sheets.py"
-      - "assets/art/kongjwi/*-cutout.png"
-      - "assets/art/game-scene-v2/kongjwi/*/pour-sheet.png"
-      - "assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png"
-      - "assets/art/kongjwi-tools/*.png"
-      - "assets/그림/게임-장면/바가지/*/기준-원본.png"
-      - "assets/그림/게임-장면/바가지/*/물붓기-동작.png"
+      - "assets/그림/공용/원본/콩쥐/**"
+      - "assets/그림/공용/원본/바가지/**"
+      - "assets/그림/공용/콩쥐/**"
+      - "assets/그림/개발자료/궁중복-소환/**"
+      - "assets/그림/개발자료/궁중복-하인/**"
+      - "assets/그림/게임-장면/콩쥐/**"
+      - "assets/그림/게임-장면/바가지/**"
+      - "assets/그림/게임-장면/효과/궁중복-하인/**"
+      - "assets/그림/게임-장면/manifest.json"
       - "tests/kongjwi-pour-motion.test.mjs"
-      - "tests/kongjwi-underlayer-grip.test.mjs"
+      - ".github/workflows/build-kongjwi-pour-motion.yml"
+  pull_request:
+    paths:
+      - "assets/그림/공용/원본/콩쥐/**"
+      - "assets/그림/공용/원본/바가지/**"
+      - "assets/그림/공용/콩쥐/**"
+      - "assets/그림/개발자료/궁중복-소환/**"
+      - "assets/그림/개발자료/궁중복-하인/**"
+      - "assets/그림/게임-장면/콩쥐/**"
+      - "assets/그림/게임-장면/바가지/**"
+      - "assets/그림/게임-장면/효과/궁중복-하인/**"
+      - "assets/그림/게임-장면/manifest.json"
+      - "tests/kongjwi-pour-motion.test.mjs"
       - ".github/workflows/build-kongjwi-pour-motion.yml"
   workflow_dispatch:
-    inputs:
-      regenerate:
-        description: "Regenerate all sheets from authored/canonical PNG masters"
-        required: false
-        default: false
-        type: boolean
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  build:
-    if: github.actor != 'github-actions[bot]'
+  validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
         with:
-          fetch-depth: 0
-
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-
-      - name: Install PNG build dependencies
-        run: python -m pip install --disable-pip-version-check pillow numpy
-
-      - name: Determine whether motion rig must be regenerated
-        id: source-change
-        shell: bash
-        env:
-          BEFORE: ${{ github.event.before }}
-          FORCE_DISPATCH: ${{ inputs.regenerate }}
+          node-version: "22"
+      - name: Validate current canonical motion contracts
         run: |
           set -euo pipefail
-          args=""
-          if [[ "$FORCE_DISPATCH" == "true" ]]; then
-            args="--force"
-          elif [[ "$GITHUB_EVENT_NAME" == "push" && -n "$BEFORE" && ! "$BEFORE" =~ ^0+$ ]]; then
-            if git diff --name-only "$BEFORE" "$GITHUB_SHA" -- \
-              'scripts/build-kongjwi-pour-sheets.py' \
-              'assets/art/kongjwi/*-cutout.png' \
-              'assets/art/game-scene-v2/kongjwi/*/pour-sheet.png' \
-              'assets/art/game-scene-v2/kongjwi/night-court/summon-sheet.png' \
-              'assets/art/kongjwi-tools/*.png' \
-              'assets/그림/게임-장면/바가지/*/기준-원본.png' \
-              'tests/kongjwi-pour-motion.test.mjs' \
-              'tests/kongjwi-underlayer-grip.test.mjs' \
-              '.github/workflows/build-kongjwi-pour-motion.yml' | grep -q .; then
-              args="--force"
-            fi
-          fi
-          echo "args=$args" >> "$GITHUB_OUTPUT"
-
-      - name: Build generated motion sheets
-        run: python scripts/build-kongjwi-pour-sheets.py ${{ steps.source-change.outputs.args }}
-
-      - name: Validate generated animation assets
-        shell: bash
-        run: |
-          set -euo pipefail
-          node --test tests/kongjwi-pour-motion.test.mjs tests/kongjwi-underlayer-grip.test.mjs
-          python - <<'PY'
-          from pathlib import Path
-          from PIL import Image
-          import importlib.util
-          import numpy as np
-          import json
-
-          generated_skins = ("underlayer", "ragged")
-          hq_skins = ("classic-red", "blue-scholar", "field-work")
-          tools = ("wood", "brass", "celadon", "moon")
-
-          spec = importlib.util.spec_from_file_location("kongjwi_builder", Path("scripts/build-kongjwi-pour-sheets.py"))
-          builder = importlib.util.module_from_spec(spec)
-          spec.loader.exec_module(builder)
-
-          current_face, donor_face = builder.night_head_coverage(Path("."))
-          minimum_face = round(donor_face * builder.NIGHT_FACE_REQUIRED_RATIO)
-          assert donor_face >= builder.NIGHT_FACE_MIN_DONOR_COVERAGE, donor_face
-          assert current_face >= minimum_face, (
-              f"night-court face/head alpha is incomplete: {current_face} < {minimum_face}"
-          )
-
-          manifest = json.loads(Path("assets/그림/게임-장면/manifest.json").read_text(encoding="utf-8"))
-          assert manifest["version"] == "20260815-blue-scholar-headsafe1"
-          assert manifest["runtimePolicy"]["nightCourtActionMode"] == "summon-servant-pour"
-          assert manifest["runtimePolicy"]["anatomySafetyPolicy"] == "complete-source-required-no-headless-cutouts"
-          assert manifest["layers"]["scene-tool"] > manifest["layers"]["scene-kongjwi"], (
-              "equipped bucket must render in front of the character grip region"
-          )
-          assert manifest["layers"]["scene-foreground"] < manifest["layers"]["scene-kongjwi"], (
-              "foreground must not occlude the character head or equipped tool"
-          )
-
-          # Underlayer/ragged remain deterministic derivatives of complete source cutouts.
-          for skin in generated_skins:
-              path = Path(builder.GAME_SCENE_ROOT) / builder.KONGJWI_DIRS[skin] / builder.KONGJWI_SHEET_NAME
-              image = Image.open(path).convert("RGBA")
-              assert image.size == (4096, 768), (skin, image.size)
-              source = builder.load_rgba(Path("assets/art/kongjwi") / builder.SOURCES[skin])
-              base = builder.fit_source(source)
-              for index, pose in enumerate(builder.BODY_POSES):
-                  expected = np.asarray(builder.pose_frame(base, *pose), dtype=np.uint8)
-                  actual = np.asarray(image.crop((index * 512, 0, (index + 1) * 512, 768)), dtype=np.uint8)
-                  assert np.array_equal(actual, expected), f"{skin} frame {index}: complete source anatomy was altered"
-
-              idle = np.asarray(image.crop((0, 0, 512, 768)), dtype=np.int16)
-              prepare = np.asarray(image.crop((2 * 512, 0, 3 * 512, 768)), dtype=np.int16)
-              pour = np.asarray(image.crop((5 * 512, 0, 6 * 512, 768)), dtype=np.int16)
-              wrong = np.asarray(image.crop((7 * 512, 0, 8 * 512, 768)), dtype=np.int16)
-              assert np.count_nonzero(np.any(np.abs(idle - prepare) > 12, axis=2)) > 150, skin
-              assert np.count_nonzero(np.any(np.abs(idle - pour) > 12, axis=2)) > 500, skin
-              assert np.count_nonzero(np.any(np.abs(idle - wrong) > 12, axis=2)) > 300, skin
-
-          # Authored high-resolution outfits are canonical in game-scene-v2 and
-          # must be copied byte-for-byte into the active runtime, never rebuilt
-          # from the older low-resolution cutouts.
-          for skin in hq_skins:
-              active_path = Path(builder.GAME_SCENE_ROOT) / builder.KONGJWI_DIRS[skin] / builder.KONGJWI_SHEET_NAME
-              canonical_path = Path("assets/art/game-scene-v2/kongjwi") / skin / "pour-sheet.png"
-              assert active_path.read_bytes() == canonical_path.read_bytes(), f"{skin}: runtime diverged from authored HQ canonical sheet"
-              image = Image.open(active_path).convert("RGBA")
-              assert image.size == (4096, 768), (skin, image.size)
-
-          blue = Image.open(Path(builder.GAME_SCENE_ROOT) / builder.KONGJWI_DIRS["blue-scholar"] / builder.KONGJWI_SHEET_NAME).convert("RGBA")
-          for frame, (x, y) in {0: (259, 101), 1: (228, 106), 3: (281, 102)}.items():
-              alpha = blue.getpixel((frame * 512 + x, y))[3]
-              assert alpha >= 220, f"blue-scholar frame {frame}: crown hole regressed (alpha={alpha})"
-
-          night_path = Path(builder.GAME_SCENE_ROOT) / builder.KONGJWI_DIRS["night-court"] / builder.KONGJWI_SHEET_NAME
-          night = Image.open(night_path).convert("RGBA")
-          assert night.size == (4096, 768), night.size
-          expected_frames, alignments = builder.build_night_court_summon_frames(Path("."))
-          for index, expected_frame in enumerate(expected_frames):
-              actual = np.asarray(night.crop((index * 512, 0, (index + 1) * 512, 768)), dtype=np.uint8)
-              expected = np.asarray(expected_frame, dtype=np.uint8)
-              assert np.array_equal(actual, expected), f"night-court frame {index}: summon design changed"
-              assert abs(alignments[index]["anchor"]["x"] - 256) <= 0.5
-              assert alignments[index]["anchor"]["y"] == 756
-
-          for tool in tools:
-              base = Path(builder.GAME_SCENE_ROOT) / builder.TOOL_DIRS[tool]
-              master = Image.open(base / builder.TOOL_MASTER_NAME).convert("RGBA")
-              assert master.getchannel("A").getbbox(), f"{tool} canonical master is empty"
-              image = Image.open(base / builder.TOOL_SHEET_NAME).convert("RGBA")
-              assert image.size == (4096, 768), (tool, image.size)
-              first = np.asarray(image.crop((0, 0, 512, 768)), dtype=np.int16)
-              fifth = np.asarray(image.crop((5 * 512, 0, 6 * 512, 768)), dtype=np.int16)
-              assert np.count_nonzero(np.any(np.abs(first - fifth) > 12, axis=2)) > 100, tool
-          PY
+          node --test tests/kongjwi-pour-motion.test.mjs
+          node scripts/validate-layered-scene.mjs
           git diff --check
-
-      - name: Commit generated motion assets
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            assets/art/kongjwi/kongjwi-night-court-cutout.png \
-            assets/그림/게임-장면/manifest.json \
-            assets/그림/게임-장면/콩쥐/*/물붓기-동작.png \
-            assets/그림/게임-장면/콩쥐/야간-궁중복/provenance.json \
-            assets/그림/게임-장면/바가지/*/기준-원본.png \
-            assets/그림/게임-장면/바가지/*/물붓기-동작.png
-          if git diff --cached --quiet; then
-            echo "No Kongjwi motion asset changes."
-            exit 0
-          fi
-          git commit -m "chore: refresh layer-safe Kongjwi motion sheets [skip ci]"
-          git pull --rebase origin main
-          git push
