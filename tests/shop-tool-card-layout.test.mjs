@@ -13,7 +13,9 @@ const [html, framingCss] = await Promise.all([
 for (const tool of ["wood", "brass", "celadon", "moon"]) {
   assert.match(
     framingCss,
-    new RegExp(`kongjwi-tools/${tool}\\.png\\?v=20260814-tool-card4`),
+    tool === "celadon"
+      ? /공용\/원본\/바가지\/청자-바가지\.png\?v=20260818-celadon-bucket1/
+      : new RegExp(`kongjwi-tools/${tool}\\.png\\?v=20260814-tool-card4`),
     `${tool} shop card must use the dedicated product PNG`
   );
 }
@@ -27,7 +29,7 @@ assert.equal(
 );
 
 assert.match(html, /<html[^>]*data-page="shop"/);
-assert.match(html, /shop-tool-framing\.css\?v=20260814-tool-card4/);
+assert.match(html, /shop-tool-framing\.css\?v=20260818-celadon-bucket1/);
 assert.match(framingCss, /shop-grid\[data-category="tool"\] \.shop-item-visual::before[\s\S]*content: none !important/);
 assert.match(framingCss, /shop-grid\[data-category="tool"\] \.shop-asset-tool[\s\S]*aspect-ratio: 8 \/ 5 !important/);
 assert.match(framingCss, /shop-grid\[data-category="tool"\] \.shop-asset-tool[\s\S]*background-size: contain !important/);

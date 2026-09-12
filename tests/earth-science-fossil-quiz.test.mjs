@@ -43,7 +43,7 @@ test("fossil era jar includes only six standard fossils and four exact era choic
 
 test("first two earth science jars are live and share one quiz runner", async () => {
   const jars = quizzesForSubject("earth-science");
-  assert.deepEqual(jars.map(jar => jar.status), ["live", "live", "planned"]);
+  assert.deepEqual(jars.map(jar => jar.status), ["live", "live", "live"]);
   assert.match(jars[0].implementation, /subject=earth-science&training=earth-fossil-type$/);
   assert.match(jars[1].implementation, /subject=earth-science&training=earth-index-fossil-era$/);
   const html = await readFile(resolve(root, "subjects/earth-science/quiz.html"), "utf8");

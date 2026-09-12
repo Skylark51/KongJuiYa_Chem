@@ -49,7 +49,7 @@ test("base tool placement is not duplicated in aspect-protection CSS", () => {
 
 test("project structure document describes the current manifest renderer", () => {
   const structure = read("docs/PROJECT_STRUCTURE.md");
-  assert.match(structure, /assets\/art\/game-scene\/manifest\.json/);
+  assert.match(structure, /assets\/그림\/게임-장면\/manifest\.json/);
   assert.match(structure, /2048 x 1152/);
   assert.doesNotMatch(structure, /scene-art-loader\.js.*핵심|photoreal\/kongjwi-keyposes\.png/);
 });

@@ -30,6 +30,6 @@ test("blue scholar current design stays in shop and magic cast produces visible 
   assert.doesNotMatch(renderer, /if \(isBlueScholar30f\) clearLayer\(layer\(stack, "scene-water-(?:stream|splash)"\)\)/);
   assert.match(state, /BLUE_SCHOLAR_IDLE_FRAMES = \[0, 1, 0\]/);
   assert.match(state, /BLUE_SCHOLAR_WRONG_FRAMES = \[0\]/);
-  assert.match(state, /playSequence\("waterStream"[\s\S]*delay: 660/);
-  assert.match(state, /playSequence\("waterSplash"[\s\S]*delay: 760/);
+  assert.match(state, /playSequence\("waterStream"[\s\S]*delay: 610/);
+  assert.match(state, /playSequence\("waterSplash"[\s\S]*delay: 735/);
 });

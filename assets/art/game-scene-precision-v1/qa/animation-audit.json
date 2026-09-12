@@ -1,6 +1,6 @@
 {
   "manifest": "assets/art/game-scene-precision-v1/animation-manifest.json",
-  "manifestSha256": "5b1c6453a547760c702bd4ab4638767b79460d487d73ece1277da68f95e43513",
+  "manifestSha256": "2425cb9f0ba5402c4e076c14caa1af93e8b60b96e17c13b47f4ba97bb02a4e65",
   "sequences": [
     {
       "actor": "kongjwi",
@@ -96,7 +96,7 @@
             725
           ],
           "pixelSha256": "085d4bf5b0eefffb50b2ff1202bad4b9cf2dec0c8e1c120ca6e7dd231b92547a",
-          "source": "assets/그림/게임-장면/콩쥐/기본-언더레이어/물붓기-동작.png#frame-001",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uae30\ubcf8-\uc5b8\ub354\ub808\uc774\uc5b4/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-001",
           "touchesCanvasEdge": false
         },
         {
@@ -137,7 +137,7 @@
             724
           ],
           "pixelSha256": "79027831e2097ebe8074b3ce4fe3cb0fe85faec5f7ceb83d1b54da686bab7b25",
-          "source": "assets/그림/게임-장면/콩쥐/기본-언더레이어/물붓기-동작.png#frame-002",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uae30\ubcf8-\uc5b8\ub354\ub808\uc774\uc5b4/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-002",
           "touchesCanvasEdge": false
         },
         {
@@ -178,7 +178,7 @@
             724
           ],
           "pixelSha256": "570d2de9ec99b8043e13b2a17a37ecaebce9b997dd35c7122237f02e81b54ac9",
-          "source": "assets/그림/게임-장면/콩쥐/기본-언더레이어/물붓기-동작.png#frame-003",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uae30\ubcf8-\uc5b8\ub354\ub808\uc774\uc5b4/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-003",
           "touchesCanvasEdge": false
         },
         {
@@ -219,7 +219,7 @@
             723
           ],
           "pixelSha256": "3fd3a6a2ae3fddda85ca9c041695d9b84c192f5c638bd0bc4a1dcd5efa26f2d9",
-          "source": "assets/그림/게임-장면/콩쥐/기본-언더레이어/물붓기-동작.png#frame-004",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uae30\ubcf8-\uc5b8\ub354\ub808\uc774\uc5b4/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-004",
           "touchesCanvasEdge": false
         },
         {
@@ -260,7 +260,7 @@
             722
           ],
           "pixelSha256": "080fe0f4a8b770d8884465cc170cbae9556117d43303b0265843a0bddcfa1e24",
-          "source": "assets/그림/게임-장면/콩쥐/기본-언더레이어/물붓기-동작.png#frame-005",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uae30\ubcf8-\uc5b8\ub354\ub808\uc774\uc5b4/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-005",
           "touchesCanvasEdge": false
         },
         {
@@ -301,7 +301,7 @@
             722
           ],
           "pixelSha256": "81937858de52be8de253869ee6e05f479bdbce6dc448846b9a85aef4f9cd1c7d",
-          "source": "assets/그림/게임-장면/콩쥐/기본-언더레이어/물붓기-동작.png#frame-006",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uae30\ubcf8-\uc5b8\ub354\ub808\uc774\uc5b4/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-006",
           "touchesCanvasEdge": false
         },
         {
@@ -342,7 +342,7 @@
             724
           ],
           "pixelSha256": "029dda406a1eebc4c07c4dea9aca5b307f3e492db822164388d48de7c28aad79",
-          "source": "assets/그림/게임-장면/콩쥐/기본-언더레이어/물붓기-동작.png#frame-007",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uae30\ubcf8-\uc5b8\ub354\ub808\uc774\uc5b4/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-007",
           "touchesCanvasEdge": false
         },
         {
@@ -383,7 +383,7 @@
             729
           ],
           "pixelSha256": "d006c8d824755ab2615578dcc8fcedb1e7664f7b34182d849ba22bcbfa4f6cb5",
-          "source": "assets/그림/게임-장면/콩쥐/기본-언더레이어/물붓기-동작.png#frame-008",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uae30\ubcf8-\uc5b8\ub354\ub808\uc774\uc5b4/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-008",
           "touchesCanvasEdge": false
         }
       ],
@@ -410,487 +410,3000 @@
       "clip": "pour",
       "deltas": [
         {
-          "alphaAreaChangeRatio": 0.0,
-          "anchorDeltaPx": 1.0,
-          "bboxCenterDeltaPx": 1.0,
+          "alphaAreaChangeRatio": 0.00199,
+          "anchorDeltaPx": 0.21,
+          "bboxCenterDeltaPx": 1.118,
           "from": 1,
           "to": 2
         },
         {
-          "alphaAreaChangeRatio": 0.00116,
-          "anchorDeltaPx": 0.032,
-          "bboxCenterDeltaPx": 1.0,
+          "alphaAreaChangeRatio": 0.01831,
+          "anchorDeltaPx": 0.216,
+          "bboxCenterDeltaPx": 1.581,
           "from": 2,
           "to": 3
         },
         {
-          "alphaAreaChangeRatio": 0.00018,
-          "anchorDeltaPx": 1.465,
-          "bboxCenterDeltaPx": 3.162,
+          "alphaAreaChangeRatio": 0.00181,
+          "anchorDeltaPx": 0.216,
+          "bboxCenterDeltaPx": 1.118,
           "from": 3,
           "to": 4
         },
         {
-          "alphaAreaChangeRatio": 0.00013,
-          "anchorDeltaPx": 1.337,
-          "bboxCenterDeltaPx": 3.041,
+          "alphaAreaChangeRatio": 0.00387,
+          "anchorDeltaPx": 0.222,
+          "bboxCenterDeltaPx": 1.118,
           "from": 4,
           "to": 5
         },
         {
-          "alphaAreaChangeRatio": 0.00034,
-          "anchorDeltaPx": 1.055,
-          "bboxCenterDeltaPx": 2.0,
+          "alphaAreaChangeRatio": 0.00159,
+          "anchorDeltaPx": 0.202,
+          "bboxCenterDeltaPx": 1.118,
           "from": 5,
           "to": 6
         },
         {
-          "alphaAreaChangeRatio": 0.00017,
-          "anchorDeltaPx": 2.611,
-          "bboxCenterDeltaPx": 5.701,
+          "alphaAreaChangeRatio": 0.00341,
+          "anchorDeltaPx": 1.027,
+          "bboxCenterDeltaPx": 1.0,
           "from": 6,
           "to": 7
         },
         {
-          "alphaAreaChangeRatio": 0.00044,
-          "anchorDeltaPx": 5.995,
-          "bboxCenterDeltaPx": 11.63,
+          "alphaAreaChangeRatio": 0.00928,
+          "anchorDeltaPx": 0.182,
+          "bboxCenterDeltaPx": 0.707,
           "from": 7,
           "to": 8
+        },
+        {
+          "alphaAreaChangeRatio": 0.10469,
+          "anchorDeltaPx": 0.212,
+          "bboxCenterDeltaPx": 5.59,
+          "from": 8,
+          "to": 9
+        },
+        {
+          "alphaAreaChangeRatio": 0.00902,
+          "anchorDeltaPx": 0.204,
+          "bboxCenterDeltaPx": 1.5,
+          "from": 9,
+          "to": 10
+        },
+        {
+          "alphaAreaChangeRatio": 0.0127,
+          "anchorDeltaPx": 0.69,
+          "bboxCenterDeltaPx": 0.0,
+          "from": 10,
+          "to": 11
+        },
+        {
+          "alphaAreaChangeRatio": 0.02361,
+          "anchorDeltaPx": 0.693,
+          "bboxCenterDeltaPx": 11.5,
+          "from": 11,
+          "to": 12
+        },
+        {
+          "alphaAreaChangeRatio": 0.00724,
+          "anchorDeltaPx": 1.22,
+          "bboxCenterDeltaPx": 0.5,
+          "from": 12,
+          "to": 13
+        },
+        {
+          "alphaAreaChangeRatio": 0.01105,
+          "anchorDeltaPx": 0.658,
+          "bboxCenterDeltaPx": 0.0,
+          "from": 13,
+          "to": 14
+        },
+        {
+          "alphaAreaChangeRatio": 0.01188,
+          "anchorDeltaPx": 0.647,
+          "bboxCenterDeltaPx": 0.0,
+          "from": 14,
+          "to": 15
+        },
+        {
+          "alphaAreaChangeRatio": 0.01202,
+          "anchorDeltaPx": 0.679,
+          "bboxCenterDeltaPx": 0.5,
+          "from": 15,
+          "to": 16
+        },
+        {
+          "alphaAreaChangeRatio": 0.01293,
+          "anchorDeltaPx": 0.669,
+          "bboxCenterDeltaPx": 0.5,
+          "from": 16,
+          "to": 17
+        },
+        {
+          "alphaAreaChangeRatio": 0.01652,
+          "anchorDeltaPx": 0.686,
+          "bboxCenterDeltaPx": 0.0,
+          "from": 17,
+          "to": 18
+        },
+        {
+          "alphaAreaChangeRatio": 0.02797,
+          "anchorDeltaPx": 0.742,
+          "bboxCenterDeltaPx": 0.0,
+          "from": 18,
+          "to": 19
+        },
+        {
+          "alphaAreaChangeRatio": 0.01331,
+          "anchorDeltaPx": 1.246,
+          "bboxCenterDeltaPx": 0.707,
+          "from": 19,
+          "to": 20
+        },
+        {
+          "alphaAreaChangeRatio": 0.00876,
+          "anchorDeltaPx": 1.008,
+          "bboxCenterDeltaPx": 1.118,
+          "from": 20,
+          "to": 21
+        },
+        {
+          "alphaAreaChangeRatio": 0.00977,
+          "anchorDeltaPx": 0.098,
+          "bboxCenterDeltaPx": 1.5,
+          "from": 21,
+          "to": 22
+        },
+        {
+          "alphaAreaChangeRatio": 0.0093,
+          "anchorDeltaPx": 0.087,
+          "bboxCenterDeltaPx": 0.5,
+          "from": 22,
+          "to": 23
+        },
+        {
+          "alphaAreaChangeRatio": 0.00779,
+          "anchorDeltaPx": 0.102,
+          "bboxCenterDeltaPx": 1.5,
+          "from": 23,
+          "to": 24
+        },
+        {
+          "alphaAreaChangeRatio": 0.00808,
+          "anchorDeltaPx": 0.085,
+          "bboxCenterDeltaPx": 1.0,
+          "from": 24,
+          "to": 25
+        },
+        {
+          "alphaAreaChangeRatio": 0.00711,
+          "anchorDeltaPx": 0.072,
+          "bboxCenterDeltaPx": 1.5,
+          "from": 25,
+          "to": 26
+        },
+        {
+          "alphaAreaChangeRatio": 0.00595,
+          "anchorDeltaPx": 0.076,
+          "bboxCenterDeltaPx": 0.5,
+          "from": 26,
+          "to": 27
+        },
+        {
+          "alphaAreaChangeRatio": 0.00635,
+          "anchorDeltaPx": 0.077,
+          "bboxCenterDeltaPx": 0.5,
+          "from": 27,
+          "to": 28
+        },
+        {
+          "alphaAreaChangeRatio": 0.00624,
+          "anchorDeltaPx": 0.081,
+          "bboxCenterDeltaPx": 1.5,
+          "from": 28,
+          "to": 29
+        },
+        {
+          "alphaAreaChangeRatio": 0.00745,
+          "anchorDeltaPx": 1.009,
+          "bboxCenterDeltaPx": 1.581,
+          "from": 29,
+          "to": 30
         }
       ],
       "errors": [],
       "frames": [
         {
-          "alphaArea": 118208,
+          "alphaArea": 38680,
           "alphaBBox": [
-            136,
-            18,
-            375,
-            756
+            21,
+            33,
+            252,
+            372
           ],
           "alphaExtrema": [
             0,
             255
           ],
           "bboxBottomCenter": [
-            255.5,
-            756
+            136.5,
+            372
           ],
           "bboxCenter": [
-            255.0,
-            386.5
+            136.0,
+            202.0
           ],
           "bboxSize": [
-            239,
-            738
+            231,
+            339
           ],
           "bottomBandAnchor": [
-            259.713,
-            756
+            125.396,
+            372
           ],
           "canvas": [
-            512,
-            768
+            256,
+            384
           ],
           "index": 1,
           "measuredAnchor": [
-            259.713,
-            756
+            125.396,
+            372
           ],
-          "pixelSha256": "545fa3fce67995e2b4cd04cc89f24ce085e13ac6f92d27ec408c9847491d7476",
-          "source": "assets/그림/게임-장면/콩쥐/고전-홍색-한복/물붓기-동작.png#frame-001",
+          "pixelSha256": "a901e0b35bc92d5b278fe435c5c8f64711eeed30b739945892774801df7538d3",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-001",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 118208,
+          "alphaArea": 38603,
           "alphaBBox": [
-            136,
-            17,
-            375,
-            755
+            21,
+            32,
+            250,
+            372
           ],
           "alphaExtrema": [
             0,
             255
           ],
           "bboxBottomCenter": [
-            255.5,
-            755
+            135.5,
+            372
           ],
           "bboxCenter": [
-            255.0,
-            385.5
+            135.0,
+            201.5
           ],
           "bboxSize": [
-            239,
-            738
+            229,
+            340
           ],
           "bottomBandAnchor": [
-            259.713,
-            755
+            125.186,
+            372
           ],
           "canvas": [
-            512,
-            768
+            256,
+            384
           ],
           "index": 2,
           "measuredAnchor": [
-            259.713,
-            755
+            125.186,
+            372
           ],
-          "pixelSha256": "f62fe578ff55d2fdc218bdaaf0a26b3d51a08dd87fd13a10ce489f895080a833",
-          "source": "assets/그림/게임-장면/콩쥐/고전-홍색-한복/물붓기-동작.png#frame-002",
+          "pixelSha256": "c57410200c8d6bd74212954a48629c122f1bb240ea2be478850059f07a1a4cfd",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-002",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 118071,
+          "alphaArea": 39310,
           "alphaBBox": [
-            137,
-            17,
-            376,
-            755
+            20,
+            31,
+            248,
+            372
           ],
           "alphaExtrema": [
             0,
             255
           ],
           "bboxBottomCenter": [
-            256.5,
-            755
+            134.0,
+            372
           ],
           "bboxCenter": [
-            256.0,
-            385.5
+            133.5,
+            201.0
           ],
           "bboxSize": [
-            239,
-            738
+            228,
+            341
           ],
           "bottomBandAnchor": [
-            259.745,
-            755
+            124.97,
+            372
           ],
           "canvas": [
-            512,
-            768
+            256,
+            384
           ],
           "index": 3,
           "measuredAnchor": [
-            259.745,
-            755
+            124.97,
+            372
           ],
-          "pixelSha256": "4a23b4546e9a93b80cfcc102140572829303932da390bd507b3b0c08a8f18fed",
-          "source": "assets/그림/게임-장면/콩쥐/고전-홍색-한복/물붓기-동작.png#frame-003",
+          "pixelSha256": "1608f8e21d3448e47d5083a84ddb7c4ca416890bd5ef5847a88b824cd25ffbd9",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-003",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 118092,
+          "alphaArea": 39239,
           "alphaBBox": [
-            140,
-            16,
-            379,
-            754
+            20,
+            30,
+            246,
+            372
           ],
           "alphaExtrema": [
             0,
             255
           ],
           "bboxBottomCenter": [
-            259.5,
-            754
+            133.0,
+            372
           ],
           "bboxCenter": [
-            259.0,
-            384.5
+            132.5,
+            200.5
           ],
           "bboxSize": [
-            239,
-            738
+            226,
+            342
           ],
           "bottomBandAnchor": [
-            260.816,
-            754
+            124.754,
+            372
           ],
           "canvas": [
-            512,
-            768
+            256,
+            384
           ],
           "index": 4,
           "measuredAnchor": [
-            260.816,
-            754
+            124.754,
+            372
           ],
-          "pixelSha256": "dd4d5a140398b318b17ffce945e3875249e2c2561aea1a681378e1bc47098ca7",
-          "source": "assets/그림/게임-장면/콩쥐/고전-홍색-한복/물붓기-동작.png#frame-004",
+          "pixelSha256": "2372150bd8e34afacc406c0f03b316d0b7f6fb4e02e0a3d765c88b6136b48d4f",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-004",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 118077,
+          "alphaArea": 39087,
           "alphaBBox": [
-            143,
-            15,
-            382,
-            754
+            19,
+            29,
+            245,
+            372
           ],
           "alphaExtrema": [
             0,
             255
           ],
           "bboxBottomCenter": [
-            262.5,
-            754
+            132.0,
+            372
           ],
           "bboxCenter": [
-            262.0,
-            384.0
+            131.5,
+            200.0
           ],
           "bboxSize": [
-            239,
-            739
+            226,
+            343
           ],
           "bottomBandAnchor": [
-            262.153,
-            754
+            124.532,
+            372
           ],
           "canvas": [
-            512,
-            768
+            256,
+            384
           ],
           "index": 5,
           "measuredAnchor": [
-            262.153,
-            754
+            124.532,
+            372
           ],
-          "pixelSha256": "8b32fc1d88b7098f2740b1eb4c38a8585192d95b9171937653909f6bfbc24bb6",
-          "source": "assets/그림/게임-장면/콩쥐/고전-홍색-한복/물붓기-동작.png#frame-005",
+          "pixelSha256": "6f9ef23b5cb935c043b5d07d08d4f6ff00f0ac77526a577493bad754891d0c75",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-005",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 118117,
+          "alphaArea": 39025,
           "alphaBBox": [
-            145,
-            15,
-            384,
-            754
+            18,
+            28,
+            244,
+            372
           ],
           "alphaExtrema": [
             0,
             255
           ],
           "bboxBottomCenter": [
-            264.5,
-            754
+            131.0,
+            372
           ],
           "bboxCenter": [
-            264.0,
-            384.0
+            130.5,
+            199.5
           ],
           "bboxSize": [
-            239,
-            739
+            226,
+            344
           ],
           "bottomBandAnchor": [
-            263.208,
-            754
+            124.33,
+            372
           ],
           "canvas": [
-            512,
-            768
+            256,
+            384
           ],
           "index": 6,
           "measuredAnchor": [
-            263.208,
-            754
+            124.33,
+            372
           ],
-          "pixelSha256": "3248b2e31502cdcfa9152cad989a09f8c9d580858b286775044fe8eb51b7cbce",
-          "source": "assets/그림/게임-장면/콩쥐/고전-홍색-한복/물붓기-동작.png#frame-006",
+          "pixelSha256": "7c43ca35261ded81abb07455bd24d2ec2ebf98232a555dcb80ca86a5582142cc",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-006",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 118097,
+          "alphaArea": 38892,
           "alphaBBox": [
-            140,
-            17,
-            378,
-            755
+            18,
+            27,
+            242,
+            373
           ],
           "alphaExtrema": [
             0,
             255
           ],
           "bboxBottomCenter": [
-            259.0,
-            755
+            130.0,
+            373
           ],
           "bboxCenter": [
-            258.5,
-            385.5
+            129.5,
+            199.5
           ],
           "bboxSize": [
-            238,
-            738
+            224,
+            346
           ],
           "bottomBandAnchor": [
-            260.796,
-            755
+            124.095,
+            373
           ],
           "canvas": [
-            512,
-            768
+            256,
+            384
           ],
           "index": 7,
           "measuredAnchor": [
-            260.796,
-            755
+            124.095,
+            373
           ],
-          "pixelSha256": "cba10125a990f904d032fcb84614bc1c34151e71c6650479d2cf1c504d21ecec",
-          "source": "assets/그림/게임-장면/콩쥐/고전-홍색-한복/물붓기-동작.png#frame-007",
+          "pixelSha256": "1ba91934bc2abee32e3bb0e78515948379b588571196c7cab4d978187e84ff89",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-007",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 118149,
+          "alphaArea": 38531,
           "alphaBBox": [
-            129,
-            22,
-            368,
-            760
+            18,
+            26,
+            241,
+            373
           ],
           "alphaExtrema": [
             0,
             255
           ],
           "bboxBottomCenter": [
-            248.5,
-            760
+            129.5,
+            373
           ],
           "bboxCenter": [
-            248.0,
-            390.5
+            129.0,
+            199.0
           ],
           "bboxSize": [
-            239,
-            738
+            223,
+            347
           ],
           "bottomBandAnchor": [
-            257.489,
-            760
+            123.913,
+            373
           ],
           "canvas": [
-            512,
-            768
+            256,
+            384
           ],
           "index": 8,
           "measuredAnchor": [
-            257.489,
-            760
+            123.913,
+            373
           ],
-          "pixelSha256": "4f552c4e5760593b42c1b877fe6107d5ec365f788db87c1b42608791d520ef25",
-          "source": "assets/그림/게임-장면/콩쥐/고전-홍색-한복/물붓기-동작.png#frame-008",
+          "pixelSha256": "f7e9abbd7879482489d3c0e65d0679c8d7dc829d84f728bbfe65d39f424e4f92",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-008",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 34497,
+          "alphaBBox": [
+            32,
+            37,
+            229,
+            373
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            130.5,
+            373
+          ],
+          "bboxCenter": [
+            130.0,
+            204.5
+          ],
+          "bboxSize": [
+            197,
+            336
+          ],
+          "bottomBandAnchor": [
+            123.701,
+            373
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 9,
+          "measuredAnchor": [
+            123.701,
+            373
+          ],
+          "pixelSha256": "dab8b63b6865c07b5bb92429ffd8d757fb1108cd81b852784af6b5b5e0bf5ba3",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-009",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 34186,
+          "alphaBBox": [
+            33,
+            34,
+            228,
+            373
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            130.5,
+            373
+          ],
+          "bboxCenter": [
+            130.0,
+            203.0
+          ],
+          "bboxSize": [
+            195,
+            339
+          ],
+          "bottomBandAnchor": [
+            123.497,
+            373
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 10,
+          "measuredAnchor": [
+            123.497,
+            373
+          ],
+          "pixelSha256": "1c2180488f264996f2867006d79701202a300eb4e9f39877236df25533838354",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-010",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 33752,
+          "alphaBBox": [
+            35,
+            34,
+            226,
+            373
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            130.5,
+            373
+          ],
+          "bboxCenter": [
+            130.0,
+            203.0
+          ],
+          "bboxSize": [
+            191,
+            339
+          ],
+          "bottomBandAnchor": [
+            124.187,
+            373
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 11,
+          "measuredAnchor": [
+            124.187,
+            373
+          ],
+          "pixelSha256": "b542751ea71896decab789201fbfb318446babdfcfa6e64f71f148a66d5d614e",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-011",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 34549,
+          "alphaBBox": [
+            13,
+            34,
+            225,
+            373
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            119.0,
+            373
+          ],
+          "bboxCenter": [
+            118.5,
+            203.0
+          ],
+          "bboxSize": [
+            212,
+            339
+          ],
+          "bottomBandAnchor": [
+            124.88,
+            373
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 12,
+          "measuredAnchor": [
+            124.88,
+            373
+          ],
+          "pixelSha256": "4f90a8070326bb867082f093ec13b9c951e108d151f08a9b2b38fc4c3b568fc6",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-012",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 34299,
+          "alphaBBox": [
+            14,
+            34,
+            224,
+            372
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            119.0,
+            372
+          ],
+          "bboxCenter": [
+            118.5,
+            202.5
+          ],
+          "bboxSize": [
+            210,
+            338
+          ],
+          "bottomBandAnchor": [
+            125.579,
+            372
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 13,
+          "measuredAnchor": [
+            125.579,
+            372
+          ],
+          "pixelSha256": "7b9d069e01e85d567e7bed4f1e4ed484fff7f4581fd98e017a237bd005b6afed",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-013",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 33920,
+          "alphaBBox": [
+            15,
+            34,
+            223,
+            372
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            119.0,
+            372
+          ],
+          "bboxCenter": [
+            118.5,
+            202.5
+          ],
+          "bboxSize": [
+            208,
+            338
+          ],
+          "bottomBandAnchor": [
+            126.237,
+            372
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 14,
+          "measuredAnchor": [
+            126.237,
+            372
+          ],
+          "pixelSha256": "8ae54637ab32e0149dd7640a077b1596a4d6818538bd10f35666e47aa7b9eb91",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-014",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 33517,
+          "alphaBBox": [
+            16,
+            34,
+            222,
+            372
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            119.0,
+            372
+          ],
+          "bboxCenter": [
+            118.5,
+            202.5
+          ],
+          "bboxSize": [
+            206,
+            338
+          ],
+          "bottomBandAnchor": [
+            126.884,
+            372
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 15,
+          "measuredAnchor": [
+            126.884,
+            372
+          ],
+          "pixelSha256": "bf66d3c18c4d4345eb7a31117d5063af49adeacae9a35ba9dea19bef2995bc15",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-015",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 33114,
+          "alphaBBox": [
+            18,
+            34,
+            221,
+            372
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            119.5,
+            372
+          ],
+          "bboxCenter": [
+            119.0,
+            202.5
+          ],
+          "bboxSize": [
+            203,
+            338
+          ],
+          "bottomBandAnchor": [
+            127.563,
+            372
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 16,
+          "measuredAnchor": [
+            127.563,
+            372
+          ],
+          "pixelSha256": "009dd374185c5f44a48cba047acddd49b6474550a929328b1cc167c2a6430264",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-016",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 32686,
+          "alphaBBox": [
+            19,
+            34,
+            219,
+            372
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            119.0,
+            372
+          ],
+          "bboxCenter": [
+            118.5,
+            202.5
+          ],
+          "bboxSize": [
+            200,
+            338
+          ],
+          "bottomBandAnchor": [
+            128.232,
+            372
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 17,
+          "measuredAnchor": [
+            128.232,
+            372
+          ],
+          "pixelSha256": "a37134e9ca16f2a82de0d055ea36cd43e4ddc014648952ba7bc95afa2caa9b45",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-017",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 32146,
+          "alphaBBox": [
+            20,
+            34,
+            218,
+            372
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            119.0,
+            372
+          ],
+          "bboxCenter": [
+            118.5,
+            202.5
+          ],
+          "bboxSize": [
+            198,
+            338
+          ],
+          "bottomBandAnchor": [
+            128.918,
+            372
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 18,
+          "measuredAnchor": [
+            128.918,
+            372
+          ],
+          "pixelSha256": "4a92ab659acd9777d88eade3c9946212bed0acb6d86ae8112b5e63740c732ee5",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-018",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 31247,
+          "alphaBBox": [
+            21,
+            34,
+            217,
+            372
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            119.0,
+            372
+          ],
+          "bboxCenter": [
+            118.5,
+            202.5
+          ],
+          "bboxSize": [
+            196,
+            338
+          ],
+          "bottomBandAnchor": [
+            129.66,
+            372
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 19,
+          "measuredAnchor": [
+            129.66,
+            372
+          ],
+          "pixelSha256": "c7bea294d836cc3c44ebd2640b23e28acb1a4a1fc55e788ef7e0dd923c2afcb6",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-019",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 30831,
+          "alphaBBox": [
+            22,
+            34,
+            215,
+            371
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            118.5,
+            371
+          ],
+          "bboxCenter": [
+            118.0,
+            202.0
+          ],
+          "bboxSize": [
+            193,
+            337
+          ],
+          "bottomBandAnchor": [
+            130.404,
+            371
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 20,
+          "measuredAnchor": [
+            130.404,
+            371
+          ],
+          "pixelSha256": "b3562d01237730d4c951ce7182132cbac8fc9281f8372bcb44f0e365a8df422a",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-020",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 31101,
+          "alphaBBox": [
+            23,
+            34,
+            216,
+            372
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            119.5,
+            372
+          ],
+          "bboxCenter": [
+            119.0,
+            202.5
+          ],
+          "bboxSize": [
+            193,
+            338
+          ],
+          "bottomBandAnchor": [
+            130.28,
+            372
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 21,
+          "measuredAnchor": [
+            130.28,
+            372
+          ],
+          "pixelSha256": "3ec554f69191d1fdf1e0b166e1b192794e178d48195f7a061763abafa56eeff0",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-021",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 31405,
+          "alphaBBox": [
+            24,
+            34,
+            218,
+            372
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            121.0,
+            372
+          ],
+          "bboxCenter": [
+            120.5,
+            202.5
+          ],
+          "bboxSize": [
+            194,
+            338
+          ],
+          "bottomBandAnchor": [
+            130.182,
+            372
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 22,
+          "measuredAnchor": [
+            130.182,
+            372
+          ],
+          "pixelSha256": "5be841c6746756279a43bf70c26484e071969e084bb986bdf43a4d88ff751059",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-022",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 31697,
+          "alphaBBox": [
+            25,
+            34,
+            218,
+            372
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            121.5,
+            372
+          ],
+          "bboxCenter": [
+            121.0,
+            202.5
+          ],
+          "bboxSize": [
+            193,
+            338
+          ],
+          "bottomBandAnchor": [
+            130.095,
+            372
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 23,
+          "measuredAnchor": [
+            130.095,
+            372
+          ],
+          "pixelSha256": "7cf33f7f0fe104dd06812ecb29f5a97207ae13ac317ff2acea8a6de9d387d497",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-023",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 31944,
+          "alphaBBox": [
+            27,
+            34,
+            219,
+            372
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            123.0,
+            372
+          ],
+          "bboxCenter": [
+            122.5,
+            202.5
+          ],
+          "bboxSize": [
+            192,
+            338
+          ],
+          "bottomBandAnchor": [
+            129.993,
+            372
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 24,
+          "measuredAnchor": [
+            129.993,
+            372
+          ],
+          "pixelSha256": "07b26454469fa86bc6bb158e406afde17933f3407738b8cd0eeee0359294f5d3",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-024",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 32202,
+          "alphaBBox": [
+            28,
+            34,
+            220,
+            372
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            124.0,
+            372
+          ],
+          "bboxCenter": [
+            123.5,
+            202.5
+          ],
+          "bboxSize": [
+            192,
+            338
+          ],
+          "bottomBandAnchor": [
+            129.908,
+            372
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 25,
+          "measuredAnchor": [
+            129.908,
+            372
+          ],
+          "pixelSha256": "101c040cb2ac659bb641fbda731f6af21bb791ed08d37541ca3efc66f2b17d48",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-025",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 32431,
+          "alphaBBox": [
+            29,
+            34,
+            222,
+            372
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            125.5,
+            372
+          ],
+          "bboxCenter": [
+            125.0,
+            202.5
+          ],
+          "bboxSize": [
+            193,
+            338
+          ],
+          "bottomBandAnchor": [
+            129.836,
+            372
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 26,
+          "measuredAnchor": [
+            129.836,
+            372
+          ],
+          "pixelSha256": "d06c0103aab5f867a003f8276db37f57d2d91a6508bc504f974c87cd6130038b",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-026",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 32624,
+          "alphaBBox": [
+            30,
+            34,
+            222,
+            372
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            126.0,
+            372
+          ],
+          "bboxCenter": [
+            125.5,
+            202.5
+          ],
+          "bboxSize": [
+            192,
+            338
+          ],
+          "bottomBandAnchor": [
+            129.76,
+            372
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 27,
+          "measuredAnchor": [
+            129.76,
+            372
+          ],
+          "pixelSha256": "b9f53e21d249d680e2ce2aa8e9441fc06577df802c44d488a2ddf7d5c1da6144",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-027",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 32831,
+          "alphaBBox": [
+            30,
+            34,
+            223,
+            372
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            126.5,
+            372
+          ],
+          "bboxCenter": [
+            126.0,
+            202.5
+          ],
+          "bboxSize": [
+            193,
+            338
+          ],
+          "bottomBandAnchor": [
+            129.683,
+            372
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 28,
+          "measuredAnchor": [
+            129.683,
+            372
+          ],
+          "pixelSha256": "5449498dc1cdd4210edd537a67f03662a4adf522c00de1e1e2a7669c078fc0fd",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-028",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 33036,
+          "alphaBBox": [
+            32,
+            34,
+            224,
+            372
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            128.0,
+            372
+          ],
+          "bboxCenter": [
+            127.5,
+            202.5
+          ],
+          "bboxSize": [
+            192,
+            338
+          ],
+          "bottomBandAnchor": [
+            129.602,
+            372
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 29,
+          "measuredAnchor": [
+            129.602,
+            372
+          ],
+          "pixelSha256": "825557ce34504d09ebaf8b8662ea47923098fdc95c8368209848c8735f67ee8f",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-029",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 33282,
+          "alphaBBox": [
+            33,
+            34,
+            226,
+            373
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            129.5,
+            373
+          ],
+          "bboxCenter": [
+            129.0,
+            203.0
+          ],
+          "bboxSize": [
+            193,
+            339
+          ],
+          "bottomBandAnchor": [
+            129.466,
+            373
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 30,
+          "measuredAnchor": [
+            129.466,
+            373
+          ],
+          "pixelSha256": "aa9e36f8dc2afa5cb79c7de5eafbf0f7ae8b051fbb914a2eb4e345e8acb2fd42",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uace0\uc804-\ud64d\uc0c9-\ud55c\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-030",
           "touchesCanvasEdge": false
         }
       ],
       "id": "production-kongjwi-classic-red-pour",
       "observed": {
         "duplicateFrameGroups": [],
-        "maxAlphaAreaChangeRatio": 0.00116,
-        "maxAnchorDeltaPx": 5.99469,
-        "maxBboxCenterDeltaPx": 11.6297
+        "maxAlphaAreaChangeRatio": 0.10469,
+        "maxAnchorDeltaPx": 1.24641,
+        "maxBboxCenterDeltaPx": 11.5
       },
       "qualityGate": "report",
-      "status": "WARN",
+      "status": "PASS",
       "thresholds": {
         "maxAlphaAreaChangeRatio": null,
         "maxAnchorDeltaPx": 4,
         "maxBboxCenterDeltaPx": null
       },
-      "warnings": [
-        "anchor jitter 5.995 > 4.000"
-      ]
+      "warnings": []
     },
     {
       "actor": "kongjwi",
       "clip": "pour",
       "deltas": [
         {
-          "alphaAreaChangeRatio": 0.0,
-          "anchorDeltaPx": 1.0,
-          "bboxCenterDeltaPx": 1.0,
+          "alphaAreaChangeRatio": 0.00452,
+          "anchorDeltaPx": 0.025,
+          "bboxCenterDeltaPx": 0.5,
           "from": 1,
           "to": 2
         },
         {
-          "alphaAreaChangeRatio": 0.00113,
-          "anchorDeltaPx": 0.076,
-          "bboxCenterDeltaPx": 0.5,
+          "alphaAreaChangeRatio": 0.02943,
+          "anchorDeltaPx": 0.09,
+          "bboxCenterDeltaPx": 2.062,
           "from": 2,
           "to": 3
         },
         {
-          "alphaAreaChangeRatio": 0.00048,
-          "anchorDeltaPx": 1.398,
-          "bboxCenterDeltaPx": 2.693,
+          "alphaAreaChangeRatio": 0.01211,
+          "anchorDeltaPx": 0.17,
+          "bboxCenterDeltaPx": 1.118,
           "from": 3,
           "to": 4
         },
         {
-          "alphaAreaChangeRatio": 3e-05,
-          "anchorDeltaPx": 1.419,
-          "bboxCenterDeltaPx": 1.803,
+          "alphaAreaChangeRatio": 0.00987,
+          "anchorDeltaPx": 0.212,
+          "bboxCenterDeltaPx": 1.0,
           "from": 4,
           "to": 5
         },
         {
-          "alphaAreaChangeRatio": 0.00025,
-          "anchorDeltaPx": 0.959,
-          "bboxCenterDeltaPx": 2.062,
+          "alphaAreaChangeRatio": 0.01434,
+          "anchorDeltaPx": 0.215,
+          "bboxCenterDeltaPx": 1.118,
           "from": 5,
           "to": 6
         },
         {
-          "alphaAreaChangeRatio": 0.00016,
-          "anchorDeltaPx": 2.801,
-          "bboxCenterDeltaPx": 4.717,
+          "alphaAreaChangeRatio": 0.01408,
+          "anchorDeltaPx": 0.151,
+          "bboxCenterDeltaPx": 1.581,
           "from": 6,
           "to": 7
         },
         {
-          "alphaAreaChangeRatio": 1e-05,
-          "anchorDeltaPx": 5.72,
-          "bboxCenterDeltaPx": 9.434,
+          "alphaAreaChangeRatio": 0.00721,
+          "anchorDeltaPx": 1.02,
+          "bboxCenterDeltaPx": 0.0,
           "from": 7,
           "to": 8
+        },
+        {
+          "alphaAreaChangeRatio": 0.02879,
+          "anchorDeltaPx": 0.09,
+          "bboxCenterDeltaPx": 2.236,
+          "from": 8,
+          "to": 9
+        },
+        {
+          "alphaAreaChangeRatio": 0.00042,
+          "anchorDeltaPx": 0.032,
+          "bboxCenterDeltaPx": 1.414,
+          "from": 9,
+          "to": 10
+        },
+        {
+          "alphaAreaChangeRatio": 0.00219,
+          "anchorDeltaPx": 0.265,
+          "bboxCenterDeltaPx": 0.5,
+          "from": 10,
+          "to": 11
+        },
+        {
+          "alphaAreaChangeRatio": 0.07136,
+          "anchorDeltaPx": 2.166,
+          "bboxCenterDeltaPx": 4.031,
+          "from": 11,
+          "to": 12
+        },
+        {
+          "alphaAreaChangeRatio": 0.00296,
+          "anchorDeltaPx": 1.051,
+          "bboxCenterDeltaPx": 1.118,
+          "from": 12,
+          "to": 13
+        },
+        {
+          "alphaAreaChangeRatio": 0.00307,
+          "anchorDeltaPx": 1.634,
+          "bboxCenterDeltaPx": 1.803,
+          "from": 13,
+          "to": 14
+        },
+        {
+          "alphaAreaChangeRatio": 0.0057,
+          "anchorDeltaPx": 1.401,
+          "bboxCenterDeltaPx": 1.803,
+          "from": 14,
+          "to": 15
+        },
+        {
+          "alphaAreaChangeRatio": 0.00234,
+          "anchorDeltaPx": 1.385,
+          "bboxCenterDeltaPx": 1.414,
+          "from": 15,
+          "to": 16
+        },
+        {
+          "alphaAreaChangeRatio": 0.00237,
+          "anchorDeltaPx": 1.181,
+          "bboxCenterDeltaPx": 1.118,
+          "from": 16,
+          "to": 17
+        },
+        {
+          "alphaAreaChangeRatio": 0.0065,
+          "anchorDeltaPx": 1.351,
+          "bboxCenterDeltaPx": 1.0,
+          "from": 17,
+          "to": 18
+        },
+        {
+          "alphaAreaChangeRatio": 0.02205,
+          "anchorDeltaPx": 0.59,
+          "bboxCenterDeltaPx": 2.55,
+          "from": 18,
+          "to": 19
+        },
+        {
+          "alphaAreaChangeRatio": 0.00182,
+          "anchorDeltaPx": 0.261,
+          "bboxCenterDeltaPx": 0.5,
+          "from": 19,
+          "to": 20
+        },
+        {
+          "alphaAreaChangeRatio": 0.00081,
+          "anchorDeltaPx": 0.221,
+          "bboxCenterDeltaPx": 0.5,
+          "from": 20,
+          "to": 21
+        },
+        {
+          "alphaAreaChangeRatio": 0.02061,
+          "anchorDeltaPx": 0.619,
+          "bboxCenterDeltaPx": 2.5,
+          "from": 21,
+          "to": 22
+        },
+        {
+          "alphaAreaChangeRatio": 0.00496,
+          "anchorDeltaPx": 0.893,
+          "bboxCenterDeltaPx": 0.5,
+          "from": 22,
+          "to": 23
+        },
+        {
+          "alphaAreaChangeRatio": 0.01174,
+          "anchorDeltaPx": 1.029,
+          "bboxCenterDeltaPx": 0.5,
+          "from": 23,
+          "to": 24
+        },
+        {
+          "alphaAreaChangeRatio": 0.0118,
+          "anchorDeltaPx": 1.142,
+          "bboxCenterDeltaPx": 1.0,
+          "from": 24,
+          "to": 25
+        },
+        {
+          "alphaAreaChangeRatio": 0.01184,
+          "anchorDeltaPx": 1.535,
+          "bboxCenterDeltaPx": 0.707,
+          "from": 25,
+          "to": 26
+        },
+        {
+          "alphaAreaChangeRatio": 0.00925,
+          "anchorDeltaPx": 1.086,
+          "bboxCenterDeltaPx": 0.0,
+          "from": 26,
+          "to": 27
+        },
+        {
+          "alphaAreaChangeRatio": 0.01473,
+          "anchorDeltaPx": 1.349,
+          "bboxCenterDeltaPx": 0.707,
+          "from": 27,
+          "to": 28
+        },
+        {
+          "alphaAreaChangeRatio": 0.0516,
+          "anchorDeltaPx": 0.604,
+          "bboxCenterDeltaPx": 0.707,
+          "from": 28,
+          "to": 29
+        },
+        {
+          "alphaAreaChangeRatio": 0.00522,
+          "anchorDeltaPx": 0.234,
+          "bboxCenterDeltaPx": 0.0,
+          "from": 29,
+          "to": 30
         }
       ],
       "errors": [],
       "frames": [
         {
-          "alphaArea": 108407,
+          "alphaArea": 36094,
           "alphaBBox": [
-            132,
-            18,
-            378,
-            756
+            24,
+            68,
+            233,
+            353
           ],
           "alphaExtrema": [
             0,
             255
           ],
           "bboxBottomCenter": [
-            255.0,
-            756
+            128.5,
+            353
           ],
           "bboxCenter": [
-            254.5,
-            386.5
+            128.0,
+            210.0
           ],
           "bboxSize": [
-            246,
-            738
+            209,
+            285
           ],
           "bottomBandAnchor": [
-            253.614,
-            756
+            125.476,
+            353
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 1,
+          "measuredAnchor": [
+            125.476,
+            353
+          ],
+          "pixelSha256": "ef9ddd02519c23fb8dae25d8bd2eb95573b835e585518352c9c9f1a8511adfaf",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-001",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 36257,
+          "alphaBBox": [
+            24,
+            69,
+            233,
+            353
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            128.5,
+            353
+          ],
+          "bboxCenter": [
+            128.0,
+            210.5
+          ],
+          "bboxSize": [
+            209,
+            284
+          ],
+          "bottomBandAnchor": [
+            125.451,
+            353
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 2,
+          "measuredAnchor": [
+            125.451,
+            353
+          ],
+          "pixelSha256": "5443f8fdcc3857cffca88920fb6f0959bbf0b0c11989cacbc068626ef6e7f5b0",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-002",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 37324,
+          "alphaBBox": [
+            20,
+            70,
+            233,
+            353
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            126.5,
+            353
+          ],
+          "bboxCenter": [
+            126.0,
+            211.0
+          ],
+          "bboxSize": [
+            213,
+            283
+          ],
+          "bottomBandAnchor": [
+            125.361,
+            353
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 3,
+          "measuredAnchor": [
+            125.361,
+            353
+          ],
+          "pixelSha256": "ef8627265c3c2acf8a09ea1ae249a9707183bd8c2d98ddcd0f4121e9ad885c82",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-003",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 37776,
+          "alphaBBox": [
+            21,
+            72,
+            233,
+            353
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            127.0,
+            353
+          ],
+          "bboxCenter": [
+            126.5,
+            212.0
+          ],
+          "bboxSize": [
+            212,
+            281
+          ],
+          "bottomBandAnchor": [
+            125.191,
+            353
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 4,
+          "measuredAnchor": [
+            125.191,
+            353
+          ],
+          "pixelSha256": "37683e6660e926b3c3c4f3ba96ba1ff44488af0438dc619154a3614d3e468896",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-004",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 38149,
+          "alphaBBox": [
+            21,
+            74,
+            233,
+            353
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            127.0,
+            353
+          ],
+          "bboxCenter": [
+            126.5,
+            213.0
+          ],
+          "bboxSize": [
+            212,
+            279
+          ],
+          "bottomBandAnchor": [
+            124.979,
+            353
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 5,
+          "measuredAnchor": [
+            124.979,
+            353
+          ],
+          "pixelSha256": "136a64345512cfa17c2729786af0bef57ea37e7b205ca9e4c4c48cdacdabd70f",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-005",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 38696,
+          "alphaBBox": [
+            21,
+            76,
+            234,
+            353
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            127.5,
+            353
+          ],
+          "bboxCenter": [
+            127.0,
+            214.0
+          ],
+          "bboxSize": [
+            213,
+            277
+          ],
+          "bottomBandAnchor": [
+            124.764,
+            353
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 6,
+          "measuredAnchor": [
+            124.764,
+            353
+          ],
+          "pixelSha256": "a58452dc9debcfaf5fc1df5d721c69f6b0b75389f3bd3a3de589d88d5810c914",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-006",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 39241,
+          "alphaBBox": [
+            20,
+            79,
+            234,
+            353
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            127.0,
+            353
+          ],
+          "bboxCenter": [
+            126.5,
+            215.5
+          ],
+          "bboxSize": [
+            214,
+            274
+          ],
+          "bottomBandAnchor": [
+            124.613,
+            353
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 7,
+          "measuredAnchor": [
+            124.613,
+            353
+          ],
+          "pixelSha256": "bb4e7fae13e3e807eb07f04e30573d626ab5a7053e8aaa54b3d7869f0b2cff51",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-007",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 39524,
+          "alphaBBox": [
+            19,
+            80,
+            235,
+            352
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            127.0,
+            352
+          ],
+          "bboxCenter": [
+            126.5,
+            215.5
+          ],
+          "bboxSize": [
+            216,
+            272
+          ],
+          "bottomBandAnchor": [
+            124.41,
+            352
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 8,
+          "measuredAnchor": [
+            124.41,
+            352
+          ],
+          "pixelSha256": "0a88a1a927fac470d9a1e5fc837014ff016f78e15d09cfe92fe9a4026c12a8f3",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-008",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 38386,
+          "alphaBBox": [
+            21,
+            76,
+            235,
+            352
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            128.0,
+            352
+          ],
+          "bboxCenter": [
+            127.5,
+            213.5
+          ],
+          "bboxSize": [
+            214,
+            276
+          ],
+          "bottomBandAnchor": [
+            124.32,
+            352
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 9,
+          "measuredAnchor": [
+            124.32,
+            352
+          ],
+          "pixelSha256": "84b5f6012c65115190b0a55a1e45cbd49dbf35b323e7fd1000796a592460d3df",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-009",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 38370,
+          "alphaBBox": [
+            22,
+            74,
+            236,
+            352
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            129.0,
+            352
+          ],
+          "bboxCenter": [
+            128.5,
+            212.5
+          ],
+          "bboxSize": [
+            214,
+            278
+          ],
+          "bottomBandAnchor": [
+            124.288,
+            352
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 10,
+          "measuredAnchor": [
+            124.288,
+            352
+          ],
+          "pixelSha256": "cccfc7bcbeb9452a4e0a89992de1a92d54660af53b71caf0d95777b51e7d8c91",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-010",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 38454,
+          "alphaBBox": [
+            22,
+            75,
+            236,
+            352
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            129.0,
+            352
+          ],
+          "bboxCenter": [
+            128.5,
+            213.0
+          ],
+          "bboxSize": [
+            214,
+            277
+          ],
+          "bottomBandAnchor": [
+            124.553,
+            352
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 11,
+          "measuredAnchor": [
+            124.553,
+            352
+          ],
+          "pixelSha256": "c35b0cdc13ebb7386e4b41e7cbe0a5bdf371c99ca0cea7d0dd0e4c805045d234",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-011",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 41198,
+          "alphaBBox": [
+            15,
+            77,
+            236,
+            354
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            125.5,
+            354
+          ],
+          "bboxCenter": [
+            125.0,
+            215.0
+          ],
+          "bboxSize": [
+            221,
+            277
+          ],
+          "bottomBandAnchor": [
+            125.384,
+            354
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 12,
+          "measuredAnchor": [
+            125.384,
+            354
+          ],
+          "pixelSha256": "5a786606d0fb6d582d3ea956de96be6eddbb92871ca45d12ca0e569b7b80a2a1",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-012",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 41320,
+          "alphaBBox": [
+            16,
+            79,
+            236,
+            354
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            126.0,
+            354
+          ],
+          "bboxCenter": [
+            125.5,
+            216.0
+          ],
+          "bboxSize": [
+            220,
+            275
+          ],
+          "bottomBandAnchor": [
+            126.435,
+            354
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 13,
+          "measuredAnchor": [
+            126.435,
+            354
+          ],
+          "pixelSha256": "54fde9af052a1bf6898ea102623f43d8845af1a3e8a38918ab5b16c59d92f886",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-013",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 41193,
+          "alphaBBox": [
+            18,
+            77,
+            236,
+            353
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            127.0,
+            353
+          ],
+          "bboxCenter": [
+            126.5,
+            214.5
+          ],
+          "bboxSize": [
+            218,
+            276
+          ],
+          "bottomBandAnchor": [
+            127.727,
+            353
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 14,
+          "measuredAnchor": [
+            127.727,
+            353
+          ],
+          "pixelSha256": "c77c03b56a9256e8366676c22c5ea2eaf222ffd95c7fb90d83504892607c1953",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-014",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 40958,
+          "alphaBBox": [
+            20,
+            74,
+            236,
+            353
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            128.0,
+            353
+          ],
+          "bboxCenter": [
+            127.5,
+            213.0
+          ],
+          "bboxSize": [
+            216,
+            279
+          ],
+          "bottomBandAnchor": [
+            129.128,
+            353
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 15,
+          "measuredAnchor": [
+            129.128,
+            353
+          ],
+          "pixelSha256": "1a4ab57873c412cc77eed874fb9d7d5c7175bb4b26ceea07e5e1af3b8f196edd",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-015",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 40862,
+          "alphaBBox": [
+            22,
+            72,
+            236,
+            353
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            129.0,
+            353
+          ],
+          "bboxCenter": [
+            128.5,
+            212.0
+          ],
+          "bboxSize": [
+            214,
+            281
+          ],
+          "bottomBandAnchor": [
+            130.513,
+            353
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 16,
+          "measuredAnchor": [
+            130.513,
+            353
+          ],
+          "pixelSha256": "2801b41feed81c19aedf23de4efc672d9befb2e21f78f06660ec604b60e651e4",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-016",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 40765,
+          "alphaBBox": [
+            21,
+            70,
+            236,
+            353
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            128.5,
+            353
+          ],
+          "bboxCenter": [
+            128.0,
+            211.0
+          ],
+          "bboxSize": [
+            215,
+            283
+          ],
+          "bottomBandAnchor": [
+            131.694,
+            353
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 17,
+          "measuredAnchor": [
+            131.694,
+            353
+          ],
+          "pixelSha256": "d941745174abb39a0f7f292b41843658259f62e44a4e9ac6d75376881e43574f",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-017",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 40500,
+          "alphaBBox": [
+            21,
+            69,
+            236,
+            352
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            128.5,
+            352
+          ],
+          "bboxCenter": [
+            128.0,
+            210.0
+          ],
+          "bboxSize": [
+            215,
+            283
+          ],
+          "bottomBandAnchor": [
+            132.603,
+            352
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 18,
+          "measuredAnchor": [
+            132.603,
+            352
+          ],
+          "pixelSha256": "59a5d510c4f011a771313055b048a5d0a947820743a80e553c81e5a26b1f72c1",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-018",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 39607,
+          "alphaBBox": [
+            25,
+            68,
+            237,
+            352
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            131.0,
+            352
+          ],
+          "bboxCenter": [
+            130.5,
+            209.5
+          ],
+          "bboxSize": [
+            212,
+            284
+          ],
+          "bottomBandAnchor": [
+            133.193,
+            352
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 19,
+          "measuredAnchor": [
+            133.193,
+            352
+          ],
+          "pixelSha256": "194bc5a4a620b40a962a49b5739a9173adb9c298bdddc7f0db1912e9ca7f9fcb",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-019",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 39535,
+          "alphaBBox": [
+            25,
+            67,
+            237,
+            352
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            131.0,
+            352
+          ],
+          "bboxCenter": [
+            130.5,
+            209.0
+          ],
+          "bboxSize": [
+            212,
+            285
+          ],
+          "bottomBandAnchor": [
+            133.454,
+            352
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 20,
+          "measuredAnchor": [
+            133.454,
+            352
+          ],
+          "pixelSha256": "ecae8422f0e4062de91921dfcf45bf16d7ed651fa4606295195e0479ec32c31a",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-020",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 39503,
+          "alphaBBox": [
+            25,
+            67,
+            236,
+            352
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            130.5,
+            352
+          ],
+          "bboxCenter": [
+            130.0,
+            209.0
+          ],
+          "bboxSize": [
+            211,
+            285
+          ],
+          "bottomBandAnchor": [
+            133.233,
+            352
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 21,
+          "measuredAnchor": [
+            133.233,
+            352
+          ],
+          "pixelSha256": "8d3f3272832a424568da43347c403fd35c7f007f5d629352659cd9d9e6f25eb7",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-021",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 40317,
+          "alphaBBox": [
+            20,
+            67,
+            236,
+            352
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            128.0,
+            352
+          ],
+          "bboxCenter": [
+            127.5,
+            209.0
+          ],
+          "bboxSize": [
+            216,
+            285
+          ],
+          "bottomBandAnchor": [
+            132.614,
+            352
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 22,
+          "measuredAnchor": [
+            132.614,
+            352
+          ],
+          "pixelSha256": "1e149ee2cffee07b095833fa07e85fc9ef87af1ee5bf15fa18e268ea64e28f15",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-022",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 40117,
+          "alphaBBox": [
+            21,
+            67,
+            236,
+            352
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            128.5,
+            352
+          ],
+          "bboxCenter": [
+            128.0,
+            209.0
+          ],
+          "bboxSize": [
+            215,
+            285
+          ],
+          "bottomBandAnchor": [
+            131.721,
+            352
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 23,
+          "measuredAnchor": [
+            131.721,
+            352
+          ],
+          "pixelSha256": "35e030852ecca36d2037721f3107de5b5088d289340591dbef627d2b72a92b4f",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-023",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 39646,
+          "alphaBBox": [
+            22,
+            68,
+            235,
+            352
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            128.5,
+            352
+          ],
+          "bboxCenter": [
+            128.0,
+            209.5
+          ],
+          "bboxSize": [
+            213,
+            284
+          ],
+          "bottomBandAnchor": [
+            130.692,
+            352
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 24,
+          "measuredAnchor": [
+            130.692,
+            352
+          ],
+          "pixelSha256": "e303e06872ca16f57e04ad5041ecd3e0e5a22123663d1728f4f84cc73e5889ba",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-024",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 39178,
+          "alphaBBox": [
+            24,
+            68,
+            235,
+            352
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            129.5,
+            352
+          ],
+          "bboxCenter": [
+            129.0,
+            209.5
+          ],
+          "bboxSize": [
+            211,
+            284
+          ],
+          "bottomBandAnchor": [
+            129.55,
+            352
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 25,
+          "measuredAnchor": [
+            129.55,
+            352
+          ],
+          "pixelSha256": "41a29d4005ccf29e3afe5f9b1f92a0e106ca9ba9007d8633f94f930011014267",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-025",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 38714,
+          "alphaBBox": [
+            24,
+            68,
+            234,
+            353
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            129.0,
+            353
+          ],
+          "bboxCenter": [
+            128.5,
+            210.0
+          ],
+          "bboxSize": [
+            210,
+            285
+          ],
+          "bottomBandAnchor": [
+            128.386,
+            353
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 26,
+          "measuredAnchor": [
+            128.386,
+            353
+          ],
+          "pixelSha256": "33a0c203a22b734d16efed90e7650a9e11ee54cb64cc2387545fcc632b0e8834",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-026",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 38356,
+          "alphaBBox": [
+            24,
+            68,
+            234,
+            353
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            129.0,
+            353
+          ],
+          "bboxCenter": [
+            128.5,
+            210.0
+          ],
+          "bboxSize": [
+            210,
+            285
+          ],
+          "bottomBandAnchor": [
+            127.3,
+            353
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 27,
+          "measuredAnchor": [
+            127.3,
+            353
+          ],
+          "pixelSha256": "7ca701c30b3d41d53a7d1030247b06b873dcb4e33acc44326c60da8af5516566",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-027",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 37791,
+          "alphaBBox": [
+            23,
+            68,
+            234,
+            352
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            128.5,
+            352
+          ],
+          "bboxCenter": [
+            128.0,
+            209.5
+          ],
+          "bboxSize": [
+            211,
+            284
+          ],
+          "bottomBandAnchor": [
+            126.395,
+            352
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 28,
+          "measuredAnchor": [
+            126.395,
+            352
+          ],
+          "pixelSha256": "8d3cdec88e5c6b40fb18cfe39f40b2387148d4c07e2f5879fe3db3d992ba7e6a",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-028",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 35841,
+          "alphaBBox": [
+            23,
+            69,
+            233,
+            352
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            128.0,
+            352
+          ],
+          "bboxCenter": [
+            127.5,
+            210.0
+          ],
+          "bboxSize": [
+            210,
+            283
+          ],
+          "bottomBandAnchor": [
+            125.791,
+            352
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 29,
+          "measuredAnchor": [
+            125.791,
+            352
+          ],
+          "pixelSha256": "e3dd0f0afa723e581ae1303cfe6b42f2ba239428bf38632593b3e91a4507b5aa",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-029",
+          "touchesCanvasEdge": false
+        },
+        {
+          "alphaArea": 35654,
+          "alphaBBox": [
+            23,
+            69,
+            233,
+            352
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            128.0,
+            352
+          ],
+          "bboxCenter": [
+            127.5,
+            210.0
+          ],
+          "bboxSize": [
+            210,
+            283
+          ],
+          "bottomBandAnchor": [
+            125.557,
+            352
+          ],
+          "canvas": [
+            256,
+            384
+          ],
+          "index": 30,
+          "measuredAnchor": [
+            125.557,
+            352
+          ],
+          "pixelSha256": "24492c39d783964d7131c5e61799a7f17525cb8fd9261ec6a037c5ada9db3e3c",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uccad\uc0c9-\ud559\uc790\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-030",
+          "touchesCanvasEdge": false
+        }
+      ],
+      "id": "production-kongjwi-blue-scholar-pour",
+      "observed": {
+        "duplicateFrameGroups": [],
+        "maxAlphaAreaChangeRatio": 0.07136,
+        "maxAnchorDeltaPx": 2.16577,
+        "maxBboxCenterDeltaPx": 4.03113
+      },
+      "qualityGate": "report",
+      "status": "PASS",
+      "thresholds": {
+        "maxAlphaAreaChangeRatio": null,
+        "maxAnchorDeltaPx": 4,
+        "maxBboxCenterDeltaPx": null
+      },
+      "warnings": []
+    },
+    {
+      "actor": "kongjwi",
+      "clip": "pour",
+      "deltas": [
+        {
+          "alphaAreaChangeRatio": 0.01867,
+          "anchorDeltaPx": 19.389,
+          "bboxCenterDeltaPx": 7.0,
+          "from": 1,
+          "to": 2
+        },
+        {
+          "alphaAreaChangeRatio": 0.09165,
+          "anchorDeltaPx": 26.587,
+          "bboxCenterDeltaPx": 24.135,
+          "from": 2,
+          "to": 3
+        },
+        {
+          "alphaAreaChangeRatio": 0.20366,
+          "anchorDeltaPx": 30.623,
+          "bboxCenterDeltaPx": 26.249,
+          "from": 3,
+          "to": 4
+        },
+        {
+          "alphaAreaChangeRatio": 0.20364,
+          "anchorDeltaPx": 21.837,
+          "bboxCenterDeltaPx": 16.07,
+          "from": 4,
+          "to": 5
+        },
+        {
+          "alphaAreaChangeRatio": 0.36082,
+          "anchorDeltaPx": 17.267,
+          "bboxCenterDeltaPx": 11.511,
+          "from": 5,
+          "to": 6
+        },
+        {
+          "alphaAreaChangeRatio": 0.10967,
+          "anchorDeltaPx": 13.0,
+          "bboxCenterDeltaPx": 19.698,
+          "from": 6,
+          "to": 7
+        },
+        {
+          "alphaAreaChangeRatio": 0.09677,
+          "anchorDeltaPx": 43.012,
+          "bboxCenterDeltaPx": 9.513,
+          "from": 7,
+          "to": 8
+        }
+      ],
+      "errors": [
+        "frame 5: alpha touches canvas edge"
+      ],
+      "frames": [
+        {
+          "alphaArea": 112733,
+          "alphaBBox": [
+            126,
+            95,
+            406,
+            740
+          ],
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "bboxBottomCenter": [
+            266.0,
+            740
+          ],
+          "bboxCenter": [
+            265.5,
+            417.0
+          ],
+          "bboxSize": [
+            280,
+            645
+          ],
+          "bottomBandAnchor": [
+            260.901,
+            740
           ],
           "canvas": [
             512,
@@ -898,40 +3411,40 @@
           ],
           "index": 1,
           "measuredAnchor": [
-            253.614,
-            756
+            260.901,
+            740
           ],
-          "pixelSha256": "eb0dcad4a10e52610931a898743bf8a68a43c90abc7cf2666a7cc70caa957eab",
-          "source": "assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png#frame-001",
+          "pixelSha256": "2b5dde1e66d290f431f99dbc1339885106c5b2821c89d6afb3bd987b442fe57f",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\ub18d\uc0ac\uc77c-\uc791\uc5c5\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-001",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 108407,
+          "alphaArea": 110628,
           "alphaBBox": [
-            132,
-            17,
-            378,
-            755
+            118,
+            95,
+            400,
+            740
           ],
           "alphaExtrema": [
             0,
             255
           ],
           "bboxBottomCenter": [
-            255.0,
-            755
+            259.0,
+            740
           ],
           "bboxCenter": [
-            254.5,
-            385.5
+            258.5,
+            417.0
           ],
           "bboxSize": [
-            246,
-            738
+            282,
+            645
           ],
           "bottomBandAnchor": [
-            253.614,
-            755
+            241.512,
+            740
           ],
           "canvas": [
             512,
@@ -939,40 +3452,40 @@
           ],
           "index": 2,
           "measuredAnchor": [
-            253.614,
-            755
+            241.512,
+            740
           ],
-          "pixelSha256": "1e22c97224cf34138fef8617df92c45d8b214a2aee84ed95deec33e0ef1bf348",
-          "source": "assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png#frame-002",
+          "pixelSha256": "2ffdc4b4fb02599d2552d7406d9a01552a2f639591bfbfff8d6a0dd9f13b83b0",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\ub18d\uc0ac\uc77c-\uc791\uc5c5\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-002",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 108284,
+          "alphaArea": 120767,
           "alphaBBox": [
-            133,
-            17,
-            378,
-            755
+            42,
+            101,
+            429,
+            745
           ],
           "alphaExtrema": [
             0,
             255
           ],
           "bboxBottomCenter": [
-            255.5,
-            755
+            235.5,
+            745
           ],
           "bboxCenter": [
-            255.0,
-            385.5
+            235.0,
+            422.5
           ],
           "bboxSize": [
-            245,
-            738
+            387,
+            644
           ],
           "bottomBandAnchor": [
-            253.538,
-            755
+            267.625,
+            745
           ],
           "canvas": [
             512,
@@ -980,40 +3493,40 @@
           ],
           "index": 3,
           "measuredAnchor": [
-            253.538,
-            755
+            267.625,
+            745
           ],
-          "pixelSha256": "6c4a112d0abf63624475b5ea18f07d8fbb66067580d50896c89cbb726eca78a1",
-          "source": "assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png#frame-003",
+          "pixelSha256": "54e7cdef679c457b239621b4d6930784f974a440da249da7f925a271a3a5a6df",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\ub18d\uc0ac\uc77c-\uc791\uc5c5\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-003",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 108232,
+          "alphaArea": 145363,
           "alphaBBox": [
-            136,
-            16,
-            380,
-            754
+            38,
+            71,
+            473,
+            741
           ],
           "alphaExtrema": [
             0,
             255
           ],
           "bboxBottomCenter": [
-            258.0,
-            754
+            255.5,
+            741
           ],
           "bboxCenter": [
-            257.5,
-            384.5
+            255.0,
+            405.5
           ],
           "bboxSize": [
-            244,
-            738
+            435,
+            670
           ],
           "bottomBandAnchor": [
-            254.515,
-            754
+            237.264,
+            741
           ],
           "canvas": [
             512,
@@ -1021,40 +3534,40 @@
           ],
           "index": 4,
           "measuredAnchor": [
-            254.515,
-            754
+            237.264,
+            741
           ],
-          "pixelSha256": "739e312a04a38518c4660ee7a76ca2646ae8860a003c45f9e54a966052e5eae2",
-          "source": "assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png#frame-004",
+          "pixelSha256": "cca64d30bfad86fffbabb6c4bccb4b059515a1555b60666986275fdd6ac2ea76",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\ub18d\uc0ac\uc77c-\uc791\uc5c5\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-004",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 108229,
+          "alphaArea": 174965,
           "alphaBBox": [
-            138,
-            15,
-            381,
-            753
+            31,
+            69,
+            512,
+            740
           ],
           "alphaExtrema": [
             0,
             255
           ],
           "bboxBottomCenter": [
-            259.5,
-            753
+            271.5,
+            740
           ],
           "bboxCenter": [
-            259.0,
-            383.5
+            271.0,
+            404.0
           ],
           "bboxSize": [
-            243,
-            738
+            481,
+            671
           ],
           "bottomBandAnchor": [
-            255.522,
-            753
+            259.078,
+            740
           ],
           "canvas": [
             512,
@@ -1062,382 +3575,20 @@
           ],
           "index": 5,
           "measuredAnchor": [
-            255.522,
-            753
+            259.078,
+            740
           ],
-          "pixelSha256": "2d27c566d846e3f212ae7202e5e7dfa45c5848fc48413ebbaece607b87dc9de5",
-          "source": "assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png#frame-005",
-          "touchesCanvasEdge": false
+          "pixelSha256": "89466b770c862339dba7e057a021d568eae3e5d2d326cc95b97b48901015de01",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\ub18d\uc0ac\uc77c-\uc791\uc5c5\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-005",
+          "touchesCanvasEdge": true
         },
         {
-          "alphaArea": 108256,
+          "alphaArea": 111834,
           "alphaBBox": [
-            140,
-            14,
-            383,
-            753
-          ],
-          "alphaExtrema": [
-            0,
-            255
-          ],
-          "bboxBottomCenter": [
-            261.5,
-            753
-          ],
-          "bboxCenter": [
-            261.0,
-            383.0
-          ],
-          "bboxSize": [
-            243,
-            739
-          ],
-          "bottomBandAnchor": [
-            256.481,
-            753
-          ],
-          "canvas": [
-            512,
-            768
-          ],
-          "index": 6,
-          "measuredAnchor": [
-            256.481,
-            753
-          ],
-          "pixelSha256": "e83183c5da27737ca79ecef5b20a6052629a0f1f54cadf0c4d8c2056800c7f37",
-          "source": "assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png#frame-006",
-          "touchesCanvasEdge": false
-        },
-        {
-          "alphaArea": 108239,
-          "alphaBBox": [
-            135,
-            17,
-            380,
-            755
-          ],
-          "alphaExtrema": [
-            0,
-            255
-          ],
-          "bboxBottomCenter": [
-            257.5,
-            755
-          ],
-          "bboxCenter": [
-            257.0,
-            385.5
-          ],
-          "bboxSize": [
-            245,
-            738
-          ],
-          "bottomBandAnchor": [
-            254.52,
-            755
-          ],
-          "canvas": [
-            512,
-            768
-          ],
-          "index": 7,
-          "measuredAnchor": [
-            254.52,
-            755
-          ],
-          "pixelSha256": "72ddbdf08535479113386058758cccf2cbea15947d5194a3a84ffd69360394ea",
-          "source": "assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png#frame-007",
-          "touchesCanvasEdge": false
-        },
-        {
-          "alphaArea": 108240,
-          "alphaBBox": [
-            125,
-            22,
-            374,
-            760
-          ],
-          "alphaExtrema": [
-            0,
-            255
-          ],
-          "bboxBottomCenter": [
-            249.5,
-            760
-          ],
-          "bboxCenter": [
-            249.0,
-            390.5
-          ],
-          "bboxSize": [
-            249,
-            738
-          ],
-          "bottomBandAnchor": [
-            251.741,
-            760
-          ],
-          "canvas": [
-            512,
-            768
-          ],
-          "index": 8,
-          "measuredAnchor": [
-            251.741,
-            760
-          ],
-          "pixelSha256": "cb750aff29ec1d68272fd0217510836644b2bc3c1163ff7300439f0eafeacfb0",
-          "source": "assets/그림/게임-장면/콩쥐/청색-학자복/물붓기-동작.png#frame-008",
-          "touchesCanvasEdge": false
-        }
-      ],
-      "id": "production-kongjwi-blue-scholar-pour",
-      "observed": {
-        "duplicateFrameGroups": [],
-        "maxAlphaAreaChangeRatio": 0.00113,
-        "maxAnchorDeltaPx": 5.72039,
-        "maxBboxCenterDeltaPx": 9.43398
-      },
-      "qualityGate": "report",
-      "status": "WARN",
-      "thresholds": {
-        "maxAlphaAreaChangeRatio": null,
-        "maxAnchorDeltaPx": 4,
-        "maxBboxCenterDeltaPx": null
-      },
-      "warnings": [
-        "anchor jitter 5.720 > 4.000"
-      ]
-    },
-    {
-      "actor": "kongjwi",
-      "clip": "pour",
-      "deltas": [
-        {
-          "alphaAreaChangeRatio": 0.0,
-          "anchorDeltaPx": 1.0,
-          "bboxCenterDeltaPx": 1.0,
-          "from": 1,
-          "to": 2
-        },
-        {
-          "alphaAreaChangeRatio": 0.00081,
-          "anchorDeltaPx": 0.146,
-          "bboxCenterDeltaPx": 1.0,
-          "from": 2,
-          "to": 3
-        },
-        {
-          "alphaAreaChangeRatio": 0.0012,
-          "anchorDeltaPx": 0.855,
-          "bboxCenterDeltaPx": 3.041,
-          "from": 3,
-          "to": 4
-        },
-        {
-          "alphaAreaChangeRatio": 0.00064,
-          "anchorDeltaPx": 1.348,
-          "bboxCenterDeltaPx": 3.162,
-          "from": 4,
-          "to": 5
-        },
-        {
-          "alphaAreaChangeRatio": 0.00028,
-          "anchorDeltaPx": 0.871,
-          "bboxCenterDeltaPx": 2.5,
-          "from": 5,
-          "to": 6
-        },
-        {
-          "alphaAreaChangeRatio": 1e-05,
-          "anchorDeltaPx": 2.661,
-          "bboxCenterDeltaPx": 6.325,
-          "from": 6,
-          "to": 7
-        },
-        {
-          "alphaAreaChangeRatio": 2e-05,
-          "anchorDeltaPx": 4.64,
-          "bboxCenterDeltaPx": 11.424,
-          "from": 7,
-          "to": 8
-        }
-      ],
-      "errors": [],
-      "frames": [
-        {
-          "alphaArea": 84922,
-          "alphaBBox": [
-            141,
-            18,
-            369,
-            756
-          ],
-          "alphaExtrema": [
-            0,
-            255
-          ],
-          "bboxBottomCenter": [
-            255.0,
-            756
-          ],
-          "bboxCenter": [
-            254.5,
-            386.5
-          ],
-          "bboxSize": [
-            228,
-            738
-          ],
-          "bottomBandAnchor": [
-            272.545,
-            756
-          ],
-          "canvas": [
-            512,
-            768
-          ],
-          "index": 1,
-          "measuredAnchor": [
-            272.545,
-            756
-          ],
-          "pixelSha256": "8467f2bd030d1a9b6fc2e1c7a43020001edfb8d60992eedfde1b1640f95e03d7",
-          "source": "assets/그림/게임-장면/콩쥐/농사일-작업복/물붓기-동작.png#frame-001",
-          "touchesCanvasEdge": false
-        },
-        {
-          "alphaArea": 84922,
-          "alphaBBox": [
-            141,
-            17,
-            369,
-            755
-          ],
-          "alphaExtrema": [
-            0,
-            255
-          ],
-          "bboxBottomCenter": [
-            255.0,
-            755
-          ],
-          "bboxCenter": [
-            254.5,
-            385.5
-          ],
-          "bboxSize": [
-            228,
-            738
-          ],
-          "bottomBandAnchor": [
-            272.545,
-            755
-          ],
-          "canvas": [
-            512,
-            768
-          ],
-          "index": 2,
-          "measuredAnchor": [
-            272.545,
-            755
-          ],
-          "pixelSha256": "b9ac15eb358310a28505926ff628b595b56646d9bcb5290aa44a35dce820dc94",
-          "source": "assets/그림/게임-장면/콩쥐/농사일-작업복/물붓기-동작.png#frame-002",
-          "touchesCanvasEdge": false
-        },
-        {
-          "alphaArea": 84853,
-          "alphaBBox": [
-            142,
-            17,
-            370,
-            755
-          ],
-          "alphaExtrema": [
-            0,
-            255
-          ],
-          "bboxBottomCenter": [
-            256.0,
-            755
-          ],
-          "bboxCenter": [
-            255.5,
-            385.5
-          ],
-          "bboxSize": [
-            228,
-            738
-          ],
-          "bottomBandAnchor": [
-            272.399,
-            755
-          ],
-          "canvas": [
-            512,
-            768
-          ],
-          "index": 3,
-          "measuredAnchor": [
-            272.399,
-            755
-          ],
-          "pixelSha256": "9030a94765242ae98ffed66a03240b6ea0f8d02829a4bc8d2519bdebaef876ce",
-          "source": "assets/그림/게임-장면/콩쥐/농사일-작업복/물붓기-동작.png#frame-003",
-          "touchesCanvasEdge": false
-        },
-        {
-          "alphaArea": 84751,
-          "alphaBBox": [
-            145,
-            16,
-            373,
-            755
-          ],
-          "alphaExtrema": [
-            0,
-            255
-          ],
-          "bboxBottomCenter": [
-            259.0,
-            755
-          ],
-          "bboxCenter": [
-            258.5,
-            385.0
-          ],
-          "bboxSize": [
-            228,
-            739
-          ],
-          "bottomBandAnchor": [
-            273.254,
-            755
-          ],
-          "canvas": [
-            512,
-            768
-          ],
-          "index": 4,
-          "measuredAnchor": [
-            273.254,
-            755
-          ],
-          "pixelSha256": "500d51d37ca56d96127a72baf7a56512eae0fe707432e86e499fff534f234731",
-          "source": "assets/그림/게임-장면/콩쥐/농사일-작업복/물붓기-동작.png#frame-004",
-          "touchesCanvasEdge": false
-        },
-        {
-          "alphaArea": 84805,
-          "alphaBBox": [
-            148,
-            15,
-            376,
-            754
+            127,
+            72,
+            397,
+            724
           ],
           "alphaExtrema": [
             0,
@@ -1445,60 +3596,19 @@
           ],
           "bboxBottomCenter": [
             262.0,
-            754
+            724
           ],
           "bboxCenter": [
             261.5,
-            384.0
+            397.5
           ],
           "bboxSize": [
-            228,
-            739
+            270,
+            652
           ],
           "bottomBandAnchor": [
-            274.158,
-            754
-          ],
-          "canvas": [
-            512,
-            768
-          ],
-          "index": 5,
-          "measuredAnchor": [
-            274.158,
-            754
-          ],
-          "pixelSha256": "98a1843895969bede6fa4209502538bd4f8a7ed4add43bf75cf1f125571f19a8",
-          "source": "assets/그림/게임-장면/콩쥐/농사일-작업복/물붓기-동작.png#frame-005",
-          "touchesCanvasEdge": false
-        },
-        {
-          "alphaArea": 84781,
-          "alphaBBox": [
-            150,
-            15,
-            379,
-            754
-          ],
-          "alphaExtrema": [
-            0,
-            255
-          ],
-          "bboxBottomCenter": [
-            264.5,
-            754
-          ],
-          "bboxCenter": [
-            264.0,
-            384.0
-          ],
-          "bboxSize": [
-            229,
-            739
-          ],
-          "bottomBandAnchor": [
-            275.029,
-            754
+            252.585,
+            724
           ],
           "canvas": [
             512,
@@ -1506,40 +3616,40 @@
           ],
           "index": 6,
           "measuredAnchor": [
-            275.029,
-            754
+            252.585,
+            724
           ],
-          "pixelSha256": "cbba13e59f21934f4b3c1670fd71cb3f364eca1d3c17a45a0919b3dcaa659f8e",
-          "source": "assets/그림/게임-장면/콩쥐/농사일-작업복/물붓기-동작.png#frame-006",
+          "pixelSha256": "c003f7d5bd9e569de8e1df90cc8ad0cc5ec9fdb68a081d9bdd8f9c9fdd682b2e",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\ub18d\uc0ac\uc77c-\uc791\uc5c5\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-006",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 84782,
+          "alphaArea": 124099,
           "alphaBBox": [
-            144,
-            17,
-            373,
-            756
+            68,
+            75,
+            420,
+            737
           ],
           "alphaExtrema": [
             0,
             255
           ],
           "bboxBottomCenter": [
-            258.5,
-            756
+            244.0,
+            737
           ],
           "bboxCenter": [
-            258.0,
-            386.0
+            243.5,
+            405.5
           ],
           "bboxSize": [
-            229,
-            739
+            352,
+            662
           ],
           "bottomBandAnchor": [
-            273.274,
-            756
+            252.51,
+            737
           ],
           "canvas": [
             512,
@@ -1547,40 +3657,40 @@
           ],
           "index": 7,
           "measuredAnchor": [
-            273.274,
-            756
+            252.51,
+            737
           ],
-          "pixelSha256": "42a01d8224ee432568504db6595d1d73042df0911c9fb1b612ff9f6170b78bf7",
-          "source": "assets/그림/게임-장면/콩쥐/농사일-작업복/물붓기-동작.png#frame-007",
+          "pixelSha256": "d064aef04adc043e8547888d9ce9eb6549fcd45c4c95d91895390423d882c8d8",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\ub18d\uc0ac\uc77c-\uc791\uc5c5\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-007",
           "touchesCanvasEdge": false
         },
         {
-          "alphaArea": 84784,
+          "alphaArea": 112090,
           "alphaBBox": [
-            134,
-            22,
-            362,
-            760
+            84,
+            77,
+            385,
+            736
           ],
           "alphaExtrema": [
             0,
             255
           ],
           "bboxBottomCenter": [
-            248.0,
-            760
+            234.5,
+            736
           ],
           "bboxCenter": [
-            247.5,
-            390.5
+            234.0,
+            406.0
           ],
           "bboxSize": [
-            228,
-            738
+            301,
+            659
           ],
           "bottomBandAnchor": [
-            270.922,
-            760
+            209.51,
+            736
           ],
           "canvas": [
             512,
@@ -1588,30 +3698,30 @@
           ],
           "index": 8,
           "measuredAnchor": [
-            270.922,
-            760
+            209.51,
+            736
           ],
-          "pixelSha256": "b04a45a281237dc41f7f3cf79deda8d79616105cb1a9b01b05c1691a739d4e8b",
-          "source": "assets/그림/게임-장면/콩쥐/농사일-작업복/물붓기-동작.png#frame-008",
+          "pixelSha256": "4a1fcac54d91a1c6123bad4ad52c9d7d2b7fa8cdd44afa2403abf0c582506d2a",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\ub18d\uc0ac\uc77c-\uc791\uc5c5\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-008",
           "touchesCanvasEdge": false
         }
       ],
       "id": "production-kongjwi-field-work-pour",
       "observed": {
         "duplicateFrameGroups": [],
-        "maxAlphaAreaChangeRatio": 0.0012,
-        "maxAnchorDeltaPx": 4.64025,
-        "maxBboxCenterDeltaPx": 11.42366
+        "maxAlphaAreaChangeRatio": 0.36082,
+        "maxAnchorDeltaPx": 43.01163,
+        "maxBboxCenterDeltaPx": 26.24881
       },
       "qualityGate": "report",
-      "status": "WARN",
+      "status": "FAIL",
       "thresholds": {
         "maxAlphaAreaChangeRatio": null,
         "maxAnchorDeltaPx": 4,
         "maxBboxCenterDeltaPx": null
       },
       "warnings": [
-        "anchor jitter 4.640 > 4.000"
+        "anchor jitter 43.012 > 4.000"
       ]
     },
     {
@@ -1708,7 +3818,7 @@
             750
           ],
           "pixelSha256": "f81b734508736bcf60684b77d91a29a9835ea8ee43cf5ac92c0e764eee22c6ec",
-          "source": "assets/그림/게임-장면/콩쥐/누더기옷/물붓기-동작.png#frame-001",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\ub204\ub354\uae30\uc637/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-001",
           "touchesCanvasEdge": false
         },
         {
@@ -1749,7 +3859,7 @@
             749
           ],
           "pixelSha256": "19ce019d1045de65d25d448b6e3888b05d6fc0216a436dcb29231c1ec10bc6ff",
-          "source": "assets/그림/게임-장면/콩쥐/누더기옷/물붓기-동작.png#frame-002",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\ub204\ub354\uae30\uc637/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-002",
           "touchesCanvasEdge": false
         },
         {
@@ -1790,7 +3900,7 @@
             749
           ],
           "pixelSha256": "2a64fab36adff87535c6d755582113dcbeece2826ac80fd597814f92e54c7ac7",
-          "source": "assets/그림/게임-장면/콩쥐/누더기옷/물붓기-동작.png#frame-003",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\ub204\ub354\uae30\uc637/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-003",
           "touchesCanvasEdge": false
         },
         {
@@ -1831,7 +3941,7 @@
             748
           ],
           "pixelSha256": "95eccdc506f1458bb3e57bf6a2e2bb20a4072c01e0c2cf2b2d920dc86cb58887",
-          "source": "assets/그림/게임-장면/콩쥐/누더기옷/물붓기-동작.png#frame-004",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\ub204\ub354\uae30\uc637/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-004",
           "touchesCanvasEdge": false
         },
         {
@@ -1872,7 +3982,7 @@
             747
           ],
           "pixelSha256": "4709b0e54f24a4e7ddaf3942daa4ca5b1a727220a63b99f1be25c1db2e308a82",
-          "source": "assets/그림/게임-장면/콩쥐/누더기옷/물붓기-동작.png#frame-005",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\ub204\ub354\uae30\uc637/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-005",
           "touchesCanvasEdge": false
         },
         {
@@ -1913,7 +4023,7 @@
             747
           ],
           "pixelSha256": "da84ac4c7ee2a3b72cb77b2b2526b690fa37a7fc1312f9199a93b3b089d3de4c",
-          "source": "assets/그림/게임-장면/콩쥐/누더기옷/물붓기-동작.png#frame-006",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\ub204\ub354\uae30\uc637/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-006",
           "touchesCanvasEdge": false
         },
         {
@@ -1954,7 +4064,7 @@
             749
           ],
           "pixelSha256": "4f6c17bd85ac8e8a4f7d44f4a135d27a9669cb1a123a473e930c59bd00553075",
-          "source": "assets/그림/게임-장면/콩쥐/누더기옷/물붓기-동작.png#frame-007",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\ub204\ub354\uae30\uc637/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-007",
           "touchesCanvasEdge": false
         },
         {
@@ -1995,7 +4105,7 @@
             754
           ],
           "pixelSha256": "fb41cf3328913e6980fa976b5c9f86cfe63c164ce5005c99996b06f17a0f93af",
-          "source": "assets/그림/게임-장면/콩쥐/누더기옷/물붓기-동작.png#frame-008",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\ub204\ub354\uae30\uc637/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-008",
           "touchesCanvasEdge": false
         }
       ],
@@ -2111,7 +4221,7 @@
             756
           ],
           "pixelSha256": "eac8cc89ba8b96e249ef8deb5941079dc3c673986eb0010056fd1d4c560d84a6",
-          "source": "assets/그림/게임-장면/콩쥐/야간-궁중복/물붓기-동작.png#frame-001",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uc57c\uac04-\uad81\uc911\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-001",
           "touchesCanvasEdge": false
         },
         {
@@ -2152,7 +4262,7 @@
             756
           ],
           "pixelSha256": "0b1860993302af206f64b54b6dd34ddd946718b6ec12959d97f7f2c6279a1b8c",
-          "source": "assets/그림/게임-장면/콩쥐/야간-궁중복/물붓기-동작.png#frame-002",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uc57c\uac04-\uad81\uc911\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-002",
           "touchesCanvasEdge": false
         },
         {
@@ -2193,7 +4303,7 @@
             756
           ],
           "pixelSha256": "cf74db56a742058c61aba64f3cd85481bc28e70e348180cb714ea025b55aab1f",
-          "source": "assets/그림/게임-장면/콩쥐/야간-궁중복/물붓기-동작.png#frame-003",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uc57c\uac04-\uad81\uc911\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-003",
           "touchesCanvasEdge": false
         },
         {
@@ -2234,7 +4344,7 @@
             756
           ],
           "pixelSha256": "735dc54ef6aef3f5d0cb08c44b74c9f5963830f687d7ed4d2931cc689f6666d1",
-          "source": "assets/그림/게임-장면/콩쥐/야간-궁중복/물붓기-동작.png#frame-004",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uc57c\uac04-\uad81\uc911\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-004",
           "touchesCanvasEdge": false
         },
         {
@@ -2275,7 +4385,7 @@
             756
           ],
           "pixelSha256": "83bad89ebd9e445a55f355f2cb1a25c11358afb1bbfeed9173988407aa6aca3b",
-          "source": "assets/그림/게임-장면/콩쥐/야간-궁중복/물붓기-동작.png#frame-005",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uc57c\uac04-\uad81\uc911\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-005",
           "touchesCanvasEdge": false
         },
         {
@@ -2316,7 +4426,7 @@
             756
           ],
           "pixelSha256": "04b994a43f2498aac06d12b70deae294f9b23a73471af36c2bcaa91a36916e8a",
-          "source": "assets/그림/게임-장면/콩쥐/야간-궁중복/물붓기-동작.png#frame-006",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uc57c\uac04-\uad81\uc911\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-006",
           "touchesCanvasEdge": false
         },
         {
@@ -2357,7 +4467,7 @@
             756
           ],
           "pixelSha256": "8d63e819ba05500fcec20632da6511677db141cfa7e1ab60d37bf23ce61a295b",
-          "source": "assets/그림/게임-장면/콩쥐/야간-궁중복/물붓기-동작.png#frame-007",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uc57c\uac04-\uad81\uc911\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-007",
           "touchesCanvasEdge": false
         },
         {
@@ -2398,7 +4508,7 @@
             756
           ],
           "pixelSha256": "0cfe5d88966baba75d21fa216e87ea2c2677b9afbb0be93e0c3611c8c9b4b03b",
-          "source": "assets/그림/게임-장면/콩쥐/야간-궁중복/물붓기-동작.png#frame-008",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ucf69\uc950/\uc57c\uac04-\uad81\uc911\ubcf5/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-008",
           "touchesCanvasEdge": false
         }
       ],
@@ -2512,7 +4622,7 @@
             440
           ],
           "pixelSha256": "aad7be5653eb21524c1a0d16dc467d7a8312dea4fb930da5792d85ef85365c6d",
-          "source": "assets/그림/게임-장면/바가지/나무/물붓기-동작.png#frame-001",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ubc14\uac00\uc9c0/\ub098\ubb34/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-001",
           "touchesCanvasEdge": false
         },
         {
@@ -2553,7 +4663,7 @@
             441
           ],
           "pixelSha256": "5ce159f42c62f0c88123ca0cd4015bcd703c199f38648a02e6015317aab7faf9",
-          "source": "assets/그림/게임-장면/바가지/나무/물붓기-동작.png#frame-002",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ubc14\uac00\uc9c0/\ub098\ubb34/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-002",
           "touchesCanvasEdge": false
         },
         {
@@ -2594,7 +4704,7 @@
             444
           ],
           "pixelSha256": "ee4076a8e0e6e2abbc401a06e410912094f5130e7df136187941d11a5d284492",
-          "source": "assets/그림/게임-장면/바가지/나무/물붓기-동작.png#frame-003",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ubc14\uac00\uc9c0/\ub098\ubb34/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-003",
           "touchesCanvasEdge": false
         },
         {
@@ -2635,7 +4745,7 @@
             446
           ],
           "pixelSha256": "53aa9314e60d7361d033b11f88c361bbcf0c3051ac536cf22dd6a0bb793b1fc5",
-          "source": "assets/그림/게임-장면/바가지/나무/물붓기-동작.png#frame-004",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ubc14\uac00\uc9c0/\ub098\ubb34/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-004",
           "touchesCanvasEdge": false
         },
         {
@@ -2676,7 +4786,7 @@
             454
           ],
           "pixelSha256": "e06c694bc583f3c1255d91a3030946e348250fb2d2ab284cc571afbae781b5ce",
-          "source": "assets/그림/게임-장면/바가지/나무/물붓기-동작.png#frame-005",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ubc14\uac00\uc9c0/\ub098\ubb34/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-005",
           "touchesCanvasEdge": false
         },
         {
@@ -2717,7 +4827,7 @@
             481
           ],
           "pixelSha256": "585bcfc60c2c96c31742881e7366686efd285d4de2fff4914f398a96506fb08d",
-          "source": "assets/그림/게임-장면/바가지/나무/물붓기-동작.png#frame-006",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ubc14\uac00\uc9c0/\ub098\ubb34/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-006",
           "touchesCanvasEdge": false
         },
         {
@@ -2758,7 +4868,7 @@
             448
           ],
           "pixelSha256": "a39cfd096aa14dfbd9aac410f09209129cc52b35db7d8b5a3b1b654de0898e3a",
-          "source": "assets/그림/게임-장면/바가지/나무/물붓기-동작.png#frame-007",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ubc14\uac00\uc9c0/\ub098\ubb34/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-007",
           "touchesCanvasEdge": false
         },
         {
@@ -2799,7 +4909,7 @@
             444
           ],
           "pixelSha256": "da6515bb759017a40ac9a50f28028a7480f6231b86b33711677d21592d00037e",
-          "source": "assets/그림/게임-장면/바가지/나무/물붓기-동작.png#frame-008",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ubc14\uac00\uc9c0/\ub098\ubb34/\ubb3c\ubd93\uae30-\ub3d9\uc791.png#frame-008",
           "touchesCanvasEdge": false
         }
       ],
@@ -2913,7 +5023,7 @@
             439
           ],
           "pixelSha256": "33ab5dec36b0b52843b5e3196a0dffc0608762a6b9f4c9329362709903889c75",
-          "source": "assets/그림/게임-장면/효과/구멍-누수-동작.png#frame-001",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ud6a8\uacfc/\uad6c\uba4d-\ub204\uc218-\ub3d9\uc791.png#frame-001",
           "touchesCanvasEdge": false
         },
         {
@@ -2954,7 +5064,7 @@
             439
           ],
           "pixelSha256": "b434adfac04ce03101f7e0fa7d49ee12798ff96728948e29e7cd5b4a408eb8a9",
-          "source": "assets/그림/게임-장면/효과/구멍-누수-동작.png#frame-002",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ud6a8\uacfc/\uad6c\uba4d-\ub204\uc218-\ub3d9\uc791.png#frame-002",
           "touchesCanvasEdge": false
         },
         {
@@ -2995,7 +5105,7 @@
             439
           ],
           "pixelSha256": "422b979d17c1526fe8decb34aac9714a578d1fc286477c85b7a7fdbc516dbb25",
-          "source": "assets/그림/게임-장면/효과/구멍-누수-동작.png#frame-003",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ud6a8\uacfc/\uad6c\uba4d-\ub204\uc218-\ub3d9\uc791.png#frame-003",
           "touchesCanvasEdge": false
         },
         {
@@ -3036,7 +5146,7 @@
             439
           ],
           "pixelSha256": "749e494b69aa72b416687d051f8bffad4d94cf1dfea91e756787089ba0ccf24d",
-          "source": "assets/그림/게임-장면/효과/구멍-누수-동작.png#frame-004",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ud6a8\uacfc/\uad6c\uba4d-\ub204\uc218-\ub3d9\uc791.png#frame-004",
           "touchesCanvasEdge": false
         },
         {
@@ -3077,7 +5187,7 @@
             439
           ],
           "pixelSha256": "0fb00665f3be7fde3e09529e9fa5e7067d0f8a20e996a54ea18913c8b28cac0e",
-          "source": "assets/그림/게임-장면/효과/구멍-누수-동작.png#frame-005",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ud6a8\uacfc/\uad6c\uba4d-\ub204\uc218-\ub3d9\uc791.png#frame-005",
           "touchesCanvasEdge": false
         },
         {
@@ -3118,7 +5228,7 @@
             439
           ],
           "pixelSha256": "1214cb40ece3d9312521b463690319d1889ce07351d673e85049294d318d7061",
-          "source": "assets/그림/게임-장면/효과/구멍-누수-동작.png#frame-006",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ud6a8\uacfc/\uad6c\uba4d-\ub204\uc218-\ub3d9\uc791.png#frame-006",
           "touchesCanvasEdge": false
         },
         {
@@ -3159,7 +5269,7 @@
             439
           ],
           "pixelSha256": "0738376772e71c07d532bd4fb58aad313d6021b88a92b27cadcc8b2cb665716c",
-          "source": "assets/그림/게임-장면/효과/구멍-누수-동작.png#frame-007",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ud6a8\uacfc/\uad6c\uba4d-\ub204\uc218-\ub3d9\uc791.png#frame-007",
           "touchesCanvasEdge": false
         },
         {
@@ -3200,7 +5310,7 @@
             439
           ],
           "pixelSha256": "4b4fd37c434e10019da1e97bda95a5f652814b41664c3c5a3c292552e0888062",
-          "source": "assets/그림/게임-장면/효과/구멍-누수-동작.png#frame-008",
+          "source": "assets/\uadf8\ub9bc/\uac8c\uc784-\uc7a5\uba74/\ud6a8\uacfc/\uad6c\uba4d-\ub204\uc218-\ub3d9\uc791.png#frame-008",
           "touchesCanvasEdge": false
         }
       ],
@@ -4255,6 +6365,6 @@
     "missingFrames": 0,
     "sequenceCount": 12,
     "strictFailures": 0,
-    "warnings": 5
+    "warnings": 3
   }
 }

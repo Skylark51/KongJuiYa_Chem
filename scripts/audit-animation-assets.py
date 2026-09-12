@@ -360,6 +360,11 @@ def main():
         (qa / "ANIMATION_AUDIT.md", markdown(manifest, report).encode()),
     ]
     for sequence, result in zip(manifest["sequences"], results):
+        # Report-only sheets are useful local diagnostics, but are large and change
+        # whenever production art is revised. Keep CI's committed-artifact gate on
+        # the strict promotion candidates; JSON/Markdown still audit every sequence.
+        if args.check_artifacts and sequence["qualityGate"] != "strict":
+            continue
         frames = frame_sets[sequence["id"]]
         if frames and len(result["frames"]) == len(frames):
             buffer = io.BytesIO()
