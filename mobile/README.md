@@ -35,7 +35,7 @@ npm run mobile:bootstrap
 npm run mobile:sync
 ```
 
-`mobile/build-web.mjs`가 현재 `index.html`, `shop.html`, `record-detail.html`, `assets/`, `data/`, `subjects/`를 `www/`에 새로 구성한 뒤 Capacitor가 네이티브 프로젝트에 복사한다. 따라서 웹게임과 앱 버전이 분기되지 않는다.
+`mobile/build-web.mjs`가 현재 `index.html`, `shop.html`, `record-detail.html`, 공용 퀴즈 진입점 `콩쥐야_줘때써.html`, `assets/`, `data/`, `subjects/`를 `www/`에 새로 구성한 뒤 Capacitor가 네이티브 프로젝트에 복사한다. 빌드 단계에서 공용 퀴즈 진입점과 `game-page.js` 연결도 검사한다. 따라서 웹게임과 앱 버전이 분기되지 않는다.
 
 플랫폼별로 열기:
 

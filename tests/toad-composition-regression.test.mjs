@@ -19,7 +19,7 @@ const expressionPaths = Object.freeze({
 });
 
 const toadFileNames = Object.freeze({
-  "field-brown": "field-brown.png",
+  "field-brown": "기본-갈색.png",
   "gold-worker": String.fromCodePoint(0xD669, 0xAE08) + "-" + String.fromCodePoint(0xC77C, 0xAFBC) + ".png",
   "jade-guard": String.fromCodePoint(0xBE44, 0xCDE8) + "-" + String.fromCodePoint(0xC218, 0xD638) + ".png",
   "star-night": String.fromCodePoint(0xBCC4, 0xBC24) + ".png"

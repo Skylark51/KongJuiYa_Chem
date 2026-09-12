@@ -24,6 +24,7 @@ The bundle files preserve the previous cascade order while keeping dashboard-onl
 - `assets/js/main.js`: one shared game API and engine composition.
 - `assets/js/game-page.js`: the single game-page entry and bootstrap.
 - `assets/js/ui-effects.js`: game-page DOM wiring, selection, keypad, and navigation.
+- `assets/js/ui-adapter.js`: HUD values update on animation ticks, while question and answer controls render only when the question object changes.
 - `assets/js/scene-renderer.js`: manifest-backed layered PNG scene.
 - `assets/js/scene-state-machine.js`: scene reactions to game events.
 - `assets/js/lobby-actions.js`: lobby cards, category persistence, missions, and upgrades.

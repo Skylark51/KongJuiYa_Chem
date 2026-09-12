@@ -10,7 +10,7 @@ test("subject toolbar CSS entrypoint delegates to one unified master", async () 
   const entry = await read("assets/css/subject-toolbar.css");
   const imports = entry.match(/@import url\([^)]*\);/g) || [];
   assert.equal(imports.length, 1);
-  assert.match(entry, /subject-toolbar\/unified\.css\?v=20260818-unified1/);
+  assert.match(entry, /subject-toolbar\/unified\.css\?v=20260818-bean-icon1/);
   assert.doesNotMatch(entry, /\.subject-topbar\s*\{/);
 });
 
@@ -51,10 +51,10 @@ test("all subject-shell pages pin the modular toolbar entrypoints while Chemistr
   for (const subject of ["physics", "biology", "earth-science"]) {
     const html = await read(`subjects/${subject}/index.html`);
     assert.match(html, /subject-shell\.css\?v=20260812-subjects2/);
-    assert.match(html, /subject-toolbar\.css\?v=20260818-unified1/);
+    assert.match(html, /subject-toolbar\.css\?v=20260818-bean-icon1/);
     assert.match(html, /subject-toolbar\.js\?v=20260818-unified1/);
   }
   const chemistry = await read("subjects/chemistry/index.html");
-  assert.match(chemistry, /subject-toolbar\.css\?v=20260818-unified1/);
+  assert.match(chemistry, /subject-toolbar\.css\?v=20260818-bean-icon1/);
   assert.match(chemistry, /subject-toolbar\.js\?v=20260818-unified1/);
 });

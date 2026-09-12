@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
+import { resolveSceneAssetPath } from '../assets/js/scene-asset-paths.js';
 
 const root = process.cwd();
 const strictAssets = process.argv.includes('--strict-assets');
@@ -8,12 +9,30 @@ const manifest = JSON.parse(fs.readFileSync(path.join(root, 'assets/그림/게�
 const cleanPath = pathname => String(pathname).split(/[?#]/, 1)[0];
 const declared = pathname => manifest.availability[pathname] ?? manifest.availability[cleanPath(pathname)];
 const expressionOverlay = manifest.assets.effects.toadExpression;
+const spriteSize = (definition, fallback) => {
+  const spec = definition?.sprite || fallback;
+  const frames = Number(spec?.frames || 1);
+  const columns = Number(spec?.columns || frames);
+  const rows = Number(spec?.rows || 1);
+  const width = Number(spec?.sourceSize?.width || spec?.cell?.width * columns);
+  const height = Number(spec?.sourceSize?.height || spec?.cell?.height * rows);
+  if (!width || !height || frames > columns * rows) {
+    throw new Error(`Invalid sprite declaration: ${JSON.stringify(spec)}`);
+  }
+  return { width, height };
+};
 
 const expected = [
   ['background', manifest.assets.background.path, 2048, 1152],
   ['foreground', manifest.assets.foreground.path, 2048, 1152],
-  ...Object.entries(manifest.assets.kongjwi).map(([name, value]) => ['kongjwi:' + name, value.sheet, 4096, 768]),
-  ...Object.entries(manifest.assets.tools).map(([name, value]) => ['tool:' + name, value.sheet, 4096, 768]),
+  ...Object.entries(manifest.assets.kongjwi).map(([name, value]) => {
+    const size = spriteSize(value, manifest.sprites.kongjwi);
+    return ['kongjwi:' + name, value.sheet, size.width, size.height];
+  }),
+  ...Object.entries(manifest.assets.tools).map(([name, value]) => {
+    const size = spriteSize(value, manifest.sprites.tool);
+    return ['tool:' + name, value.sheet, size.width, size.height];
+  }),
   ...Object.entries(manifest.assets.jars).map(([name, value]) => ['jar:' + name, value.layers, 2048, 1024]),
   ...Object.entries(manifest.assets.toads)
     .filter(([, value]) => value.mode === 'skin-motion')
@@ -77,7 +96,7 @@ let missing = 0;
 let planned = 0;
 
 function checkPng(label, relative, width, height, canvas = null) {
-  const diskPath = cleanPath(relative);
+  const diskPath = cleanPath(resolveSceneAssetPath(relative));
   const absolute = path.join(root, diskPath);
   const exists = fs.existsSync(absolute);
   const availability = declared(relative);
@@ -120,7 +139,7 @@ for (const [label, relative, width, height] of expected) {
 }
 
 if (expressionOverlay?.enabled !== true && expressionOverlay?.path) {
-  const diskPath = cleanPath(expressionOverlay.path);
+  const diskPath = cleanPath(resolveSceneAssetPath(expressionOverlay.path));
   if (fs.existsSync(path.join(root, diskPath))) {
     console.warn('DISABLED ASSET toad-expression-overlay: ' + diskPath + ' (' + (expressionOverlay.validation || 'not validated') + ')');
   }
@@ -128,7 +147,7 @@ if (expressionOverlay?.enabled !== true && expressionOverlay?.path) {
 
 let expressionCanvas = null;
 for (const [label, relative] of expressionEntries) {
-  const diskPath = cleanPath(relative);
+  const diskPath = cleanPath(resolveSceneAssetPath(relative));
   if (!fs.existsSync(path.join(root, diskPath))) {
     checkPng(label, relative, 0, 0);
     continue;

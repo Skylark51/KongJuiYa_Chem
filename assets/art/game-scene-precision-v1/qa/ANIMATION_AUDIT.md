@@ -1,10 +1,10 @@
 # Animation asset audit
 
 - Manifest: assets/art/game-scene-precision-v1/animation-manifest.json
-- Manifest SHA256: 5b1c6453a547760c702bd4ab4638767b79460d487d73ece1277da68f95e43513
+- Manifest SHA256: 2425cb9f0ba5402c4e076c14caa1af93e8b60b96e17c13b47f4ba97bb02a4e65
 - Scene logical canvas: 2048x1152
 - Strict failures: 0
-- Warnings: 5
+- Warnings: 3
 
 | Sequence | Gate | Status | Frames | Anchor delta | Bbox delta |
 | --- | --- | --- | ---: | ---: | ---: |
@@ -12,17 +12,14 @@
 
 > WARN production-kongjwi-underlayer-pour: anchor jitter 5.846 > 4.000
 
-| production-kongjwi-classic-red-pour | report | WARN | 8 | 5.995px | 11.630px |
+| production-kongjwi-classic-red-pour | report | PASS | 30 | 1.246px | 11.500px |
+| production-kongjwi-blue-scholar-pour | report | PASS | 30 | 2.166px | 4.031px |
+| production-kongjwi-field-work-pour | report | FAIL | 8 | 43.012px | 26.249px |
 
-> WARN production-kongjwi-classic-red-pour: anchor jitter 5.995 > 4.000
+> FAIL production-kongjwi-field-work-pour: frame 5: alpha touches canvas edge
 
-| production-kongjwi-blue-scholar-pour | report | WARN | 8 | 5.720px | 9.434px |
 
-> WARN production-kongjwi-blue-scholar-pour: anchor jitter 5.720 > 4.000
-
-| production-kongjwi-field-work-pour | report | WARN | 8 | 4.640px | 11.424px |
-
-> WARN production-kongjwi-field-work-pour: anchor jitter 4.640 > 4.000
+> WARN production-kongjwi-field-work-pour: anchor jitter 43.012 > 4.000
 
 | production-kongjwi-ragged-pour | report | WARN | 8 | 5.601px | 7.071px |
 

@@ -42,6 +42,6 @@ assert.ok(nightPreview.includes('data-sprite-preview="first-frame"'), "night-cou
 assert.ok(nightPreview.includes("clip-path: inset(0 87.5% 0 0)"), "legacy night-court sprite clipping rule must remain intact");
 assert.ok(html.includes("shop-outfit-layout.css?v=20260805-jar-clean2"), "outfit layout cache key must be current");
 assert.ok(html.includes("shop-night-court-preview.css?v=20260813-single-frame1"), "night-court single-frame preview CSS must be loaded");
-assert.ok(html.includes("shop-navigation.js?v=20260813-night-court-shop2"), "shop renderer cache key must be current");
+assert.ok(html.includes("shop-navigation.js?v=20260815-blue-scholar-current-preview1"), "shop renderer cache key must be current");
 
 console.log("shop-authored-kongjwi: current static outfit previews and authored asset paths are locked");

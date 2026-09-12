@@ -6,7 +6,13 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
 const outDir = path.join(root, "www");
 
-const requiredFiles = ["index.html", "shop.html", "record-detail.html", "privacy.html"];
+const requiredFiles = [
+  "index.html",
+  "shop.html",
+  "record-detail.html",
+  "privacy.html",
+  "콩쥐야_줘때써.html"
+];
 const requiredDirs = ["assets", "data", "subjects"];
 const optionalEntries = [
   "favicon.ico",
@@ -58,5 +64,10 @@ if (!/<head[\s>]/i.test(index)) {
   throw new Error("www/index.html must contain a <head> element for Capacitor.");
 }
 
+const game = await readFile(path.join(outDir, "콩쥐야_줘때써.html"), "utf8");
+if (!/assets\/js\/game-page\.js/i.test(game)) {
+  throw new Error("The mobile game page must load the shared game runtime.");
+}
+
 console.log("Mobile web bundle prepared in www/.");
-console.log("Included: root app pages, privacy policy, assets/, data/, subjects/.");
+console.log("Included: root app pages, shared game page, privacy policy, assets/, data/, subjects/.");

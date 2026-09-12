@@ -10,6 +10,7 @@ export class UIAdapter {
     this.handlers = {};
     this.questionPresentation = questionPresentation;
     this.choiceBox = null;
+    this.renderedQuestion = null;
     this.currentInput = { inputMode: "text", choices: [], autoSubmit: false, keyboardShortcuts: [] };
   }
 
@@ -88,7 +89,11 @@ export class UIAdapter {
     this.text("correctInStage", state.correctInStage);
     this.text("categoryLabel", `${training?.category || "화학"} · ${this.trainingLabel(training?.title)} 장독대 채우기`);
     this.text("stageDescription", training?.description || "");
-    this.question("questionText", question);
+    if (this.renderedQuestion !== question) {
+      this.question("questionText", question);
+      this.renderInput(question);
+      this.renderedQuestion = question;
+    }
     this.text("ui-questionType", ["binary_choice", "multiple_choice"].includes(question?.type) ? "선택형" : "직접 입력");
     this.text("leakRateText", `초당 ${this.engine.leakPerSecond().toFixed(1)}%`);
     this.text("timeText", `${state.questionTimeRemaining.toFixed(1)}초`);
@@ -98,7 +103,6 @@ export class UIAdapter {
     const visual = this.$("visualStage");
     visual?.classList.toggle("warning", state.water <= 50);
     visual?.classList.toggle("critical", state.water <= 25);
-    this.renderInput(question);
     const disabled = state.status !== "running" || state.feedbackPending;
     if (this.$("answerInput")) this.$("answerInput").disabled = disabled;
     if (this.$("submitButton")) this.$("submitButton").disabled = disabled;

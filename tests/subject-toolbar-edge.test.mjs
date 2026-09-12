@@ -25,13 +25,13 @@ test("non-chemistry mobile toolbars mirror Chemistry edge-to-edge geometry", asy
   assert.equal(responsive.includes("left:7px;right:7px"), false);
   assert.match(responsive, /border-radius:0!important/);
 
-  assert.match(entry, /unified\.css\?v=20260818-unified1/);
+  assert.match(entry, /unified\.css\?v=20260818-bean-icon1/);
   for (const path of [
     "subjects/physics/index.html",
     "subjects/biology/index.html",
     "subjects/earth-science/index.html"
   ]) {
     const html = await read(path);
-    assert.match(html, /subject-toolbar\.css\?v=20260818-unified1/);
+    assert.match(html, /subject-toolbar\.css\?v=20260818-bean-icon1/);
   }
 });

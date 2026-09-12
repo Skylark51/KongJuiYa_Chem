@@ -1,8 +1,11 @@
 import assert from "node:assert/strict";
 import { readFile, stat } from "node:fs/promises";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 import { resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
+const execFileAsync = promisify(execFile);
 const readJson = async path => JSON.parse(await readFile(resolve(root, path), "utf8"));
 const exists = async path => {
   const info = await stat(resolve(root, path));
@@ -37,14 +40,11 @@ for (const key of kongjwiKeys) {
 
   await Promise.all([exists(source.path), exists(source.legacyPath), exists(module.derivedRoot)]);
 
-  const [lockedBytes, productionBytes] = await Promise.all([
-    readFile(resolve(root, source.path)),
-    readFile(resolve(root, source.legacyPath))
-  ]);
-  assert.deepEqual(
-    lockedBytes,
-    productionBytes,
-    `${key} source-locked PNG must remain byte-identical to the current production original`
+  const { stdout } = await execFileAsync("git", ["hash-object", source.path], { cwd: root });
+  assert.equal(
+    stdout.trim(),
+    source.gitBlob,
+    `${key} canonical source hash must match the locked manifest`
   );
 }
 

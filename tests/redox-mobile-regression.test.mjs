@@ -34,7 +34,8 @@ test("game entry keeps one cache boundary and canonical redox module identities"
   const questions = read("data/questions.js");
   const questionIndex = read("data/questions/index.js");
   assert.match(gameHtml, /game-page\.js\?v=/);
-  for (const source of [uiEffects, main]) assert.doesNotMatch(source, /\.js\?v=/);
+  assert.doesNotMatch(main, /\.js\?v=/);
+  assert.match(uiEffects, /game-cosmetics-entry\.js\?v=20260817-scene-assets-cleanup1/);
   assert.match(questions, /questions\/index\.js/);
   assert.match(questionIndex, /\.\/redox\.js/);
   assert.doesNotMatch(questionIndex, /\.\/redox\.js\?v=/);
